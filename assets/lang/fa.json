@@ -1,0 +1,22 @@
+{
+    "Home": "خانه",
+    "Participation": "مشارکت",
+    "Blog": "وبلاگ",
+    "profile": "وبلاگ",
+    "apptitle": "نحوینو",
+    "TextSplash": "سال 1401-1400",
+    "TextSplashn": "زندگی نو ، با نحوینو",
+    "SignIn_top_text": "ورود مستقیم با نام کاربری و رمز عبور ",
+    "SignUp_top_text": "ثبت نام مستقیم با نام کاربری و رمز عبور ",
+    "SignIn_fpass_text": "رمز عبور خود را فراموش کرده اید؟",
+    "Signup_top_text": "ثبت نام",
+    "Signup_logain_text": "ورود",
+    "SignIn_btn_text": "قبلا ثبت نام نکرده اید؟ به صفحه ورود ثبت نام بروید",
+    "Signup_google_btn": "با حساب کاربری گوگل",
+    "Signup_phone_btn": "با شماره موبایل",
+    "Signup_nahvi_btn": "تایید و آغاز مسلک نحوینو",
+    "Signin_phone_text": "ورود با شماره موبایل",
+    "Signup_nahvino_btn": "ورود با نحوینو",
+    "Signup_phone_input": "شماره موبایل خود را وارد کنید",
+    "Signup_phone_ok_btn": "دریافت پیامک تایید"
+}

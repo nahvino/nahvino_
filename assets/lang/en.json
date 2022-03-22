@@ -1,0 +1,17 @@
+{
+    "apptitle": "NAHVINO",
+    "Home": "Home",
+    "Participation": "Participation",
+    "Blog": "Blog",
+    "Profile": "Profile",
+    "TextSplash": "2021-2022",
+    "TextSplashn": "New life, with syntax",
+    "SignIn_top_text": "Direct login with username and password",
+    "SignIn_fpass_text": "Forgot your password?",
+    "Signup_top_text": "Sign Up",
+    "Signup_logain_text": "sign in",
+    "SignIn_btn_text": "Have you registered before? To the members login page",
+    "Signup_google_btn": "With a Google Account",
+    "Signup_phone_btn": "Phone",
+    "Signup_nahvino_btn": "Signup Nahvino"
+}

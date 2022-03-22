@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "960755940032",
+    "project_id": "hahvino-a97f6",
+    "storage_bucket": "hahvino-a97f6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:960755940032:android:8f7e20ab95cc92df68cb25",
+        "android_client_info": {
+          "package_name": "com.nahvino"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "960755940032-15oj48mkehoobesvmntqgjsc6rao57ls.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBD5m3N_ONYfhvn8kWUMsPpb7qBltGeFrg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "960755940032-15oj48mkehoobesvmntqgjsc6rao57ls.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
