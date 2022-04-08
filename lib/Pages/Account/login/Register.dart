@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:nahvino/Login/sign_up.dart';
+import 'package:get/get.dart';
+import 'package:nahvino/Pages/Account/login/sign_up.dart';
 import 'package:nahvino/Model/user/login/register_request_model.dart';
 import 'package:nahvino/Services/login/api_service.dart';
 import 'package:nahvino/Services/login/user/config.dart';
@@ -7,6 +8,7 @@ import 'package:nahvino/app_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:snippet_coder_utils/FormHelper.dart';
 import 'package:snippet_coder_utils/ProgressHUD.dart';
+import '../../../Utils/Button/Button.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -19,18 +21,36 @@ class _RegisterState extends State<RegisterPage> {
   final formKey = GlobalKey<FormState>();
   GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
 
+  List<DropdownMenuItem<String>> listDrap = [];
+  void securityQuestion() {
+    listDrap = [];
+    listDrap.add(new DropdownMenuItem(
+        child: Text("نام اولین معلم شما چیست؟"), value: "0"));
+    listDrap.add(new DropdownMenuItem(
+        child: Text("نام اولین مدرسه شما چیست؟"), value: "1"));
+    listDrap.add(new DropdownMenuItem(
+        child: Text("نام شهری که در آن متولد شدید چیست؟"), value: "2"));
+    listDrap.add(new DropdownMenuItem(
+        child: Text("چه مدل ماشینی را میپسندید؟"), value: "3"));
+    listDrap.add(new DropdownMenuItem(
+        child: Text("نام اولین دوست دوران مدرسه شما چیست؟"), value: "4"));
+    listDrap.add(new DropdownMenuItem(
+        child: Text("نام یک فیلم خوب را بنویسید؟"), value: "5"));
+  }
+
   String name = "";
   bool hidePassword = true;
   bool isApiCallProcess = false;
   String? userName;
   String? password;
-  int? securityQuestion;
+  //int? securityQuestion;
+  //int? securityQuestionselected;
+  String? securityQuestionselected = null;
   String? sqAnswer;
 
-  late SharedPreferences registerdata;
+  late SharedPreferences logindata;
   @override
   void initState() {
-    check_if_aleedy_register();
     super.initState();
   }
 
@@ -54,6 +74,7 @@ class _RegisterState extends State<RegisterPage> {
 
   @override
   Widget _registerUI(BuildContext context) {
+    securityQuestion();
     return Scaffold(
       body: Stack(
         children: [
@@ -139,10 +160,38 @@ class _RegisterState extends State<RegisterPage> {
           ),
           Container(
             padding: EdgeInsets.only(
-                top: MediaQuery.of(context).size.height * 0.36,
-                right: 35,
-                left: 35),
-            child: FormHelper.inputFieldWidget(
+              top: MediaQuery.of(context).size.height * 0.36,
+            ),
+            alignment: Alignment.topCenter,
+            child: DropdownButton(
+                hint: Text("سوال امنیتی"),
+                value: securityQuestionselected,
+                items: listDrap,
+                onChanged: (value) {
+                  setState(() {
+                    securityQuestionselected = value as String;
+                  });
+                }),
+          ),
+
+          /*DropdownButton(
+                items: items
+                    .map((item) => DropdownMenuItem<String>(
+                          child: Text(item),
+                          value: item,
+                        ))
+                    .toList(),
+                value: index,
+                hint: Text("سوال امنیتی"),
+                onChanged: (value) {
+                  setState(() {
+                    this.index == value as int;
+                  });
+                },
+              )),
+              */
+/*
+                FormHelper.inputFieldWidget(
               context,
               "securityQuestion",
               "securityQuestion",
@@ -153,7 +202,7 @@ class _RegisterState extends State<RegisterPage> {
                 return null;
               },
               (onSavedVal) {
-                securityQuestion = int.parse(onSavedVal) ;
+                securityQuestionselected = (onSavedVal);
               },
               borderFocusColor: Colors.grey,
               prefixIconColor: Colors.black,
@@ -161,7 +210,7 @@ class _RegisterState extends State<RegisterPage> {
               textColor: Colors.black,
               hintColor: Colors.black,
             ),
-          ),
+          ),*/
           Container(
             padding: EdgeInsets.only(
                 top: MediaQuery.of(context).size.height * 0.44,
@@ -192,7 +241,7 @@ class _RegisterState extends State<RegisterPage> {
                 top: MediaQuery.of(context).size.height * 0.53,
                 right: 110,
                 left: 110),
-            child: FormHelper.submitButton("ثبت نام", () {
+            child: Buttontest(text:"ثبت نام", onPressed: () {
               if (validateAndSave()) {
                 setState(() {
                   isApiCallProcess = true;
@@ -201,7 +250,7 @@ class _RegisterState extends State<RegisterPage> {
                 RegisterRequestModel model = RegisterRequestModel(
                     userName: userName,
                     password: password,
-                    securityQuestion: securityQuestion!,
+                    securityQuestion: securityQuestionselected as String,
                     sqAnswer: sqAnswer);
 
                 APIService.register(model).then((response) {
@@ -210,6 +259,10 @@ class _RegisterState extends State<RegisterPage> {
                   });
 
                   if (response.data != null) {
+/*
+                    logindata = await SharedPreferences.getInstance();
+                    await logindata.setString("token", response['userToken']['token']);
+                    */
                     FormHelper.showSimpleAlertDialog(
                       context,
                       Config.appName,
@@ -218,7 +271,7 @@ class _RegisterState extends State<RegisterPage> {
                       () {
                         Navigator.pushNamedAndRemoveUntil(
                           context,
-                          '/home',
+                          '/viewprofile',
                           (route) => false,
                         );
                       },
@@ -250,19 +303,5 @@ class _RegisterState extends State<RegisterPage> {
       return true;
     }
     return false;
-  }
-
-  Future<void> check_if_aleedy_register() async {
-    registerdata = await SharedPreferences.getInstance();
-    var newuser = (registerdata.getBool('register') ?? true);
-
-    print(newuser);
-    if (newuser == false) {
-      Navigator.pushNamedAndRemoveUntil(
-        context,
-        '/home',
-        (route) => false,
-      );
-    }
   }
 }

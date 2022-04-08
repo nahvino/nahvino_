@@ -27,7 +27,7 @@ class Button extends StatelessWidget {
           style: TextStyle(fontSize: 28, fontWeight: FontWeight.w400),
         ),
         textColor: textColor,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
     );
   }

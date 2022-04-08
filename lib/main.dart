@@ -4,6 +4,7 @@ import 'package:nahvino/Pages/Account/login/Login.dart';
 import 'package:nahvino/Pages/home.dart';
 import 'package:nahvino/app_localizations.dart';
 import 'package:provider/provider.dart';
+import 'Pages/Account/User/view_profile.dart';
 import 'Services/login/google/google_sign_in.dart';
 import 'app_localizations.dart';
 import 'splash.dart';
@@ -48,7 +49,8 @@ class MyApp extends StatelessWidget {
           home: Splash(),
           routes: {
             '/home': (context) => HomeScren(),
-            '/login': (context) => SignIn()
+            '/login': (context) => SignIn(),
+            '/viewprofile': (context) => ViewProfile()
           },
         ));
   }

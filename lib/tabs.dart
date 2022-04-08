@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nahvino/Pages/home.dart';
+import 'package:nahvino/Pages/settings.dart';
 import 'package:nahvino/app_localizations.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
-import 'Pages/settings.dart';
+import 'Pages/Account/Caht/chatpage.dart';
+import 'Pages/Account/User/view_profile.dart';
 import 'app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -88,9 +90,19 @@ class _MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
         inactiveColorPrimary: CupertinoColors.white,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(CupertinoIcons.text_badge_star),
+        icon: Icon(CupertinoIcons.person),
         title: AppLocalizations.of(context)!.translate(
           'Profile',
+        ),
+        textStyle: TextStyle(
+            fontSize: 25, fontWeight: FontWeight.bold, fontFamily: 'byekan'),
+        activeColorPrimary: CupertinoColors.white,
+        inactiveColorPrimary: CupertinoColors.white,
+      ),
+      PersistentBottomNavBarItem(
+        icon: Icon(CupertinoIcons.chat_bubble),
+        title: AppLocalizations.of(context)!.translate(
+          'Chat',
         ),
         textStyle: TextStyle(
             fontSize: 25, fontWeight: FontWeight.bold, fontFamily: 'byekan'),
@@ -104,6 +116,8 @@ class _MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
     return [
       HomeScren(),
       SettingScreen(),
+      ViewProfile(),
+      Chatpage(),
     ];
   }
 }

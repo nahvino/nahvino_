@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:nahvino/Login/sign_up.dart';
+import 'package:nahvino/Pages/Account/login/sign_up.dart';
+import 'package:nahvino/Pages/Account/login/otp_code.dart';
+import 'package:nahvino/Utils/Button/Button.dart';
 import 'package:nahvino/app_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:snippet_coder_utils/FormHelper.dart';
 import 'package:snippet_coder_utils/ProgressHUD.dart';
-import '../../../Model/user/otp/otp_request_code_model.dart';
 import '../../../Model/user/otp/otp_request_model.dart';
 import '../../../Services/login/api_service.dart';
-import '../../../Services/login/user/config.dart';
 
 class PhoneNumberPage extends StatefulWidget {
   const PhoneNumberPage({Key? key}) : super(key: key);
@@ -19,8 +20,11 @@ class _PhoneNumberPageState extends State<PhoneNumberPage> {
   final formKey = GlobalKey<FormState>();
   GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
   bool isAPIcallProcess = false;
+  bool isAPIcoodcallProcess = false;
   String? phoneNumber;
   int? code;
+  SharedPreferences? preferences;
+
   @override
   void initState() {
     super.initState();
@@ -78,6 +82,7 @@ class _PhoneNumberPageState extends State<PhoneNumberPage> {
             ],
           ),
         ),
+        
         Container(
           padding: EdgeInsets.only(
               top: MediaQuery.of(context).size.height * 0.2,
@@ -103,12 +108,47 @@ class _PhoneNumberPageState extends State<PhoneNumberPage> {
             hintColor: Colors.black,
           ),
         ),
+        
+        
+        /*
+        TextFieldNah(
+            hinttext: "شماره تلفن",
+            empty: "این مقدار نباید خالی باشد",
+            keyName: phoneNumber!),
+    */
         Container(
           padding: EdgeInsets.only(
-              top: MediaQuery.of(context).size.height * 0.42,
-              right: 110,
-              left: 110),
-          child: FormHelper.submitButton("کد ورود", () {
+            top: MediaQuery.of(context).size.height * 0.3,
+          ),
+          child: Buttontest(
+            text: "ثبت",
+            onPressed: () {
+              if (validateAndSave()) {
+                setState(() {
+                  isAPIcallProcess = true;
+                });
+
+                OtpRequestModel model =
+                    OtpRequestModel(phoneNumber: phoneNumber!);
+
+                APIService.otpphone(model).then((response) {
+                  setState(() {
+                    isAPIcallProcess = false;
+                  });
+                  if (response) {
+                    //openDialog();
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                OtpcodePage(phoneNumber: phoneNumber)));
+                  } else {}
+                });
+              }
+            },
+          ),
+          /*
+          FormHelper.submitButton("کد ورود", () {
             if (validateAndSave()) {
               setState(() {
                 isAPIcallProcess = true;
@@ -122,38 +162,65 @@ class _PhoneNumberPageState extends State<PhoneNumberPage> {
                   isAPIcallProcess = false;
                 });
                 if (response) {
-                  openDialog();
+                  //openDialog();
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => OtpcodePage(phoneNumber: phoneNumber)));
                 } else {}
               });
             }
           }),
+          */
         ),
       ]),
     );
   }
 
+/*
   Future openDialog() => showDialog(
         context: context,
         builder: (context) => AlertDialog(
           title: Text(phoneNumber!),
-          content: FormHelper.inputFieldWidget(
-            context,
-            "code",
-            "code",
-            (onValidateVal) {
-              if (onValidateVal.isEmpty) {
-                return "کد تایید نمی تواند خالی باشد.";
-              }
-              return null;
-            },
-            (onSavedVal) {
-              code = int.parse(onSavedVal);
-            },
-            borderFocusColor: Colors.grey,
-            prefixIconColor: Colors.black,
-            borderColor: Colors.green,
-            textColor: Colors.black,
-            hintColor: Colors.black,
+          content: Column(
+            children: [
+              FormHelper.inputFieldWidget(
+                context,
+                "phoneNumber",
+                "phoneNumber",
+                (onValidateVal) {
+                  if (onValidateVal.isEmpty) {
+                    return "Username con\ ' t be empty.";
+                  }
+                  return null;
+                },
+                (onSavedVal) {
+                  phoneNumber = onSavedVal;
+                },
+                borderFocusColor: Colors.grey,
+                prefixIconColor: Colors.black,
+                borderColor: Colors.green,
+                textColor: Colors.black,
+                hintColor: Colors.black,
+              ),
+              FormHelper.inputFieldWidget(
+                context,
+                "code",
+                "code",
+                (onValidateVal) {
+                  if (onValidateVal.isEmpty) {
+                    return "کد تایید نمی تواند خالی باشد.";
+                  }
+                  return null;
+                },
+                (onSavedVal) {
+                  code = int.parse(onSavedVal);
+                },
+                borderFocusColor: Colors.grey,
+                prefixIconColor: Colors.black,
+                borderColor: Colors.green,
+                textColor: Colors.black,
+                hintColor: Colors.black,
+              ),
+            ],
           ),
           actions: [
             FormHelper.submitButton("ثبت نام", () {
@@ -162,12 +229,14 @@ class _PhoneNumberPageState extends State<PhoneNumberPage> {
                   isAPIcallProcess = true;
                 });
 
-                OtpRequestCodeModel model =
-                    OtpRequestCodeModel(code: code, phoneNumber: phoneNumber);
+                OtpRequestCodeModel model = OtpRequestCodeModel(
+                  phoneNumber: phoneNumber,
+                  code: code,
+                );
 
                 APIService.otpvrifay(model).then((response) {
                   setState(() {
-                    isAPIcallProcess = false;
+                    isAPIcoodcallProcess = false;
                   });
                   if (response.data != null) {
                     Navigator.pushNamedAndRemoveUntil(
@@ -175,14 +244,24 @@ class _PhoneNumberPageState extends State<PhoneNumberPage> {
                       '/home',
                       (route) => false,
                     );
-                  } else {}
+                  } else {
+                    FormHelper.showSimpleAlertDialog(
+                      context,
+                      Config.appName,
+                      response.message!,
+                      "OK",
+                      () {
+                        Navigator.of(context).pop();
+                      },
+                    );
+                  }
                 });
               }
             }),
           ],
         ),
       );
-
+*/
   bool validateAndSave() {
     final form = globalFormKey.currentState;
     if (form!.validate()) {

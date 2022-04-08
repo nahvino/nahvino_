@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:nahvino/Login/sign_up.dart';
+import 'package:nahvino/Pages/Account/login/sign_up.dart';
 import 'package:nahvino/Model/user/login/login_request_model.dart';
-import 'package:nahvino/Pages/Account/login/ResetPasswoed.dart';
+import 'package:nahvino/Pages/Account/login/CheckQuestionAnswer.dart';
 import 'package:nahvino/Services/login/api_service.dart';
 import 'package:nahvino/Services/login/user/config.dart';
+import 'package:nahvino/Utils/Button/TextField.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:snippet_coder_utils/FormHelper.dart';
 import 'package:snippet_coder_utils/ProgressHUD.dart';
+import '../../../Utils/Button/Button.dart';
 import '../../../app_localizations.dart';
+import '../../../tabs.dart';
+import '../User/view_profile.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -25,10 +29,15 @@ class _SignInState extends State<SignIn> {
   bool isApiCallProcess = false;
   String? userName;
   String? password;
+  String? data;
+
   late SharedPreferences logindata;
+
+
   @override
   void initState() {
     super.initState();
+
   }
 
   @override
@@ -84,6 +93,7 @@ class _SignInState extends State<SignIn> {
               ],
             ),
           ),
+
           Container(
             padding: EdgeInsets.only(
                 top: MediaQuery.of(context).size.height * 0.2,
@@ -144,7 +154,7 @@ class _SignInState extends State<SignIn> {
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => ResetPasswoedPage()));
+                        builder: (context) => CheckQuestionAnswer()));
               },
               child: Text(
                 AppLocalizations.of(context)!.translate(
@@ -159,7 +169,7 @@ class _SignInState extends State<SignIn> {
                 top: MediaQuery.of(context).size.height * 0.42,
                 right: 110,
                 left: 110),
-            child: FormHelper.submitButton("Login", () {
+            child: Buttontest(text:"Login", onPressed: () {
               if (validateAndSave()) {
                 setState(() {
                   isApiCallProcess = true;
@@ -168,16 +178,23 @@ class _SignInState extends State<SignIn> {
                 LoginRequestModel model =
                     LoginRequestModel(userName: userName!, password: password!);
 
-                APIService.login(model).then((response) {
+                APIService.login(model).then((response) async {
                   setState(() {
                     isApiCallProcess = false;
                   });
-                  if (response) {
-                    Navigator.pushNamedAndRemoveUntil(
-                      context,
-                      '/home',
-                      (route) => false,
-                    );
+                  if (response != false) {
+
+                    logindata = await SharedPreferences.getInstance();
+                    await logindata.setString("token", response['userToken']['token']);
+                    await logindata.setString("userId", response['id']);
+
+
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                MyTabs(
+                                )));
                   } else {
                     FormHelper.showSimpleAlertDialog(
                       context,

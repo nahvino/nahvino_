@@ -1,39 +1,35 @@
 import 'package:flutter/material.dart';
 
-class HomeScren extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold();
-  }
-}
+import '../Services/login/api_service.dart';
 
-class MyHomePage extends StatefulWidget {
+class HomeScren extends StatefulWidget {
+  const HomeScren({Key? key}) : super(key: key);
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  State<HomeScren> createState() => _HomeScrenState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int? currentIndex;
+class _HomeScrenState extends State<HomeScren> {
+  var resultResponsee;
+  bool isApiCallProgress = true;
 
   @override
   void initState() {
     super.initState();
-    currentIndex = 0;
-  }
-
-  changePage(int index) {
-    setState(() {
-      currentIndex = index;
+    APIService.GetLastVisit().then((response) {
+      setState(() {
+        isApiCallProgress = false;
+        resultResponsee = response;
+      });
     });
   }
-
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
+    return Container(
+        child: Text("dd")
+    );
   }
+}
+
 
   
-  
-}

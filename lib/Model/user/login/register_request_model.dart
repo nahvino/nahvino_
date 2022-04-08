@@ -7,13 +7,13 @@ class RegisterRequestModel {
   });
   late final String? userName;
   late final String? password;
-  late final int securityQuestion;
+  late final String? securityQuestion;
   late final String? sqAnswer;
 
   RegisterRequestModel.fromJson(Map<String, dynamic> json) {
     userName = json['userName'];
     password = json['password'];
-    securityQuestion = json['securityQuestion'] as int;
+    securityQuestion = json['securityQuestion'];
     sqAnswer = json['sqAnswer'];
   }
 

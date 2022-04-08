@@ -10,8 +10,8 @@ class OtpResponseModel {
     required this.message,
   });
   late final Data? data;
-  late final int statusCode;
-  late final String message;
+  late final int? statusCode;
+  late final String? message;
 
   OtpResponseModel.fromJson(Map<String, dynamic> json) {
     data = json['data'] != null ? Data.fromJson(json['data']) : null;

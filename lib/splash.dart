@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:nahvino/Pages/Account/login/Login.dart';
-import 'package:nahvino/Login/sign_in_phone.dart';
-import 'package:nahvino/Login/sign_up.dart';
+import 'package:nahvino/Pages/Account/login/sign_up.dart';
 import 'package:nahvino/tabs.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../app_localizations.dart';
 
@@ -15,16 +14,26 @@ class Splash extends StatefulWidget {
 }
 
 class _Splash extends State<Splash> {
-  @override
-  void initState() {
-    //set time to load the new page
-
-    Future.delayed(Duration(seconds: 3), () {
+  SharedPreferences? preferences;
+  Future checkLogin() async {
+    await Future.delayed(Duration(seconds: 3));
+    preferences = await SharedPreferences.getInstance();
+    String? token = preferences!.getString("token");
+    if (token != null) {
+      // todo : check auth
+      /// true
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => MyTabs()));
+    } else {
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => SignUp()));
-    });
+    }
+  }
 
+  @override
+  void initState() {
     super.initState();
+    checkLogin();
   }
 
   @override

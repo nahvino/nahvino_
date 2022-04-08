@@ -3,6 +3,7 @@
     "Participation": "مشارکت",
     "Blog": "وبلاگ",
     "profile": "وبلاگ",
+    "Chat": "چت",
     "apptitle": "نحوینو",
     "TextSplash": "سال 1401-1400",
     "TextSplashn": "زندگی نو ، با نحوینو",
@@ -18,5 +19,7 @@
     "Signin_phone_text": "ورود با شماره موبایل",
     "Signup_nahvino_btn": "ورود با نحوینو",
     "Signup_phone_input": "شماره موبایل خود را وارد کنید",
-    "Signup_phone_ok_btn": "دریافت پیامک تایید"
+    "Signup_phone_ok_btn": "دریافت پیامک تایید",
+    "Date_of_departure": "تاریخ آغاز ترک خود را وارد کنید"
+
 }

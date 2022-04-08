@@ -18,7 +18,9 @@ dependencies:
     sdk: flutter
   flutter_localizations: # Add this line
     sdk: flutter         # Add this line
+  #OTP
   sms_autofill: ^2.2.0
+  timer_button: ^2.0.0
   persistent_bottom_nav_bar: ^4.0.2
   cupertino_icons: ^1.0.2
   lottie: ^1.1.0
@@ -35,6 +37,12 @@ dependencies:
   shared_preferences: ^2.0.13
   api_cache_manager: ^1.0.2
   snippet_coder_utils: ^1.0.12
+  accordion: ^2.2.3
+  image_picker: ^0.8.4+11
+  connectivity: ^3.0.6
+  # Chat
+  signalr_core: ^1.1.1
+  socket_io_client: ^1.0.2
 
 dev_dependencies:
   flutter_test:
@@ -53,10 +61,12 @@ flutter:
    - assets/images/
    - assets/images/login/
    - assets/images/sinupbak.png
-   
+   - assets/anim/data.json
 
 
- 
+
+
+
 fonts:
  - family: byekan
    fonts:
