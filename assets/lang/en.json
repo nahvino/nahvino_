@@ -15,5 +15,9 @@
     "Signup_google_btn": "With a Google Account",
     "Signup_phone_btn": "Phone",
     "Signup_nahvino_btn": "Signup Nahvino",
-    "Date_of_departure": "Enter your start date"
+    "Date_of_departure": "Enter your start date",
+    "OK": "OK",
+    "Successful": "Registration Successful.",
+    "Login": "Login",
+    "Password": "Password"
 }

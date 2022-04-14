@@ -14,23 +14,23 @@ class GetProfileUserResponseModel {
     this.parentName,
     this.parentImageUrl,
   });
-  late final String userName;
-  late final String nameAlias;
-  late final String bio;
-  late final int rank;
-  late final int score;
-  late final Null imageUrl;
-  late final int identifierCode;
-  late final Null parentName;
-  late final Null parentImageUrl;
+  String? userName;
+  String? nameAlias;
+  String? bio;
+  int? rank;
+  int? score;
+  String? imageUrl;
+  int? identifierCode;
+  String? parentName;
+  String? parentImageUrl;
 
   GetProfileUserResponseModel.fromJson(Map<String, dynamic> json){
     userName = json['userName'];
-    nameAlias = json['nameAlias'];
+    nameAlias = json['nameAlias'] ;
     bio = json['bio'];
     rank = json['rank'];
     score = json['score'];
-    imageUrl = null;
+    imageUrl = json['imageUrl'];
     identifierCode = json['identifierCode'];
     parentName = null;
     parentImageUrl = null;

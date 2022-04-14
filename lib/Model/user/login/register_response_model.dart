@@ -9,9 +9,9 @@ class RegisterResponseModel {
     required this.statusCode,
     required this.message,
   });
-  late final Data? data;
-  late final int statusCode;
-  late final String message;
+  late Data? data;
+  late int statusCode;
+  late String message;
 
   RegisterResponseModel.fromJson(Map<String, dynamic> json) {
     data = json['data'] != null ? Data.fromJson(json['data']) : null;

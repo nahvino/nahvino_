@@ -11,6 +11,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 class MyTabs extends StatefulWidget {
   const MyTabs({Key? key}) : super(key: key);
+
   @override
   _MyTabsState createState() => _MyTabsState();
 }
@@ -38,15 +39,18 @@ class _MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
       screens: _buildScreens(),
       items: _navBarsItems(),
       confineInSafeArea: true,
-      backgroundColor: Colors.yellow.shade800, // Default is Colors.white.
-      handleAndroidBackButtonPress: true, // Default is true.
-      resizeToAvoidBottomInset:
-          true, // This needs to be true if you want to move up the screen when keyboard appears. Default is true.
-      stateManagement: true, // Default is true.
-      hideNavigationBarWhenKeyboardShows:
-          true, // Recommended to set 'resizeToAvoidBottomInset' as true while using this argument. Default is true.
+      backgroundColor: Colors.cyan.shade800,
+      // Default is Colors.white.
+      handleAndroidBackButtonPress: true,
+      // Default is true.
+      resizeToAvoidBottomInset: true,
+      // This needs to be true if you want to move up the screen when keyboard appears. Default is true.
+      stateManagement: true,
+      // Default is true.
+      hideNavigationBarWhenKeyboardShows: true,
+      // Recommended to set 'resizeToAvoidBottomInset' as true while using this argument. Default is true.
       decoration: NavBarDecoration(
-        borderRadius: BorderRadius.circular(10.0),
+        borderRadius: BorderRadius.circular(2.0),
         colorBehindNavBar: Colors.black,
       ),
       popAllScreensOnTapOfSelectedTab: true,
@@ -63,49 +67,49 @@ class _MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
         duration: Duration(milliseconds: 200),
       ),
       navBarStyle:
-          NavBarStyle.style9, // Choose the nav bar style with this property.
+          NavBarStyle.style14, // Choose the nav bar style with this property.
     );
   }
 
   List<PersistentBottomNavBarItem> _navBarsItems() {
     return [
       PersistentBottomNavBarItem(
-        icon: Icon(CupertinoIcons.home),
         title: AppLocalizations.of(context)!.translate(
           'Home',
         ),
-        textStyle: TextStyle(
-            fontSize: 25, fontWeight: FontWeight.bold, fontFamily: 'byekan'),
+        iconSize: 20,
+        icon: Icon(CupertinoIcons.home),
+        textStyle: TextStyle(fontSize: 12, fontFamily: 'vazirlight'),
         activeColorPrimary: CupertinoColors.white,
         inactiveColorPrimary: CupertinoColors.white,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(CupertinoIcons.text_badge_star),
         title: AppLocalizations.of(context)!.translate(
           'Blog',
         ),
-        textStyle: TextStyle(
-            fontSize: 25, fontWeight: FontWeight.bold, fontFamily: 'byekan'),
+        iconSize: 20,
+        icon: Icon(CupertinoIcons.text_badge_star),
+        textStyle: TextStyle(fontSize: 12, fontFamily: 'vazirlight'),
         activeColorPrimary: CupertinoColors.white,
         inactiveColorPrimary: CupertinoColors.white,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(CupertinoIcons.person),
         title: AppLocalizations.of(context)!.translate(
           'Profile',
         ),
-        textStyle: TextStyle(
-            fontSize: 25, fontWeight: FontWeight.bold, fontFamily: 'byekan'),
+        iconSize: 20,
+        icon: Icon(CupertinoIcons.person),
+        textStyle: TextStyle(fontSize: 12, fontFamily: 'vazirlight'),
         activeColorPrimary: CupertinoColors.white,
         inactiveColorPrimary: CupertinoColors.white,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(CupertinoIcons.chat_bubble),
         title: AppLocalizations.of(context)!.translate(
           'Chat',
         ),
-        textStyle: TextStyle(
-            fontSize: 25, fontWeight: FontWeight.bold, fontFamily: 'byekan'),
+        iconSize: 20,
+        icon: Icon(CupertinoIcons.chat_bubble),
+        textStyle: TextStyle(fontSize: 12, fontFamily: 'vazirlight'),
         activeColorPrimary: CupertinoColors.white,
         inactiveColorPrimary: CupertinoColors.white,
       ),

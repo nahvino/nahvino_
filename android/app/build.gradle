@@ -48,10 +48,16 @@ android {
         main.java.srcDirs += 'src/main/kotlin'
     }
 
+    lintOptions {
+        disable 'آخه قسم خوردم نصب نشم'
+        checkReleaseBuilds false
+    }
+
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.nahvino"
+        applicationId "com.app.nahvino"
         minSdkVersion 22
+        multiDexEnabled true
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
@@ -72,6 +78,7 @@ android {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.release
+           // signingConfig signingConfigs.debug
 
         }
     }
@@ -83,6 +90,10 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.multidex:multidex:2.0.1'
+
 }
 
-apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"

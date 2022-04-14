@@ -9,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:snippet_coder_utils/FormHelper.dart';
 import 'package:snippet_coder_utils/ProgressHUD.dart';
 import '../../../Utils/Button/Button.dart';
+import '../../../Utils/Button/Textsall.dart';
 import '../../../app_localizations.dart';
 import '../../../tabs.dart';
 import '../User/view_profile.dart';
@@ -33,11 +34,9 @@ class _SignInState extends State<SignIn> {
 
   late SharedPreferences logindata;
 
-
   @override
   void initState() {
     super.initState();
-
   }
 
   @override
@@ -83,29 +82,32 @@ class _SignInState extends State<SignIn> {
                 left: 35),
             child: Column(
               children: [
-                Text(
-                  AppLocalizations.of(context)!.translate(
-                    'SignIn_top_text',
-                  )!,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 18, fontFamily: 'byekan'),
+                textspan(
+
+                  textAlign: TextAlign.center, text:    AppLocalizations.of(context)!.translate(
+                  'SignIn_top_text',
+                )!, color: Colors.black,
+
                 ),
               ],
             ),
           ),
-
           Container(
             padding: EdgeInsets.only(
-                top: MediaQuery.of(context).size.height * 0.2,
+                top: MediaQuery.of(context).size.height * 0.15,
                 right: 35,
                 left: 35),
             child: FormHelper.inputFieldWidget(
               context,
               "username",
-              "username",
+              AppLocalizations.of(context)!.translate(
+                'username',
+              )!,
               (onValidateVal) {
                 if (onValidateVal.isEmpty) {
-                  return "Username con\ ' t be empty.";
+                  return  AppLocalizations.of(context)!.translate(
+                    'Validusername',
+                  )!;
                 }
                 return null;
               },
@@ -121,22 +123,33 @@ class _SignInState extends State<SignIn> {
           ),
           Container(
             padding: EdgeInsets.only(
-                top: MediaQuery.of(context).size.height * 0.28,
+                top: MediaQuery.of(context).size.height * 0.27,
                 right: 35,
                 left: 35),
             child: FormHelper.inputFieldWidget(
               context,
               "password",
-              "password",
+              AppLocalizations.of(context)!.translate(
+                'Password',
+              )!,
               (onValidateVal) {
                 if (onValidateVal.isEmpty) {
-                  return "Username con\ ' t be empty.";
+                  return  AppLocalizations.of(context)!.translate(
+                    'ValidPassword',
+                  )!;
                 }
                 return null;
               },
               (onSavedVal) {
                 password = onSavedVal;
               },
+              initialValue: "",
+              obscureText: hidePassword,
+              suffixIcon: IconButton(onPressed: (){
+                setState(() {
+                  hidePassword=!hidePassword;
+                });
+              }, icon: Icon(hidePassword?Icons.visibility_off:Icons.visibility)),
               borderFocusColor: Colors.grey,
               prefixIconColor: Colors.black,
               borderColor: Colors.green,
@@ -146,7 +159,7 @@ class _SignInState extends State<SignIn> {
           ),
           Container(
             padding: EdgeInsets.only(
-                top: MediaQuery.of(context).size.height * 0.35,
+                top: MediaQuery.of(context).size.height * 0.37,
                 right: 45,
                 left: 45),
             child: TextButton(
@@ -156,59 +169,56 @@ class _SignInState extends State<SignIn> {
                     MaterialPageRoute(
                         builder: (context) => CheckQuestionAnswer()));
               },
-              child: Text(
-                AppLocalizations.of(context)!.translate(
-                  'SignIn_btn_text',
-                )!,
-                style: TextStyle(fontSize: 14, fontFamily: 'byekan'),
+              child: textspan(color: Colors.black, textAlign: TextAlign.center, text:  AppLocalizations.of(context)!.translate(
+                'SignIn_fpass_text',
+              )!,
               ),
             ),
           ),
           Container(
             padding: EdgeInsets.only(
-                top: MediaQuery.of(context).size.height * 0.42,
+                top: MediaQuery.of(context).size.height * 0.44,
                 right: 110,
                 left: 110),
-            child: Buttontest(text:"Login", onPressed: () {
-              if (validateAndSave()) {
-                setState(() {
-                  isApiCallProcess = true;
-                });
+            child: Buttontest(
+                text: AppLocalizations.of(context)!.translate(
+                  'Login',
+                )!,
+                onPressed: () {
+                  if (validateAndSave()) {
+                    setState(() {
+                      isApiCallProcess = true;
+                    });
 
-                LoginRequestModel model =
-                    LoginRequestModel(userName: userName!, password: password!);
+                    LoginRequestModel model = LoginRequestModel(
+                        userName: userName!, password: password!);
 
-                APIService.login(model).then((response) async {
-                  setState(() {
-                    isApiCallProcess = false;
-                  });
-                  if (response != false) {
+                    APIService.login(model).then((response) async {
+                      setState(() {
+                        isApiCallProcess = false;
+                      });
+                      if (response != false) {
+                        logindata = await SharedPreferences.getInstance();
+                        await logindata.setString(
+                            "token", response['userToken']['token']);
+                        await logindata.setString("userId", response['id']);
 
-                    logindata = await SharedPreferences.getInstance();
-                    await logindata.setString("token", response['userToken']['token']);
-                    await logindata.setString("userId", response['id']);
-
-
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                MyTabs(
-                                )));
-                  } else {
-                    FormHelper.showSimpleAlertDialog(
-                      context,
-                      Config.appName,
-                      "Invalid Username/Password !!",
-                      "OK",
-                      () {
-                        Navigator.of(context).pop();
-                      },
-                    );
+                        Navigator.pushReplacement(context,
+                            MaterialPageRoute(builder: (context) => MyTabs()));
+                      } else {
+                        FormHelper.showSimpleAlertDialog(
+                          context,
+                          Config.appName,
+                          "Invalid Username/Password !!",
+                          "OK",
+                          () {
+                            Navigator.of(context).pop();
+                          },
+                        );
+                      }
+                    });
                   }
-                });
-              }
-            }),
+                }),
           ),
         ],
       ),

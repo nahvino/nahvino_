@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:nahvino/Pages/Account/login/sign_up.dart';
 import 'package:nahvino/tabs.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../app_localizations.dart';
+import 'Pages/Account/login/sign_up.dart';
+import 'Utils/Button/Textsall.dart';
 
 class Splash extends StatefulWidget {
   Splash({Key? key}) : super(key: key);
@@ -48,22 +49,18 @@ class _Splash extends State<Splash> {
           children: <Widget>[
             SizedBox(child: Lottie.asset('assets/splash/animtiopsh.json')),
             Container(
-                child: Text(
-              AppLocalizations.of(context)!.translate(
-                'TextSplashn',
-              )!,
-              style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'byekan'),
+                child: textbold(
+
+             color: Colors.black, textAlign: TextAlign.center, text:  AppLocalizations.of(context)!.translate(
+                  'TextSplashn',
+                )!,
             )),
             Column(
               children: [
-                Text(
-                  AppLocalizations.of(context)!.translate(
-                    'TextSplash',
-                  )!,
-                  style: TextStyle(fontSize: 18, fontFamily: 'byekan'),
+                textspan(
+                    color: Colors.black, textAlign: TextAlign.center, text:AppLocalizations.of(context)!.translate(
+                  'TextSplash',
+                )!,
                 ),
               ],
             ),

@@ -155,27 +155,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.0"
-  cloud_firestore:
-    dependency: "direct main"
-    description:
-      name: cloud_firestore
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.1.10"
-  cloud_firestore_platform_interface:
-    dependency: transitive
-    description:
-      name: cloud_firestore_platform_interface
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "5.5.1"
-  cloud_firestore_web:
-    dependency: transitive
-    description:
-      name: cloud_firestore_web
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.6.10"
   code_builder:
     dependency: transitive
     description:
@@ -288,48 +267,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "6.1.2"
-  firebase_auth:
-    dependency: "direct main"
-    description:
-      name: firebase_auth
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.3.11"
-  firebase_auth_platform_interface:
-    dependency: transitive
-    description:
-      name: firebase_auth_platform_interface
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "6.2.1"
-  firebase_auth_web:
-    dependency: transitive
-    description:
-      name: firebase_auth_web
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.3.9"
-  firebase_core:
-    dependency: transitive
-    description:
-      name: firebase_core
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.13.1"
-  firebase_core_platform_interface:
-    dependency: transitive
-    description:
-      name: firebase_core_platform_interface
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "4.2.5"
-  firebase_core_web:
-    dependency: transitive
-    description:
-      name: firebase_core_web
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.6.1"
   fixnum:
     dependency: transitive
     description:
@@ -427,27 +364,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.2"
-  google_sign_in:
-    dependency: "direct main"
-    description:
-      name: google_sign_in
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "5.2.4"
-  google_sign_in_platform_interface:
-    dependency: transitive
-    description:
-      name: google_sign_in_platform_interface
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.1.2"
-  google_sign_in_web:
-    dependency: transitive
-    description:
-      name: google_sign_in_web
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.10.0+5"
   graphs:
     dependency: transitive
     description:
@@ -503,6 +419,13 @@ packages:
       name: image_picker
       url: "https://pub.dartlang.org"
     source: hosted
+    version: "0.8.5"
+  image_picker_android:
+    dependency: transitive
+    description:
+      name: image_picker_android
+      url: "https://pub.dartlang.org"
+    source: hosted
     version: "0.8.4+11"
   image_picker_for_web:
     dependency: transitive
@@ -511,6 +434,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.6"
+  image_picker_ios:
+    dependency: transitive
+    description:
+      name: image_picker_ios
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.8.4+11"
   image_picker_platform_interface:
     dependency: transitive
     description:
@@ -658,6 +588,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.5"
+  persian_datetime_picker:
+    dependency: "direct main"
+    description:
+      name: persian_datetime_picker
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.4.0"
   persistent_bottom_nav_bar:
     dependency: "direct main"
     description:
@@ -1082,7 +1019,7 @@ packages:
       name: webview_flutter_android
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.8.3"
+    version: "2.8.5"
   webview_flutter_platform_interface:
     dependency: transitive
     description:
@@ -1096,7 +1033,7 @@ packages:
       name: webview_flutter_wkwebview
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.7.1"
+    version: "2.7.2"
   win32:
     dependency: transitive
     description:

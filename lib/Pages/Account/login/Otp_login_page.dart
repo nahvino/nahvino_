@@ -8,6 +8,7 @@ import 'package:snippet_coder_utils/FormHelper.dart';
 import 'package:snippet_coder_utils/ProgressHUD.dart';
 import '../../../Model/user/otp/otp_request_model.dart';
 import '../../../Services/login/api_service.dart';
+import '../../../Utils/Button/Textsall.dart';
 
 class PhoneNumberPage extends StatefulWidget {
   const PhoneNumberPage({Key? key}) : super(key: key);
@@ -72,12 +73,12 @@ class _PhoneNumberPageState extends State<PhoneNumberPage> {
               left: 35),
           child: Column(
             children: [
-              Text(
-                AppLocalizations.of(context)!.translate(
-                  'SignIn_top_text',
-                )!,
+              textspan(
+
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 18, fontFamily: 'byekan'),
+                 text:  AppLocalizations.of(context)!.translate(
+                   'SignIn_top_text',
+                 )!, color: Colors.black,
               ),
             ],
           ),
@@ -91,10 +92,14 @@ class _PhoneNumberPageState extends State<PhoneNumberPage> {
           child: FormHelper.inputFieldWidget(
             context,
             "phoneNumber",
-            "phoneNumber",
+            AppLocalizations.of(context)!.translate(
+              'phoneNumber',
+            )!,
             (onValidateVal) {
               if (onValidateVal.isEmpty) {
-                return "Username con\ ' t be empty.";
+                return  AppLocalizations.of(context)!.translate(
+                  'ValidphoneNumber',
+                )!;
               }
               return null;
             },
@@ -118,10 +123,12 @@ class _PhoneNumberPageState extends State<PhoneNumberPage> {
     */
         Container(
           padding: EdgeInsets.only(
-            top: MediaQuery.of(context).size.height * 0.3,
+            top: MediaQuery.of(context).size.height * 0.33,
           ),
           child: Buttontest(
-            text: "ثبت",
+            text:  AppLocalizations.of(context)!.translate(
+              'OK',
+            )!,
             onPressed: () {
               if (validateAndSave()) {
                 setState(() {

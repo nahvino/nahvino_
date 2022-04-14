@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:nahvino/Pages/Account/User/edit_profile.dart';
 import 'package:nahvino/Pages/Account/login/Login.dart';
 import 'package:nahvino/Pages/Account/login/Register.dart';
+import '../../../Utils/Button/Textsall.dart';
 import 'Otp_login_page.dart';
 import '../../../app_localizations.dart';
 import 'package:connectivity/connectivity.dart';
@@ -13,8 +14,6 @@ class SignUp extends StatefulWidget {
   @override
   State<SignUp> createState() => _SignUpState();
 }
-
-
 
 class _SignUpState extends State<SignUp> {
   @override
@@ -38,11 +37,11 @@ class _SignUpState extends State<SignUp> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    Text(
-                      AppLocalizations.of(context)!.translate(
-                        'Signup_top_text',
-                      )!,
-                      style: TextStyle(fontSize: 25, fontFamily: 'byekan'),
+                    textspan(color: Colors.black, textAlign: TextAlign.center, text:  AppLocalizations.of(context)!.translate(
+                      'Signup_top_text',
+                    )!,
+
+
                     ),
                     const SizedBox(
                       height: 10,
@@ -54,35 +53,25 @@ class _SignUpState extends State<SignUp> {
                             MaterialPageRoute(
                                 builder: (context) => RegisterPage()));
                       },
-                      child: Text(
-                        AppLocalizations.of(context)!.translate(
-                          'SignIn_btn_text',
-                        )!,
-                        style: TextStyle(fontSize: 14, fontFamily: 'byekan'),
+                      child: textspan(color: Colors.black, textAlign: TextAlign.center, text:  AppLocalizations.of(context)!.translate(
+                        'SignIn_btn_text',
+                      )!,
+
+
                       ),
                     ),
                     const SizedBox(
                       height: 20,
                     ),
-                    OutlinedButton.icon(
+                /*    OutlinedButton.icon(
                       onPressed: (() {
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => EditProfile()));
-
                         //DialogHelper.rules(context);
                       }),
                       icon: Image.asset('assets/images/google.png'),
-                      label: Text(
-                        AppLocalizations.of(context)!.translate(
-                          'Signup_google_btn',
-                        )!,
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontFamily: 'byekan',
-                            color: Colors.black),
-                      ),
+                      label: textspan(color: Colors.black, textAlign: TextAlign.center, text:  AppLocalizations.of(context)!.translate(
+                        'Signup_google_btn',
+                      )!,
+                     ),
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30.0),
@@ -90,7 +79,7 @@ class _SignUpState extends State<SignUp> {
                         primary: Color.fromARGB(255, 255, 255, 255),
                         fixedSize: const Size(308, 50),
                       ),
-                    ),
+                    ),*/
                     SizedBox(
                       height: 20,
                     ),
@@ -102,14 +91,11 @@ class _SignUpState extends State<SignUp> {
                                 builder: (context) => PhoneNumberPage()));
                       }),
                       icon: Image.asset('assets/images/phone.png'),
-                      label: Text(
-                        AppLocalizations.of(context)!.translate(
-                          'Signup_phone_btn',
-                        )!,
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontFamily: 'byekan',
-                            color: Colors.black),
+                      label: textspan(color: Colors.black, textAlign: TextAlign.center, text:  AppLocalizations.of(context)!.translate(
+                        'Signup_phone_btn',
+                      )!,
+
+
                       ),
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
@@ -128,14 +114,12 @@ class _SignUpState extends State<SignUp> {
                             MaterialPageRoute(builder: (context) => SignIn()));
                       }),
                       icon: Image.asset('assets/images/nahvino_logo.png'),
-                      label: Text(
-                        AppLocalizations.of(context)!.translate(
+                      label: textspan(
+                        color: Colors.black,
+                        textAlign: TextAlign.center,
+                        text: AppLocalizations.of(context)!.translate(
                           'Signup_nahvino_btn',
                         )!,
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontFamily: 'byekan',
-                            color: Colors.black),
                       ),
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(

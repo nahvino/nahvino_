@@ -67,11 +67,13 @@ class _ChatpageState extends State<Chatpage> {
       print(message.toString());
       var mess= message.toString();
     });
-    connection.on('GetGroup', (level) {
-      print(level.toString());
+   // connection.invoke('GetGroup');
+    connection.on('GetGroup', (message) {
+      print(message.toString());
+      var mess= message.toString();
     });
     await connection.invoke('SendMessage', args: ['6', 'خداحافظ']);
-    await connection.invoke('GetGroup');
+    await connection.invoke('GetGroup',args: ['1', 'nvdhtj']);
 
 
   }

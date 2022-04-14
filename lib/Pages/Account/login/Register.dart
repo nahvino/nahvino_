@@ -9,6 +9,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:snippet_coder_utils/FormHelper.dart';
 import 'package:snippet_coder_utils/ProgressHUD.dart';
 import '../../../Utils/Button/Button.dart';
+import '../../../Utils/Button/Textsall.dart';
+import 'AddIntroduced.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -22,6 +24,7 @@ class _RegisterState extends State<RegisterPage> {
   GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
 
   List<DropdownMenuItem<String>> listDrap = [];
+
   void securityQuestion() {
     listDrap = [];
     listDrap.add(new DropdownMenuItem(
@@ -43,12 +46,16 @@ class _RegisterState extends State<RegisterPage> {
   bool isApiCallProcess = false;
   String? userName;
   String? password;
+
   //int? securityQuestion;
   //int? securityQuestionselected;
   String? securityQuestionselected = null;
   String? sqAnswer;
+  String? userToken;
+  String? token;
 
   late SharedPreferences logindata;
+
   @override
   void initState() {
     super.initState();
@@ -98,28 +105,32 @@ class _RegisterState extends State<RegisterPage> {
                 left: 35),
             child: Column(
               children: [
-                Text(
-                  AppLocalizations.of(context)!.translate(
+                textspan(
+                  color: Colors.black,
+                  textAlign: TextAlign.center,
+                  text: AppLocalizations.of(context)!.translate(
                     'SignIn_top_text',
                   )!,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 18, fontFamily: 'byekan'),
                 ),
               ],
             ),
           ),
           Container(
             padding: EdgeInsets.only(
-                top: MediaQuery.of(context).size.height * 0.2,
+                top: MediaQuery.of(context).size.height * 0.17,
                 right: 35,
                 left: 35),
             child: FormHelper.inputFieldWidget(
               context,
               "username",
-              "username",
+              AppLocalizations.of(context)!.translate(
+                'username',
+              )!,
               (onValidateVal) {
                 if (onValidateVal.isEmpty) {
-                  return "Username con\ ' t be empty.";
+                  return  AppLocalizations.of(context)!.translate(
+                    'Validusername',
+                  )!;
                 }
                 return null;
               },
@@ -135,22 +146,36 @@ class _RegisterState extends State<RegisterPage> {
           ),
           Container(
             padding: EdgeInsets.only(
-                top: MediaQuery.of(context).size.height * 0.28,
+                top: MediaQuery.of(context).size.height * 0.29,
                 right: 35,
                 left: 35),
             child: FormHelper.inputFieldWidget(
               context,
               "password",
-              "password",
+              AppLocalizations.of(context)!.translate(
+                'Password',
+              )!,
               (onValidateVal) {
                 if (onValidateVal.isEmpty) {
-                  return "Username con\ ' t be empty.";
+                  return  AppLocalizations.of(context)!.translate(
+                    'ValidPassword',
+                  )!;
                 }
                 return null;
               },
               (onSavedVal) {
                 password = onSavedVal;
               },
+              initialValue: "",
+              obscureText: hidePassword,
+              suffixIcon: IconButton(
+                  onPressed: () {
+                    setState(() {
+                      hidePassword = !hidePassword;
+                    });
+                  },
+                  icon: Icon(
+                      hidePassword ? Icons.visibility_off : Icons.visibility)),
               borderFocusColor: Colors.grey,
               prefixIconColor: Colors.black,
               borderColor: Colors.green,
@@ -160,11 +185,13 @@ class _RegisterState extends State<RegisterPage> {
           ),
           Container(
             padding: EdgeInsets.only(
-              top: MediaQuery.of(context).size.height * 0.36,
+              top: MediaQuery.of(context).size.height * 0.39,
             ),
             alignment: Alignment.topCenter,
             child: DropdownButton(
-                hint: Text("سوال امنیتی"),
+                hint: Text(AppLocalizations.of(context)!.translate(
+                  'sAnswer',
+                )!,),
                 value: securityQuestionselected,
                 items: listDrap,
                 onChanged: (value) {
@@ -213,16 +240,20 @@ class _RegisterState extends State<RegisterPage> {
           ),*/
           Container(
             padding: EdgeInsets.only(
-                top: MediaQuery.of(context).size.height * 0.44,
+                top: MediaQuery.of(context).size.height * 0.46,
                 right: 35,
                 left: 35),
             child: FormHelper.inputFieldWidget(
               context,
               "sqAnswer",
-              "sqAnswer",
+              AppLocalizations.of(context)!.translate(
+                'sqAnswer',
+              )!,
               (onValidateVal) {
                 if (onValidateVal.isEmpty) {
-                  return "Username con\ ' t be empty.";
+                  return  AppLocalizations.of(context)!.translate(
+                    'ValidsqAnswer',
+                  )!;
                 }
                 return null;
               },
@@ -238,58 +269,68 @@ class _RegisterState extends State<RegisterPage> {
           ),
           Container(
             padding: EdgeInsets.only(
-                top: MediaQuery.of(context).size.height * 0.53,
+                top: MediaQuery.of(context).size.height * 0.58,
                 right: 110,
                 left: 110),
-            child: Buttontest(text:"ثبت نام", onPressed: () {
-              if (validateAndSave()) {
-                setState(() {
-                  isApiCallProcess = true;
-                });
+            child: Buttontest(
+                text: AppLocalizations.of(context)!.translate(
+                  'register',
+                )!,
+                onPressed: () {
+                  if (validateAndSave()) {
+                    setState(() {
+                      isApiCallProcess = true;
+                    });
 
-                RegisterRequestModel model = RegisterRequestModel(
-                    userName: userName,
-                    password: password,
-                    securityQuestion: securityQuestionselected as String,
-                    sqAnswer: sqAnswer);
+                    RegisterRequestModel model = RegisterRequestModel(
+                        userName: userName,
+                        password: password,
+                        securityQuestion: securityQuestionselected as String,
+                        sqAnswer: sqAnswer);
 
-                APIService.register(model).then((response) {
-                  setState(() {
-                    isApiCallProcess = false;
-                  });
+                    APIService.register(model).then((response) async {
+                      setState(() {
+                        isApiCallProcess = false;
+                      });
+                      //if (response.data != null) {
+                      if (response != false) {
+                        logindata = await SharedPreferences.getInstance();
+                        await logindata.setString(
+                            "token", response['userToken']['token']);
+                        await logindata.setString("userId", response['id']);
 
-                  if (response.data != null) {
-/*
-                    logindata = await SharedPreferences.getInstance();
-                    await logindata.setString("token", response['userToken']['token']);
-                    */
-                    FormHelper.showSimpleAlertDialog(
-                      context,
-                      Config.appName,
-                      "Registration Successful. Please login to the account",
-                      "OK",
-                      () {
-                        Navigator.pushNamedAndRemoveUntil(
+                        FormHelper.showSimpleAlertDialog(
                           context,
-                          '/viewprofile',
-                          (route) => false,
+                          Config.appName,
+                          AppLocalizations.of(context)!.translate(
+                            'Successful',
+                          )!,
+                          //"Registration Successful.",
+                          //"OK"
+                          AppLocalizations.of(context)!.translate(
+                            'OK',
+                          )!,
+                          () {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => AddIntroduced()));
+                          },
                         );
-                      },
-                    );
-                  } else {
-                    FormHelper.showSimpleAlertDialog(
-                      context,
-                      Config.appName,
-                      response.message,
-                      "OK",
-                      () {
-                        Navigator.of(context).pop();
-                      },
-                    );
+                      } else {
+                        FormHelper.showSimpleAlertDialog(
+                          context,
+                          Config.appName,
+                          response.message,
+                          "OK",
+                          () {
+                            Navigator.of(context).pop();
+                          },
+                        );
+                      }
+                    });
                   }
-                });
-              }
-            }),
+                }),
           ),
         ],
       ),
