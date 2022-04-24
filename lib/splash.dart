@@ -3,9 +3,9 @@ import 'package:lottie/lottie.dart';
 import 'package:nahvino/tabs.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../app_localizations.dart';
-import 'Pages/Account/login/sign_up.dart';
-import 'Utils/Button/Textsall.dart';
+import '../App_localizations.dart';
+import 'Pages/Account/login/SignUp.dart';
+import 'Utils/Widget/Text.dart';
 
 class Splash extends StatefulWidget {
   Splash({Key? key}) : super(key: key);

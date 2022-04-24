@@ -2,6 +2,7 @@
     package="com.app.nahvino">
         <uses-permission android:name="android.permission.INTERNET"/>
    <application
+
         android:label="nahvino"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">

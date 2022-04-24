@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:nahvino/Pages/home.dart';
-import 'package:nahvino/Pages/settings.dart';
-import 'package:nahvino/app_localizations.dart';
+import 'package:nahvino/Pages/Home.dart';
+import 'package:nahvino/Pages/Settings.dart';
+import 'package:nahvino/App_localizations.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'Pages/Account/Caht/chatpage.dart';
-import 'Pages/Account/User/view_profile.dart';
-import 'app_localizations.dart';
+import 'Pages/Account/User/ViewProfile.dart';
+import 'App_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 class MyTabs extends StatefulWidget {
@@ -23,7 +23,7 @@ class _MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
 
-    _controller = PersistentTabController(initialIndex: 0);
+    _controller = PersistentTabController(initialIndex: 2);
   }
 
   @override
@@ -79,7 +79,7 @@ class _MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
         ),
         iconSize: 20,
         icon: Icon(CupertinoIcons.home),
-        textStyle: TextStyle(fontSize: 12, fontFamily: 'vazirlight'),
+        textStyle: TextStyle(fontSize: 12, fontFamily: 'Vazirmatn_Light'),
         activeColorPrimary: CupertinoColors.white,
         inactiveColorPrimary: CupertinoColors.white,
       ),
@@ -89,7 +89,7 @@ class _MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
         ),
         iconSize: 20,
         icon: Icon(CupertinoIcons.text_badge_star),
-        textStyle: TextStyle(fontSize: 12, fontFamily: 'vazirlight'),
+        textStyle: TextStyle(fontSize: 12, fontFamily: 'Vazirmatn_Light'),
         activeColorPrimary: CupertinoColors.white,
         inactiveColorPrimary: CupertinoColors.white,
       ),
@@ -99,7 +99,7 @@ class _MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
         ),
         iconSize: 20,
         icon: Icon(CupertinoIcons.person),
-        textStyle: TextStyle(fontSize: 12, fontFamily: 'vazirlight'),
+        textStyle: TextStyle(fontSize: 12, fontFamily: 'Vazirmatn_Light'),
         activeColorPrimary: CupertinoColors.white,
         inactiveColorPrimary: CupertinoColors.white,
       ),
@@ -109,7 +109,7 @@ class _MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
         ),
         iconSize: 20,
         icon: Icon(CupertinoIcons.chat_bubble),
-        textStyle: TextStyle(fontSize: 12, fontFamily: 'vazirlight'),
+        textStyle: TextStyle(fontSize: 12, fontFamily: 'Vazirmatn_Light'),
         activeColorPrimary: CupertinoColors.white,
         inactiveColorPrimary: CupertinoColors.white,
       ),

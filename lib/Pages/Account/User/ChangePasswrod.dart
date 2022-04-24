@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:nahvino/Pages/Account/User/view_profile.dart';
+import 'package:nahvino/Pages/Account/User/ViewProfile.dart';
 
-import '../../../Services/login/api_service.dart';
+import '../../../Services/login/ApiService.dart';
 import '../../../Utils/Button/TextField.dart';
-import '../../../Utils/Button/Textsall.dart';
-import '../../../app_localizations.dart';
+import '../../../Utils/Widget/Text.dart';
+import '../../../App_localizations.dart';
 import '../login/CheckQuestionAnswer.dart';
 import '../login/Pandect.dart';
 
@@ -21,12 +21,13 @@ class _ChangePasswrodState extends State<ChangePasswrod> {
   TextEditingController currentPassword = TextEditingController();
   TextEditingController newPassword = TextEditingController();
   late APIService apiService;
+
   @override
   void initState() {
     super.initState();
     apiService = APIService(context);
-
   }
+
   bool isApiCallProgress = true;
   bool lang = false; // en => true / fa => false
   @override
@@ -69,21 +70,27 @@ class _ChangePasswrodState extends State<ChangePasswrod> {
                       return;
                     }
 
-                    apiService.ChangePasswrod(currentPassword.text,newPassword.text).then((response) async {
+                    apiService.ChangePasswrod(
+                            currentPassword.text, newPassword.text)
+                        .then((response) async {
                       setState(() {
                         isApiCallProgress = false;
                       });
-                      if (response) {
-                        apiService.showSnackBar(text:response['message'] ?? "معرف مورد نظر با موفقیت ثبت شد");
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => Pandect()));
-                      }else{
-                        apiService.showSnackBar(text:response['message'] ?? "sdd");
+                      if (response != false) {
+                        apiService.showSnackBar(
+                            text: response['message'] ??
+                                "پسورد شما با موفقیت تغییر کرد");
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ViewProfile()),
+                          (route) => false,
+                        );
+                      } else {
+                        apiService.showSnackBar(
+                            text: response['message'] ?? "sdd");
                       }
                     });
-
                   }),
                 ),
               ),
@@ -115,9 +122,12 @@ class _ChangePasswrodState extends State<ChangePasswrod> {
                     MaterialPageRoute(
                         builder: (context) => CheckQuestionAnswer()));
               },
-              child: textspan(color: Colors.blue, textAlign: TextAlign.center, text:  AppLocalizations.of(context)!.translate(
-                'SignIn_fpass_text',
-              )!,
+              child: textspan(
+                color: Colors.blue,
+                textAlign: TextAlign.center,
+                text: AppLocalizations.of(context)!.translate(
+                  'SignIn_fpass_text',
+                )!,
               ),
             ),
             TextProfile(

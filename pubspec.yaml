@@ -40,6 +40,9 @@ dependencies:
   # Chat
   signalr_core: ^1.1.1
   socket_io_client: ^1.0.2
+  flutter_emoji: ^2.4.0
+  emoji_picker_flutter: ^1.1.2
+  notifications: ^2.0.1
 
 dev_dependencies:
   flutter_test:
@@ -51,21 +54,55 @@ dev_dependencies:
 
 flutter:
   fonts:
-    - family: vazirlight
+    - family: Vazirmatn_Black
+      fonts:
+        - asset: fonts/Vazirmatn-UI-FD-NL-Black.ttf
+
+    - family: Vazirmatn_Bold
+      fonts:
+        - asset: fonts/Vazirmatn-UI-FD-NL-Bold.ttf
+
+    - family: Vazirmatn_ExtraBold
+      fonts:
+        - asset: fonts/Vazirmatn-UI-FD-NL-ExtraBold.ttf
+
+    - family: Vazirmatn_ExtraLight
+      fonts:
+        - asset: fonts/Vazirmatn-UI-FD-NL-ExtraLight.ttf
+
+    - family: Vazirmatn_Light
       fonts:
         - asset: fonts/Vazirmatn-UI-FD-NL-Light.ttf
-    - family: byekan
+
+    - family: Vazirmatn_Medium
       fonts:
-        - asset: fonts/byekan.ttf
+        - asset: fonts/Vazirmatn-UI-FD-NL-Medium.ttf
+
+    - family: Vazirmatn_Regular
+      fonts:
+        - asset: fonts/Vazirmatn-UI-FD-NL-Regular.ttf
+
+    - family: Vazirmatn_SemiBold
+      fonts:
+        - asset: fonts/Vazirmatn-UI-FD-NL-SemiBold.ttf
+
+    - family: Vazirmatn_Thin
+      fonts:
+        - asset: fonts/Vazirmatn-UI-FD-NL-Thin.ttf
 
   assets:
-   - assets/splash/animtiopsh.json
-   - assets/lang/fa.json
-   - assets/lang/en.json 
-   - assets/images/
-   - assets/images/login/
-   - assets/images/sinupbak.png
-   - assets/anim/data.json
-   - assets/images/home/
+    - assets/splash/animtiopsh.json
+    - assets/lang/fa.json
+    - assets/lang/en.json
+    - assets/images/
+    - assets/images/login/
+    - assets/images/ram/
+    - assets/images/sinupbak.png
+    - assets/anim/data.json
+    - assets/anim/
+    - assets/anim/login/
+    - assets/anim/user/
+    - assets/anim/viewprofile/
+    - assets/images/home/
 
   uses-material-design: true
