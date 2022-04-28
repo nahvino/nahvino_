@@ -11,8 +11,7 @@ import '../../../App_localizations.dart';
 import 'Pandect.dart';
 
 class AddIntroduced extends StatefulWidget {
-  const AddIntroduced({Key? key}) : super(key: key);
-
+  const AddIntroduced({Key? key,}) : super(key: key);
   @override
   State<AddIntroduced> createState() => _AddIntroducedState();
 }
@@ -161,9 +160,9 @@ class _AddIntroducedState extends State<AddIntroduced> {
                               setState(() {
                                 isApiCallProgress = false;
                               });
-                              //idficode = identifierCode;
-                              //if (response.data != null) {
                               if (response !=false) {
+                                apiService.showSnackBar(text:response['message'] ?? "");
+
                                 Navigator.pushAndRemoveUntil(
                                   context,
                                   MaterialPageRoute(
@@ -171,9 +170,11 @@ class _AddIntroducedState extends State<AddIntroduced> {
                                       (route) => false,
                                 );
                               } else {
-                                //apiService.showSnackBar(text:response['message'] ?? "sdd");
+                                apiService.showSnackBar(text:response['message'] ?? "sdd");
                               }
                             });
+                            print(Text("-----------"));
+
                             /*
                             var data =
                                 await APIService(context).NotIntroduced();
@@ -196,6 +197,7 @@ class _AddIntroducedState extends State<AddIntroduced> {
                                 },
                               );
                             }*/
+
                           },
                           color: Colors.white,
                         ),

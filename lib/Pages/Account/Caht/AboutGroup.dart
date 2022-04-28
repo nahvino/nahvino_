@@ -282,7 +282,7 @@ class _AboutGroupState extends State<AboutGroup> {
                       ),
                       SizedBox(height: 12),
                       Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Subhead(
@@ -293,7 +293,7 @@ class _AboutGroupState extends State<AboutGroup> {
                             )!,
                           ),
                           SizedBox(width: 3),
-                          Subhead(
+                          Caption1(
                             textAlign: TextAlign.end,
                             color: Colors.black,
                             text: AppLocalizations.of(context)!.translate(

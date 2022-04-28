@@ -4,6 +4,9 @@ import 'package:nahvino/Pages/Account/User/EditProfile.dart';
 import 'package:nahvino/Pages/Account/login/SignIn.dart';
 import 'package:nahvino/Pages/Account/login/Register.dart';
 import '../../../Utils/Widget/Text.dart';
+import 'NewLogin.dart';
+import 'NewOtpPhone.dart';
+import 'NewRegister.dart';
 import 'OtpLogin.dart';
 import '../../../App_localizations.dart';
 import 'package:connectivity/connectivity.dart';
@@ -51,7 +54,7 @@ class _SignUpState extends State<SignUp> {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => RegisterPage()));
+                                builder: (context) => /*RegisterPage()*/ NewRegister()));
                       },
                       child: textspan(color: Colors.black, textAlign: TextAlign.center, text:  AppLocalizations.of(context)!.translate(
                         'SignIn_btn_text',
@@ -88,7 +91,7 @@ class _SignUpState extends State<SignUp> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => PhoneNumberPage()));
+                                builder: (context) => /*PhoneNumberPage()*/ OtpPhoneNew()));
                       }),
                       icon: Image.asset('assets/images/phone.png'),
                       label: textspan(color: Colors.black, textAlign: TextAlign.center, text:  AppLocalizations.of(context)!.translate(
@@ -111,7 +114,7 @@ class _SignUpState extends State<SignUp> {
                     OutlinedButton.icon(
                       onPressed: (() {
                         Navigator.pushReplacement(context,
-                            MaterialPageRoute(builder: (context) => SignIn()));
+                            MaterialPageRoute(builder: (context) => /*SignIn()*/ NewLogin()));
                       }),
                       icon: Image.asset('assets/images/nahvino_logo.png'),
                       label: textspan(

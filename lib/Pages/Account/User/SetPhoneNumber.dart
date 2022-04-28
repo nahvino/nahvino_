@@ -7,6 +7,7 @@ import '../../../Utils/Button/TextField.dart';
 import '../../../Utils/Widget/Text.dart';
 import '../../../App_localizations.dart';
 import 'CheckCodeSetPhoneNumber.dart';
+import 'UserSecuritySttingMenus.dart';
 import 'ViewProfile.dart';
 
 class SetPhoneNumber extends StatefulWidget {
@@ -47,7 +48,7 @@ class _SetPhoneNumberState extends State<SetPhoneNumber> {
               child: BackButton(
                 onPressed: (() {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => ViewProfile()));
+                      MaterialPageRoute(builder: (context) => UserSecuritySttingMenus()));
                 }),
               ),
             ),

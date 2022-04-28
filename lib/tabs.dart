@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:nahvino/Pages/Account/Caht/chat_page_controller.dart';
 import 'package:nahvino/Pages/Home.dart';
 import 'package:nahvino/Pages/Settings.dart';
 import 'package:nahvino/App_localizations.dart';
@@ -19,11 +21,16 @@ class MyTabs extends StatefulWidget {
 class _MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
   late PersistentTabController _controller;
 
+  ChatPageController chatPageController = Get.put(ChatPageController());
+
   @override
   void initState() {
     super.initState();
 
     _controller = PersistentTabController(initialIndex: 2);
+    chatPageController.openSignalRConnection();
+
+
   }
 
   @override

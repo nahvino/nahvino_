@@ -2,14 +2,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../../App_localizations.dart';
 import '../../../Model/User/user/viewprofile_response_model.dart';
 import '../../../Services/Login/User/Config.dart';
 import '../../../Services/login/ApiService.dart';
 import '../../../Utils/Button/Button.dart';
 import '../../../Utils/Button/SttingMenusButton.dart';
+import '../../../Utils/Widget/Text.dart';
 import 'ChangePhoneNumber.dart';
 import 'ChangePasswrod.dart';
 import 'SetPhoneNumber.dart';
+import 'ViewProfile.dart';
 
 class UserSecuritySttingMenus extends StatefulWidget {
   const UserSecuritySttingMenus({Key? key}) : super(key: key);
@@ -64,7 +67,37 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
         children: [
           Column(
             children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                Container(
+                  child: BackButton(
+                    onPressed: (() {
+                      Navigator.pushReplacement(
+                          context, MaterialPageRoute(builder: (context) => ViewProfile()));
+                    }),
+                  ),
+                ),
+                    Container(child: Lottie.asset('assets/anim/viewprofile/security-system.json',
+                        height: 70, width: 70),),
 
+              ]),
+              Container(
+                alignment: Alignment.topCenter,
+
+                child: Column(
+                  children: [
+                    Headline(
+                      textAlign: TextAlign.center,
+                      text: AppLocalizations.of(context)!.translate(
+                        'Security_settings',
+                      )!,
+                      color: Colors.green,
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 20,),
               Visibility(
                 visible: resultResponse['password'],
                 child: SttingMenusButton(

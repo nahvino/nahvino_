@@ -12,6 +12,7 @@ import 'package:nahvino/Model/user/otp/otp_response_code_model.dart';
 import 'package:nahvino/Model/user/user/viewprofile_response_model.dart';
 import 'package:nahvino/Services/login/user/Config.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../App_localizations.dart';
 import '../../Model/user/login/resetpassword__request_model.dart';
 import '../../Model/user/login/resetpassword_response_model.dart';
 import '../../Model/user/otp/otp_request_code_model.dart';
@@ -59,7 +60,9 @@ class APIService {
   void showSnackBar({required String text}) {
     //ScaffoldMessenger.of(_context).showSnackBar(SnackBar(content: Text(text)));
     Get.snackbar(
-      "اعلان",
+        AppLocalizations.of(_context)!.translate(
+          'Pandect_snackbar_TiTle',
+        )!,
       text,
       icon: Icon(Icons.notifications, color: Colors.white),
       snackPosition: SnackPosition.TOP,
@@ -469,20 +472,21 @@ class APIService {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
+      'Authorization': "Bearer ${await preferences.getString("token")}"
     };
     var url = Uri.parse(Config.baseURL + Config.NotIntroduced);
     var response = await client.post(
       url,
       headers: requestHeaders,
-      body: jsonEncode({"userId": await preferences.getString("userId")}),
+      body: jsonEncode({
+        "userId": await preferences.getString("userId"),
+      }),
     );
     debugPrint(response.body.toString());
-
     if (validateResponse(response)) {
       return json.decode(response.body);
-    } else {
-      return false;
     }
+    return false;
   }
 
   Future uploadProfileImage(String imagePath) async {
@@ -602,5 +606,152 @@ class APIService {
     } else {
       return false;
     }
+  }
+
+
+
+  Future OtpPhone(String OtpPhoneController) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+    };
+    var url = Uri.parse(Config.baseURL + Config.otpphone);
+    var response = await client.post(
+      url,
+      headers: requestHeaders,
+      body: jsonEncode({
+        "phoneNumber": OtpPhoneController,
+      }),
+    );
+    debugPrint(response.body.toString());
+    if (validateResponse(response)) {
+      return json.decode(response.body);
+    }
+    return false;
+  }
+
+  Future OtpCodePhone(String OtpPhoneController ,int OtpCodeController) async {
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+    };
+    var url = Uri.parse(Config.baseURL + Config.otpvrifay);
+    var response = await client.post(
+      url,
+      headers: requestHeaders,
+      body: jsonEncode({
+        "phoneNumber": OtpPhoneController,
+        "code": OtpCodeController
+      }),
+    );
+    debugPrint(response.body.toString());
+    if (validateResponse(response)) {
+      return json.decode(response.body);
+    }
+    return false;
+  }
+
+
+  Future NewRegister(String usernameController ,String passwordController ,String securityQuestionselected ,String sqAnswerController ,) async {
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+    };
+    var url = Uri.parse(Config.baseURL + Config.register);
+    var response = await client.post(
+      url,
+      headers: requestHeaders,
+      body: jsonEncode({
+        "userName": usernameController,
+        "password": passwordController,
+        "securityQuestion": securityQuestionselected,
+        "sqAnswer": sqAnswerController,
+      }),
+    );
+    debugPrint(response.body.toString());
+    if (validateResponse(response)) {
+      return json.decode(response.body);
+    }
+    return false;
+  }
+
+
+  Future NewLogin(String userNameController ,String passwordController) async {
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+    };
+    var url = Uri.parse(Config.baseURL + Config.login);
+    var response = await client.post(
+      url,
+      headers: requestHeaders,
+      body: jsonEncode({
+        "userName": userNameController,
+        "password": passwordController
+      }),
+    );
+    debugPrint(response.body.toString());
+    if (validateResponse(response)) {
+      return json.decode(response.body);
+    }
+    return false;
+  }
+
+  Future NewCheckQuestionAnswer(String usernameController ,String securityQuestionselected ,String sqAnswerController ,) async {
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+    };
+    var url = Uri.parse(Config.baseURL + Config.checkquestionanswer);
+    var response = await client.post(
+      url,
+      headers: requestHeaders,
+      body: jsonEncode({
+        "userName": usernameController,
+        "securityQuestion": securityQuestionselected,
+        "answer": sqAnswerController,
+      }),
+    );
+    debugPrint(response.body.toString());
+    if (validateResponse(response)) {
+      return json.decode(response.body);
+    }
+    return false;
+  }
+  Future NewResetPassword(
+      String data, String passwordController) async {
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+    };
+    var url = Uri.parse(Config.baseURL + Config.repassword);
+    var response = await client.post(
+      url,
+      headers: requestHeaders,
+      body: jsonEncode({
+        "id": data.toString(),
+        "newPassword": passwordController
+      }),
+    );
+    debugPrint(response.body.toString());
+    if (validateResponse(response)) {
+      return json.decode(response.body);
+    } else {
+      return false;
+    }
+  }
+
+  Future NewReSendCode(String OtpPhoneController) async {
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+    };
+    var url = Uri.parse(Config.baseURL + Config.resendcode);
+    var response = await client.post(
+      url,
+      headers: requestHeaders,
+      body: jsonEncode({
+        "phoneNumber": OtpPhoneController,
+      }),
+    );
+    debugPrint(response.body.toString());
+    if (validateResponse(response)) {
+      return json.decode(response.body);
+    }
+    return false;
   }
 }

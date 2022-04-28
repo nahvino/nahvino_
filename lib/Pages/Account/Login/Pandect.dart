@@ -44,7 +44,7 @@ class _PandectState extends State<Pandect> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  textspan(
+                  Caption1(
                     textAlign: TextAlign.center,
                     text: AppLocalizations.of(context)!.translate(
                       'Pandect',
@@ -54,7 +54,7 @@ class _PandectState extends State<Pandect> {
                   SizedBox(
                     width: 1,
                   ),
-                  textspan(
+                  Caption1(
                     textAlign: TextAlign.center,
                     text: AppLocalizations.of(context)!.translate(
                       'PandectPagetop',
@@ -79,7 +79,7 @@ class _PandectState extends State<Pandect> {
                       });
                     },
                   ),
-                  textspan(
+                  Footnate(
                     textAlign: TextAlign.right,
                     text: AppLocalizations.of(context)!.translate(
                       'Pandecttext1',
@@ -107,7 +107,7 @@ class _PandectState extends State<Pandect> {
                   Row(
                     children: [
 
-                      textspan(
+                      Footnate(
                         textAlign: TextAlign.right,
                         text: AppLocalizations.of(context)!.translate(
                           'Pandecttext2',
@@ -120,7 +120,7 @@ class _PandectState extends State<Pandect> {
                           showDialog<void>(context: context, builder: (context) => RulesDialog());
 
                         },
-                        child: textspan(
+                        child: Footnate(
                           textAlign: TextAlign.right,
                           text: AppLocalizations.of(context)!.translate(
                             'Pandecttext3',
@@ -129,7 +129,7 @@ class _PandectState extends State<Pandect> {
                         ),
                       ),
                       SizedBox(width: 1,),
-                      textspan(
+                      Footnate(
                         textAlign: TextAlign.right,
                         text: AppLocalizations.of(context)!.translate(
                           'Pandecttext4',
@@ -153,8 +153,12 @@ class _PandectState extends State<Pandect> {
 
                   if (this.value1 == false || this.value2 == false) {
                     Get.snackbar(
-                      "اعلان",
-                      "بایستی قوانین را تایید کنید",
+                      AppLocalizations.of(context)!.translate(
+                        'Pandect_snackbar_TiTle',
+                      )!,
+                      AppLocalizations.of(context)!.translate(
+                        'Pandect_snackbar',
+                      )!,
                       icon: Icon(Icons.notifications, color: Colors.white),
                       snackPosition: SnackPosition.TOP,
                     );

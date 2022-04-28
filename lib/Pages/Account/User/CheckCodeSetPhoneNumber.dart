@@ -6,6 +6,7 @@ import '../../../Utils/Button/TextField.dart';
 import '../../../Utils/Widget/Text.dart';
 import '../../../App_localizations.dart';
 
+import 'ChangePhoneNumber.dart';
 import 'ViewProfile.dart';
 
 class CheckCodeSetPhoneNumber extends StatefulWidget {
@@ -41,97 +42,99 @@ class _CheckCodeSetPhoneNumberState extends State<CheckCodeSetPhoneNumber> {
     );
   }
 
-  Widget body(BuildContext context) => Column(children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-              alignment: Alignment.topLeft,
-              child: BackButton(
-                onPressed: (() {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => ViewProfile()));
-                }),
+  Widget body(BuildContext context) => SingleChildScrollView(
+    child: Column(children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                alignment: Alignment.topLeft,
+                child: BackButton(
+                  onPressed: (() {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => ChangePhoneNumber()));
+                  }),
+                ),
               ),
-            ),
-            /*Container(
-              alignment: Alignment.topRight,
-              child: IconButton(
-                icon: Icon(Icons.task_alt),
-                onPressed: (() {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => ViewProfile()));
-                }),
-              ),
-            ),*/
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            textspan(
-              textAlign: TextAlign.center,
-              text: AppLocalizations.of(context)!.translate(
-                'set_phone_test',
-              )!,
-              color: Colors.black,
-            ),
-          ],
-        ),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              Text(AppLocalizations.of(context)!.translate(
-                    'set_phone_test',
-                  ) ??
-                  ""),
-              SizedBox(width: 3),
-              //Text(widget.setPhoneNumber)
+              /*Container(
+                alignment: Alignment.topRight,
+                child: IconButton(
+                  icon: Icon(Icons.task_alt),
+                  onPressed: (() {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => ViewProfile()));
+                  }),
+                ),
+              ),*/
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
               textspan(
                 textAlign: TextAlign.center,
-                text: widget.setPhoneNumber,
-                color: Colors.green,
+                text: AppLocalizations.of(context)!.translate(
+                  'set_phone_test',
+                )!,
+                color: Colors.black,
               ),
-            ]),
-            TextProfile(
-              controller: code,
-              hint: AppLocalizations.of(context)!.translate(
-                'phone_text_filed',
-              )!,
-            ),
-            Buttonfull(
-              color: Colors.white,
-              text: AppLocalizations.of(context)!.translate(
-                'OK',
-              )!,
-              onPressed: () {
-                if (code.text.isEmpty) {
-                  apiService.showSnackBar(
-                      text: "شماره تلفن نمی تواند خالی باشد");
-                  return;
-                }
-                apiService
-                    .checkcodesetPhoneNumber(
-                        widget.setPhoneNumber.toString(), int.parse(code.text))
-                    .then((response) async {
-                  setState(() {
-                    isApiCallProgress = false;
-                  });
-                  //idficode = identifierCode;
-                  //if (response.data != null) {
-                  if (response != false) {
+            ],
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                Text(AppLocalizations.of(context)!.translate(
+                      'set_phone_test',
+                    ) ??
+                    ""),
+                SizedBox(width: 3),
+                //Text(widget.setPhoneNumber)
+                textspan(
+                  textAlign: TextAlign.center,
+                  text: widget.setPhoneNumber,
+                  color: Colors.green,
+                ),
+              ]),
+              TextProfile(
+                controller: code,
+                hint: AppLocalizations.of(context)!.translate(
+                  'phone_text_filed',
+                )!,
+              ),
+              Buttonfull(
+                color: Colors.white,
+                text: AppLocalizations.of(context)!.translate(
+                  'OK',
+                )!,
+                onPressed: () {
+                  if (code.text.isEmpty) {
                     apiService.showSnackBar(
-                        text: response['message'] ?? "کد تایید ارسال شد");
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => ViewProfile()));
-                  } else {
-                    apiService.showSnackBar(text: response['message'] ?? "sdd");
+                        text: "شماره تلفن نمی تواند خالی باشد");
+                    return;
                   }
-                });
-              },
-            )
-          ],
-        ),
-      ]);
+                  apiService
+                      .checkcodesetPhoneNumber(
+                          widget.setPhoneNumber.toString(), int.parse(code.text))
+                      .then((response) async {
+                    setState(() {
+                      isApiCallProgress = false;
+                    });
+                    //idficode = identifierCode;
+                    //if (response.data != null) {
+                    if (response != false) {
+                      apiService.showSnackBar(
+                          text: response['message'] ?? "کد تایید ارسال شد");
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) => ViewProfile()));
+                    } else {
+                      apiService.showSnackBar(text: response['message'] ?? "sdd");
+                    }
+                  });
+                },
+              )
+            ],
+          ),
+        ]),
+  );
 }

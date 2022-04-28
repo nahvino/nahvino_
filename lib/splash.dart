@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:nahvino/tabs.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../App_localizations.dart';
 import 'Pages/Account/login/SignUp.dart';
 import 'Utils/Widget/Text.dart';
@@ -43,28 +42,30 @@ class _Splash extends State<Splash> {
       backgroundColor: Colors.white,
       body: Container(
         alignment: Alignment.center,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            SizedBox(child: Lottie.asset('assets/splash/animtiopsh.json')),
-            Container(
-                child: textbold(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              SizedBox(child: Lottie.asset('assets/splash/animtiopsh.json')),
+              Container(
+                  child: textbold(
 
-             color: Colors.black, textAlign: TextAlign.center, text:  AppLocalizations.of(context)!.translate(
-                  'TextSplashn',
-                )!,
-            )),
-            Column(
-              children: [
-                textspan(
-                    color: Colors.black, textAlign: TextAlign.center, text:AppLocalizations.of(context)!.translate(
-                  'TextSplash',
-                )!,
-                ),
-              ],
-            ),
-          ],
+               color: Colors.black, textAlign: TextAlign.center, text:  AppLocalizations.of(context)!.translate(
+                    'TextSplashn',
+                  )!,
+              )),
+              Column(
+                children: [
+                  textspan(
+                      color: Colors.black, textAlign: TextAlign.center, text:AppLocalizations.of(context)!.translate(
+                    'TextSplash',
+                  )!,
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

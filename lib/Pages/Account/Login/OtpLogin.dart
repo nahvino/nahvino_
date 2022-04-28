@@ -37,20 +37,13 @@ class _PhoneNumberPageState extends State<PhoneNumberPage> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.blue,
-        body: ProgressHUD(
-          child: Form(
-            key: globalFormKey,
-            child: _loginUI(context),
-          ),
-          inAsyncCall: isAPIcallProcess,
-          opacity: 0.3,
-          key: UniqueKey(),
-        ),
+        body: isAPIcallProcess ?
+            CircularProgressIndicator():
+            _loginUI(context)
       ),
     );
   }
 
-  @override
   Widget _loginUI(BuildContext context) {
     return Scaffold(
       body: Stack(children: [
