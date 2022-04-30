@@ -111,7 +111,6 @@ class ChatPageController extends GetxController{
       var res = message![0];
       ReceiveMessageModel? chatmodel;
       chatmodel = ReceiveMessageModel.fromJson(res);
-
       chats.add(chatmodel);
       update();
     });

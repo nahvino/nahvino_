@@ -48,6 +48,12 @@ dependencies:
   chat_bubbles: ^1.2.0
   flutter_chat_bubble: ^2.0.0
   share_plus: ^4.0.4
+  firebase_core: any
+  firebase_messaging: ^10.0.0
+
+
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

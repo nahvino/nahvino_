@@ -54,6 +54,11 @@ class _ViewProfileState extends State<ViewProfile> {
     "9"
   ];
 
+  List<Widget> ranksadadA = <Widget>[
+    Lottie.asset('assets/anim/phonix.json'),
+    Lottie.asset('assets/anim/phonix-die.json'),
+  ];
+
   @override
   void initState() {
     super.initState();
@@ -99,178 +104,6 @@ class _ViewProfileState extends State<ViewProfile> {
       ),
     );
   }
-
-  // ViewProfileUI(BuildContext context) {
-  //   return Stack(
-  //     children: [
-  //       Column(
-  //         children: [
-  //           Row(
-  //             mainAxisAlignment: MainAxisAlignment.start,
-  //             children: [
-  //               Container(
-  //                 height: 49,
-  //                 alignment: Alignment.topLeft,
-  //                 child: PopupMenuButton<int>(
-  //                   itemBuilder: (context) => [
-  //                     PopupMenuItem(
-  //                       value: 0,
-  //                       child: Row(
-  //                         mainAxisSize: MainAxisSize.max,
-  //                         mainAxisAlignment: MainAxisAlignment.end,
-  //                         children: [
-  //                           Text(
-  //                             "تنظیمات امنیتی",
-  //                             textAlign: TextAlign.right,
-  //                           ),
-  //                           const SizedBox(
-  //                             width: 7,
-  //                           ),
-  //                           Icon(
-  //                             Icons.security,
-  //                             color: Colors.cyan,
-  //                           ),
-  //                         ],
-  //                       ),
-  //                     ),
-  //                     PopupMenuDivider(),
-  //                     PopupMenuItem(
-  //                       value: 1,
-  //                       child: Row(
-  //                         mainAxisAlignment: MainAxisAlignment.end,
-  //                         children: [
-  //                           Text(
-  //                             "اعلان ها",
-  //                             textAlign: TextAlign.right,
-  //                           ),
-  //                           const SizedBox(
-  //                             width: 7,
-  //                           ),
-  //                           Icon(
-  //                             Icons.notifications,
-  //                             color: Colors.cyan,
-  //                           ),
-  //                         ],
-  //                       ),
-  //                     ),
-  //                     PopupMenuDivider(),
-  //                     PopupMenuDivider(),
-  //                     PopupMenuItem(
-  //                       child: Row(
-  //                         mainAxisAlignment: MainAxisAlignment.end,
-  //                         children: [
-  //                           Text(
-  //                             "کد شما جهت معرفی عضو جدید",
-  //                             textAlign: TextAlign.center,
-  //                           ),
-  //                           const SizedBox(
-  //                             width: 7,
-  //                           ),
-  //                         ],
-  //                       ),
-  //                     ),
-  //                     PopupMenuItem(
-  //                       value: 2,
-  //                       child: Row(
-  //                         mainAxisAlignment: MainAxisAlignment.center,
-  //                         children: [
-  //                           Icon(
-  //                             Icons.share,
-  //                             color: Colors.cyan,
-  //                           ),
-  //                           SizedBox(
-  //                             width: 8,
-  //                           ),
-  //                           Text(
-  //                             "54586",
-  //                             textAlign: TextAlign.center,
-  //                           ),
-  //                           const SizedBox(
-  //                             width: 7,
-  //                           ),
-  //                         ],
-  //                       ),
-  //                     ),
-  //                   ],
-  //                   onSelected: (item) => onSelected(context, item),
-  //                 ),
-  //
-  //                 /*IconButton(
-  //              icon: Icon(Icons.menu_sharp),
-  //              onPressed: (){
-  //              },*/
-  //               ),
-  //             ],
-  //           ),
-  //         ],
-  //       ),
-  //       Column(
-  //         mainAxisAlignment: MainAxisAlignment.start,
-  //         children: [
-  //           Container(
-  //             padding: EdgeInsets.only(top: 10, right: 5),
-  //             height: 100,
-  //             alignment: Alignment.topRight,
-  //             child: ProfileImage(),
-  //           ),
-  //         ],
-  //       ),
-  //       Column(
-  //         children: [
-  //           Padding(
-  //               padding: EdgeInsets.only(
-  //                 left: MediaQuery.of(context).size.height * 0.32,
-  //               ),
-  //               child: isApiCallProgress
-  //                   ? Text("${resultResponse['nameAlias']}")
-  //                   : CircularProgressIndicator()
-  //             //Text("${resultResponse['userName']}"),
-  //           ),
-  //           Padding(
-  //             padding: EdgeInsets.only(
-  //                 left: MediaQuery.of(context).size.height * 0.32),
-  //             child: SizedBox(
-  //                 height: 30,
-  //                 width: 50,
-  //                 child: Image.asset('assets/images/nahvino_logo.png')),
-  //           ),
-  //         ],
-  //       ),
-  //       Container(
-  //         padding: EdgeInsets.only(top: 115, right: 15),
-  //         alignment: Alignment.topRight,
-  //         child: Text("محل قرار گیری بیو"),
-  //       ),
-  //       Container(
-  //         padding: EdgeInsets.only(top: 150),
-  //         child: Buttonfull(
-  //             text: "ویرایش پروفایل",
-  //             onPressed: () {
-  //               Navigator.push(context,
-  //                   MaterialPageRoute(builder: (context) => EditProfile()));
-  //             }),
-  //       ),
-  //       Container(
-  //           alignment: Alignment.center,
-  //           padding: EdgeInsets.only(
-  //             top: MediaQuery.of(context).size.height * 0.15,
-  //           ),
-  //           child: Lottie.asset('assets/anim/data.json')),
-  //       Container(
-  //         padding: EdgeInsets.only(
-  //           top: MediaQuery.of(context).size.height * 0.79,
-  //         ),
-  //         child: Buttonfull(
-  //             text: "تاریخ آغاز ترک خود را وراد کنید",
-  //             onPressed: () {
-  //               Navigator.push(context,
-  //                   MaterialPageRoute(builder: (context) => EditProfile()));
-  //             }),
-  //       ),
-  //     ],
-  //   );
-  // }
-
   Widget body(BuildContext context) => SingleChildScrollView(
     child: Column(
           children: [
@@ -611,7 +444,7 @@ class _ViewProfileState extends State<ViewProfile> {
                   children: [
                     Container(
                       alignment: Alignment.center,
-                      child: Lottie.asset('assets/anim/phonix_storok.json'),
+                      child: ranksadadA[resultResponsee['data']],
                     ),
                     Buttonfull(
                       text: AppLocalizations.of(context)!

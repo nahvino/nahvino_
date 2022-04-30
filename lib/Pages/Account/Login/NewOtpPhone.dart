@@ -82,8 +82,7 @@ class _OtpPhoneNewState extends State<OtpPhoneNew> {
 
                       if (response != false) {
                         apiService.showSnackBar(
-                            text: response['message'] ??
-                                "پسورد شما با موفقیت تغییر کرد");
+                            text: response['message']);
                         Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(

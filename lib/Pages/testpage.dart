@@ -26,7 +26,7 @@ class _TestPageState extends State<TestPage> {
 
   body(BuildContext context) {
     return Column(children: [
-      TextRegister(controller: test, hint: 'تست', icon: Icon(Icons.person), suffixIcon: null, prefixIcon: null, ),
+      TextPassReAndLog(controller: test, hint: 'تست', icon: Icon(Icons.person), suffixIcon: null, prefixIcon: null, ),
       SttingMenusButton(onPressed: () {  }, icon: Icon(Icons.phone_android,color: Colors.white,), text: 'موبایل'),
       SttingMenusButton(onPressed: () {  }, icon: Icon(Icons.lock,color: Colors.white,), text: 'تغییر رمز عبور'),
       SttingMenusButton(onPressed: () {  }, icon: Icon(Icons.phonelink_setup,color: Colors.white,), text: 'تغییر شماره تلفن'),

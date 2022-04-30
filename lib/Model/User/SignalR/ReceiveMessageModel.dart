@@ -10,6 +10,7 @@ class ReceiveMessageModel {
     required this.parentMessageText,
     required this.userId,
     required this.text,
+    //required this.insertTime,
 
   });
   int? id;

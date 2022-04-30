@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -7,6 +9,7 @@ import '../../../Services/Login/ApiService.dart';
 import '../../../Utils/Button/Button.dart';
 import '../../../Utils/Button/TextField.dart';
 import '../../../Utils/Widget/Text.dart';
+import '../../../controllers/getx/NewRegisterController.dart';
 import '../User/ViewProfile.dart';
 import 'AddIntroduced.dart';
 import 'CodeOtpPhoneNew.dart';
@@ -21,6 +24,10 @@ class NewRegister extends StatefulWidget {
 }
 
 class _NewRegisterState extends State<NewRegister> {
+
+  NewRegisterController newRegisterController = Get.put(NewRegisterController());
+
+
   List<DropdownMenuItem<String>> listDrap = [];
   void securityQuestion() {
     listDrap = [];
@@ -72,38 +79,46 @@ class _NewRegisterState extends State<NewRegister> {
           }),
         ),
       ),
-      body: isApiCallProcess
-          ? Center(
-        child: Lottie.asset('assets/anim/login/submit-application-successfully.json',
-            height: 300, width: 300),
-      )
-          : SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Center(
-                child: Lottie.asset('assets/anim/login/contract.json',
-                    height: 150, width: 150),
-              ),
-              TextOtpPhone(
-                icon: Icon(Icons.person),
-                suffixIcon: null,
-                prefixIcon: null,
-                hint: AppLocalizations.of(context)!.translate(
-                  'username',
-                )!,
-                controller: usernameController,
-              ),
-              TextOtpPhone(
-                icon: Icon(Icons.lock),
-                suffixIcon: null,
-                prefixIcon: null,
-                hint: AppLocalizations.of(context)!.translate(
-                  'Password',
-                )!,
-                controller: passwordController,
-              ),
-              DropdownButton(
+      body:Obx(() =>
+        isApiCallProcess
+            ? Center(
+          child: Lottie.asset('assets/anim/login/submit-application-successfully.json',
+              height: 300, width: 300),
+        )
+            : SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Center(
+                  child: Lottie.asset('assets/anim/login/contract.json',
+                      height: 150, width: 150),
+                ),
+                TextOtpPhone(
+                  icon: Icon(Icons.person),
+                  suffixIcon: null,
+                  prefixIcon: null,
+                  hint: AppLocalizations.of(context)!.translate(
+                    'username',
+                  )!,
+                  controller: usernameController,
+                ),
+                TextPassReAndLog(
+                  icon: Icon(Icons.lock),
+                  passwordInVisible: newRegisterController.obscurePasswordVisibility.value,
+                  suffix: IconButton(onPressed: () {
+                    newRegisterController.obscurePasswordVisibility.value =
+                        !newRegisterController.obscurePasswordVisibility.value;
+                  },
+                      icon: Icon(
+                          newRegisterController.obscurePasswordVisibility == true
+                              ? Icons.visibility_off
+                              : Icons.visibility)),
+                  hint: AppLocalizations.of(context)!.translate(
+                    'Password',
+                  )!,
+                  controller: passwordController,
+                ),
+                DropdownButton(
                     hint: Text(
                       AppLocalizations.of(context)!.translate(
                         'sAnswer',
@@ -117,57 +132,58 @@ class _NewRegisterState extends State<NewRegister> {
                       });
                     }),
 
-              TextOtpPhone(
-                icon: Icon(Icons.security),
-                suffixIcon: null,
-                prefixIcon: null,
-                hint: AppLocalizations.of(context)!.translate(
-                  'sqAnswer',
-                )!,
-                controller: sqAnswerController,
-              ),
-              Buttontest(
-                  text: AppLocalizations.of(context)!.translate(
-                    'OK',
+                TextOtpPhone(
+                  icon: Icon(Icons.security),
+                  suffixIcon: null,
+                  prefixIcon: null,
+                  hint: AppLocalizations.of(context)!.translate(
+                    'sqAnswer',
                   )!,
-                  onPressed: () {
-                    if (usernameController.text.isEmpty) {
-                      apiService.showSnackBar(text: "filed is empty!");
-                      return;
-                    }
-
-                    setState(() {
-                      isApiCallProcess = true;
-                    });
-
-                    apiService
-                        .NewRegister(
-                        usernameController.text,passwordController.text,securityQuestionselected as String,sqAnswerController.text)
-                        .then((response) async {
-                      if (response != false) {
-                        logindata = await SharedPreferences.getInstance();
-                        await logindata.setString(
-                            "token", response['data']['userToken']['token']);
-                        await logindata.setString("userId", response['data']['id']);
-
-                        apiService.showSnackBar(
-                            text: response['message'] ??
-                                "پسورد شما با موفقیت تغییر کرد");
-                        Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>AddIntroduced()),
-                              (route) => false,
-                        );
-                      } else {
-                        apiService.showSnackBar(
-                            text: response['message'] ?? "sdd");
+                  controller: sqAnswerController,
+                ),
+                Buttontest(
+                    text: AppLocalizations.of(context)!.translate(
+                      'OK',
+                    )!,
+                    onPressed: () {
+                      if (usernameController.text.isEmpty) {
+                        apiService.showSnackBar(text: "filed is empty!");
+                        return;
                       }
-                    });
+
+                      setState(() {
+                        isApiCallProcess = true;
+                      });
+
+                      apiService
+                          .NewRegister(
+                          usernameController.text,passwordController.text,securityQuestionselected as String,sqAnswerController.text)
+                          .then((response) async {
+                        if (response != false) {
+                          logindata = await SharedPreferences.getInstance();
+                          await logindata.setString(
+                              "token", response['data']['userToken']['token']);
+                          await logindata.setString("userId", response['data']['id']);
+
+                          apiService.showSnackBar(
+                              text: response['message'] ??
+                                  "پسورد شما با موفقیت تغییر کرد");
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>AddIntroduced()),
+                                (route) => false,
+                          );
+                        } else {
+                          apiService.showSnackBar(
+                              text: response['message'] ?? "sdd");
+                        }
+                      });
 
 
-                  }),
-            ],
+                    }),
+              ],
+            ),
           ),
         ),
       ),

@@ -5,6 +5,7 @@ import 'package:chat_bubbles/bubbles/bubble_special_three.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_chat_bubble/bubble_type.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_1.dart';
@@ -91,6 +92,11 @@ class Chatpage extends StatelessWidget {
             Expanded(
                 child: TextField(
               controller: chatPageController.chatEditController,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.deny(
+                        RegExp(r'(کیر|کص|جنده|کصکش)', caseSensitive: false),
+                        replacementString: '')
+                  ],
             )),
             IconButton(
                 icon: Icon(Icons.send),
@@ -160,8 +166,8 @@ class Chatpage extends StatelessWidget {
     //DateTime dateTime = DateTime.parse(chat.insertTime.toString());
     var time;
     //var dateFormat = DateFormat(chat.insertTime.toString()).toString();
-    DateTime dateTime = DateTime.parse(chat.insertTime.toString());
-    String ti = DateFormat('kk:mm').format(dateTime);
+   // DateTime dateTime = DateTime.parse(chat.insertTime.toString());
+ //   String ti = DateFormat('kk:mm').format(dateTime);
 
     //time.DateFormat("h:mm a").format(dateTime).toString();
     bool fromMe = chat.userId == chatPageController.myUserId;
@@ -261,7 +267,7 @@ class Chatpage extends StatelessWidget {
                       padding: EdgeInsets.only(right: 5, left: 5),
                       child: Footnate(
                         color: Colors.black,
-                        text: ti,
+                        text: chat.insertTime.toString(),
                         textAlign: TextAlign.left,
                       ),
                     ),
@@ -361,7 +367,7 @@ class Chatpage extends StatelessWidget {
                       padding: EdgeInsets.only(right: 5, left: 5),
                       child: Footnate(
                         color: Colors.black,
-                        text: ti,
+                        text: chat.insertTime.toString(),
                         textAlign: TextAlign.left,
                       ),
                     ),
@@ -371,10 +377,6 @@ class Chatpage extends StatelessWidget {
             ),
 
     ),
-
-
-
-
         /*
         Card(
           clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -509,62 +511,4 @@ class Chatpage extends StatelessWidget {
     }
   }
 
-/* @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    return SafeArea(
-      child: Column(
-        children: [
-          Container(
-            child: Buttonfull(
-                text: AppLocalizations.of(context)!
-                    .translate('Date_of_departure')!,
-                onPressed: () {
-                  if(model == null){
-                    return;
-                  }
-
-
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => AboutGroup(model: model!)));
-                },
-                color: Colors.white),
-          ),
-        ],
-      ),
-    );
-  }*/
-/*
-  int currentUserId = 0;
-  //generate random user id
-  createRandomId() {
-    Random random = Random();
-    currentUserId = random.nextInt(999999);
   }
-
-  ScrollController chatListScrollController = new ScrollController();
-  TextEditingController messageTextController = TextEditingController();
-
-  submitMessageFunction() async {
-    var messageText = removeMessageExtraChar(messageTextController.text);
-    await connection.invoke('SendMessage',
-        args: [currentUserId, messageText]);
-    messageTextController.text = "";
-
-    Future.delayed(const Duration(milliseconds: 500), () {
-      chatListScrollController.animateTo(
-          chatListScrollController.position.maxScrollExtent,
-          duration: Duration(milliseconds: 500),
-          curve: Curves.ease);
-    });
-*/
-}
-
-/*
-Future<void> GetGroupSignalRConnection() async {
-  connection.on('GetGroup', (message) {
-    print(message.toString());
-  });
-}*/

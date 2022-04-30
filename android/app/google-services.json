@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "721961416036",
+    "project_id": "nahvino-59543",
+    "storage_bucket": "nahvino-59543.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:721961416036:android:8378cf6ec74bfede817671",
+        "android_client_info": {
+          "package_name": "com.app.nahvino"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "721961416036-jf6nfh4os98ui650frcnfc0adbicn6it.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.nahvino",
+            "certificate_hash": "f434e0ddf2e5e0b9f12c490acd6727dfeff4df27"
+          }
+        },
+        {
+          "client_id": "721961416036-rj10dcgvmvi93t11dlbhr4o1qd1cqf47.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOP8uKnjeLCtsQejmHs-PZEgvzYUZbzRM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "721961416036-rj10dcgvmvi93t11dlbhr4o1qd1cqf47.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
