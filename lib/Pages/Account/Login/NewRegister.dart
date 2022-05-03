@@ -170,8 +170,11 @@ class _NewRegisterState extends State<NewRegister> {
                         await logindata.setString("userId", response['data']['id']);
 
                         apiService.showSnackBar(
-                            text: response['message'] ??
-                                "پسورد شما با موفقیت تغییر کرد");
+                            text: AppLocalizations.of(context)!
+                                .translate(
+                              'Welcome',
+                            )!);
+
                         Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(

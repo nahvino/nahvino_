@@ -151,7 +151,6 @@ class _NewLoginState extends State<NewLogin> {
                                 "userId", response['data']['id']);
 
                             newLoginController.apiService.showSnackBar(
-                              //Todo توکن
                                 text: AppLocalizations.of(context)!
                                     .translate(
                                   'Welcome',

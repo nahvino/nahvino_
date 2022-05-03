@@ -97,7 +97,7 @@ class _ViewProfileState extends State<ViewProfile> {
     APIService.getuserabandon().then((response) {
       print("APIService.getuserabandon => $response");
       if (response != null) {
-        resultResponseGetUserAbandon = response ?? tarikh;
+          resultResponseGetUserAbandon = response ?? tarikh;
       } else {
         setState(() {
           isApiCallProgress = false;
