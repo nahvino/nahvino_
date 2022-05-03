@@ -1,7 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:lottie/lottie.dart';
 import 'package:nahvino/Pages/Account/User/EditProfile.dart';
@@ -10,10 +15,13 @@ import 'package:persian_datetime_picker/persian_datetime_picker.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../Model/user/user/viewprofile_response_model.dart';
-import '../../../Services/login/ApiService.dart';
+import '../../../Services/Login/ApiService.dart';
 import '../../../Utils/Button/Button.dart';
+import '../../../Utils/Other/ArshadDialog.dart';
+import '../../../Utils/Other/BargDialog.dart';
 import '../../../Utils/Widget/Text.dart';
 import '../../../App_localizations.dart';
+import '../../../tabs.dart';
 import 'Notifications.dart';
 import 'UserSecuritySttingMenus.dart';
 
@@ -26,10 +34,17 @@ class ViewProfile extends StatefulWidget {
 
 class _ViewProfileState extends State<ViewProfile> {
   bool isApiCallProgress = true;
+
+
   GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
   GetProfileUserResponseModel? resultResponse;
   var resultResponsee;
+  var resultResponseGetUserAbandon;
+  late APIService apiService;
   String? imagePath;
+  String tarikh = "تاریخ";
+  String date = "1408/10/12 20:12:00";
+
   List<String> ranks = <String>[
     "مبتدی",
     "رهجو",
@@ -62,7 +77,7 @@ class _ViewProfileState extends State<ViewProfile> {
   @override
   void initState() {
     super.initState();
-
+    apiService = APIService(context);
     Future.microtask(() {
       APIService.getprofileuser().then((response) {
         print("APIService.getprofileuser => $response");
@@ -78,13 +93,18 @@ class _ViewProfileState extends State<ViewProfile> {
         print(error);
       });
     });
-/*
-    APIService.GetUserAbandon().then((response) {
-      setState(() {
-        isApiCallProgress = false;
-        resultResponsee = response;
-      });
-    });*/
+
+    APIService.getuserabandon().then((response) {
+      print("APIService.getuserabandon => $response");
+      if (response != null) {
+        resultResponseGetUserAbandon = response ?? tarikh;
+      } else {
+        setState(() {
+          isApiCallProgress = false;
+          resultResponseGetUserAbandon = response;
+        });
+      }
+    });
   }
 
   bool lang = false; // en => true / fa => false
@@ -97,15 +117,17 @@ class _ViewProfileState extends State<ViewProfile> {
         body: SafeArea(
             child: isApiCallProgress
                 ? Center(
-                    child: Lottie.asset('assets/anim/phonix_storok.json',
-                        height: 300, width: 300),
-                  )
+              child: Lottie.asset('assets/anim/phonix_storok.json',
+                  height: 300, width: 300),
+            )
                 : body(context)),
       ),
     );
   }
-  Widget body(BuildContext context) => SingleChildScrollView(
-    child: Column(
+
+  Widget body(BuildContext context) =>
+      SingleChildScrollView(
+        child: Column(
           children: [
             Card(
               margin: EdgeInsets.only(bottom: 6),
@@ -121,8 +143,11 @@ class _ViewProfileState extends State<ViewProfile> {
                           children: [
                             Container(
                               padding: EdgeInsets.only(
-                                  right:
-                                      MediaQuery.of(context).size.height * 0.03),
+                                  right: MediaQuery
+                                      .of(context)
+                                      .size
+                                      .height *
+                                      0.03),
                               child: textbold(
                                 textAlign: TextAlign.right,
                                 text: resultResponse!.userName ?? "Guest",
@@ -134,12 +159,14 @@ class _ViewProfileState extends State<ViewProfile> {
                               height: 30,
                               child: PopupMenuButton<int>(
                                 icon: Icon(Icons.menu),
-                                itemBuilder: (context) => [
+                                itemBuilder: (context) =>
+                                [
                                   PopupMenuItem(
                                     value: 0,
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.start,
                                       children: [
                                         Icon(
                                           Icons.security,
@@ -163,7 +190,8 @@ class _ViewProfileState extends State<ViewProfile> {
                                   PopupMenuItem(
                                     value: 1,
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.start,
                                       children: [
                                         Icon(
                                           Icons.notifications,
@@ -186,7 +214,8 @@ class _ViewProfileState extends State<ViewProfile> {
                                   PopupMenuDivider(height: 1),
                                   PopupMenuItem(
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.center,
                                       children: [
                                         Caption1(
                                           textAlign: TextAlign.center,
@@ -205,7 +234,8 @@ class _ViewProfileState extends State<ViewProfile> {
                                   PopupMenuItem(
                                     value: 2,
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.center,
                                       children: [
                                         Icon(
                                           Icons.share,
@@ -230,7 +260,8 @@ class _ViewProfileState extends State<ViewProfile> {
                                   PopupMenuItem(
                                     value: 3,
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.center,
                                       children: [
                                         textspan(
                                           textAlign: TextAlign.center,
@@ -258,47 +289,52 @@ class _ViewProfileState extends State<ViewProfile> {
                       children: [
                         Padding(
                           padding: EdgeInsets.only(
-                            bottom: MediaQuery.of(context).size.height * 0.16,
+                            bottom: MediaQuery
+                                .of(context)
+                                .size
+                                .height * 0.16,
                           ),
                         ),
-                        (resultResponse!.imageUrl != null)
+                        (resultResponse!.imageUrl != null &&
+                            resultResponse!.imageUrl != "")
                             ? Card(
-                                shape: CircleBorder(),
-                                clipBehavior: Clip.antiAliasWithSaveLayer,
-                                child: Image.network(
-                                  Config.fileurl + resultResponse!.imageUrl!,
-                                  fit: BoxFit.cover,
-                                  errorBuilder: (BuildContext context, Object exception,
-                                      StackTrace? stackTrace) {
-                                    return const Icon(Icons.person);
-                                  },
-                                  loadingBuilder: (BuildContext context,
-                                      Widget child,
-                                      ImageChunkEvent? loadingProgress) {
-                                    if (loadingProgress == null) return child;
-                                    return Center(
-                                      child: CircularProgressIndicator(
-                                        value:
-                                            loadingProgress.expectedTotalBytes !=
-                                                    null
-                                                ? loadingProgress
-                                                        .cumulativeBytesLoaded /
-                                                    loadingProgress
-                                                        .expectedTotalBytes!
-                                                : null,
-                                      ),
-                                    );
-                                  },
-                                  height: 100,
-                                  width: 100,
+                          shape: CircleBorder(),
+                          clipBehavior: Clip.antiAliasWithSaveLayer,
+                          child: Image.network(
+                            Config.fileurl + resultResponse!.imageUrl!,
+                            fit: BoxFit.cover,
+                            errorBuilder: (BuildContext context,
+                                Object exception,
+                                StackTrace? stackTrace) {
+                              return const Icon(Icons.person);
+                            },
+                            loadingBuilder: (BuildContext context,
+                                Widget child,
+                                ImageChunkEvent? loadingProgress) {
+                              if (loadingProgress == null) return child;
+                              return Center(
+                                child: CircularProgressIndicator(
+                                  value: loadingProgress
+                                      .expectedTotalBytes !=
+                                      null
+                                      ? loadingProgress
+                                      .cumulativeBytesLoaded /
+                                      loadingProgress
+                                          .expectedTotalBytes!
+                                      : null,
                                 ),
-                              )
+                              );
+                            },
+                            height: 100,
+                            width: 100,
+                          ),
+                        )
                             : Image.asset(
-                                'assets/images/home/user.png',
-                                fit: BoxFit.cover,
-                                height: 100,
-                                width: 100,
-                              ),
+                          'assets/images/home/user.png',
+                          fit: BoxFit.cover,
+                          height: 100,
+                          width: 100,
+                        ),
                         SizedBox(
                           width: 30,
                         ),
@@ -316,19 +352,16 @@ class _ViewProfileState extends State<ViewProfile> {
                               width: 80,
                               height: 30,
                               decoration: new BoxDecoration(
-                                borderRadius: new BorderRadius.circular(8.0),
+                                  borderRadius: new BorderRadius.circular(8.0),
                                   border: Border.all(
-                                      color: Colors.black26, width: 1)
-                              ),
+                                      color: Colors.black26, width: 1)),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Container(
                                     height: 20,
                                     width: 20,
-                                    padding:
-
-                                    EdgeInsets.only(
+                                    padding: EdgeInsets.only(
                                       right: 6,
                                       left: 1,
                                       bottom: 2,
@@ -361,10 +394,21 @@ class _ViewProfileState extends State<ViewProfile> {
                         ),
                         Column(
                           children: [
-                            Image(
-                              height: 30,
-                              image: AssetImage("assets/images/home/bbarg.png"),
-                            ),
+                            InkWell(
+                                child: Image(
+                                  height: 30,
+                                  image: AssetImage(
+                                      "assets/images/home/bbarg.png"),
+                                ),
+                                onTap: () {
+
+                                  showDialog<void>(
+                                      context: context,
+                                      builder: (context) => BargDialog(
+                                            test: resultResponse!.score
+                                                .toString(),
+                                          ));
+                                }),
                             SizedBox(
                               height: 4,
                             ),
@@ -380,14 +424,23 @@ class _ViewProfileState extends State<ViewProfile> {
                         ),
                         Column(
                           children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle, color: Colors.black12),
-                              height: 30,
-                              width: 30,
-                              child: Image(
-                                  image:
-                                      AssetImage("assets/images/ram/man1.jpg")),
+                            InkWell(
+                              onTap: () {
+
+                                showDialog<void>(
+                                    context: context,
+                                    builder: (context) => ArshadDialog());
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.black12),
+                                height: 30,
+                                width: 30,
+                                child: Image(
+                                    image: AssetImage(
+                                        "assets/images/ram/man1.jpg")),
+                              ),
                             ),
                             SizedBox(
                               height: 4,
@@ -406,9 +459,18 @@ class _ViewProfileState extends State<ViewProfile> {
                     ),
                     Padding(
                       padding: EdgeInsets.only(
-                        right: MediaQuery.of(context).size.height * 0.03,
-                        bottom: MediaQuery.of(context).size.height * 0.02,
-                        top: MediaQuery.of(context).size.height * 0.01,
+                        right: MediaQuery
+                            .of(context)
+                            .size
+                            .height * 0.03,
+                        bottom: MediaQuery
+                            .of(context)
+                            .size
+                            .height * 0.02,
+                        top: MediaQuery
+                            .of(context)
+                            .size
+                            .height * 0.01,
                       ),
                       child: textspan(
                         text: resultResponse!.bio ?? "empty bio",
@@ -446,33 +508,7 @@ class _ViewProfileState extends State<ViewProfile> {
                       alignment: Alignment.center,
                       child: ranksadadA[resultResponsee['data']],
                     ),
-                    Buttonfull(
-                      text: AppLocalizations.of(context)!
-                          .translate('Date_of_departure')!,
-                      onPressed: () async {
-                        Jalali? picked = await showPersianDatePicker(
-                          context: context,
-                          initialDate: Jalali.now(),
-                          firstDate: Jalali(1320, 1),
-                          lastDate: Jalali(1450, 1),
-                        );
 
-                        print(picked!.formatCompactDate());
-
-                        var time = await showPersianTimePicker(
-                          context: context,
-                          initialTime: TimeOfDay.now(),
-                        );
-                        final berlinWallFell = picked.toDateTime();
-                        berlinWallFell.toUtc();
-                        print(berlinWallFell.toString());
-                        print(time.toString());
-                        String formattedDate =
-                            intl.DateFormat('').format(berlinWallFell);
-                        print(formattedDate);
-                      },
-                      color: Colors.white,
-                    )
                   ],
                 ),
               ),
@@ -483,24 +519,70 @@ class _ViewProfileState extends State<ViewProfile> {
                 padding: const EdgeInsets.all(12.0),
                 child: Column(
                   children: [
-                    Container(
-                      alignment: Alignment.center,
-                      padding: EdgeInsets.only(
-                        top: MediaQuery.of(context).size.height * 0.0,
-                      ),
-                      child: textspan(
-                        text: resultResponsee['data'].toString(),
-                        color: Colors.black,
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
+                    Body(textAlign: TextAlign.center,
+                      color: Colors.cyan,
+                      text: resultResponseGetUserAbandon['data'] ?? tarikh,),
+                    Buttonfull(
+                      text: AppLocalizations.of(context)!
+                          .translate('Date_of_departure')!,
+                      onPressed: () async {
+                        Jalali? picked = await showPersianDatePicker(
+                          context: context,
+                          initialDate: Jalali.now(),
+                          firstDate: Jalali(1320, 1),
+                          lastDate: Jalali(1450, 1),
+
+                        );
+                        print(picked!.formatCompactDate());
+                        /*var time = await showPersianTimePicker(
+                          context: context,
+                          initialTime: TimeOfDay.now(),
+                        );*/
+                        final berlinWallFell = picked.formatCompactDate();
+                        //berlinWallFell.toUtc();
+                        //print(berlinWallFell.toString());
+                        //print(time.toString());
+                        //String formattedDate = time.toString()+berlinWallFell.toString();
+
+                        // final output = time.replaceAll(RegExp('[^0-9]'));
+                        // setState(() {
+                        //   time = output as TimeOfDay?;
+                        // });
+                        // print(output.toString());
+
+                        // String formattedDate =intl.DateFormat.yMMMd().format(time) as TimeOfDay; +berlinWallFell;
+                        //print(formattedDate);    // apiService.AddOrEditUserAbandon()
+
+
+                        apiService.AddOrEditUserAbandon(berlinWallFell)
+                            .then((response) async {
+                          setState(() {
+                            isApiCallProgress = false;
+                          });
+                          if (response != false) {
+                            apiService.showSnackBar(
+                                text: response['message']);
+                            setState(() {
+                              isApiCallProgress = false;
+                              Get.offAll(MyTabs());
+                            });
+                          } else {
+                            apiService.showSnackBar(
+                                text: response['message']);
+                          }
+                        });
+
+                      },
+                      color: Colors.white,
+                    )
+
                   ],
                 ),
               ),
             ),
           ],
         ),
-  );
+      );
 
   void onSelected(BuildContext context, int item) {
     switch (item) {
@@ -513,51 +595,52 @@ class _ViewProfileState extends State<ViewProfile> {
             context, MaterialPageRoute(builder: (context) => Notifications()));
         break;
       case 2:
-       /* Share.share('اشتراک گذاری کد معرف', subject: resultResponse!.identifierCode
+      /* Share.share('اشتراک گذاری کد معرف', subject: resultResponse!.identifierCode
             .toString() );*/
-        Share.share(resultResponse!.identifierCode
-            .toString());
+        Share.share(resultResponse!.identifierCode.toString());
 
         break;
       case 3:
         showDialog<String>(
           context: context,
-          builder: (BuildContext context) => AlertDialog(
-              title: Text(AppLocalizations.of(context)!.translate(
-                'apptitle',
-              )!),
-              content: Text(AppLocalizations.of(context)!.translate(
-                'quExit',
-              )!),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () => Navigator.pop(
-                      context,
-                      AppLocalizations.of(context)!.translate(
-                        'Cancel',
-                      )!),
-                  child: Text(
-                    AppLocalizations.of(context)!.translate(
-                      'Cancel',
-                    )!,
-                  ),
-                ),
-                TextButton(
-                  onPressed: () async {
-                    final preferences = await SharedPreferences.getInstance();
-                    await preferences.clear();
-                    Future.delayed(const Duration(milliseconds: 1000), () {
-                      exit(0);
-                    });
-                  },
-                  child: Text(AppLocalizations.of(context)!.translate(
-                    'OK',
+          builder: (BuildContext context) =>
+              AlertDialog(
+                  title: Text(AppLocalizations.of(context)!.translate(
+                    'apptitle',
                   )!),
-                ),
-              ]),
+                  content: Text(AppLocalizations.of(context)!.translate(
+                    'quExit',
+                  )!),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () =>
+                          Navigator.pop(
+                              context,
+                              AppLocalizations.of(context)!.translate(
+                                'Cancel',
+                              )!),
+                      child: Text(
+                        AppLocalizations.of(context)!.translate(
+                          'Cancel',
+                        )!,
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () async {
+                        final preferences = await SharedPreferences
+                            .getInstance();
+                        await preferences.clear();
+                        Future.delayed(const Duration(milliseconds: 1000), () {
+                          exit(0);
+                        });
+                      },
+                      child: Text(AppLocalizations.of(context)!.translate(
+                        'OK',
+                      )!),
+                    ),
+                  ]),
         );
         break;
     }
   }
-
 }

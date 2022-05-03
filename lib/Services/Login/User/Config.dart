@@ -27,4 +27,7 @@ class Config {
       "/api/v1/Account/CheckCodeChangePhoneNumber";
   static const String CheckCodeSetPhoneNumber =
       "/api/v1/Account/CheckCodeSetPhoneNumber";
+  static const String EditUserAbandon =
+      "/api/v1/Account/AddOrEditUserAbandon";
+
 }

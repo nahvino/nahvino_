@@ -33,6 +33,11 @@ class APIService {
     switch (data['statusCode']) {
       case 200:
         return true;
+    //  {
+    //    showSnackBar(text: data['message'] ?? "Token not send or expired!");
+    //     break;
+    //  }
+
       case 401:
         {
           showSnackBar(text: data['message'] ?? "Token not send or expired!");
@@ -60,9 +65,9 @@ class APIService {
   void showSnackBar({required String text}) {
     //ScaffoldMessenger.of(_context).showSnackBar(SnackBar(content: Text(text)));
     Get.snackbar(
-        AppLocalizations.of(_context)!.translate(
-          'Pandect_snackbar_TiTle',
-        )!,
+      AppLocalizations.of(_context)!.translate(
+        'Pandect_snackbar_TiTle',
+      )!,
       text,
       icon: Icon(Icons.notifications, color: Colors.white),
       snackPosition: SnackPosition.TOP,
@@ -70,9 +75,7 @@ class APIService {
   }
 
   /*login--- static*/
-  static Future login(
-    LoginRequestModel model,
-  ) async {
+  static Future login(LoginRequestModel model,) async {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
     };
@@ -124,9 +127,7 @@ class APIService {
   }
 */
 
-  static Future register(
-    RegisterRequestModel model,
-  ) async {
+  static Future register(RegisterRequestModel model,) async {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
     };
@@ -149,9 +150,7 @@ class APIService {
     }
   }
 
-  static Future<bool> otpphone(
-    OtpRequestModel model,
-  ) async {
+  static Future<bool> otpphone(OtpRequestModel model,) async {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
     };
@@ -194,9 +193,7 @@ class APIService {
 */
 
   /*otpvrifay*/
-  static Future otpvrifay(
-    OtpRequestCodeModel model,
-  ) async {
+  static Future otpvrifay(OtpRequestCodeModel model,) async {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
     };
@@ -249,8 +246,7 @@ class APIService {
   }*/
 
   static Future<ResendCodeResponseModel> resendcode(
-    ResendCodeRequestModel model,
-  ) async {
+      ResendCodeRequestModel model,) async {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
     };
@@ -267,8 +263,7 @@ class APIService {
   }
 
   static Future checkquestionanswer(
-    CheckQuestionAnswerRequestModel model,
-  ) async {
+      CheckQuestionAnswerRequestModel model,) async {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
     };
@@ -293,8 +288,7 @@ class APIService {
   }
 
   static Future<ResetpasswordResponseModel> repassword(
-    ResetpasswordRequestModel model,
-  ) async {
+      ResetpasswordRequestModel model,) async {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
     };
@@ -356,11 +350,33 @@ class APIService {
     }
   }
 
-  static Future GetUserAbandon() async {
+/*
+  static Future getuserabandon() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
       'Authorization': "Bearer ${await preferences.getString("token")}"
+    };
+    var url = Uri.parse(Config.baseURL + Config.GetUserAbandon);
+    var response = await client.post(
+      url,
+      headers: requestHeaders,
+      body: jsonEncode(
+          {"userId": await preferences.getString("userId"),}),
+    );
+    debugPrint(response.body.toString());
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    } else {
+      return false;
+    }
+  }
+*/
+  static Future getuserabandon() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer ${ await preferences.getString("token")}"
     };
     var url = Uri.parse(Config.baseURL + Config.GetUserAbandon);
     var response = await client.post(
@@ -496,7 +512,7 @@ class APIService {
     );
 
     var multipartFile =
-        await http.MultipartFile.fromPath('ImageFile', imagePath);
+    await http.MultipartFile.fromPath('ImageFile', imagePath);
     request.files.add(multipartFile);
     http.StreamedResponse response = await request.send();
     final respStr = await response.stream.bytesToString();
@@ -557,8 +573,8 @@ class APIService {
     }
   }
 
-  Future ChangePhoneNumber(
-      String currentPhoneNumber, String newPhoneNumber) async {
+  Future ChangePhoneNumber(String currentPhoneNumber,
+      String newPhoneNumber) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
@@ -582,8 +598,8 @@ class APIService {
     }
   }
 
-  Future CheckCodeChangePhoneNumber(
-      String currentPhoneNumber, String newPhoneNumber, int code) async {
+  Future CheckCodeChangePhoneNumber(String currentPhoneNumber,
+      String newPhoneNumber, int code) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
@@ -608,8 +624,6 @@ class APIService {
     }
   }
 
-
-
   Future OtpPhone(String OtpPhoneController) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     Map<String, String> requestHeaders = {
@@ -630,7 +644,7 @@ class APIService {
     return false;
   }
 
-  Future OtpCodePhone(String OtpPhoneController ,int OtpCodeController) async {
+  Future OtpCodePhone(String OtpPhoneController, int OtpCodeController) async {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
     };
@@ -638,10 +652,8 @@ class APIService {
     var response = await client.post(
       url,
       headers: requestHeaders,
-      body: jsonEncode({
-        "phoneNumber": OtpPhoneController,
-        "code": OtpCodeController
-      }),
+      body: jsonEncode(
+          {"phoneNumber": OtpPhoneController, "code": OtpCodeController}),
     );
     debugPrint(response.body.toString());
     if (validateResponse(response)) {
@@ -650,8 +662,10 @@ class APIService {
     return false;
   }
 
-
-  Future NewRegister(String usernameController ,String passwordController ,String securityQuestionselected ,String sqAnswerController ,) async {
+  Future NewRegister(String usernameController,
+      String passwordController,
+      String securityQuestionselected,
+      String sqAnswerController,) async {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
     };
@@ -673,8 +687,7 @@ class APIService {
     return false;
   }
 
-
-  Future NewLogin(String userNameController ,String passwordController) async {
+  Future NewLogin(String userNameController, String passwordController) async {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
     };
@@ -682,10 +695,8 @@ class APIService {
     var response = await client.post(
       url,
       headers: requestHeaders,
-      body: jsonEncode({
-        "userName": userNameController,
-        "password": passwordController
-      }),
+      body: jsonEncode(
+          {"userName": userNameController, "password": passwordController}),
     );
     debugPrint(response.body.toString());
     if (validateResponse(response)) {
@@ -694,7 +705,9 @@ class APIService {
     return false;
   }
 
-  Future NewCheckQuestionAnswer(String usernameController ,String securityQuestionselected ,String sqAnswerController ,) async {
+  Future NewCheckQuestionAnswer(String usernameController,
+      String securityQuestionselected,
+      String sqAnswerController,) async {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
     };
@@ -714,8 +727,8 @@ class APIService {
     }
     return false;
   }
-  Future NewResetPassword(
-      String data, String passwordController) async {
+
+  Future NewResetPassword(String data, String passwordController) async {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
     };
@@ -723,10 +736,8 @@ class APIService {
     var response = await client.post(
       url,
       headers: requestHeaders,
-      body: jsonEncode({
-        "id": data.toString(),
-        "newPassword": passwordController
-      }),
+      body: jsonEncode(
+          {"id": data.toString(), "newPassword": passwordController}),
     );
     debugPrint(response.body.toString());
     if (validateResponse(response)) {
@@ -754,4 +765,59 @@ class APIService {
     }
     return false;
   }
+
+  Future AddOrEditUserAbandon(String date) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer ${await preferences.getString("token")}"
+    };
+    var url = Uri.parse(Config.baseURL + Config.EditUserAbandon);
+    var response = await client.post(
+      url,
+      headers: requestHeaders,
+      body: jsonEncode(
+          {"userId": await preferences.getString("userId"), "dateTime": date}),
+    );
+
+    debugPrint(response.body.toString());
+    if (validateResponse(response)) {
+      return json.decode(response.body);
+    } else {
+      return false;
+    }
+
+
+    /* debugPrint(response.body.toString());
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    } else {
+      return false;
+    }*/
+  }
+
+
+//  Future getuserabndan() async {
+//   SharedPreferences preferences = await SharedPreferences.getInstance();
+//   Map<String, String> requestHeaders = {
+//     'Content-Type': 'application/json',
+//     'Authorization': "Bearer ${await preferences.getString("token")}"
+//   };
+//   var url = Uri.parse(Config.baseURL + Config.GetUserAbandon);
+//   var response = await client.post(
+//     url,
+//     headers: requestHeaders,
+//     body: jsonEncode(
+//         {"userId": await preferences.getString("userId"),}),
+//   );
+//
+//   debugPrint(response.body.toString());
+//   if (validateResponse(response)) {
+//     return json.decode(response.body);
+//   }
+//   return false;
+//
+// }
+
 }
+

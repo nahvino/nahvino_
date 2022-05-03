@@ -6,7 +6,6 @@ import 'package:lottie/lottie.dart';
 import '../../../Utils/Button/Button.dart';
 import '../../../Utils/Widget/Text.dart';
 import '../../../App_localizations.dart';
-import '../../../Utils/j/rules.dart';
 import '../../../tabs.dart';
 
 class Pandect extends StatefulWidget {
@@ -117,7 +116,8 @@ class _PandectState extends State<Pandect> {
                       SizedBox(width: 3,),
                       InkWell(
                         onTap: (){
-                          showDialog<void>(context: context, builder: (context) => RulesDialog());
+                          /*
+                          showDialog<void>(context: context, builder: (context) => RulesDialog());*/
 
                         },
                         child: Footnate(
