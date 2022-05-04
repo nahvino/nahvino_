@@ -58,7 +58,7 @@ Future<void> main() async {
     print(data);
   });
 
-//
+
 //   $headers = array
 //     (
 //       'Authorization:key=' . 'secret',
@@ -110,10 +110,13 @@ Future<void> main() async {
   }
 
 
+
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
+
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -125,11 +128,12 @@ class MyApp extends StatelessWidget {
         Locale('en', 'US'),
         Locale('fa', 'IR'),
       ],
+      locale: Locale('fa', 'IR'),
       localizationsDelegates: [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
-      ],
+      ],/*
       localeResolutionCallback: (locale, supportedLocales) {
         for (var supportedLocale in supportedLocales) {
           if (supportedLocale.languageCode == locale!.languageCode &&
@@ -138,7 +142,7 @@ class MyApp extends StatelessWidget {
           }
         }
         return supportedLocales.first;
-      },
+      },*/
       home: Splash(),
       routes: {
         '/home': (context) => HomeScren(),

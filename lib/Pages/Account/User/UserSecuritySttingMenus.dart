@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:Nahvino/main.dart';
 
 import '../../../App_localizations.dart';
 import '../../../Model/User/user/viewprofile_response_model.dart';
@@ -145,6 +146,13 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
                     ),
                     text: 'تغییر شماره تلفن'),
               ),
+             /* SttingMenusButton(
+                  onPressed: () => AppLocalizations.of(context)?.setLocale(Locale.fromSubtags(languageCode: 'en')),
+                  icon: Icon(
+                    Icons.language,
+                    color: Colors.white,
+                  ),
+                  text: 'تغییر زبان'),*/
             ],
           )
         ],

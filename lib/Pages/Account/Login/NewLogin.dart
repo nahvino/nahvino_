@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
-import 'package:nahvino/controllers/getx/new_login_controller.dart';
+import 'package:Nahvino/controllers/getx/new_login_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../App_localizations.dart';

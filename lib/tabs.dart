@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nahvino/Pages/Account/Caht/chat_page_controller.dart';
-import 'package:nahvino/Pages/Home.dart';
-import 'package:nahvino/Pages/Settings.dart';
-import 'package:nahvino/App_localizations.dart';
+import 'package:Nahvino/Pages/Account/Caht/chat_page_controller.dart';
+import 'package:Nahvino/Pages/Home.dart';
+import 'package:Nahvino/Pages/Settings.dart';
+import 'package:Nahvino/App_localizations.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'Pages/Account/Caht/chatpage.dart';
 import 'Pages/Account/User/ViewProfile.dart';
@@ -27,7 +27,7 @@ class _MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
 
-    _controller = PersistentTabController(initialIndex: 2);
+    _controller = PersistentTabController(initialIndex: 1);
     chatPageController.openSignalRConnection();
 
 
@@ -80,7 +80,7 @@ class _MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
 
   List<PersistentBottomNavBarItem> _navBarsItems() {
     return [
-      PersistentBottomNavBarItem(
+     /* PersistentBottomNavBarItem(
         title: AppLocalizations.of(context)!.translate(
           'Home',
         ),
@@ -89,7 +89,7 @@ class _MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
         textStyle: TextStyle(fontSize: 12, fontFamily: 'Vazirmatn_Light'),
         activeColorPrimary: CupertinoColors.white,
         inactiveColorPrimary: CupertinoColors.white,
-      ),
+      ),*/
       PersistentBottomNavBarItem(
         title: AppLocalizations.of(context)!.translate(
           'Blog',
@@ -125,7 +125,7 @@ class _MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
 
   List<Widget> _buildScreens() {
     return [
-      HomeScren(),
+      //HomeScren(),
       SettingScreen(),
       ViewProfile(),
       Chatpage(),

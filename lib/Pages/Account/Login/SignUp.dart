@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nahvino/Pages/Account/User/EditProfile.dart';
-import 'package:nahvino/Pages/Account/login/SignIn.dart';
-import 'package:nahvino/Pages/Account/login/Register.dart';
+import 'package:Nahvino/Pages/Account/User/EditProfile.dart';
+import 'package:Nahvino/Pages/Account/login/SignIn.dart';
+import 'package:Nahvino/Pages/Account/login/Register.dart';
 import '../../../Utils/Widget/Text.dart';
 import 'NewLogin.dart';
 import 'NewOtpPhone.dart';

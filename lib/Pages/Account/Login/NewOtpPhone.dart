@@ -95,7 +95,6 @@ class _OtpPhoneNewState extends State<OtpPhoneNew> {
                       }
                     });
 
-
                         }),
             ],
           ),

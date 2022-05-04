@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
-import 'package:nahvino/Pages/Account/login/SignUp.dart';
-import 'package:nahvino/Model/user/login/register_request_model.dart';
-import 'package:nahvino/Services/login/ApiService.dart';
-import 'package:nahvino/Services/login/user/Config.dart';
-import 'package:nahvino/App_localizations.dart';
+import 'package:Nahvino/Pages/Account/login/SignUp.dart';
+import 'package:Nahvino/Model/user/login/register_request_model.dart';
+import 'package:Nahvino/Services/login/ApiService.dart';
+import 'package:Nahvino/Services/login/user/Config.dart';
+import 'package:Nahvino/App_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:snippet_coder_utils/FormHelper.dart';
 import 'package:snippet_coder_utils/ProgressHUD.dart';

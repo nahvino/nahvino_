@@ -12,9 +12,9 @@ import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_1.dart';
 import 'package:flutter_html/shims/dart_ui_real.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:nahvino/Model/User/SignalR/chat_model.dart';
-import 'package:nahvino/Pages/Account/Caht/chat_page_controller.dart';
-import 'package:nahvino/Pages/Account/Caht/AboutGroup.dart';
+import 'package:Nahvino/Model/User/SignalR/chat_model.dart';
+import 'package:Nahvino/Pages/Account/Caht/chat_page_controller.dart';
+import 'package:Nahvino/Pages/Account/Caht/AboutGroup.dart';
 
 import '../../../Model/User/SignalR/ReceiveMessageModel.dart';
 import '../../../Utils/Widget/Text.dart';
@@ -23,7 +23,6 @@ class Chatpage extends StatelessWidget {
   Chatpage({Key? key}) : super(key: key);
 
   late String adminName;
-
   final ChatPageController chatPageController = Get.put(ChatPageController());
 
   @override
@@ -163,13 +162,6 @@ class Chatpage extends StatelessWidget {
 
   Widget chatItem(context, index) {
     ReceiveMessageModel chat = chatPageController.chats[index];
-    //DateTime dateTime = DateTime.parse(chat.insertTime.toString());
-    var time;
-    //var dateFormat = DateFormat(chat.insertTime.toString()).toString();
-   // DateTime dateTime = DateTime.parse(chat.insertTime.toString());
- //   String ti = DateFormat('kk:mm').format(dateTime);
-
-    //time.DateFormat("h:mm a").format(dateTime).toString();
     bool fromMe = chat.userId == chatPageController.myUserId;
 
     return Row(
@@ -510,5 +502,7 @@ class Chatpage extends StatelessWidget {
       }
     }
   }
+
+
 
   }

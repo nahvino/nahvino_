@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:nahvino/tabs.dart';
+import 'package:Nahvino/tabs.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../App_localizations.dart';
 import 'Pages/Account/login/SignUp.dart';

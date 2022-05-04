@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:nahvino/Model/User/SignalR/GroupModel.dart';
+import 'package:Nahvino/Model/User/SignalR/GroupModel.dart';
 
 import '../../../App_localizations.dart';
 import '../../../Utils/Widget/Text.dart';

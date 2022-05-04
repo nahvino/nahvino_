@@ -32,8 +32,8 @@ class GetProfileUserResponseModel {
     score = json['score'];
     imageUrl = json['imageUrl'];
     identifierCode = json['identifierCode'];
-    parentName = null;
-    parentImageUrl = null;
+    parentName = json['parentName'];
+    parentImageUrl = json['parentImageUrl'];
   }
 
   Map<String, dynamic> toJson() {

@@ -5,7 +5,7 @@ import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:get/get.dart';
-import 'package:nahvino/Model/User/SignalR/GroupModel.dart';
+import 'package:Nahvino/Model/User/SignalR/GroupModel.dart';
 import 'dart:async';
 import 'dart:io';
 
@@ -23,20 +23,20 @@ class ChatPageController extends GetxController{
   RxBool emojiShowing = false.obs;
   TextEditingController chatEditController = TextEditingController();
   GroupModel? model;
-
-
   String myUserId = "";
    int? id;
+   int  i =0;
+   late List mylist;
   @override
   void onInit(){
     super.onInit();
     _getMyData();
+    //mylist = chats.length => List.generate(50, (index) => "Item: ${i + 1}");
   }
   @override
   void dispose(){
     chatEditController.clear();
     super.dispose();
-
   }
   Future _getMyData() async{
    SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -90,7 +90,6 @@ class ChatPageController extends GetxController{
     connection.on('GetAllMessage', (messages) {
       print(messages.toString());
       for(var item in messages![0]){
-
         ReceiveMessageModel? chatmodel;
         chatmodel = ReceiveMessageModel.fromJson(item);
         chats.add(chatmodel);
@@ -98,10 +97,9 @@ class ChatPageController extends GetxController{
       update();
     });
     await connection.invoke('Group');
-    await connection.invoke('GetAllMessage');
+    //await connection.invoke('GetAllMessage');
+    await connection.invoke('GetAllMessage',args: [1,100]);
    // await connection.invoke('DeleteMessage');
-
-
   //  await connection.invoke('SendMessage', args: [myUserId,60, 'خداحافظ']);
   }
 
@@ -155,7 +153,6 @@ class ChatPageController extends GetxController{
     connection.on('GetAllMessage', (messages) {
       print(messages.toString());
       for(var item in messages![0]){
-
         ReceiveMessageModel? chatmodel;
         chatmodel = ReceiveMessageModel.fromJson(item);
         chats.add(chatmodel);

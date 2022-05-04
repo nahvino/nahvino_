@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:lottie/lottie.dart';
-import 'package:nahvino/Model/user/user/viewprofile_request_model.dart';
-import 'package:nahvino/Model/user/user/viewprofile_response_model.dart';
+import 'package:Nahvino/Model/user/user/viewprofile_request_model.dart';
+import 'package:Nahvino/Model/user/user/viewprofile_response_model.dart';
 
 import '../../../Services/login/ApiService.dart';
 import '../../../Utils/Button/Button.dart';
