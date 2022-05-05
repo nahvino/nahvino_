@@ -164,6 +164,9 @@ class Chatpage extends StatelessWidget {
     ReceiveMessageModel chat = chatPageController.chats[index];
     bool fromMe = chat.userId == chatPageController.myUserId;
 
+
+
+
     return Row(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment:
@@ -468,6 +471,7 @@ class Chatpage extends StatelessWidget {
         ),
       ],
     );
+
   }
 
   _showReplay(context) {
@@ -493,6 +497,7 @@ class Chatpage extends StatelessWidget {
         ),
       ),
     );
+
   }
 
   void _checkKEyboardAndEmojiVisibility() {
@@ -502,7 +507,6 @@ class Chatpage extends StatelessWidget {
       }
     }
   }
-
 
 
   }

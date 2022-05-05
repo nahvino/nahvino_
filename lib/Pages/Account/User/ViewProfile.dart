@@ -102,6 +102,7 @@ class _ViewProfileState extends State<ViewProfile> {
         setState(() {
           isApiCallProgress = false;
           resultResponseGetUserAbandon = response;
+
         });
       }
     });
@@ -698,4 +699,6 @@ class _ViewProfileState extends State<ViewProfile> {
         break;
     }
   }
+
+
 }

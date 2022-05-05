@@ -106,6 +106,8 @@ class ChatPageController extends GetxController{
 
   List<ReceiveMessageModel> chats = [];
 
+
+
   onEmojiSelected(Emoji emoji) {
     chatEditController
       ..text += emoji.emoji

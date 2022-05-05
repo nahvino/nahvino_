@@ -9,6 +9,7 @@ import '../../../Utils/Button/TextField.dart';
 import '../../../Utils/Widget/Text.dart';
 import '../../../App_localizations.dart';
 import 'Pandect.dart';
+import 'WelcomeUser.dart';
 
 class AddIntroduced extends StatefulWidget {
   const AddIntroduced({Key? key,}) : super(key: key);
@@ -133,7 +134,7 @@ class _AddIntroducedState extends State<AddIntroduced> {
                                 Navigator.pushAndRemoveUntil(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => Pandect()),
+                                      builder: (context) => WelcomeUser()),
                                   (route) => false,
                                 );
                               } else {
@@ -166,7 +167,7 @@ class _AddIntroducedState extends State<AddIntroduced> {
                                 Navigator.pushAndRemoveUntil(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => Pandect()),
+                                      builder: (context) => WelcomeUser()),
                                       (route) => false,
                                 );
                               } else {
