@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:pinput/pinput.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timer_button/timer_button.dart';
 
@@ -34,6 +35,10 @@ class _CodeOtpPhoneNewState extends State<CodeOtpPhoneNew> {
   late SharedPreferences logindata;
   bool hasError = false;
 
+
+
+
+
   @override
   void initState() {
     apiService = APIService(context);
@@ -44,6 +49,14 @@ class _CodeOtpPhoneNewState extends State<CodeOtpPhoneNew> {
 
   @override
   Widget build(BuildContext context) {
+      /*final defaultPinTheme = PinTheme(
+      width: 56,
+      height: 60,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Colors.transparent),
+      ),
+    );*/
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -90,12 +103,13 @@ class _CodeOtpPhoneNewState extends State<CodeOtpPhoneNew> {
                       )!,
                       controller: OtpCodeController,
                     ),*/
-              SizedBox(height: 20,),
+              /*
               Padding(
-                padding: const EdgeInsets.only(right: 50,left: 50),
+                padding: const EdgeInsets.only(right: 3033,left: 30),
                 child: PinCodeTextField(
                     appContext: context,
                     length: 5,
+
                     enableActiveFill: true,
                     pastedTextStyle: TextStyle(
                         color: Colors.white,
@@ -133,8 +147,21 @@ class _CodeOtpPhoneNewState extends State<CodeOtpPhoneNew> {
                         otpcode = value;
                       });
                     }),
-              ),
 
+              ),*/
+              SizedBox(height: 20,),
+              Directionality(
+                textDirection: TextDirection.ltr,
+                child: Pinput(controller:OtpCodeController
+                    ,autofocus: true,
+                  enabled: true,
+                  length: 5,
+                  keyboardType: TextInputType.number,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  androidSmsAutofillMethod: AndroidSmsAutofillMethod.smsUserConsentApi,
+                ),
+              ),
+              SizedBox(height: 20,),
 
               Buttontest(
                   text: AppLocalizations.of(context)!.translate(
@@ -207,4 +234,6 @@ class _CodeOtpPhoneNewState extends State<CodeOtpPhoneNew> {
       ),
     );
   }
+
+
 }

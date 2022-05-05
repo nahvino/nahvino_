@@ -118,8 +118,9 @@ class _NewRegisterState extends State<NewRegister> {
                 )!,
                 controller: passwordController,
               ),
+              SizedBox(height: 5,),
               Padding(
-                padding: const EdgeInsets.only(right: 0,left: 50),
+                padding: const EdgeInsets.only(right: 20,left: 0),
                 child: DropdownButton(
                     hint: Text(
                       AppLocalizations.of(context)!.translate(
@@ -134,7 +135,7 @@ class _NewRegisterState extends State<NewRegister> {
                       });
                     }),
               ),
-
+              SizedBox(height: 5,),
               TextAll(
                 icon: Icon(Icons.security),
                 suffixIcon: null,

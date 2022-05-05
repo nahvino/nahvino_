@@ -50,8 +50,7 @@ dependencies:
   share_plus: ^4.0.4
   firebase_core: any
   firebase_messaging: ^10.0.0
-  new_version: ^0.3.0
-
+  pinput: ^2.2.7
 
 
 dev_dependencies:

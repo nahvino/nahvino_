@@ -192,26 +192,24 @@ class _WelcomeUserState extends State<WelcomeUser> {
                     SizedBox(
                       height: 4,
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                        right: MediaQuery.of(context).size.height * 0.01,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Subhead(
-                            color: Colors.green, text:resultResponse!.parentName ?? "Guest", textAlign: TextAlign.start,),
-                          SizedBox(
-                            width: 02,
-                          ),
-                          Caption1(color: Colors.black, textAlign: TextAlign.right, text:  AppLocalizations.of(context)!.translate(
-                            'maslkamtiz',
-                          )!,
-                          ),
-                        ],
-                      ),
+                    SingleChildScrollView(
+                      child:
+                     Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Subhead(
+                              color: Colors.green, text:resultResponse!.parentName ?? "Guest", textAlign: TextAlign.start,),
+                            SizedBox(
+                              width: 02,
+                            ),
+                            Footnate(color: Colors.black, textAlign: TextAlign.right, text:  AppLocalizations.of(context)!.translate(
+                              'maslkamtiz',
+                            )!,
+                            ),
+                          ],
+                        ),
                     ),
-                    SizedBox(height: 50,),
+                    SizedBox(height: 10,),
                     Buttonfull(
                         text: AppLocalizations.of(context)!.translate(
                           'next',
