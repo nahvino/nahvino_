@@ -9,7 +9,7 @@ import 'package:snippet_coder_utils/FormHelper.dart';
 import 'package:snippet_coder_utils/ProgressHUD.dart';
 import '../../../Model/user/otp/otp_request_model.dart';
 import '../../../Services/login/ApiService.dart';
-import '../../../Utils/Widget/Text.dart';
+import '../../../Utils/Text/Text.dart';
 
 class PhoneNumberPage extends StatefulWidget {
   const PhoneNumberPage({Key? key}) : super(key: key);

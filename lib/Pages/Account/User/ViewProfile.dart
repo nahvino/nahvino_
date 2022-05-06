@@ -19,9 +19,10 @@ import '../../../Services/Login/ApiService.dart';
 import '../../../Utils/Button/Button.dart';
 import '../../../Utils/Other/ArshadDialog.dart';
 import '../../../Utils/Other/BargDialog.dart';
-import '../../../Utils/Widget/Text.dart';
+import '../../../Utils/Text/Text.dart';
 import '../../../App_localizations.dart';
 import '../../../tabs.dart';
+import '../Login/SignUp.dart';
 import 'Notifications.dart';
 import 'UserSecuritySttingMenus.dart';
 
@@ -687,7 +688,13 @@ class _ViewProfileState extends State<ViewProfile> {
                             .getInstance();
                         await preferences.clear();
                         Future.delayed(const Duration(milliseconds: 1000), () {
-                          exit(0);
+                         // exit(0);
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>SignUp()),
+                                (route) => false,
+                          );
                         });
                       },
                       child: Text(AppLocalizations.of(context)!.translate(

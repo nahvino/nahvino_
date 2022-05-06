@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:Nahvino/Pages/Account/User/EditProfile.dart';
 import 'package:Nahvino/Pages/Account/login/SignIn.dart';
 import 'package:Nahvino/Pages/Account/login/Register.dart';
-import '../../../Utils/Widget/Text.dart';
+import '../../../Utils/Text/Text.dart';
 import 'NewLogin.dart';
 import 'NewOtpPhone.dart';
 import 'NewRegister.dart';

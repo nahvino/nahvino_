@@ -1,17 +1,19 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:io';
+import 'package:Nahvino/Model/User/user/viewprofile_response_model.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:Nahvino/main.dart';
-
+import 'package:share_plus/share_plus.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../App_localizations.dart';
-import '../../../Model/User/user/viewprofile_response_model.dart';
 import '../../../Services/Login/User/Config.dart';
 import '../../../Services/login/ApiService.dart';
 import '../../../Utils/Button/Button.dart';
 import '../../../Utils/Button/SttingMenusButton.dart';
-import '../../../Utils/Widget/Text.dart';
+import '../../../Utils/Text/Text.dart';
+import '../Login/SignUp.dart';
 import 'ChangePhoneNumber.dart';
 import 'ChangePasswrod.dart';
+import 'Notifications.dart';
 import 'SetPhoneNumber.dart';
 import 'ViewProfile.dart';
 
@@ -27,23 +29,42 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
   bool isApiCallProgress = true;
   GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
   var resultResponse;
-
+  var resultResponsepro;
   late bool phoneNumber;
   late bool password;
   @override
   void initState() {
     super.initState();
     Future.microtask(() {
-      APIService.UserSecuritySttingMenus().then((response) {
+           APIService.UserSecuritySttingMenus().then((response) {
         print("APIService.UserSecuritySttingMenus => $response");
         setState(() {
           isApiCallProgress = false;
           resultResponse = response;
         });
       });
+
     }).onError((error, stackTrace) {
       print(error);
     });
+
+    APIService.profilleall().then((response) {
+      print("APIService.profilleall => $response");
+    /*  setState(() {
+        isApiCallProgress = false;
+        resultResponsepro = response;
+      });*/
+      if (response != null) {
+        resultResponsepro = response ?? "اطلاعات یافت نشد";
+      } else {
+        setState(() {
+          isApiCallProgress = false;
+          resultResponsepro = response;
+        });
+      }
+    });
+
+
   }
 
   bool lang = false; // en => true / fa => false
@@ -71,7 +92,7 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                Container(
+               Container(
                   child: BackButton(
                     onPressed: (() {
                       Navigator.pushReplacement(
@@ -79,9 +100,151 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
                     }),
                   ),
                 ),
+                    /*
                     Container(child: Lottie.asset('assets/anim/viewprofile/security-system.json',
-                        height: 70, width: 70),),
+                        height: 70, width: 70),),*/
+                  Container(
+                    alignment: Alignment.topRight,
+                      padding: EdgeInsets.only(
+                          right: MediaQuery
+                              .of(context)
+                              .size
+                              .height *
+                              0.03),
+                      child: textbold(
+                        textAlign: TextAlign.right,
+                        text: resultResponsepro['userName'].toString(),
+                        color: Colors.black,
+                      ),
+                    ),
 
+                    Container(
+                      alignment: Alignment.topLeft,
+                      height: 30,
+                      child: PopupMenuButton<int>(
+                        icon: Icon(Icons.menu),
+                        itemBuilder: (context) =>
+                        [
+                          PopupMenuItem(
+                            value: 0,
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment:
+                              MainAxisAlignment.start,
+                              children: [
+                                Icon(
+                                  Icons.security,
+                                  color: Colors.cyan,
+                                ),
+                                const SizedBox(
+                                  width: 7,
+                                ),
+                                textspan(
+                                  textAlign: TextAlign.start,
+                                  text: AppLocalizations.of(context)!
+                                      .translate(
+                                    'Security_settings',
+                                  )!,
+                                  color: Colors.black,
+                                ),
+                              ],
+                            ),
+                          ),
+                          PopupMenuDivider(height: 4),
+                          PopupMenuItem(
+                            value: 1,
+                            child: Row(
+                              mainAxisAlignment:
+                              MainAxisAlignment.start,
+                              children: [
+                                Icon(
+                                  Icons.notifications,
+                                  color: Colors.cyan,
+                                ),
+                                const SizedBox(
+                                  width: 7,
+                                ),
+                                textspan(
+                                  textAlign: TextAlign.end,
+                                  color: Colors.black,
+                                  text: AppLocalizations.of(context)!
+                                      .translate(
+                                    'Notifications',
+                                  )!,
+                                ),
+                              ],
+                            ),
+                          ),
+                          PopupMenuDivider(height: 1),
+                          PopupMenuItem(
+                            child: Row(
+                              mainAxisAlignment:
+                              MainAxisAlignment.center,
+                              children: [
+                                Caption1(
+                                  textAlign: TextAlign.center,
+                                  color: Colors.black,
+                                  text: AppLocalizations.of(context)!
+                                      .translate(
+                                    'YCTIANM',
+                                  )!,
+                                ),
+                                const SizedBox(
+                                  width: 2,
+                                ),
+                              ],
+                            ),
+                          ),
+                          PopupMenuItem(
+                            value: 2,
+                            child: Row(
+                              mainAxisAlignment:
+                              MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.share,
+                                  color: Colors.cyan,
+                                ),
+                                SizedBox(
+                                  width: 8,
+                                ),
+                                textspan(
+                                  textAlign: TextAlign.center,
+                                  text:resultResponsepro['identifierCode']
+                                      .toString(),
+                                  color: Colors.black,
+                                ),
+                                const SizedBox(
+                                  width: 7,
+                                ),
+                              ],
+                            ),
+                          ),
+                          PopupMenuDivider(),
+                          PopupMenuItem(
+                            value: 3,
+                            child: Row(
+                              mainAxisAlignment:
+                              MainAxisAlignment.center,
+                              children: [
+                                textspan(
+                                  textAlign: TextAlign.center,
+                                  color: Colors.black,
+                                  text: AppLocalizations.of(context)!
+                                      .translate(
+                                    'Eixt',
+                                  )!,
+                                ),
+                                const SizedBox(
+                                  width: 7,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                        onSelected: (item) => onSelected(context, item),
+                      ),
+                    ),
               ]),
               Container(
                 alignment: Alignment.topCenter,
@@ -157,4 +320,70 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
           )
         ],
       );
+
+  void onSelected(BuildContext context, int item) {
+    switch (item) {
+      case 0:
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => UserSecuritySttingMenus()));
+        break;
+      case 1:
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => Notifications()));
+        break;
+      case 2:
+      /* Share.share('اشتراک گذاری کد معرف', subject: resultResponse!.identifierCode
+            .toString() );*/
+        Share.share(resultResponse!.identifierCode.toString());
+
+        break;
+      case 3:
+        showDialog<String>(
+          context: context,
+          builder: (BuildContext context) =>
+              AlertDialog(
+                  title: Text(AppLocalizations.of(context)!.translate(
+                    'apptitle',
+                  )!),
+                  content: Text(AppLocalizations.of(context)!.translate(
+                    'quExit',
+                  )!),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () =>
+                          Navigator.pop(
+                              context,
+                              AppLocalizations.of(context)!.translate(
+                                'Cancel',
+                              )!),
+                      child: Text(
+                        AppLocalizations.of(context)!.translate(
+                          'Cancel',
+                        )!,
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () async {
+                        final preferences = await SharedPreferences
+                            .getInstance();
+                        await preferences.clear();
+                        Future.delayed(const Duration(milliseconds: 1000), () {
+                          //exit(0);
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>SignUp()),
+                                (route) => false,
+                          );
+                        });
+                      },
+                      child: Text(AppLocalizations.of(context)!.translate(
+                        'OK',
+                      )!),
+                    ),
+                  ]),
+        );
+        break;
+    }
+  }
 }

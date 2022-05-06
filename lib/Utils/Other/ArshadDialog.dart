@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../Button/TextField.dart';
-import '../Widget/Text.dart';
+import '../Text/TextField.dart';
+import '../Text/Text.dart';
 /*
 class BargDialog extends AlertDialog(
 

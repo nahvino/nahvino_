@@ -4,13 +4,13 @@ GetProfileUserResponseModel getprofileuserresponseJson(String str) =>
     GetProfileUserResponseModel.fromJson(json.decode(str));
 class GetProfileUserResponseModel {
   GetProfileUserResponseModel({
-    required this.userName,
-    required this.nameAlias,
-    required this.bio,
-    required this.rank,
-    required this.score,
+     this.userName,
+     this.nameAlias,
+     this.bio,
+     this.rank,
+     this.score,
     this.imageUrl,
-    required this.identifierCode,
+     this.identifierCode,
     this.parentName,
     this.parentImageUrl,
   });

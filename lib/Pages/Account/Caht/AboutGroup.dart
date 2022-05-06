@@ -4,7 +4,7 @@ import 'package:lottie/lottie.dart';
 import 'package:Nahvino/Model/User/SignalR/GroupModel.dart';
 
 import '../../../App_localizations.dart';
-import '../../../Utils/Widget/Text.dart';
+import '../../../Utils/Text/Text.dart';
 import 'chatpage.dart';
 
 class AboutGroup extends StatefulWidget {

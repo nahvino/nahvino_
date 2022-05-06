@@ -8,7 +8,7 @@ import 'package:Nahvino/Model/user/user/viewprofile_response_model.dart';
 import '../../../Services/Login/User/Config.dart';
 import '../../../Services/login/ApiService.dart';
 import '../../../Utils/Button/Button.dart';
-import '../../../Utils/Widget/Text.dart';
+import '../../../Utils/Text/Text.dart';
 import '../../../App_localizations.dart';
 import '../../../tabs.dart';
 import 'Pandect.dart';

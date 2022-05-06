@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pinput/pinput.dart';
 import '../../../App_localizations.dart';
 import '../../../Services/Login/ApiService.dart';
-import '../../../Utils/Button/TextField.dart';
-import '../../../Utils/Widget/Text.dart';
+import '../../../Utils/Text/TextField.dart';
+import '../../../Utils/Text/Text.dart';
 import 'UserSecuritySttingMenus.dart';
 import 'ViewProfile.dart';
 
@@ -122,7 +123,7 @@ class _CheckCodeChangePhoneNumberState
           ),
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             Text(AppLocalizations.of(context)!.translate(
-              'set_phone_test',
+              'OldPhoneNumber',
             )!),
             SizedBox(width: 3),
             //Text(widget.setPhoneNumber)
@@ -134,7 +135,7 @@ class _CheckCodeChangePhoneNumberState
           ]),
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             Text(AppLocalizations.of(context)!.translate(
-              'set_phone_test',
+              'NewPhoneNumber',
             )!),
             SizedBox(width: 3),
             //Text(widget.setPhoneNumber)
@@ -144,12 +145,26 @@ class _CheckCodeChangePhoneNumberState
               color: Colors.green,
             ),
           ]),
+          SizedBox(
+            height: 20,
+          ),
           Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-            TextProfile(
+           /* TextProfile(
               controller: code,
               hint: AppLocalizations.of(context)!.translate(
                 'phone_text_filed',
               )!,
+            ),*/
+            Directionality(
+              textDirection: TextDirection.ltr,
+              child: Pinput(controller:code
+                ,autofocus: true,
+                enabled: true,
+                length: 5,
+                keyboardType: TextInputType.number,
+                mainAxisAlignment: MainAxisAlignment.center,
+                androidSmsAutofillMethod: AndroidSmsAutofillMethod.smsUserConsentApi,
+              ),
             ),
           ]),
         ]),

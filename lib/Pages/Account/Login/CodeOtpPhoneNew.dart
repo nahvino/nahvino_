@@ -10,10 +10,9 @@ import 'package:timer_button/timer_button.dart';
 import '../../../App_localizations.dart';
 import '../../../Services/Login/ApiService.dart';
 import '../../../Utils/Button/Button.dart';
-import '../../../Utils/Button/TextField.dart';
-import '../../../Utils/Widget/Text.dart';
-import '../../../tabs.dart';
-import '../User/ViewProfile.dart';
+import '../../../Utils/Text/Text.dart';
+
+import 'AddIntroduced.dart';
 import 'SignUp.dart';
 
 class CodeOtpPhoneNew extends StatefulWidget {
@@ -36,6 +35,7 @@ class _CodeOtpPhoneNewState extends State<CodeOtpPhoneNew> {
   bool hasError = false;
 
 
+var resultResponsepro;
 
 
 
@@ -45,6 +45,21 @@ class _CodeOtpPhoneNewState extends State<CodeOtpPhoneNew> {
     errorController = StreamController<ErrorAnimationType>();
     super.initState();
 
+ /*   APIService.profilleall().then((response) {
+      print("APIService.profilleall => $response");
+      /*  setState(() {
+        isApiCallProgress = false;
+        resultResponsepro = response;
+      });*/
+      if (response != null) {
+        resultResponsepro = response ?? "اطلاعات یافت نشد";
+      } else {
+        setState(() {
+          isApiCallProcess = false;
+          resultResponsepro = response;
+        });
+      }
+    });*/
   }
 
   @override
@@ -193,7 +208,7 @@ class _CodeOtpPhoneNewState extends State<CodeOtpPhoneNew> {
                         Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => MyTabs()),
+                              builder: (context) => AddIntroduced()),
                               (route) => false,
                         );
                       } else {

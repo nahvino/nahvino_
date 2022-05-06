@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../Services/login/ApiService.dart';
-import '../../../Utils/Button/TextField.dart';
-import '../../../Utils/Widget/Text.dart';
+import '../../../Utils/Text/TextField.dart';
+import '../../../Utils/Text/Text.dart';
 import '../../../App_localizations.dart';
 import 'CheckCodeChangePhoneNumber.dart';
 import 'UserSecuritySttingMenus.dart';
@@ -121,13 +121,13 @@ class _ChangePhoneNumberState extends State<ChangePhoneNumber> {
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              TextProfile(
+              TextOtpPhone(
                 controller: currentPhoneNumber,
                 hint: AppLocalizations.of(context)!.translate(
                   'phone_text_old',
                 )!,
               ),
-              TextProfile(
+              TextOtpPhone(
                 controller: newPhoneNumber,
                 hint: AppLocalizations.of(context)!.translate(
                   'phone_text_new',

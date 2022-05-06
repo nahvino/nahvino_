@@ -80,7 +80,7 @@ class _MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
 
   List<PersistentBottomNavBarItem> _navBarsItems() {
     return [
-    /* PersistentBottomNavBarItem(
+   /*  PersistentBottomNavBarItem(
         title: AppLocalizations.of(context)!.translate(
           'Home',
         ),

@@ -17,7 +17,7 @@ import 'package:Nahvino/Pages/Account/Caht/chat_page_controller.dart';
 import 'package:Nahvino/Pages/Account/Caht/AboutGroup.dart';
 
 import '../../../Model/User/SignalR/ReceiveMessageModel.dart';
-import '../../../Utils/Widget/Text.dart';
+import '../../../Utils/Text/Text.dart';
 
 class Chatpage extends StatelessWidget {
   Chatpage({Key? key}) : super(key: key);

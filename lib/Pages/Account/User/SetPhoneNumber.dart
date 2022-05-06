@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 import '../../../Services/login/ApiService.dart';
 import '../../../Utils/Button/Button.dart';
-import '../../../Utils/Button/TextField.dart';
-import '../../../Utils/Widget/Text.dart';
+import '../../../Utils/Text/TextField.dart';
+import '../../../Utils/Text/Text.dart';
 import '../../../App_localizations.dart';
 import 'CheckCodeSetPhoneNumber.dart';
 import 'UserSecuritySttingMenus.dart';
@@ -79,10 +79,16 @@ class _SetPhoneNumberState extends State<SetPhoneNumber> {
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TextProfile(
+            /*TextProfile(
               controller: setPhoneNumber,
               hint: AppLocalizations.of(context)!.translate(
                 'phone_text_filed',
+              )!,
+            ),*/
+            TextOtpPhone(
+              controller: setPhoneNumber,
+              hint: AppLocalizations.of(context)!.translate(
+                'phone_text_new',
               )!,
             ),
             Buttonfull(

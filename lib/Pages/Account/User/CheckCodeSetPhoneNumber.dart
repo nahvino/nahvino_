@@ -1,12 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pinput/pinput.dart';
 import '../../../Services/login/ApiService.dart';
 import '../../../Utils/Button/Button.dart';
-import '../../../Utils/Button/TextField.dart';
-import '../../../Utils/Widget/Text.dart';
+import '../../../Utils/Text/TextField.dart';
+import '../../../Utils/Text/Text.dart';
 import '../../../App_localizations.dart';
 
 import 'ChangePhoneNumber.dart';
+import 'SetPhoneNumber.dart';
 import 'ViewProfile.dart';
 
 class CheckCodeSetPhoneNumber extends StatefulWidget {
@@ -52,7 +54,7 @@ class _CheckCodeSetPhoneNumberState extends State<CheckCodeSetPhoneNumber> {
                 child: BackButton(
                   onPressed: (() {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => ChangePhoneNumber()));
+                        MaterialPageRoute(builder: (context) => SetPhoneNumber()));
                   }),
                 ),
               ),
@@ -84,10 +86,7 @@ class _CheckCodeSetPhoneNumberState extends State<CheckCodeSetPhoneNumber> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                Text(AppLocalizations.of(context)!.translate(
-                      'set_phone_test',
-                    ) ??
-                    ""),
+
                 SizedBox(width: 3),
                 //Text(widget.setPhoneNumber)
                 textspan(
@@ -96,12 +95,26 @@ class _CheckCodeSetPhoneNumberState extends State<CheckCodeSetPhoneNumber> {
                   color: Colors.green,
                 ),
               ]),
-              TextProfile(
+            /*  TextProfile(
                 controller: code,
                 hint: AppLocalizations.of(context)!.translate(
                   'phone_text_filed',
                 )!,
+              ),*/
+              SizedBox(height: 10,),
+              Directionality(
+                textDirection: TextDirection.ltr,
+                child: Pinput(controller:code
+                  ,autofocus: true,
+                  enabled: true,
+                  length: 5,
+                  keyboardType: TextInputType.number,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  androidSmsAutofillMethod: AndroidSmsAutofillMethod.smsUserConsentApi,
+                ),
               ),
+              SizedBox(height: 10,),
+
               Buttonfull(
                 color: Colors.white,
                 text: AppLocalizations.of(context)!.translate(

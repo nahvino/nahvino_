@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:Nahvino/Pages/Account/User/ViewProfile.dart';
 
 import '../../../Services/login/ApiService.dart';
-import '../../../Utils/Button/TextField.dart';
-import '../../../Utils/Widget/Text.dart';
+import '../../../Utils/Text/TextField.dart';
+import '../../../Utils/Text/Text.dart';
 import '../../../App_localizations.dart';
 import '../login/CheckQuestionAnswer.dart';
 import 'UserSecuritySttingMenus.dart';

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -7,8 +8,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../App_localizations.dart';
 import '../../../Services/Login/ApiService.dart';
 import '../../../Utils/Button/Button.dart';
-import '../../../Utils/Button/TextField.dart';
-import '../../../Utils/Widget/Text.dart';
+import '../../../Utils/Text/TextField.dart';
+import '../../../Utils/Text/Text.dart';
 import '../../../controllers/getx/NewRegisterController.dart';
 import '../User/ViewProfile.dart';
 import 'AddIntroduced.dart';
@@ -87,110 +88,120 @@ class _NewRegisterState extends State<NewRegister> {
       )
           : SafeArea(
         child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Center(
-                child: Lottie.asset('assets/anim/login/contract.json',
-                    height: 150, width: 150),
-              ),
-              TextAll(
-                icon: Icon(Icons.person),
-                suffixIcon: null,
-                prefixIcon: null,
-                hint: AppLocalizations.of(context)!.translate(
-                  'username',
-                )!,
-                controller: usernameController,
-              ),
-              TextPassReAndLog(
-                icon: Icon(Icons.lock),
-                passwordInVisible: newRegisterController.obscurePasswordVisibility.value,
-                suffix: IconButton(onPressed: () {
-                  newRegisterController.obscurePasswordVisibility.value =
-                  !newRegisterController.obscurePasswordVisibility.value;
-                },
-                    icon: Icon(
-                        newRegisterController.obscurePasswordVisibility == true
-                            ? Icons.visibility_off
-                            : Icons.visibility)),
-                hint: AppLocalizations.of(context)!.translate(
-                  'Password',
-                )!,
-                controller: passwordController,
-              ),
-              SizedBox(height: 5,),
-              Padding(
-                padding: const EdgeInsets.only(right: 20,left: 0),
-                child: DropdownButton(
-                    hint: Text(
-                      AppLocalizations.of(context)!.translate(
-                        'sAnswer',
-                      )!,
-                    ),
-                    value: securityQuestionselected,
-                    items: listDrap,
-                    onChanged: (value) {
-                      setState(() {
-                        securityQuestionselected = value as String;
-                      });
-                    }),
-              ),
-              SizedBox(height: 5,),
-              TextAll(
-                icon: Icon(Icons.security),
-                suffixIcon: null,
-                prefixIcon: null,
-                hint: AppLocalizations.of(context)!.translate(
-                  'sqAnswer',
-                )!,
-                controller: sqAnswerController,
-              ),
-              SizedBox(height: 15,),
-              Buttontest(
-                  text: AppLocalizations.of(context)!.translate(
-                    'OK',
+          child: Padding(
+            padding: const EdgeInsets.only(right: 20),
+            child: Column(
+              children: [
+                Center(
+                  child: Lottie.asset('assets/anim/login/contract.json',
+                      height: 150, width: 150),
+                ),
+                TextAll(
+                  icon: Icon(Icons.person),
+                  suffixIcon: null,
+                  prefixIcon: null,
+                  hint: AppLocalizations.of(context)!.translate(
+                    'username',
                   )!,
-                  onPressed: () {
-                    if (usernameController.text.isEmpty) {
-                      apiService.showSnackBar(text: "filed is empty!");
-                      return;
-                    }
+                  controller: usernameController,
+                ),
+                TextPassReAndLog(
+                  icon: Icon(Icons.lock),
+                  passwordInVisible: newRegisterController.obscurePasswordVisibility.value,
+                  suffix: IconButton(onPressed: () {
+                    newRegisterController.obscurePasswordVisibility.value =
+                    !newRegisterController.obscurePasswordVisibility.value;
+                  },
+                      icon: Icon(
+                          newRegisterController.obscurePasswordVisibility == true
+                              ? Icons.visibility_off
+                              : Icons.visibility)),
+                  hint: AppLocalizations.of(context)!.translate(
+                    'Password',
+                  )!,
+                  controller: passwordController,
+                ),
+                SizedBox(height: 28,),
 
-                    setState(() {
-                      isApiCallProcess = true;
-                    });
+                Padding(
+                  padding: const EdgeInsets.only(right: 13),
+                  child: Container(
+                      child: DropdownButton(
+                          hint: Text(
+                            AppLocalizations.of(context)!.translate(
+                              'sAnswer',
+                            )!,
+                          ),
+                          value: securityQuestionselected,
+                          items: listDrap,
+                          onChanged: (value) {
+                            setState(() {
+                              securityQuestionselected = value as String;
+                            });
+                          }),
+                    ),
+                ),
 
-                    apiService
-                        .NewRegister(
-                        usernameController.text,passwordController.text,securityQuestionselected as String,sqAnswerController.text)
-                        .then((response) async {
-                      if (response != false) {
-                        logindata = await SharedPreferences.getInstance();
-                        await logindata.setString(
-                            "token", response['data']['userToken']['token']);
-                        await logindata.setString("userId", response['data']['id']);
-
-                        apiService.showSnackBar(
-                            text: AppLocalizations.of(context)!
-                                .translate(
-                              'Welcome',
-                            )!);
-
-                        Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>AddIntroduced()),
-                              (route) => false,
-                        );
-                      } else {
-                        apiService.showSnackBar(
-                            text: response['message'] ?? "sdd");
+                SizedBox(height: 20,),
+                TextAll(
+                  icon: Icon(Icons.security),
+                  suffixIcon: null,
+                  prefixIcon: null,
+                  hint: AppLocalizations.of(context)!.translate(
+                    'sqAnswer',
+                  )!,
+                  controller: sqAnswerController,
+                ),
+                SizedBox(height: 15,),
+                Buttontest(
+                    text: AppLocalizations.of(context)!.translate(
+                      'OK',
+                    )!,
+                    onPressed: () {
+                      if (usernameController.text.isEmpty) {
+                        apiService.showSnackBar(text: "filed is empty!");
+                        return;
                       }
-                    });
+
+                      setState(() {
+                        isApiCallProcess = true;
+                      });
+
+                      apiService
+                          .NewRegister(
+                          usernameController.text,passwordController.text,securityQuestionselected as String,sqAnswerController.text)
+                          .then((response) async {
+                        if (response != false) {
+                          logindata = await SharedPreferences.getInstance();
+                          await logindata.setString(
+                              "token", response['data']['userToken']['token']);
+                          await logindata.setString("userId", response['data']['id']);
+
+                          apiService.showSnackBar(
+                              text: AppLocalizations.of(context)!
+                                  .translate(
+                                'Welcome',
+                              )!);
+
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>AddIntroduced()),
+                                (route) => false,
+                          );
+                        } else {
+                          setState(() {
+                            isApiCallProcess = false;
+                          });
+                          apiService.showSnackBar(
+                              text: response['message']);
+                        }
+                      });
 
 
-                  }),
-            ],
+                    }),
+              ],
+            ),
           ),
         ),
       ),

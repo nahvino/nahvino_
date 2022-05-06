@@ -4,7 +4,7 @@ import 'package:Nahvino/tabs.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../App_localizations.dart';
 import 'Pages/Account/login/SignUp.dart';
-import 'Utils/Widget/Text.dart';
+import 'Utils/Text/Text.dart';
 
 class Splash extends StatefulWidget {
   Splash({Key? key}) : super(key: key);
