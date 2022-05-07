@@ -12,6 +12,7 @@ import '../../../Services/Login/ApiService.dart';
 import '../../../Utils/Button/Button.dart';
 import '../../../Utils/Text/Text.dart';
 
+import '../../../tabs.dart';
 import 'AddIntroduced.dart';
 import 'SignUp.dart';
 
@@ -29,42 +30,25 @@ class _CodeOtpPhoneNewState extends State<CodeOtpPhoneNew> {
   TextEditingController OtpCodeController = TextEditingController();
   late StreamController<ErrorAnimationType> errorController;
 
-  late String otpcode="";
+  late String otpcode = "";
   late APIService apiService;
   late SharedPreferences logindata;
   bool hasError = false;
 
-
-var resultResponsepro;
-
-
+  var resultResponsepro;
+  var parentName;
+  //String? parentName;
 
   @override
   void initState() {
     apiService = APIService(context);
     errorController = StreamController<ErrorAnimationType>();
     super.initState();
-
- /*   APIService.profilleall().then((response) {
-      print("APIService.profilleall => $response");
-      /*  setState(() {
-        isApiCallProgress = false;
-        resultResponsepro = response;
-      });*/
-      if (response != null) {
-        resultResponsepro = response ?? "اطلاعات یافت نشد";
-      } else {
-        setState(() {
-          isApiCallProcess = false;
-          resultResponsepro = response;
-        });
-      }
-    });*/
   }
 
   @override
   Widget build(BuildContext context) {
-      /*final defaultPinTheme = PinTheme(
+    /*final defaultPinTheme = PinTheme(
       width: 56,
       height: 60,
       decoration: BoxDecoration(
@@ -86,30 +70,30 @@ var resultResponsepro;
       ),
       body: isApiCallProcess
           ? Center(
-        child: Lottie.asset('assets/anim/login/send-massage.json',
-            height: 300, width: 300),
-      )
+              child: Lottie.asset('assets/anim/login/send-massage.json',
+                  height: 300, width: 300),
+            )
           : SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Center(
-                child: Lottie.asset('assets/anim/login/send.json',
-                    height: 150, width: 150),
-              ),
-              Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                Text(AppLocalizations.of(context)!.translate(
-                  'set_phone_test',
-                )!),
-                SizedBox(width: 3),
-                //Text(widget.setPhoneNumber)
-                textspan(
-                  textAlign: TextAlign.center,
-                  text: widget.OtpCode,
-                  color: Colors.green,
-                ),
-              ]),
-              /* TextOtpPhone(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Center(
+                      child: Lottie.asset('assets/anim/login/send.json',
+                          height: 150, width: 150),
+                    ),
+                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                      Text(AppLocalizations.of(context)!.translate(
+                        'set_phone_test',
+                      )!),
+                      SizedBox(width: 3),
+                      //Text(widget.setPhoneNumber)
+                      textspan(
+                        textAlign: TextAlign.center,
+                        text: widget.OtpCode,
+                        color: Colors.green,
+                      ),
+                    ]),
+                    /* TextOtpPhone(
                       icon: Icon(Icons.phone_android, size: 24),
                       suffixIcon: null,
                       prefixIcon: null,
@@ -118,7 +102,7 @@ var resultResponsepro;
                       )!,
                       controller: OtpCodeController,
                     ),*/
-              /*
+                    /*
               Padding(
                 padding: const EdgeInsets.only(right: 3033,left: 30),
                 child: PinCodeTextField(
@@ -164,91 +148,156 @@ var resultResponsepro;
                     }),
 
               ),*/
-              SizedBox(height: 20,),
-              Directionality(
-                textDirection: TextDirection.ltr,
-                child: Pinput(controller:OtpCodeController
-                    ,autofocus: true,
-                  enabled: true,
-                  length: 5,
-                  keyboardType: TextInputType.number,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  androidSmsAutofillMethod: AndroidSmsAutofillMethod.smsUserConsentApi,
-                ),
-              ),
-              SizedBox(height: 20,),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Directionality(
+                      textDirection: TextDirection.ltr,
+                      child: Pinput(
+                        controller: OtpCodeController,
+                        autofocus: true,
+                        enabled: true,
+                        length: 5,
+                        keyboardType: TextInputType.number,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        androidSmsAutofillMethod:
+                            AndroidSmsAutofillMethod.smsUserConsentApi,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Buttontest(
+                        text: AppLocalizations.of(context)!.translate(
+                          'OK',
+                        )!,
+                        onPressed: () {
+                          if (OtpCodeController.text.isEmpty) {
+                            apiService.showSnackBar(text: "filed is empty!");
+                            return;
+                          }
+                          setState(() {
+                            isApiCallProcess = true;
+                          });
+                          apiService.OtpCodePhone(widget.OtpCode.toString(),
+                                  int.parse(OtpCodeController.text))
+                              .then((response) async {
+                            if (response != false) {
+                              logindata = await SharedPreferences.getInstance();
+                              await logindata.setString("token",
+                                  response['data']['userToken']['token']);
+                              await logindata.setString(
+                                  "userId", response['data']['id']);
+                              apiService.showSnackBar(
+                                  text: AppLocalizations.of(context)!.translate(
+                                'Welcome',
+                              )!);
+                              Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => AddIntroduced()),
+                                    (route) => false,
+                              );
+                              /*
+                              APIService.profilleall().then((response) {
+                                print("APIService.profilleall => $response");
+                                setState(() {
+                                  isApiCallProcess = false;
+                                  resultResponsepro = response;
+                                });
+                                parentName =
+                                    resultResponsepro['parentName'].toString();
+                               // print(parentName);
 
-              Buttontest(
-                  text: AppLocalizations.of(context)!.translate(
-                    'OK',
-                  )!,
-                  onPressed: () {
-                    if (OtpCodeController.text.isEmpty) {
-                      apiService.showSnackBar(text: "filed is empty!");
-                      return;
-                    }
-                    setState(() {
-                      isApiCallProcess = true;
-                    });
-                    apiService.OtpCodePhone(widget.OtpCode.toString(),
-                        int.parse(OtpCodeController.text))
-                        .then((response) async {
-                      if (response != false) {
-                        logindata = await SharedPreferences.getInstance();
-                        await logindata.setString("token",
-                            response['data']['userToken']['token']);
-                        await logindata.setString(
-                            "userId", response['data']['id']);
-                        apiService.showSnackBar(
-                            text: AppLocalizations.of(context)!
-                                .translate(
-                              'Welcome',
-                            )!);
+                                if (parentName !=null) {
+                                  print("mogdar kali => $parentName");
+                                   Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => MyTabs()),
+                                  (route) => false,
+                                );
+                                }else{
+                                  print("mghdar por => $parentName");
+                                  Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => AddIntroduced()),
+                                        (route) => false,
+                                  );
 
-                        Navigator.pushAndRemoveUntil(
+                                }
+*/
+                              /*  if (parentName != null) {
+                                  print("mogdar por => $parentName");
+                                  Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => MyTabs()),
+                                        (route) => false,
+                                  );
+                                }*/
+
+
+
+
+                              //});
+                              /*   if (response != null) {
+                                  resultResponsepro = response ?? "اطلاعات یافت نشد";
+                                } else {
+                                  setState(() {
+                                    isApiCallProcess = false;
+                                    resultResponsepro = response;
+                                  });
+                                }
+                              });*/
+
+
+
+
+
+                              /*   Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
                               builder: (context) => AddIntroduced()),
                               (route) => false,
-                        );
-                      } else {
-                        apiService.showSnackBar(
-                            text: response['message'] ?? "sdd");
-                      }
-                    });
-                  }),
-              TimerButton(
-                timeOutInSeconds: 120,
-                disabledColor: Colors.transparent,
-                color: Colors.cyan,
-                buttonType: ButtonType.TextButton,
-                label: AppLocalizations.of(context)!.translate(
-                  'ReCode',
-                )!,
-                onPressed: () {
-                  apiService.NewReSendCode(
-                    widget.OtpCode.toString(),
-                  ).then((response) async {
-                    setState(() {
-                      isApiCallProcess = false;
-                    });
-                    if (response != false) {
-                      apiService.showSnackBar(
-                          text: AppLocalizations.of(context)!.translate(
-                            'Welcome',
-                          )!);
-                    } else {
-                      apiService.showSnackBar(text: response['message']);
-                    }
-                  });
-                },
+                        );*/
+                            } else {
+                              apiService.showSnackBar(
+                                  text: response['message'] ?? "sdd");
+                            }
+                          });
+                        }),
+                    TimerButton(
+                      timeOutInSeconds: 120,
+                      disabledColor: Colors.transparent,
+                      color: Colors.cyan,
+                      buttonType: ButtonType.TextButton,
+                      label: AppLocalizations.of(context)!.translate(
+                        'ReCode',
+                      )!,
+                      onPressed: () {
+                        apiService.NewReSendCode(
+                          widget.OtpCode.toString(),
+                        ).then((response) async {
+                          setState(() {
+                            isApiCallProcess = false;
+                          });
+                          if (response != false) {
+                            apiService.showSnackBar(
+                                text: AppLocalizations.of(context)!.translate(
+                              'Welcome',
+                            )!);
+                          } else {
+                            apiService.showSnackBar(text: response['message']);
+                          }
+                        });
+                      },
+                    ),
+                  ],
+                ),
               ),
-            ],
-          ),
-        ),
-      ),
+            ),
     );
   }
-
-
 }

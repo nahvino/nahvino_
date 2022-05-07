@@ -7,7 +7,7 @@ class SettingScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: WebView(
-          initialUrl: "https://nahvino.com",
+          initialUrl: "https://nahvino.com/blog/",
           javascriptMode: JavascriptMode.unrestricted,
         ),
       ),
