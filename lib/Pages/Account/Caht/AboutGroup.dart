@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:Nahvino/Model/User/SignalR/GroupModel.dart';
-
 import '../../../App_localizations.dart';
+import '../../../Model/User/SignalR/GroupModel.dart';
+import '../../../Model/User/user/viewprofile_response_model.dart';
+import '../../../Services/Login/User/Config.dart';
 import '../../../Utils/Text/Text.dart';
 import 'chatpage.dart';
 
@@ -20,6 +21,8 @@ class _AboutGroupState extends State<AboutGroup> {
   bool isApiCallProgress = true;
   bool lang = false; // en => true / fa => false
   bool isSwitched = false;
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -109,9 +112,9 @@ class _AboutGroupState extends State<AboutGroup> {
                                     'GroupOower',
                                   )!,
                                 ),
-                                Row(
+                                Column(
                                   children: [
-                                    Container(
+                                  /*  Container(
                                       decoration: BoxDecoration(
                                           image: DecorationImage(
                                             fit: BoxFit.cover,
@@ -122,11 +125,50 @@ class _AboutGroupState extends State<AboutGroup> {
                                           color: Colors.redAccent),
                                       height: 50,
                                       width: 50,
+                                    ),*/
+
+                                    (widget.model.adminImageurl != null &&
+                                        widget.model.adminImageurl != "")
+                                        ? Card(
+                                      shape: CircleBorder(),
+                                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                                      child: Image.network(
+                                        Config.fileurl + widget.model.adminImageurl!,
+                                        fit: BoxFit.cover,
+                                        errorBuilder: (BuildContext context,
+                                            Object exception,
+                                            StackTrace? stackTrace) {
+                                          return const Icon(Icons.person);
+                                        },
+                                        loadingBuilder: (BuildContext context,
+                                            Widget child,
+                                            ImageChunkEvent? loadingProgress) {
+                                          if (loadingProgress == null) return child;
+                                          return Center(
+                                            child: CircularProgressIndicator(
+                                              value: loadingProgress
+                                                  .expectedTotalBytes !=
+                                                  null
+                                                  ? loadingProgress
+                                                  .cumulativeBytesLoaded /
+                                                  loadingProgress
+                                                      .expectedTotalBytes!
+                                                  : null,
+                                            ),
+                                          );
+                                        },
+                                        height: 50,
+                                        width: 50,
+                                      ),
+                                    )
+                                        : Image.asset(
+                                      'assets/images/home/user.png',
+                                      fit: BoxFit.cover,
+                                      height: 50,
+                                      width: 50,
                                     ),
-                                    SizedBox(
-                                      width: 4,
-                                    ),
-                                    Text(widget.model.adminName ?? "   husen   "),
+                                    Callout(color: Colors.black, textAlign: TextAlign.center, text:widget.model.adminName!)
+
                                   ],
                                 ),
                               ],
@@ -139,24 +181,50 @@ class _AboutGroupState extends State<AboutGroup> {
                                   'GroupAdmin1',
                                 )!,
                               ),
-                              Row(
+                              Column(
                                 children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                          fit: BoxFit.cover,
-                                          image: AssetImage(
-                                              "assets/images/ram/gril.png"),
-                                        ),
-                                        shape: BoxShape.circle,
-                                        color: Colors.redAccent),
+                                  (widget.model.supervisor1Imageurl != null &&
+                                      widget.model.supervisor1Imageurl != "")
+                                      ? Card(
+                                    shape: CircleBorder(),
+                                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                                    child: Image.network(
+                                      Config.fileurl + widget.model.supervisor1Imageurl!,
+                                      fit: BoxFit.cover,
+                                      errorBuilder: (BuildContext context,
+                                          Object exception,
+                                          StackTrace? stackTrace) {
+                                        return const Icon(Icons.person);
+                                      },
+                                      loadingBuilder: (BuildContext context,
+                                          Widget child,
+                                          ImageChunkEvent? loadingProgress) {
+                                        if (loadingProgress == null) return child;
+                                        return Center(
+                                          child: CircularProgressIndicator(
+                                            value: loadingProgress
+                                                .expectedTotalBytes !=
+                                                null
+                                                ? loadingProgress
+                                                .cumulativeBytesLoaded /
+                                                loadingProgress
+                                                    .expectedTotalBytes!
+                                                : null,
+                                          ),
+                                        );
+                                      },
+                                      height: 50,
+                                      width: 50,
+                                    ),
+                                  )
+                                      : Image.asset(
+                                    'assets/images/home/user.png',
+                                    fit: BoxFit.cover,
                                     height: 50,
                                     width: 50,
                                   ),
-                                  SizedBox(
-                                    width: 4,
-                                  ),
-                                  Text(widget.model.supervisor1Name??"نسرین"),
+                                  Callout(color: Colors.black, textAlign: TextAlign.center, text:widget.model.supervisor1Name!)
+
                                 ],
                               ),
                             ]),
@@ -169,24 +237,49 @@ class _AboutGroupState extends State<AboutGroup> {
                                     'GroupAdmin2',
                                   )!,
                                 ),
-                                Row(
+                                Column(
                                   children: [
-                                    Container(
-                                      decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                            fit: BoxFit.cover,
-                                            image: AssetImage(
-                                                "assets/images/ram/man2.jpg"),
-                                          ),
-                                          shape: BoxShape.circle,
-                                          color: Colors.redAccent),
+                                    (widget.model.supervisor2Imageurl != null &&
+                                        widget.model.supervisor2Imageurl != "")
+                                        ? Card(
+                                      shape: CircleBorder(),
+                                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                                      child: Image.network(
+                                        Config.fileurl + widget.model.supervisor2Imageurl!,
+                                        fit: BoxFit.cover,
+                                        errorBuilder: (BuildContext context,
+                                            Object exception,
+                                            StackTrace? stackTrace) {
+                                          return const Icon(Icons.person);
+                                        },
+                                        loadingBuilder: (BuildContext context,
+                                            Widget child,
+                                            ImageChunkEvent? loadingProgress) {
+                                          if (loadingProgress == null) return child;
+                                          return Center(
+                                            child: CircularProgressIndicator(
+                                              value: loadingProgress
+                                                  .expectedTotalBytes !=
+                                                  null
+                                                  ? loadingProgress
+                                                  .cumulativeBytesLoaded /
+                                                  loadingProgress
+                                                      .expectedTotalBytes!
+                                                  : null,
+                                            ),
+                                          );
+                                        },
+                                        height: 50,
+                                        width: 50,
+                                      ),
+                                    )
+                                        : Image.asset(
+                                      'assets/images/home/user.png',
+                                      fit: BoxFit.cover,
                                       height: 50,
                                       width: 50,
                                     ),
-                                    SizedBox(
-                                      width: 4,
-                                    ),
-                                    Text(widget.model.supervisor2Name??"نسرین"),
+                                    Callout(color: Colors.black, textAlign: TextAlign.center, text:widget.model.supervisor2Name!)
                                   ],
                                 ),
                               ],

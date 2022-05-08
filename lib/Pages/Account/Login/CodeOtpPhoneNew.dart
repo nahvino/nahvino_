@@ -192,6 +192,7 @@ class _CodeOtpPhoneNewState extends State<CodeOtpPhoneNew> {
                                   text: AppLocalizations.of(context)!.translate(
                                 'Welcome',
                               )!);
+
                               Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(

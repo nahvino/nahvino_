@@ -56,7 +56,7 @@ class _SignUpState extends State<SignUp> {
                             MaterialPageRoute(
                                 builder: (context) => /*RegisterPage()*/ NewRegister()));
                       },
-                      child: textspan(color: Colors.black, textAlign: TextAlign.center, text:  AppLocalizations.of(context)!.translate(
+                      child: textspan(color: Colors.blue, textAlign: TextAlign.center, text:  AppLocalizations.of(context)!.translate(
                         'SignIn_btn_text',
                       )!,
 
