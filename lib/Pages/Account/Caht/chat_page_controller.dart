@@ -26,7 +26,6 @@ class ChatPageController extends GetxController{
   String myUserId = "";
    int? id;
    int  i =0;
-   late List mylist;
   @override
   void onInit(){
     super.onInit();
@@ -106,6 +105,7 @@ class ChatPageController extends GetxController{
 
   List<ReceiveMessageModel> chats = [];
 
+  //var reversedList =new List.from(chats.reversed);
 
 
   onEmojiSelected(Emoji emoji) {

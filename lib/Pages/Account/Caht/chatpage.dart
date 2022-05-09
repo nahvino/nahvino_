@@ -18,12 +18,14 @@ import 'package:Nahvino/Pages/Account/Caht/AboutGroup.dart';
 
 import '../../../Model/User/SignalR/ReceiveMessageModel.dart';
 import '../../../Utils/Text/Text.dart';
+import '../User/ViewProfileUesr.dart';
 
 class Chatpage extends StatelessWidget {
   Chatpage({Key? key}) : super(key: key);
 
   late String adminName;
   final ChatPageController chatPageController = Get.put(ChatPageController());
+  //var reversedList = chatPageController.chats.reversed.toList()
 
   @override
   Widget build(BuildContext context) {
@@ -96,9 +98,10 @@ class Chatpage extends StatelessWidget {
               child: ListView.builder(
                 reverse: false,
                 shrinkWrap: true,
+                itemCount: chatPageController.chats.length,
                 itemBuilder: chatItem,
                 physics: NeverScrollableScrollPhysics(),
-                itemCount: chatPageController.chats.length,
+
               ),
             );
           }),
@@ -196,6 +199,7 @@ class Chatpage extends StatelessWidget {
 
   Widget chatItem(context, index) {
     ReceiveMessageModel chat = chatPageController.chats[index];
+
     bool fromMe = chat.userId == chatPageController.myUserId;
 
     return Row(
@@ -312,95 +316,109 @@ class Chatpage extends StatelessWidget {
                   constraints: BoxConstraints(
                     maxWidth: MediaQuery.of(context).size.width * 0.7,
                   ),
-                  child: InkWell(
-                    onTap: () {
-                      showDialog(
-                          context: context,
-                          builder: (context) => Dialog(
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    ListTile(
-                                      onTap: () {
-                                        chatPageController.addToReply(chat);
-                                        Navigator.of(context).pop();
-                                      },
-                                      title: Text("Replay"),
-                                    ),
-                                    ListTile(
-                                      onTap: () {
-                                        chatPageController.addToReply(chat);
-                                        Navigator.of(context).pop();
-                                      },
-                                      title: Text("Report"),
-                                    ),
-                                    if (fromMe)
-                                      ListTile(
-                                        onTap: () {
-                                          chatPageController.DeleteMessage(
-                                              chat);
-                                          Navigator.of(context).pop();
-                                        },
-                                        title: Text("delete"),
-                                      ),
-                                  ],
-                                ),
-                              ));
-                    },
-                    child: Container(
-                      constraints: BoxConstraints(
-                          maxWidth: MediaQuery.of(context).size.width - 90),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Container(
-                            padding: EdgeInsets.only(
-                              top: 3,
-                              right: 10,
-                              left: 8,
-                              bottom: 3,
-                            ),
-                            child: Callout(
-                              color: Colors.teal,
-                              text: chat.userNameAlias!,
-                              textAlign: TextAlign.right,
-                            ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      InkWell(
+                        child: Container(
+                          padding: EdgeInsets.only(
+                            top: 3,
+                            right: 8,
+                            left: 1,
+                            bottom: 3,
                           ),
-                          if (chat.parentMessageUserNameAlias != null)
-                            Container(
-                                child: Text(chat.parentMessageUserNameAlias!),
-                                color: Colors.grey[100],
-                                padding: EdgeInsets.all(12)),
-                          if (chat.parentMessageText != null)
-                            //Text(chat.parentMessageText!),
-
-                            Container(
-                                child: Text(chat.parentMessageText!),
-                                color: Colors.grey[100],
-                                padding: EdgeInsets.all(8)),
-                          Container(
-                            child: Padding(
-                              padding:
-                                  EdgeInsets.only(right: 5, left: 5, top: 10),
-                              child: Subhead(
-                                color: Colors.black,
-                                text: chat.text!,
-                                textAlign: TextAlign.right,
-                              ),
-                            ),
+                          child: Callout(
+                            color: Colors.teal,
+                            text: chat.userNameAlias!,
+                            textAlign: TextAlign.right,
                           ),
-                          Container(
-                            padding: EdgeInsets.only(right: 5, left: 5),
-                            child: Footnate(
-                              color: Colors.black,
-                              text: chat.insertTime.toString(),
-                              textAlign: TextAlign.left,
-                            ),
-                          ),
-                        ],
+                        ),
+                        onTap: (){
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ViewProfileUesr(userid: chat.userId,)));
+                        },
                       ),
-                    ),
+                      InkWell(
+                        onTap: () {
+                          showDialog(
+                              context: context,
+                              builder: (context) => Dialog(
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        ListTile(
+                                          onTap: () {
+                                            chatPageController.addToReply(chat);
+                                            Navigator.of(context).pop();
+                                          },
+                                          title: Text("Replay"),
+                                        ),
+                                        ListTile(
+                                          onTap: () {
+                                            chatPageController.addToReply(chat);
+                                            Navigator.of(context).pop();
+                                          },
+                                          title: Text("Report"),
+                                        ),
+                                        if (fromMe)
+                                          ListTile(
+                                            onTap: () {
+                                              chatPageController.DeleteMessage(
+                                                  chat);
+                                              Navigator.of(context).pop();
+                                            },
+                                            title: Text("delete"),
+                                          ),
+                                      ],
+                                    ),
+                                  ));
+                        },
+                        child: Container(
+                          constraints: BoxConstraints(
+                              maxWidth: MediaQuery.of(context).size.width - 90),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              if (chat.parentMessageUserNameAlias != null)
+                                Container(
+                                    child: Text(chat.parentMessageUserNameAlias!),
+                                    color: Colors.grey[100],
+                                    padding: EdgeInsets.all(12)),
+                              if (chat.parentMessageText != null)
+                                //Text(chat.parentMessageText!),
+
+                                Container(
+                                    child: Text(chat.parentMessageText!),
+                                    color: Colors.grey[100],
+                                    padding: EdgeInsets.all(8)),
+                              Container(
+                                child: Padding(
+                                  padding:
+                                      EdgeInsets.only(right: 5, left: 5, top: 10),
+                                  child: Subhead(
+                                    color: Colors.black,
+                                    text: chat.text!,
+                                    textAlign: TextAlign.right,
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                padding: EdgeInsets.only(right: 5, left: 5),
+                                child: Footnate(
+                                  color: Colors.black,
+                                  text: chat.insertTime.toString(),
+                                  textAlign: TextAlign.left,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 /*

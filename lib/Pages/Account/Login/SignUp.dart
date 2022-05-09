@@ -24,7 +24,7 @@ class _SignUpState extends State<SignUp> {
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
-            image: AssetImage('assets/images/login/sinupbak.png'),
+            image: AssetImage('assets/images/login/sin.png'),
             fit: BoxFit.cover),
       ),
       child: Scaffold(
@@ -43,11 +43,13 @@ class _SignUpState extends State<SignUp> {
                     textspan(color: Colors.black, textAlign: TextAlign.center, text:  AppLocalizations.of(context)!.translate(
                       'Signup_top_text',
                     )!,
-
-
                     ),
                     const SizedBox(
                       height: 10,
+                    ),
+                    textspan(color: Colors.black, textAlign: TextAlign.center, text:  AppLocalizations.of(context)!.translate(
+                      'Register_top_text',
+                    )!,
                     ),
                     TextButton(
                       onPressed: () {
@@ -56,7 +58,7 @@ class _SignUpState extends State<SignUp> {
                             MaterialPageRoute(
                                 builder: (context) => /*RegisterPage()*/ NewRegister()));
                       },
-                      child: textspan(color: Colors.blue, textAlign: TextAlign.center, text:  AppLocalizations.of(context)!.translate(
+                      child: textspan(color: Colors.cyan, textAlign: TextAlign.center, text:  AppLocalizations.of(context)!.translate(
                         'SignIn_btn_text',
                       )!,
 

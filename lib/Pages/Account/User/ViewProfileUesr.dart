@@ -1,42 +1,27 @@
-import 'dart:convert';
-import 'dart:io';
-import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:intl/intl.dart' as intl;
 import 'package:lottie/lottie.dart';
-import 'package:Nahvino/Pages/Account/User/EditProfile.dart';
 import 'package:Nahvino/Services/login/user/Config.dart';
-import 'package:persian_datetime_picker/persian_datetime_picker.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../Model/user/user/viewprofile_response_model.dart';
 import '../../../Services/Login/ApiService.dart';
-import '../../../Utils/Button/Button.dart';
-import '../../../Utils/Other/ArshadDialog.dart';
-import '../../../Utils/Other/BargDialog.dart';
 import '../../../Utils/Text/Text.dart';
 import '../../../App_localizations.dart';
-import '../../../tabs.dart';
+import '../Caht/chatpage.dart';
 import '../Login/SignUp.dart';
 import 'Notifications.dart';
 import 'UserSecuritySttingMenus.dart';
-import 'ViewProfileUesr.dart';
 
-class ViewProfile extends StatefulWidget {
-  const ViewProfile({Key? key}) : super(key: key);
-
+class ViewProfileUesr extends StatefulWidget {
+  const ViewProfileUesr({Key? key, this.userid}) : super(key: key);
+  final userid;
   @override
-  State<ViewProfile> createState() => _ViewProfileState();
+  State<ViewProfileUesr> createState() => _ViewProfileUesrState();
 }
 
-class _ViewProfileState extends State<ViewProfile> {
+class _ViewProfileUesrState extends State<ViewProfileUesr> {
   bool isApiCallProgress = true;
-
 
   GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
   GetProfileUserResponseModel? resultResponse;
@@ -76,6 +61,8 @@ class _ViewProfileState extends State<ViewProfile> {
     Lottie.asset('assets/anim/phonix-die.json'),
   ];
 
+
+
   @override
   void initState() {
     super.initState();
@@ -99,7 +86,7 @@ class _ViewProfileState extends State<ViewProfile> {
     APIService.getuserabandon().then((response) {
       print("APIService.getuserabandon => $response");
       if (response != null) {
-          resultResponseGetUserAbandon = response ?? tarikh;
+        resultResponseGetUserAbandon = response ?? tarikh;
       } else {
         setState(() {
           isApiCallProgress = false;
@@ -142,155 +129,29 @@ class _ViewProfileState extends State<ViewProfile> {
                     Column(
                       children: [
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Container(
-                              padding: EdgeInsets.only(
-                                  right: MediaQuery
-                                      .of(context)
-                                      .size
-                                      .height *
-                                      0.03),
-                              child: textbold(
-                                textAlign: TextAlign.right,
-                                text: resultResponse!.userName ?? "Guest",
-                                color: Colors.black,
+
+                            Directionality(
+                              textDirection:  TextDirection.ltr,
+                              child: Container(
+                                alignment: Alignment.topLeft,
+                                height: 30,
+                                child: BackButton(
+                                  onPressed: (() {
+                                    Navigator.push(context,
+                                        MaterialPageRoute(builder: (context) => Chatpage()));
+                                  }),
                               ),
+  ),
                             ),
-                            Container(
-                              alignment: Alignment.topLeft,
-                              height: 30,
-                              child: PopupMenuButton<int>(
-                                icon: Icon(Icons.menu),
-                                itemBuilder: (context) =>
-                                [
-                                  PopupMenuItem(
-                                    value: 0,
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.start,
-                                      children: [
-                                        Icon(
-                                          Icons.security,
-                                          color: Colors.cyan,
-                                        ),
-                                        const SizedBox(
-                                          width: 7,
-                                        ),
-                                        textspan(
-                                          textAlign: TextAlign.end,
-                                          text: AppLocalizations.of(context)!
-                                              .translate(
-                                            'Security_settings',
-                                          )!,
-                                          color: Colors.black,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  PopupMenuDivider(height: 4),
-                                  PopupMenuItem(
-                                    value: 1,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.start,
-                                      children: [
-                                        Icon(
-                                          Icons.notifications,
-                                          color: Colors.cyan,
-                                        ),
-                                        const SizedBox(
-                                          width: 7,
-                                        ),
-                                        textspan(
-                                          textAlign: TextAlign.end,
-                                          color: Colors.black,
-                                          text: AppLocalizations.of(context)!
-                                              .translate(
-                                            'Notifications',
-                                          )!,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  PopupMenuDivider(height: 1),
-                                  PopupMenuItem(
-                                    child: Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.center,
-                                      children: [
-                                        Caption1(
-                                          textAlign: TextAlign.center,
-                                          color: Colors.black,
-                                          text: AppLocalizations.of(context)!
-                                              .translate(
-                                            'YCTIANM',
-                                          )!,
-                                        ),
-                                        const SizedBox(
-                                          width: 2,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  PopupMenuItem(
-                                    value: 2,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.center,
-                                      children: [
-                                        Icon(
-                                          Icons.share,
-                                          color: Colors.cyan,
-                                        ),
-                                        SizedBox(
-                                          width: 8,
-                                        ),
-                                        textspan(
-                                          textAlign: TextAlign.center,
-                                          text: resultResponse!.identifierCode
-                                              .toString(),
-                                          color: Colors.black,
-                                        ),
-                                        const SizedBox(
-                                          width: 7,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  PopupMenuDivider(),
-                                  PopupMenuItem(
-                                    value: 3,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.center,
-                                      children: [
-                                        textspan(
-                                          textAlign: TextAlign.center,
-                                          color: Colors.black,
-                                          text: AppLocalizations.of(context)!
-                                              .translate(
-                                            'Eixt',
-                                          )!,
-                                        ),
-                                        const SizedBox(
-                                          width: 7,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                                onSelected: (item) => onSelected(context, item),
-                              ),
-                            ),
-                          ],
-                        ),
+                      ]  ),
                       ],
                     ),
                     SingleChildScrollView(
                       child: Row(
                         children: [
+
                           Padding(
                             padding: EdgeInsets.only(
                               bottom: MediaQuery
@@ -299,7 +160,13 @@ class _ViewProfileState extends State<ViewProfile> {
                                   .height * 0.16,
                             ),
                           ),
-                          (resultResponse!.imageUrl != null &&
+                          Column(children: [
+                            textbold(
+                              textAlign: TextAlign.right,
+                              text: resultResponse!.userName ?? "Guest",
+                              color: Colors.black,
+                            ),
+                            (resultResponse!.imageUrl != null &&
                               resultResponse!.imageUrl != "")
                               ? Card(
                             shape: CircleBorder(),
@@ -338,7 +205,8 @@ class _ViewProfileState extends State<ViewProfile> {
                             fit: BoxFit.cover,
                             height: 75,
                             width: 75,
-                          ),
+                          ),],),
+
                           SizedBox(
                             width: 10,
                           ),
@@ -481,7 +349,7 @@ class _ViewProfileState extends State<ViewProfile> {
                                 height: 30,
                                 width: 30,
                               ),
-                          /*    InkWell(
+                              /*    InkWell(
                                 onTap: () {
 
                                   showDialog<void>(
@@ -536,113 +404,67 @@ class _ViewProfileState extends State<ViewProfile> {
                         textAlign: TextAlign.start,
                       ),
                     ),
-                    SizedBox(
-                      height: 1,
-                    ),
-                    Buttonfull(
-                      text: AppLocalizations.of(context)!.translate(
-                        'Edit Profile',
-                      )!,
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    EditProfile(model: resultResponse!)));
-                      },
-                      color: Colors.white,
-                    )
-                  ],
+                                      ],
                 ),
               ),
             ),
             Card(
               margin: EdgeInsets.symmetric(horizontal: 0, vertical: 6),
               child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Column(
+                padding: const EdgeInsets.all(5.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Container(
-                      alignment: Alignment.center,
+                      height: 150,
+                      width: 150,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.rectangle,
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        boxShadow: const [
+                          BoxShadow(color: Colors.black, spreadRadius: 2),
+                        ],
+                      ),
                       child: ranksadadA[resultResponsee['data']],
+                    ),
+                    SizedBox(width: 9,),
+                    Container(
+                      height: 150,
+                      width: 150,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.rectangle,
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        boxShadow: const [
+                          BoxShadow(color: Colors.black, spreadRadius: 2),
+                        ],
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 50),
+                        child: Column(children: [
+                          Body(
+                            textAlign: TextAlign.center,
+                            color: Colors.cyan,
+                            text: "تاریخ آغاز ترک",),
+                          Body(
+                            textAlign: TextAlign.center,
+                            color: Colors.cyan,
+                            text: resultResponseGetUserAbandon['data'] ?? tarikh,),
+                        ],),
+                      ),
                     ),
 
                   ],
                 ),
               ),
             ),
-            Card(
-              margin: EdgeInsets.symmetric(horizontal: 0, vertical: 6),
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Column(
-                  children: [
-                    Body(textAlign: TextAlign.center,
-                      color: Colors.cyan,
-                      text: resultResponseGetUserAbandon['data'] ?? tarikh,),
-                    Buttonfull(text: 'تستی', color: Colors.white, onPressed: () {  Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                ViewProfileUesr())); },),
-                    Buttonfull(
-                      text: AppLocalizations.of(context)!
-                          .translate('Date_of_departure')!,
-                      onPressed: () async {
-                        Jalali? picked = await showPersianDatePicker(
-                          context: context,
-                          initialDate: Jalali.now(),
-                          firstDate: Jalali(1320, 1),
-                          lastDate: Jalali(1450, 1),
-
-                        );
-                        print(picked!.formatCompactDate());
-                        /*var time = await showPersianTimePicker(
-                          context: context,
-                          initialTime: TimeOfDay.now(),
-                        );*/
-                        final berlinWallFell = picked.formatCompactDate();
-                        //berlinWallFell.toUtc();
-                        //print(berlinWallFell.toString());
-                        //print(time.toString());
-                        //String formattedDate = time.toString()+berlinWallFell.toString();
-
-                        // final output = time.replaceAll(RegExp('[^0-9]'));
-                        // setState(() {
-                        //   time = output as TimeOfDay?;
-                        // });
-                        // print(output.toString());
-
-                        // String formattedDate =intl.DateFormat.yMMMd().format(time) as TimeOfDay; +berlinWallFell;
-                        //print(formattedDate);    // apiService.AddOrEditUserAbandon()
-
-
-                        apiService.AddOrEditUserAbandon(berlinWallFell)
-                            .then((response) async {
-                          setState(() {
-                            isApiCallProgress = false;
-                          });
-                          if (response != false) {
-                            apiService.showSnackBar(
-                                text: response['message']);
-                            setState(() {
-                              isApiCallProgress = false;
-                              Get.offAll(MyTabs());
-                            });
-                          } else {
-                            apiService.showSnackBar(
-                                text: response['message']);
-                          }
-                        });
-
-                      },
-                      color: Colors.white,
-                    )
-
-                  ],
-                ),
-              ),
-            ),
+            Body(
+                textAlign: TextAlign.center,
+                color: Colors.cyan,
+                text: widget.userid.toString()),
           ],
         ),
       );
@@ -660,7 +482,6 @@ class _ViewProfileState extends State<ViewProfile> {
       case 2:
       /* Share.share('اشتراک گذاری کد معرف', subject: resultResponse!.identifierCode
             .toString() );*/
-        //Share.share(ranks.toString());
         Share.share(resultResponse!.identifierCode.toString());
 
         break;
@@ -695,7 +516,7 @@ class _ViewProfileState extends State<ViewProfile> {
                             .getInstance();
                         await preferences.clear();
                         Future.delayed(const Duration(milliseconds: 1000), () {
-                         // exit(0);
+                          // exit(0);
                           Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
