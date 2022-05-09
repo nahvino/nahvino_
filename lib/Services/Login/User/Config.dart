@@ -29,5 +29,7 @@ class Config {
       "/api/v1/Account/CheckCodeSetPhoneNumber";
   static const String EditUserAbandon =
       "/api/v1/Account/AddOrEditUserAbandon";
+  static const String GetProfileOtherUser =
+      "/api/v1/Account/GetProfileOtherUser";
 
 }

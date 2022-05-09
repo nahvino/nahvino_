@@ -51,9 +51,8 @@ class _SignUpState extends State<SignUp> {
                       'Register_top_text',
                     )!,
                     ),
-                    RaisedButton(
-                      elevation: 10,
-                      color: Colors.white,
+                    TextButton(
+
                       onPressed: () {
                         Navigator.pushReplacement(
                             context,

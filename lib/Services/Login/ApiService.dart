@@ -619,6 +619,10 @@ class APIService {
     }
   }
 
+
+
+
+
   Future CheckCodeChangePhoneNumber(String currentPhoneNumber,
       String newPhoneNumber, int code) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -839,6 +843,30 @@ class APIService {
 //   return false;
 //
 // }
+
+
+static  Future GetProfileOtherUser(String GetProfileOtherUser,
+      ) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer ${await preferences.getString("token")}"
+    };
+    var url = Uri.parse(Config.baseURL + Config.GetProfileOtherUser);
+    var response = await client.post(
+      url,
+      headers: requestHeaders,
+      body: jsonEncode({
+        "userId": GetProfileOtherUser
+      }),
+    );
+  //  debugPrint(response.body.toString());
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    } else {
+      return false;
+    }
+  }
 
 }
 

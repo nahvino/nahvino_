@@ -24,9 +24,8 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
   bool isApiCallProgress = true;
 
   GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
-  GetProfileUserResponseModel? resultResponse;
-  var resultResponsee;
-  var resultResponseGetUserAbandon;
+
+  var resultResponseViewProfileUesr;
   late APIService apiService;
   String? imagePath;
   String tarikh = "تاریخ";
@@ -67,7 +66,20 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
   void initState() {
     super.initState();
     apiService = APIService(context);
+
+
+
+
     Future.microtask(() {
+      APIService.GetProfileOtherUser(widget.userid.toString()).then((response)  {
+        //resultResponseViewProfileUesr = response;
+        setState(() {
+          isApiCallProgress = false;
+          resultResponseViewProfileUesr = response;
+        });
+        print("test------------------------------------> $resultResponseViewProfileUesr");
+      });
+/*
       APIService.getprofileuser().then((response) {
         print("APIService.getprofileuser => $response");
         resultResponse = response;
@@ -93,7 +105,7 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
           resultResponseGetUserAbandon = response;
 
         });
-      }
+      }*/
     });
   }
 
@@ -104,7 +116,8 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
       textDirection: TextDirection.rtl,
       child: Scaffold(
         backgroundColor: Colors.grey[200],
-        body: SafeArea(
+        body: //body(context)
+          SafeArea(
             child: isApiCallProgress
                 ? Center(
               child: Lottie.asset('assets/anim/phonix_storok.json',
@@ -151,7 +164,6 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                     SingleChildScrollView(
                       child: Row(
                         children: [
-
                           Padding(
                             padding: EdgeInsets.only(
                               bottom: MediaQuery
@@ -163,16 +175,16 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                           Column(children: [
                             textbold(
                               textAlign: TextAlign.right,
-                              text: resultResponse!.userName ?? "Guest",
+                              text: resultResponseViewProfileUesr['userName'],
                               color: Colors.black,
                             ),
-                            (resultResponse!.imageUrl != null &&
-                              resultResponse!.imageUrl != "")
+                            (resultResponseViewProfileUesr['imageUrl']!= null &&
+                                resultResponseViewProfileUesr['imageUrl'] != "")
                               ? Card(
                             shape: CircleBorder(),
                             clipBehavior: Clip.antiAliasWithSaveLayer,
                             child: Image.network(
-                              Config.fileurl + resultResponse!.imageUrl!,
+                              Config.fileurl + resultResponseViewProfileUesr['imageUrl']!,
                               fit: BoxFit.cover,
                               errorBuilder: (BuildContext context,
                                   Object exception,
@@ -208,12 +220,12 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                           ),],),
 
                           SizedBox(
-                            width: 10,
+                            width: 1,
                           ),
                           Column(
                             children: [
                               textbold(
-                                text: resultResponse!.nameAlias ?? "Guest",
+                                text: resultResponseViewProfileUesr['nameAlias'],
                                 color: Colors.green,
                                 textAlign: TextAlign.start,
                               ),
@@ -243,7 +255,7 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                                           border: Border.all(
                                               color: Colors.black26, width: 1)),
                                       child: textspan(
-                                        text: ranksadad[resultResponse!.rank!],
+                                        text: ranksadad[resultResponseViewProfileUesr['rank']],
                                         color: Colors.purpleAccent,
                                         textAlign: TextAlign.left,
                                       ),
@@ -252,7 +264,7 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                                       width: 5,
                                     ),
                                     textspan(
-                                      text: ranks[resultResponse!.rank!],
+                                      text: ranks[resultResponseViewProfileUesr['rank']],
                                       color: Colors.black,
                                       textAlign: TextAlign.left,
                                     ),
@@ -262,7 +274,7 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                             ],
                           ),
                           SizedBox(
-                            width: 30,
+                            width: 7,
                           ),
                           Column(
                             children: [
@@ -287,17 +299,17 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                                             ));
                                   }),*/
                               SizedBox(
-                                height: 4,
+                                height: 5,
                               ),
                               textspan(
-                                text: resultResponse!.score.toString(),
+                                text: resultResponseViewProfileUesr['score'].toString(),
                                 color: Colors.black,
                                 textAlign: TextAlign.left,
                               ),
                             ],
                           ),
                           SizedBox(
-                            width: 30,
+                            width: 10,
                           ),
                           Column(
                             children: [
@@ -309,13 +321,13 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                                       .height * 0.1,
                                 ),
                               ),*/
-                              (resultResponse!.parentImageUrl != null &&
-                                  resultResponse!.parentImageUrl != "")
+                              (resultResponseViewProfileUesr['parentImageUrl'] != null &&
+                                  resultResponseViewProfileUesr['parentImageUrl'] != "")
                                   ? Card(
                                 shape: CircleBorder(),
                                 clipBehavior: Clip.antiAliasWithSaveLayer,
                                 child: Image.network(
-                                  Config.fileurl + resultResponse!.parentImageUrl!,
+                                  Config.fileurl + resultResponseViewProfileUesr['parentImageUrl']!,
                                   fit: BoxFit.cover,
                                   errorBuilder: (BuildContext context,
                                       Object exception,
@@ -371,7 +383,7 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                                 height: 4,
                               ),
                               textspan(
-                                text:  resultResponse!.parentName!,
+                                text:  resultResponseViewProfileUesr['parentName'],
                                 color: Colors.black,
                                 textAlign: TextAlign.left,
                               ),
@@ -399,7 +411,7 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                             .height * 0.01,
                       ),
                       child: textspan(
-                        text: resultResponse!.bio ?? "empty bio",
+                        text: resultResponseViewProfileUesr['bio'],
                         color: Colors.black,
                         textAlign: TextAlign.start,
                       ),
@@ -427,7 +439,8 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                           BoxShadow(color: Colors.black, spreadRadius: 2),
                         ],
                       ),
-                      child: ranksadadA[resultResponsee['data']],
+                      child: Text(""),
+                      //ranksadadA[resultResponsee['data']],
                     ),
                     SizedBox(width: 9,),
                     Container(
@@ -452,7 +465,7 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                           Body(
                             textAlign: TextAlign.center,
                             color: Colors.cyan,
-                            text: resultResponseGetUserAbandon['data'] ?? tarikh,),
+                            text: "" /*resultResponseea['userName']*/,),
                         ],),
                       ),
                     ),
@@ -461,79 +474,13 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                 ),
               ),
             ),
-            Body(
+         /*   Body(
                 textAlign: TextAlign.center,
                 color: Colors.cyan,
-                text: widget.userid.toString()),
+                text: widget.userid.toString()),*/
           ],
         ),
       );
-
-  void onSelected(BuildContext context, int item) {
-    switch (item) {
-      case 0:
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => UserSecuritySttingMenus()));
-        break;
-      case 1:
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Notifications()));
-        break;
-      case 2:
-      /* Share.share('اشتراک گذاری کد معرف', subject: resultResponse!.identifierCode
-            .toString() );*/
-        Share.share(resultResponse!.identifierCode.toString());
-
-        break;
-      case 3:
-        showDialog<String>(
-          context: context,
-          builder: (BuildContext context) =>
-              AlertDialog(
-                  title: Text(AppLocalizations.of(context)!.translate(
-                    'apptitle',
-                  )!),
-                  content: Text(AppLocalizations.of(context)!.translate(
-                    'quExit',
-                  )!),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () =>
-                          Navigator.pop(
-                              context,
-                              AppLocalizations.of(context)!.translate(
-                                'Cancel',
-                              )!),
-                      child: Text(
-                        AppLocalizations.of(context)!.translate(
-                          'Cancel',
-                        )!,
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () async {
-                        final preferences = await SharedPreferences
-                            .getInstance();
-                        await preferences.clear();
-                        Future.delayed(const Duration(milliseconds: 1000), () {
-                          // exit(0);
-                          Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>SignUp()),
-                                (route) => false,
-                          );
-                        });
-                      },
-                      child: Text(AppLocalizations.of(context)!.translate(
-                        'OK',
-                      )!),
-                    ),
-                  ]),
-        );
-        break;
-    }
-  }
 
 
 }

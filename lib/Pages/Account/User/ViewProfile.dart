@@ -580,11 +580,11 @@ class _ViewProfileState extends State<ViewProfile> {
                     Body(textAlign: TextAlign.center,
                       color: Colors.cyan,
                       text: resultResponseGetUserAbandon['data'] ?? tarikh,),
-                    Buttonfull(text: 'تستی', color: Colors.white, onPressed: () {  Navigator.push(
+                  /*  Buttonfull(text: 'تستی', color: Colors.white, onPressed: () {  Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                ViewProfileUesr())); },),
+                                ViewProfileUesr())); },),*/
                     Buttonfull(
                       text: AppLocalizations.of(context)!
                           .translate('Date_of_departure')!,

@@ -92,31 +92,34 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-               Container(
-                  child: BackButton(
-                    onPressed: (() {
-                      Navigator.pushReplacement(
-                          context, MaterialPageRoute(builder: (context) => ViewProfile()));
-                    }),
-                  ),
-                ),
+
+               Row(
+                 children: [
+                   Container(
+                      child: BackButton(
+                        onPressed: (() {
+                          Navigator.pushReplacement(
+                              context, MaterialPageRoute(builder: (context) => ViewProfile()));
+                        }),
+                      ),
+                    ),
+                   Container(
+                     alignment: Alignment.topRight,
+                     padding: EdgeInsets.only(
+                        bottom: 4),
+                     child: textbold(
+                       textAlign: TextAlign.right,
+                       text: resultResponsepro['userName'].toString(),
+                       color: Colors.black,
+                     ),
+                   ),
+                 ],
+               ),
+
                     /*
                     Container(child: Lottie.asset('assets/anim/viewprofile/security-system.json',
                         height: 70, width: 70),),*/
-                  Container(
-                    alignment: Alignment.topRight,
-                      padding: EdgeInsets.only(
-                          right: MediaQuery
-                              .of(context)
-                              .size
-                              .height *
-                              0.03),
-                      child: textbold(
-                        textAlign: TextAlign.right,
-                        text: resultResponsepro['userName'].toString(),
-                        color: Colors.black,
-                      ),
-                    ),
+
 
                     Container(
                       alignment: Alignment.topLeft,
@@ -251,12 +254,12 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
 
                 child: Column(
                   children: [
-                    Headline(
+                    Title2(
                       textAlign: TextAlign.center,
                       text: AppLocalizations.of(context)!.translate(
                         'Security_settings',
                       )!,
-                      color: Colors.green,
+                      color: Colors.black45,
                     ),
                   ],
                 ),
@@ -264,51 +267,107 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
               SizedBox(height: 20,),
               Visibility(
                 visible: resultResponse['password'],
-                child: SttingMenusButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ChangePasswrod()));
-                    },
-                    icon: Icon(
-                      Icons.lock,
-                      color: Colors.white,
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        SizedBox(width: 10,),
+                        Icon(
+                          Icons.lock,
+                          color: Colors.black,
+                        ),
+                        MenusSttingButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ChangePasswrod()));
+                            },
+                            text: 'تغییر رمز عبور'),
+                      ],
                     ),
-                    text: 'تغییر رمز عبور'),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 30,left: 30),
+                      child: Divider(
+                        height: 0,
+                        thickness: 0.3,
+                        color: Colors.black26,
+                      ),
+                    ),
+                  ],
+                ),
               ),
               SizedBox(height: 5,),
               Visibility(
                 visible: resultResponse['password'],
-                child: SttingMenusButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => SetPhoneNumber()));
-                    },
-                    icon: Icon(
-                      Icons.phone_android,
-                      color: Colors.white,
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        SizedBox(width: 10,),
+
+                        Icon(
+                          Icons.phone_android,
+                          color: Colors.black,
+                        ),
+                        MenusSttingButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => SetPhoneNumber()));
+                            },
+
+                            text: 'موبایل'),
+                      ],
                     ),
-                    text: 'موبایل'),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 30,left: 30),
+                      child: Divider(
+                        height: 0,
+                        thickness: 0.3,
+                        color: Colors.black26,
+                      ),
+                    ),
+                  ],
+                ),
               ),
+
               SizedBox(height: 5,),
               Visibility(
                 visible: resultResponse['phoneNumber'],
-                child: SttingMenusButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ChangePhoneNumber()));
-                    },
-                    icon: Icon(
-                      Icons.phonelink_setup,
-                      color: Colors.white,
+                child:
+                Column(
+                  children: [
+                    Row(
+                      children: [
+                        SizedBox(width: 10,),
+                        Icon(
+                          Icons.phonelink_setup,
+                          color: Colors.black,
+                        ),
+                        MenusSttingButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ChangePhoneNumber()));
+                            },
+                            text: 'تغییر شماره تلفن'),
+                      ],
                     ),
-                    text: 'تغییر شماره تلفن'),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 30,left: 30),
+                      child: Divider(
+                        height: 0,
+                        thickness: 0.3,
+                        color: Colors.black26,
+                      ),
+                    ),
+                  ],
+                ),
               ),
+
              /* SttingMenusButton(
                   onPressed: () => AppLocalizations.of(context)?.setLocale(Locale.fromSubtags(languageCode: 'en')),
                   icon: Icon(

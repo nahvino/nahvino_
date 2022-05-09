@@ -53,3 +53,33 @@ class SttingMenusButton extends StatelessWidget {
     );
   }
 }
+
+class MenusSttingButton extends StatelessWidget {
+  MenusSttingButton({Key? key,  this.text,  this.onPressed,   this.iconn, this.prefixIcon, this.suffixIcon, this.color})
+      : super(key: key);
+
+  VoidCallback? onPressed;
+  String? text;
+   Widget? iconn;
+   Widget? color;
+   Widget? prefixIcon;
+   Widget? suffixIcon;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.topRight,
+      child: TextButton(
+        onPressed: onPressed,
+        child:  Row(
+          children: [
+            Text(
+              text!,
+              textAlign: TextAlign.right,
+              style: TextStyle(color: Colors.black, fontSize: 25 , fontFamily: 'byekan'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
