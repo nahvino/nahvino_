@@ -6,9 +6,6 @@ import '../../../Services/Login/ApiService.dart';
 import '../../../Utils/Button/Button.dart';
 import '../../../Utils/Text/TextField.dart';
 import '../../../Utils/Text/Text.dart';
-import '../User/ViewProfile.dart';
-import 'AddIntroduced.dart';
-import 'CodeOtpPhoneNew.dart';
 import 'NewPassword.dart';
 import 'SignUp.dart';
 

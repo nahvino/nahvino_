@@ -10,8 +10,7 @@ import '../../../Utils/Button/Button.dart';
 import '../../../Utils/Text/Text.dart';
 import '../../../Utils/Text/TextField.dart';
 import '../../../tabs.dart';
-import '../User/ViewProfile.dart';
-import 'CodeOtpPhoneNew.dart';
+
 import 'NewCheckQuestionAnswer.dart';
 import 'SignUp.dart';
 

@@ -40,10 +40,10 @@ class _SignUpState extends State<SignUp> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    textspan(color: Colors.black, textAlign: TextAlign.center, text:  AppLocalizations.of(context)!.translate(
+                /*    textspan(color: Colors.black, textAlign: TextAlign.center, text:  AppLocalizations.of(context)!.translate(
                       'Signup_top_text',
                     )!,
-                    ),
+                    ),*/
                     const SizedBox(
                       height: 10,
                     ),
@@ -51,7 +51,9 @@ class _SignUpState extends State<SignUp> {
                       'Register_top_text',
                     )!,
                     ),
-                    TextButton(
+                    RaisedButton(
+                      elevation: 10,
+                      color: Colors.white,
                       onPressed: () {
                         Navigator.pushReplacement(
                             context,
@@ -61,8 +63,6 @@ class _SignUpState extends State<SignUp> {
                       child: textspan(color: Colors.cyan, textAlign: TextAlign.center, text:  AppLocalizations.of(context)!.translate(
                         'SignIn_btn_text',
                       )!,
-
-
                       ),
                     ),
                     const SizedBox(
@@ -118,7 +118,7 @@ class _SignUpState extends State<SignUp> {
                         Navigator.pushReplacement(context,
                             MaterialPageRoute(builder: (context) => /*SignIn()*/ NewLogin()));
                       }),
-                      icon: Image.asset('assets/images/nahvino_logo.png'),
+                      icon: Image.asset('assets/images/login/logo.png',height: 40,width: 40),
                       label: textspan(
                         color: Colors.black,
                         textAlign: TextAlign.center,
