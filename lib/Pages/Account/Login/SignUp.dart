@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:Nahvino/Pages/Account/User/EditProfile.dart';
 import 'package:Nahvino/Pages/Account/login/SignIn.dart';
 import 'package:Nahvino/Pages/Account/login/Register.dart';
+import '../../../Utils/Button/Button.dart';
 import '../../../Utils/Text/Text.dart';
 import 'NewLogin.dart';
 import 'NewOtpPhone.dart';
@@ -40,34 +41,40 @@ class _SignUpState extends State<SignUp> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                /*    textspan(color: Colors.black, textAlign: TextAlign.center, text:  AppLocalizations.of(context)!.translate(
+                    /*    textspan(color: Colors.black, textAlign: TextAlign.center, text:  AppLocalizations.of(context)!.translate(
                       'Signup_top_text',
                     )!,
                     ),*/
                     const SizedBox(
                       height: 10,
                     ),
-                    textspan(color: Colors.black, textAlign: TextAlign.center, text:  AppLocalizations.of(context)!.translate(
-                      'Register_top_text',
-                    )!,
+                    textspan(
+                      color: Colors.black,
+                      textAlign: TextAlign.center,
+                      text: AppLocalizations.of(context)!.translate(
+                        'Register_top_text',
+                      )!,
                     ),
                     TextButton(
-
                       onPressed: () {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => /*RegisterPage()*/ NewRegister()));
+                                builder:
+                                    (context) => /*RegisterPage()*/ NewRegister()));
                       },
-                      child: textspan(color: Colors.cyan, textAlign: TextAlign.center, text:  AppLocalizations.of(context)!.translate(
-                        'SignIn_btn_text',
-                      )!,
+                      child: textspan(
+                        color: Colors.cyan,
+                        textAlign: TextAlign.center,
+                        text: AppLocalizations.of(context)!.translate(
+                          'SignIn_btn_text',
+                        )!,
                       ),
                     ),
                     const SizedBox(
                       height: 20,
                     ),
-                /*    OutlinedButton.icon(
+                    /*    OutlinedButton.icon(
                       onPressed: (() {
                         //DialogHelper.rules(context);
                       }),
@@ -87,6 +94,7 @@ class _SignUpState extends State<SignUp> {
                     SizedBox(
                       height: 20,
                     ),
+                    /*
                     OutlinedButton.icon(
                       onPressed: (() {
                         Navigator.push(
@@ -109,15 +117,33 @@ class _SignUpState extends State<SignUp> {
                         fixedSize: const Size(308, 50),
                       ),
                     ),
+*/
+                    ButtonSignUP(
+                      text: AppLocalizations.of(context)!.translate(
+                        'Signup_phone_btn',
+                      )!,
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder:
+                                    (context) => /*PhoneNumberPage()*/ OtpPhoneNew()));
+                      },
+                      icon: Image.asset('assets/images/phone.png',
+                          width: 45, height: 45),
+                    ),
                     SizedBox(
                       height: 20,
                     ),
-                    OutlinedButton.icon(
+          /*          OutlinedButton.icon(
                       onPressed: (() {
-                        Navigator.pushReplacement(context,
-                            MaterialPageRoute(builder: (context) => /*SignIn()*/ NewLogin()));
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => /*SignIn()*/ NewLogin()));
                       }),
-                      icon: Image.asset('assets/images/login/logo.png',height: 40,width: 40),
+                      icon: Image.asset('assets/images/login/logo.png',
+                          height: 40, width: 40),
                       label: textspan(
                         color: Colors.black,
                         textAlign: TextAlign.center,
@@ -133,6 +159,20 @@ class _SignUpState extends State<SignUp> {
                         fixedSize: const Size(308, 50),
                       ),
                     ),
+*/
+                    ButtonSignUP(
+                      text: AppLocalizations.of(context)!.translate(
+                        'Signup_nahvino_btn',
+                      )!,
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => /*SignIn()*/ NewLogin()));
+                      },
+                      icon: Image.asset('assets/images/login/logo.png',
+                          width: 45, height: 45),
+                    ),
                   ],
                 ),
               ),
@@ -146,26 +186,4 @@ class _SignUpState extends State<SignUp> {
       ),
     );
   }
-
-/*
- void  _checkInternetConnectiviy(BuildContext context) async {
-    var result = await Connectivity().checkConnectivity();
-    if (result == ConnectivityResult.none) {
-      GetSnackBar(
-        title: "اعلان",
-        message: "به اینترنت متصل نیستید",
-      );
-    } else if (result == ConnectivityResult.mobile) {
-      GetSnackBar(
-        title: "اعلان",
-        message: "به اینترنت موبایل متصل هستید",
-      );
-    } else if (result == ConnectivityResult.wifi) {
-      GetSnackBar(
-        title: "اعلان",
-        message: "به اینترنت وای فا متصل هستید",
-      );
-    }
-  }
-  */
 }

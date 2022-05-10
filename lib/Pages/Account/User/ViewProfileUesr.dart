@@ -66,11 +66,7 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
   void initState() {
     super.initState();
     apiService = APIService(context);
-
-
-
-
-    Future.microtask(() {
+   Future.microtask(() {
       APIService.GetProfileOtherUser(widget.userid.toString()).then((response)  {
         //resultResponseViewProfileUesr = response;
         setState(() {

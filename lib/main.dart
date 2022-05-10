@@ -12,7 +12,7 @@ import 'splash.dart';
 
 import 'dart:async';
 import 'package:firebase_messaging/firebase_messaging.dart';
-
+/*
 /// Define a top-level named handler which background/terminated messages will
 /// call.
 ///
@@ -30,9 +30,9 @@ late AndroidNotificationChannel channel;
 /// Initialize the [FlutterLocalNotificationsPlugin] package.
 late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
-
+*/
 Future<void> main() async {
-
+/*
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
@@ -108,7 +108,7 @@ Future<void> main() async {
       sound: true,
     );
   }
-
+*/
 
 
   runApp(MyApp());

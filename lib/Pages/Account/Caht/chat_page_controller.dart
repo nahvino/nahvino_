@@ -1,20 +1,10 @@
 import 'dart:async';
-import 'dart:ffi';
-
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:get/get.dart';
 import 'package:Nahvino/Model/User/SignalR/GroupModel.dart';
-import 'dart:async';
-import 'dart:io';
-
-import 'package:device_info_plus/device_info_plus.dart';
-import 'package:flutter_background_service_android/flutter_background_service_android.dart';
-
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:signalr_core/signalr_core.dart';
-
 import '../../../Model/User/SignalR/ReceiveMessageModel.dart';
 
 
@@ -24,8 +14,6 @@ class ChatPageController extends GetxController{
   TextEditingController chatEditController = TextEditingController();
   GroupModel? model;
   String myUserId = "";
-   int? id;
-   int  i =0;
   @override
   void onInit(){
     super.onInit();
@@ -64,11 +52,7 @@ class ChatPageController extends GetxController{
     });
 */
 
-
-
   Future<void> openSignalRConnection() async {
-
-
     await connection.start();
     connection.on('ReceiveMessage', (message) {
       print(message.toString());

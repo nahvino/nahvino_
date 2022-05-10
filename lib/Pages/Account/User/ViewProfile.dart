@@ -661,7 +661,7 @@ class _ViewProfileState extends State<ViewProfile> {
       /* Share.share('اشتراک گذاری کد معرف', subject: resultResponse!.identifierCode
             .toString() );*/
         //Share.share(ranks.toString());
-        Share.share(resultResponse!.identifierCode.toString());
+        Share.share(  "\n  کد معرف شما:" + resultResponse!.identifierCode.toString() +" \n https://nahvino.com");
 
         break;
       case 3:

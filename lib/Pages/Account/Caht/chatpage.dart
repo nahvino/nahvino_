@@ -25,7 +25,6 @@ class Chatpage extends StatelessWidget {
 
   late String adminName;
   final ChatPageController chatPageController = Get.put(ChatPageController());
-  //var reversedList = chatPageController.chats.reversed.toList()
 
   @override
   Widget build(BuildContext context) {
@@ -199,7 +198,6 @@ class Chatpage extends StatelessWidget {
 
   Widget chatItem(context, index) {
     ReceiveMessageModel chat = chatPageController.chats[index];
-
     bool fromMe = chat.userId == chatPageController.myUserId;
 
     return Row(
@@ -390,7 +388,6 @@ class Chatpage extends StatelessWidget {
                                     padding: EdgeInsets.all(12)),
                               if (chat.parentMessageText != null)
                                 //Text(chat.parentMessageText!),
-
                                 Container(
                                     child: Text(chat.parentMessageText!),
                                     color: Colors.grey[100],
