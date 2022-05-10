@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:Nahvino/Model/User/SignalR/GroupModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -14,11 +15,19 @@ class ChatPageController extends GetxController{
   TextEditingController chatEditController = TextEditingController();
   GroupModel? model;
   String myUserId = "";
+  //final ScrollController _scrollController = ScrollController();
   @override
   void onInit(){
     super.onInit();
     _getMyData();
     //mylist = chats.length => List.generate(50, (index) => "Item: ${i + 1}");
+
+ /*   SchedulerBinding.instance?.addPostFrameCallback((_) {
+      _scrollController.animateTo(
+          _scrollController.position.maxScrollExtent,
+          duration: Duration(milliseconds: 500),
+          curve: Curves.fastOutSlowIn);
+    });*/
   }
   @override
   void dispose(){
@@ -77,18 +86,31 @@ class ChatPageController extends GetxController{
         chatmodel = ReceiveMessageModel.fromJson(item);
         chats.add(chatmodel);
       }
+      chats.sort((a, b) => a.id!.compareTo(b.id!));
+      loadMoreLoading.value = false;
       update();
     });
     await connection.invoke('Group');
+    getAllMessages();
     //await connection.invoke('GetAllMessage');
-    await connection.invoke('GetAllMessage',args: [1,100]);
    // await connection.invoke('DeleteMessage');
   //  await connection.invoke('SendMessage', args: [myUserId,60, 'خداحافظ']);
   }
 
+  int chatPageSize = 0;
+  RxBool loadMoreLoading = false.obs;
+
+  Future getAllMessages()async{
+    if(loadMoreLoading.value){
+      return;
+    }
+    chatPageSize++;
+    loadMoreLoading.value = true;
+    await connection.invoke('GetAllMessage',args: [chatPageSize,50]);
+  }
+
 
   List<ReceiveMessageModel> chats = [];
-
   //var reversedList =new List.from(chats.reversed);
 
 

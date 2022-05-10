@@ -159,6 +159,7 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                     ),
                     SingleChildScrollView(
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Padding(
                             padding: EdgeInsets.only(
@@ -416,7 +417,8 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                 ),
               ),
             ),
-            Card(
+
+           /* Card(
               margin: EdgeInsets.symmetric(horizontal: 0, vertical: 6),
               child: Padding(
                 padding: const EdgeInsets.all(5.0),
@@ -469,7 +471,7 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                   ],
                 ),
               ),
-            ),
+            ),*/
          /*   Body(
                 textAlign: TextAlign.center,
                 color: Colors.cyan,

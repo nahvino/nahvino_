@@ -11,8 +11,6 @@ import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_1.dart';
 import 'package:flutter_html/shims/dart_ui_real.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
-import 'package:Nahvino/Model/User/SignalR/chat_model.dart';
 import 'package:Nahvino/Pages/Account/Caht/chat_page_controller.dart';
 import 'package:Nahvino/Pages/Account/Caht/AboutGroup.dart';
 
@@ -92,15 +90,34 @@ class Chatpage extends StatelessWidget {
   Widget body(BuildContext context) => Column(children: [
         Expanded(
           child: GetBuilder<ChatPageController>(builder: (controller) {
-            return SingleChildScrollView(
-              reverse: true,
-              child: ListView.builder(
-                reverse: false,
-                shrinkWrap: true,
-                itemCount: chatPageController.chats.length,
-                itemBuilder: chatItem,
-                physics: NeverScrollableScrollPhysics(),
+            return NotificationListener<ScrollNotification>(
+              onNotification: (notification) {
+                if(notification.metrics.pixels == notification.metrics.maxScrollExtent){
+                  // load more
+                  print("Load more");
+                  if(controller.loadMoreLoading.value == false){
+                    controller.getAllMessages();
+                  }
+                }
+                return true;
+              },
+              child: SingleChildScrollView(
+                reverse: true,
+                child: Column(
+                  children: [
+                    ListView.builder(
+                      reverse: false,
+                      shrinkWrap: true,
+                      itemCount: chatPageController.chats.length,
+                      itemBuilder: chatItem,
+                      physics: NeverScrollableScrollPhysics(),
 
+                    ),
+                    SizedBox(height: 5,),
+                    if(controller.loadMoreLoading.value)
+                      CircularProgressIndicator(),
+                  ],
+                ),
               ),
             );
           }),
@@ -199,6 +216,8 @@ class Chatpage extends StatelessWidget {
   Widget chatItem(context, index) {
     ReceiveMessageModel chat = chatPageController.chats[index];
     bool fromMe = chat.userId == chatPageController.myUserId;
+    //int itemCount = chatPageController.chats.length ?? 0;
+  //  int reversedIndex = itemCount - 1 - index;
 
     return Row(
       mainAxisSize: MainAxisSize.min,

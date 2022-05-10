@@ -661,7 +661,7 @@ class _ViewProfileState extends State<ViewProfile> {
       /* Share.share('اشتراک گذاری کد معرف', subject: resultResponse!.identifierCode
             .toString() );*/
         //Share.share(ranks.toString());
-        Share.share(  "\n  کد معرف شما:" + resultResponse!.identifierCode.toString() +" \n https://nahvino.com");
+        Share.share(  "\n  کد معرف شما:" + resultResponse!.identifierCode.toString() +" \n این عدد کد معرف من در نحوینو می باشد. اگر هنگام ثبت نام از این کد استفاده کنید ده شاهچر به شما اهدا میکنم و راهنمای شما در این مسلک زیبا خواهم بود");
 
         break;
       case 3:
