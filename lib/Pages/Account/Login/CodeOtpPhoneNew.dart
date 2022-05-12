@@ -287,9 +287,12 @@ class _CodeOtpPhoneNewState extends State<CodeOtpPhoneNew> {
                           if (response != false) {
                             apiService.showSnackBar(
                                 text: AppLocalizations.of(context)!.translate(
-                              'Welcome',
+                              'Resendcode',
                             )!);
                           } else {
+                            setState(() {
+                              isApiCallProcess = true;
+                            });
                             apiService.showSnackBar(text: response['message']);
                           }
                         });

@@ -65,9 +65,9 @@ class APIService {
   void showSnackBar({required String text}) {
     //ScaffoldMessenger.of(_context).showSnackBar(SnackBar(content: Text(text)));
     Get.snackbar(
-      AppLocalizations.of(_context)!.translate(
+      /*AppLocalizations.of(_context)!.translate(
         'Pandect_snackbar_TiTle',
-      )!,
+      )! */ '',
       text,
       icon: Icon(Icons.notifications, color: Colors.white),
       snackPosition: SnackPosition.TOP,

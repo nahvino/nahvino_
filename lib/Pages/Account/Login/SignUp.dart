@@ -45,32 +45,7 @@ class _SignUpState extends State<SignUp> {
                       'Signup_top_text',
                     )!,
                     ),*/
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    textspan(
-                      color: Colors.black,
-                      textAlign: TextAlign.center,
-                      text: AppLocalizations.of(context)!.translate(
-                        'Register_top_text',
-                      )!,
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder:
-                                    (context) => /*RegisterPage()*/ NewRegister()));
-                      },
-                      child: textspan(
-                        color: Colors.cyan,
-                        textAlign: TextAlign.center,
-                        text: AppLocalizations.of(context)!.translate(
-                          'SignIn_btn_text',
-                        )!,
-                      ),
-                    ),
+
                     const SizedBox(
                       height: 20,
                     ),
@@ -129,13 +104,15 @@ class _SignUpState extends State<SignUp> {
                                 builder:
                                     (context) => /*PhoneNumberPage()*/ OtpPhoneNew()));
                       },
-                      icon: Image.asset('assets/images/phone.png',
-                          width: 45, height: 45),
+                      icon: Icon(
+                        Icons.phone_android_rounded,
+                        color: Colors.white,size: 30,
+                      ),
                     ),
                     SizedBox(
                       height: 20,
                     ),
-          /*          OutlinedButton.icon(
+                    /*          OutlinedButton.icon(
                       onPressed: (() {
                         Navigator.pushReplacement(
                             context,
@@ -171,8 +148,40 @@ class _SignUpState extends State<SignUp> {
                                 builder: (context) => /*SignIn()*/ NewLogin()));
                       },
                       icon: Image.asset('assets/images/login/logo.png',
-                          width: 45, height: 45),
+                          width: 30, height: 30),
                     ),
+                    Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Caption1(
+                            color: Colors.black,
+                            textAlign: TextAlign.center,
+                            text: AppLocalizations.of(context)!.translate(
+                              'Register_top_text',
+                            )!,
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder:
+                                          (context) => /*RegisterPage()*/ NewRegister()));
+                            },
+                            child: Caption1(
+                              color: Colors.cyan,
+                              textAlign: TextAlign.center,
+                              text: AppLocalizations.of(context)!.translate(
+                                'SignIn_btn_text',
+                              )!,
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
                   ],
                 ),
               ),

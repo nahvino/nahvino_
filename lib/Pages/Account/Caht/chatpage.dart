@@ -6,6 +6,7 @@ import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_chat_bubble/bubble_type.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_1.dart';
@@ -37,7 +38,7 @@ class Chatpage extends StatelessWidget {
                 Row(
                   children: [
                     Subhead(
-                      text:chatPageController.model!.name.toString(),
+                      text: chatPageController.model!.name.toString(),
                       color: Colors.white,
                       textAlign: TextAlign.start,
                     ),
@@ -50,14 +51,17 @@ class Chatpage extends StatelessWidget {
                       color: Colors.amberAccent,
                       textAlign: TextAlign.start,
                     ),
-                    SizedBox(width: 4,),
+                    SizedBox(
+                      width: 4,
+                    ),
                     Caption1(
                       text: chatPageController.model!.userCount.toString(),
                       color: Colors.amberAccent,
                       textAlign: TextAlign.start,
                     ),
-                    SizedBox(width: 2,),
-
+                    SizedBox(
+                      width: 2,
+                    ),
                     Caption2(
                       text: 'نفر',
                       color: Colors.amberAccent,
@@ -80,7 +84,14 @@ class Chatpage extends StatelessWidget {
                           builder: (context) =>
                               AboutGroup(model: chatPageController.model!)));
                 }),
-            actions: [IconButton(icon: Icon(Icons.search), onPressed: () {})]),
+            actions: [
+              IconButton(icon: Icon(Icons.search), onPressed: () {}),
+              Obx(
+                () => chatPageController.showScrollToEnd.value
+                    ? IconButton(onPressed: () {}, icon: Icon(Icons.home))
+                    : SizedBox(),
+              )
+            ]),
         backgroundColor: Colors.grey[200],
         body: SafeArea(child: body(context)),
       ),
@@ -92,33 +103,48 @@ class Chatpage extends StatelessWidget {
           child: GetBuilder<ChatPageController>(builder: (controller) {
             return NotificationListener<ScrollNotification>(
               onNotification: (notification) {
-                if(notification.metrics.pixels == notification.metrics.maxScrollExtent){
+                controller.showScrollToEnd.value =
+                    notification.metrics.pixels >= 90;
+
+                if (notification.metrics.pixels ==
+                    notification.metrics.maxScrollExtent) {
                   // load more
-                  print("Load more");
-                  if(controller.loadMoreLoading.value == false){
+                  if (controller.loadMoreLoading.value == false) {
+                    print("Load more");
                     controller.getAllMessages();
                   }
                 }
                 return true;
               },
-              child: SingleChildScrollView(
-                reverse: true,
-                child: Column(
-                  children: [
-                    ListView.builder(
-                      reverse: false,
-                      shrinkWrap: true,
-                      itemCount: chatPageController.chats.length,
-                      itemBuilder: chatItem,
-                      physics: NeverScrollableScrollPhysics(),
-
+              child: Obx(() => SingleChildScrollView(
+                    reverse: true,
+                    child: Column(
+                      children: [
+                        Stack(
+                          children: [
+                            ListView.builder(
+                              reverse: false,
+                              shrinkWrap: true,
+                              itemCount: chatPageController.chats.length,
+                              itemBuilder: chatItem,
+                              physics: NeverScrollableScrollPhysics(),
+                            ),
+                            if (controller.showScrollToEnd.value)
+                              Align(
+                                alignment: Alignment.bottomRight,
+                                child: IconButton(
+                                    onPressed: () {}, icon: Icon(Icons.home)),
+                              )
+                          ],
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        if (controller.loadMoreLoading.value)
+                          CircularProgressIndicator(),
+                      ],
                     ),
-                    SizedBox(height: 5,),
-                    if(controller.loadMoreLoading.value)
-                      CircularProgressIndicator(),
-                  ],
-                ),
-              ),
+                  )),
             );
           }),
         ),
@@ -127,36 +153,57 @@ class Chatpage extends StatelessWidget {
                 ? _showReplay(context)
                 : SizedBox()),
         Card(
+            elevation: 0,
             child: Row(
-          children: [
-            IconButton(
-                icon: Icon(Icons.emoji_emotions_outlined),
-                onPressed: () {
-                  if (WidgetsBinding.instance!.window.viewInsets.bottom >= 0) {
-                    FocusScope.of(context).unfocus();
-                  }
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                IconButton(
+                    icon: Icon(Icons.emoji_emotions_outlined),
+                    onPressed: () {
+                      if (WidgetsBinding.instance!.window.viewInsets.bottom >=
+                          0) {
+                        FocusScope.of(context).unfocus();
+                      }
 
-                  Future.delayed(Duration(milliseconds: 10), () {
-                    chatPageController.emojiShowing.value =
-                        !chatPageController.emojiShowing.value;
-                  });
-                }),
-            Expanded(
-                child: TextField(
-              controller: chatPageController.chatEditController,
-              inputFormatters: [
-                FilteringTextInputFormatter.deny(
-                    RegExp(r'(کیر|کص|جنده|کصکش)', caseSensitive: false),
-                    replacementString: '')
+                      Future.delayed(Duration(milliseconds: 10), () {
+                        chatPageController.emojiShowing.value =
+                            !chatPageController.emojiShowing.value;
+                      });
+                    }),
+                Expanded(
+                    child: TextField(
+                      onEditingComplete: () => {},
+                  decoration: InputDecoration(
+                      border: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                      errorBorder: InputBorder.none,
+                      disabledBorder: InputBorder.none,
+                      hintText: "پیام خود را بنویسید"),
+                  keyboardType: TextInputType.text,
+                  autofocus: true,
+                  maxLines: 5,
+                  minLines: 1,
+                  enabled: true,
+                  textAlign: TextAlign.start,
+                  maxLengthEnforced: true,
+                  controller: chatPageController.chatEditController,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.deny(
+                        RegExp(r'(کیر|کص|جنده|کصکش)', caseSensitive: false),
+                        replacementString: '')
+                  ],
+                )),
+                IconButton(
+                    icon: Icon(
+                      Icons.send,
+                      color: Colors.black,
+                    ),
+                    onPressed: () {
+                      chatPageController.sendMessage();
+                    }),
               ],
             )),
-            IconButton(
-                icon: Icon(Icons.send),
-                onPressed: () {
-                  chatPageController.sendMessage();
-                })
-          ],
-        )),
         Obx(() {
           return Offstage(
             offstage: !chatPageController.emojiShowing.value,
@@ -216,8 +263,6 @@ class Chatpage extends StatelessWidget {
   Widget chatItem(context, index) {
     ReceiveMessageModel chat = chatPageController.chats[index];
     bool fromMe = chat.userId == chatPageController.myUserId;
-    //int itemCount = chatPageController.chats.length ?? 0;
-  //  int reversedIndex = itemCount - 1 - index;
 
     return Row(
       mainAxisSize: MainAxisSize.min,
@@ -351,11 +396,13 @@ class Chatpage extends StatelessWidget {
                             textAlign: TextAlign.right,
                           ),
                         ),
-                        onTap: (){
+                        onTap: () {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => ViewProfileUesr(userid: chat.userId,)));
+                                  builder: (context) => ViewProfileUesr(
+                                        userid: chat.userId,
+                                      )));
                         },
                       ),
                       InkWell(
@@ -402,7 +449,8 @@ class Chatpage extends StatelessWidget {
                             children: [
                               if (chat.parentMessageUserNameAlias != null)
                                 Container(
-                                    child: Text(chat.parentMessageUserNameAlias!),
+                                    child:
+                                        Text(chat.parentMessageUserNameAlias!),
                                     color: Colors.grey[100],
                                     padding: EdgeInsets.all(12)),
                               if (chat.parentMessageText != null)
@@ -413,8 +461,8 @@ class Chatpage extends StatelessWidget {
                                     padding: EdgeInsets.all(8)),
                               Container(
                                 child: Padding(
-                                  padding:
-                                      EdgeInsets.only(right: 5, left: 5, top: 10),
+                                  padding: EdgeInsets.only(
+                                      right: 5, left: 5, top: 10),
                                   child: Subhead(
                                     color: Colors.black,
                                     text: chat.text!,

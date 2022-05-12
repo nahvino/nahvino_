@@ -99,6 +99,7 @@ class ChatPageController extends GetxController{
 
   int chatPageSize = 0;
   RxBool loadMoreLoading = false.obs;
+  RxBool showScrollToEnd = false.obs;
 
   Future getAllMessages()async{
     if(loadMoreLoading.value){
@@ -131,12 +132,15 @@ class ChatPageController extends GetxController{
 
   ReceiveMessageModel? MyRepledMessage;
 /*UserId ParentMessageId  Message */
-  sendMessage(){
+  sendMessage() async{
     if(chatEditController.text.isEmpty){
       return;
     }
-
-    connection.invoke('SendMessage', args: [
+    String text = chatEditController.text;
+    chatEditController.clear();
+    var replay = MyRepledMessage == null ? null : MyRepledMessage!.id;
+    MyRepledMessage = null;
+    await connection.invoke('SendMessage', args: [
     /*  {
         "UserId" : myUserId,
         "ParentMessageId" : 60 ,
@@ -144,11 +148,9 @@ class ChatPageController extends GetxController{
         "Message" : chatEditController.text,
       }*/
       myUserId,
-      MyRepledMessage == null ? null : MyRepledMessage!.id,
-      chatEditController.text,
+      replay,
+      text,
     ],);
-    MyRepledMessage = null;
-    chatEditController.clear();
   }
 
   void addToReply(ReceiveMessageModel chat) {
