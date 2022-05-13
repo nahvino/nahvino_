@@ -43,7 +43,7 @@ dependencies:
   flutter_emoji: ^2.4.0
   emoji_picker_flutter: ^1.1.2
   flutter_local_notifications: ^9.4.1
-  flutter_background_service: ^2.0.0
+  #flutter_background_service: ^2.0.0
   device_info_plus: ^3.2.3
   chat_bubbles: ^1.2.0
   flutter_chat_bubble: ^2.0.0

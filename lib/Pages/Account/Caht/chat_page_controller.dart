@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:Nahvino/Model/User/SignalR/GroupModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -15,19 +14,19 @@ class ChatPageController extends GetxController{
   TextEditingController chatEditController = TextEditingController();
   GroupModel? model;
   String myUserId = "";
+  RxBool iconcaht = false.obs;
+  FocusNode focusNode = FocusNode();
+  RxBool  show = true.obs;
+  RxBool  hide = false.obs;
   //final ScrollController _scrollController = ScrollController();
   @override
   void onInit(){
     super.onInit();
     _getMyData();
-    //mylist = chats.length => List.generate(50, (index) => "Item: ${i + 1}");
+    changecolor();
+    dismissKeyboard();
+    showKeyboard();
 
- /*   SchedulerBinding.instance?.addPostFrameCallback((_) {
-      _scrollController.animateTo(
-          _scrollController.position.maxScrollExtent,
-          duration: Duration(milliseconds: 500),
-          curve: Curves.fastOutSlowIn);
-    });*/
   }
   @override
   void dispose(){
@@ -112,7 +111,6 @@ class ChatPageController extends GetxController{
 
 
   List<ReceiveMessageModel> chats = [];
-  //var reversedList =new List.from(chats.reversed);
 
 
   onEmojiSelected(Emoji emoji) {
@@ -141,12 +139,6 @@ class ChatPageController extends GetxController{
     var replay = MyRepledMessage == null ? null : MyRepledMessage!.id;
     MyRepledMessage = null;
     await connection.invoke('SendMessage', args: [
-    /*  {
-        "UserId" : myUserId,
-        "ParentMessageId" : 60 ,
-        //MyRepledMessage == null ? null : MyRepledMessage!.UserId,
-        "Message" : chatEditController.text,
-      }*/
       myUserId,
       replay,
       text,
@@ -177,6 +169,30 @@ class ChatPageController extends GetxController{
   void removeMyReplyedMessage() {
     MyRepledMessage = null;
     update();
+  }
+
+   changecolor() {
+    if (chatEditController.text.isEmpty) {
+      return  Colors.black;
+    }else{
+      return Colors.cyan;
+    }
+  }
+
+    chaticon() {
+    if(iconcaht.value){
+      return Icon(Icons.emoji_emotions_outlined);
+    }else{
+      return Icon(Icons.keyboard);
+    }
+  }
+
+  void showKeyboard() {
+    focusNode.requestFocus();
+  }
+
+  void dismissKeyboard() {
+    focusNode.unfocus();
   }
 
 }

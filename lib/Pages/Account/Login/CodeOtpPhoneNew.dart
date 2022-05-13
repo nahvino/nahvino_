@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lottie/lottie.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:pinput/pinput.dart';
@@ -17,8 +18,9 @@ import 'AddIntroduced.dart';
 import 'SignUp.dart';
 
 class CodeOtpPhoneNew extends StatefulWidget {
-  const CodeOtpPhoneNew({Key? key, required this.OtpCode}) : super(key: key);
+  const CodeOtpPhoneNew({Key? key, required this.OtpCode, this.phone}) : super(key: key);
   final OtpCode;
+  final phone;
 
   @override
   State<CodeOtpPhoneNew> createState() => _CodeOtpPhoneNewState();
@@ -37,6 +39,7 @@ class _CodeOtpPhoneNewState extends State<CodeOtpPhoneNew> {
 
   var resultResponsepro;
   var parentName;
+
   //String? parentName;
 
   @override
@@ -87,9 +90,15 @@ class _CodeOtpPhoneNewState extends State<CodeOtpPhoneNew> {
                       )!),
                       SizedBox(width: 3),
                       //Text(widget.setPhoneNumber)
+
                       textspan(
                         textAlign: TextAlign.center,
                         text: widget.OtpCode,
+                        color: Colors.green,
+                      ),
+                      textspan(
+                        textAlign: TextAlign.center,
+                        text: widget.phone,
                         color: Colors.green,
                       ),
                     ]),
@@ -158,6 +167,9 @@ class _CodeOtpPhoneNewState extends State<CodeOtpPhoneNew> {
                         autofocus: true,
                         enabled: true,
                         length: 5,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.deny(RegExp('[./,]'))
+                        ],
                         keyboardType: TextInputType.number,
                         mainAxisAlignment: MainAxisAlignment.center,
                         androidSmsAutofillMethod:
@@ -193,13 +205,13 @@ class _CodeOtpPhoneNewState extends State<CodeOtpPhoneNew> {
                                 'Welcome',
                               )!);
 
-                              Navigator.pushAndRemoveUntil(
+                              /*     Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => AddIntroduced()),
                                     (route) => false,
-                              );
-                              /*
+                              );*/
+
                               APIService.profilleall().then((response) {
                                 print("APIService.profilleall => $response");
                                 setState(() {
@@ -207,17 +219,17 @@ class _CodeOtpPhoneNewState extends State<CodeOtpPhoneNew> {
                                   resultResponsepro = response;
                                 });
                                 parentName =
-                                    resultResponsepro['parentName'].toString();
-                               // print(parentName);
+                                    resultResponsepro['parentId'];
+                                // print(parentName);
 
                                 if (parentName !=null) {
-                                  print("mogdar kali => $parentName");
-                                   Navigator.pushAndRemoveUntil(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => MyTabs()),
-                                  (route) => false,
-                                );
+                                  print("mogdar null => $parentName");
+                                  Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => MyTabs()),
+                                    (route) => false,
+                                  );
                                 }else{
                                   print("mghdar por => $parentName");
                                   Navigator.pushAndRemoveUntil(
@@ -226,10 +238,17 @@ class _CodeOtpPhoneNewState extends State<CodeOtpPhoneNew> {
                                         builder: (context) => AddIntroduced()),
                                         (route) => false,
                                   );
-
                                 }
-*/
-                              /*  if (parentName != null) {
+                                /*if(parentName.toString().isNotEmpty){
+                                  print("mghdar por => $parentName");
+                                  Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => MyTabs()),
+                                        (route) => false,
+                                  );
+                                }*/
+                                /*  if (parentName != null) {
                                   print("mogdar por => $parentName");
                                   Navigator.pushAndRemoveUntil(
                                     context,
@@ -238,11 +257,7 @@ class _CodeOtpPhoneNewState extends State<CodeOtpPhoneNew> {
                                         (route) => false,
                                   );
                                 }*/
-
-
-
-
-                              //});
+                              });
                               /*   if (response != null) {
                                   resultResponsepro = response ?? "اطلاعات یافت نشد";
                                 } else {
@@ -252,11 +267,6 @@ class _CodeOtpPhoneNewState extends State<CodeOtpPhoneNew> {
                                   });
                                 }
                               });*/
-
-
-
-
-
                               /*   Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
@@ -264,6 +274,9 @@ class _CodeOtpPhoneNewState extends State<CodeOtpPhoneNew> {
                               (route) => false,
                         );*/
                             } else {
+                              setState(() {
+                                isApiCallProcess = false;
+                              });
                               apiService.showSnackBar(
                                   text: response['message'] ?? "sdd");
                             }
