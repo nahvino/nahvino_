@@ -8,7 +8,6 @@ import '../../../Utils/Text/Text.dart';
 import '../../../App_localizations.dart';
 import 'CheckCodeSetPhoneNumber.dart';
 import 'UserSecuritySttingMenus.dart';
-import 'ViewProfile.dart';
 
 class SetPhoneNumber extends StatefulWidget {
   const SetPhoneNumber({Key? key}) : super(key: key);
@@ -99,6 +98,10 @@ class _SetPhoneNumberState extends State<SetPhoneNumber> {
               onPressed: () {
                 if (setPhoneNumber.text.isEmpty) {
                   apiService.showSnackBar(text: "شماره تلفن نمی تواند خالی باشد");
+                  return;
+                }
+                if (!setPhoneNumber.text.startsWith("09")) {
+                  apiService.showSnackBar(text: "number is incorrect");
                   return;
                 }
                 apiService.SetPhoneNumber(setPhoneNumber.text).then((response) async {

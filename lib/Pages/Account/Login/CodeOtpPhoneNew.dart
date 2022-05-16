@@ -185,7 +185,7 @@ class _CodeOtpPhoneNewState extends State<CodeOtpPhoneNew> {
                                   context,
                                   MaterialPageRoute(
                                       builder:
-                                          (context) => /*RegisterPage()*/ OtpPhoneNew()));
+                                          (context) => OtpPhoneNew(phone: widget.OtpCode,)));
                             },
                             child: Caption1(
                               color: Colors.cyan,

@@ -7,7 +7,6 @@ import '../../../Utils/Text/Text.dart';
 import '../../../App_localizations.dart';
 import 'CheckCodeChangePhoneNumber.dart';
 import 'UserSecuritySttingMenus.dart';
-import 'ViewProfile.dart';
 
 class ChangePhoneNumber extends StatefulWidget {
   const ChangePhoneNumber({Key? key}) : super(key: key);
@@ -67,6 +66,14 @@ class _ChangePhoneNumberState extends State<ChangePhoneNumber> {
                     if (newPhoneNumber.text.isEmpty) {
                       apiService.showSnackBar(
                           text: "شماره تلفن نمی تواند خالی باشد");
+                      return;
+                    }
+                    if (!currentPhoneNumber.text.startsWith("09")) {
+                      apiService.showSnackBar(text: "number is incorrect");
+                      return;
+                    }
+                    if (!newPhoneNumber.text.startsWith("09")) {
+                      apiService.showSnackBar(text: "number is incorrect");
                       return;
                     }
                     apiService.ChangePhoneNumber(

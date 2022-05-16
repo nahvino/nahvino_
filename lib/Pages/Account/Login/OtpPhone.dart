@@ -11,8 +11,9 @@ import 'SignUp.dart';
 class OtpPhoneNew extends StatefulWidget {
   const OtpPhoneNew({
     Key? key,
+     this.phone
   }) : super(key: key);
-
+  final phone;
   @override
   State<OtpPhoneNew> createState() => _OtpPhoneNewState();
 }
@@ -28,6 +29,8 @@ class _OtpPhoneNewState extends State<OtpPhoneNew> {
   void initState() {
     super.initState();
     apiService = APIService(context);
+     OtpPhoneController = TextEditingController(text: widget.phone ?? "");
+
   }
 
   @override
@@ -113,6 +116,10 @@ class _OtpPhoneNewState extends State<OtpPhoneNew> {
                         onPressed: () {
                           if (OtpPhoneController.text.isEmpty) {
                             apiService.showSnackBar(text: "filed is empty!");
+                            return;
+                          }
+                          if (!OtpPhoneController.text.startsWith("09")) {
+                            apiService.showSnackBar(text: "number is incorrect");
                             return;
                           }
                           setState(() {

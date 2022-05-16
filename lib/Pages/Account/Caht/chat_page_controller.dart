@@ -18,14 +18,14 @@ class ChatPageController extends GetxController{
   FocusNode focusNode = FocusNode();
   RxBool  show = true.obs;
   RxBool  hide = false.obs;
+  RxBool  canSend = false.obs;
+  RxBool isInSearchMode = false.obs;
+  RxString searchText = "".obs;
   //final ScrollController _scrollController = ScrollController();
   @override
   void onInit(){
     super.onInit();
     _getMyData();
-    changecolor();
-
-
   }
   @override
   void dispose(){
@@ -98,6 +98,7 @@ class ChatPageController extends GetxController{
   int chatPageSize = 0;
   RxBool loadMoreLoading = false.obs;
   RxBool showScrollToEnd = false.obs;
+  ScrollController chatScrollController = ScrollController();
 
   Future getAllMessages()async{
     if(loadMoreLoading.value){
@@ -142,6 +143,10 @@ class ChatPageController extends GetxController{
       replay,
       text,
     ],);
+
+    chatScrollController.animateTo(chatScrollController.position.minScrollExtent, duration: Duration(seconds: 1), curve: Curves.ease);
+
+
   }
 
   void addToReply(ReceiveMessageModel chat) {
@@ -165,20 +170,12 @@ class ChatPageController extends GetxController{
     update();
   }
 
+
   void removeMyReplyedMessage() {
     MyRepledMessage = null;
     update();
   }
 
-   changecolor() {
-    if (chatEditController.text.isEmpty) {
-      return  Colors.black;
-    }
-    if(chatEditController.text.isNotEmpty){
-      return Colors.cyan;
-    }
-    update();
-   }
 
     chaticon() {
     if(iconcaht.value){
@@ -188,11 +185,12 @@ class ChatPageController extends GetxController{
     }
   }
 
-  final ScrollController scrcontroller = ScrollController();
 
   void scrollDown() {
-    scrcontroller.jumpTo(scrcontroller.position.maxScrollExtent);
+    chatScrollController.animateTo(chatScrollController.position.minScrollExtent, duration: Duration(seconds: 1), curve: Curves.ease);
+
   }
+
 
 
 }
