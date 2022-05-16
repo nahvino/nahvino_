@@ -86,6 +86,8 @@
     "Welcome": "خوش آمدید به نحوینو",
     "NewPhoneNumber": "شماره جدید",
     "OldPhoneNumber": "شماره فعلی",
-    "SignUp_top_text": "Sign up with username and password",
-    "Resendcode": "کد فعال مجدد ارسال شد"
+    "SignUp_top_text": "ورود با نام کاربری و رمز عبور",
+    "Resendcode": "کد فعال مجدد ارسال شد",
+    "vrifycodephonetoptext": "کد تایید خود را وارد کنید",
+    "MobileNumberCorrection": "تصحیح شماره موبایل"
 }

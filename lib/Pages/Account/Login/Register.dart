@@ -1,31 +1,32 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:lottie/lottie.dart';
-import 'package:Nahvino/Pages/Account/login/SignUp.dart';
-import 'package:Nahvino/Model/user/login/register_request_model.dart';
-import 'package:Nahvino/Services/login/ApiService.dart';
-import 'package:Nahvino/Services/login/user/Config.dart';
-import 'package:Nahvino/App_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:snippet_coder_utils/FormHelper.dart';
-import 'package:snippet_coder_utils/ProgressHUD.dart';
+import '../../../App_localizations.dart';
+import '../../../Services/Login/ApiService.dart';
 import '../../../Utils/Button/Button.dart';
+import '../../../Utils/Text/TextField.dart';
 import '../../../Utils/Text/Text.dart';
+import '../../../controllers/getx/NewRegisterController.dart';
 import 'AddIntroduced.dart';
+import 'SignUp.dart';
 
-class RegisterPage extends StatefulWidget {
-  const RegisterPage({Key? key}) : super(key: key);
+class NewRegister extends StatefulWidget {
+  const NewRegister({Key? key, }) : super(key: key);
+
 
   @override
-  State<RegisterPage> createState() => _RegisterState();
+  State<NewRegister> createState() => _NewRegisterState();
 }
 
-class _RegisterState extends State<RegisterPage> {
-  final formKey = GlobalKey<FormState>();
-  GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
+class _NewRegisterState extends State<NewRegister> {
+
+  NewRegisterController newRegisterController = Get.put(NewRegisterController());
+
 
   List<DropdownMenuItem<String>> listDrap = [];
-
   void securityQuestion() {
     listDrap = [];
     listDrap.add(new DropdownMenuItem(
@@ -42,322 +43,174 @@ class _RegisterState extends State<RegisterPage> {
         child: Text("نام یک فیلم خوب را بنویسید؟"), value: "5"));
   }
 
-  String name = "";
-  bool hidePassword = true;
   bool isApiCallProcess = false;
-  String? userName;
-  String? password;
-
-  //int? securityQuestion;
-  //int? securityQuestionselected;
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController sqAnswerController = TextEditingController();
+  late APIService apiService;
   String? securityQuestionselected = null;
-  String? sqAnswer;
-  String? userToken;
-  String? token;
-
   late SharedPreferences logindata;
+
 
   @override
   void initState() {
     super.initState();
+    apiService = APIService(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        body: ProgressHUD(
-          child: Form(
-            key: globalFormKey,
-            child: _registerUI(context),
-          ),
-          inAsyncCall: isApiCallProcess,
-          opacity: 0.3,
-          key: UniqueKey(),
+    securityQuestion();
+
+    return Scaffold(
+      appBar: AppBar(
+        title:Title3(color: Colors.black, textAlign: TextAlign.start, text: AppLocalizations.of(context)!.translate(
+          'SignUp_top_text',
+        )!),
+        elevation: 0,
+        backgroundColor: Colors.grey[50],
+        leading: BackButton(
+          color: Colors.black,
+          onPressed: (() {
+            cleartext();
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => SignUp()));
+          }),
         ),
       ),
-    );
-  }
-
-  @override
-  Widget _registerUI(BuildContext context) {
-    securityQuestion();
-    return Scaffold(
-      body: Stack(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                padding: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.00,
-                  right: 20,
-                ),
-                child: BackButton(
-                  onPressed: (() {
-                    Navigator.pushReplacement(
-                        context, MaterialPageRoute(builder: (context) => SignUp()));
-                  }),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.only(
-                    left: 20),
-                height: 80,
-                width: 80 ,
-                child: Lottie.asset('assets/anim/login/contract.json'),
-              ),
-            ],
-          ),
-          Container(
-            alignment: Alignment.topCenter,
-            padding: EdgeInsets.only(
-                top: MediaQuery.of(context).size.height * 0.1,
-                right: 35,
-                left: 35),
+      body:Obx(() =>
+      isApiCallProcess
+          ? Center(
+        child: Lottie.asset('assets/anim/login/submit-application-successfully.json',
+            height: 300, width: 300),
+      )
+          : SafeArea(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.only(right: 20),
             child: Column(
               children: [
-                textspan(
-                  color: Colors.black,
-                  textAlign: TextAlign.center,
-                  text: AppLocalizations.of(context)!.translate(
-                    'SignIn_top_text',
-                  )!,
+                Center(
+                  child: Lottie.asset('assets/anim/login/contract.json',
+                      height: 150, width: 150),
                 ),
+                TextAll(
+                  icon: Icon(Icons.person),
+                  suffixIcon: null,
+                  prefixIcon: null,
+                  hint: AppLocalizations.of(context)!.translate(
+                    'username',
+                  )!,
+                  controller: usernameController,
+                ),
+                TextPassReAndLog(
+                  icon: Icon(Icons.lock),
+                  passwordInVisible: newRegisterController.obscurePasswordVisibility.value,
+                  suffix: IconButton(onPressed: () {
+                    newRegisterController.obscurePasswordVisibility.value =
+                    !newRegisterController.obscurePasswordVisibility.value;
+                  },
+                      icon: Icon(
+                          newRegisterController.obscurePasswordVisibility == true
+                              ? Icons.visibility_off
+                              : Icons.visibility)),
+                  hint: AppLocalizations.of(context)!.translate(
+                    'Password',
+                  )!,
+                  controller: passwordController,
+                ),
+                SizedBox(height: 28,),
+
+                Padding(
+                  padding: const EdgeInsets.only(right: 13),
+                  child: Container(
+                      child: DropdownButton(
+                          hint: Text(
+                            AppLocalizations.of(context)!.translate(
+                              'sAnswer',
+                            )!,
+                          ),
+                          value: securityQuestionselected,
+                          items: listDrap,
+                          onChanged: (value) {
+                            setState(() {
+                              securityQuestionselected = value as String;
+                            });
+                          }),
+                    ),
+                ),
+
+                SizedBox(height: 20,),
+                TextAll(
+                  icon: Icon(Icons.security),
+                  suffixIcon: null,
+                  prefixIcon: null,
+                  hint: AppLocalizations.of(context)!.translate(
+                    'sqAnswer',
+                  )!,
+                  controller: sqAnswerController,
+                ),
+                SizedBox(height: 15,),
+                Buttontest(
+                    text: AppLocalizations.of(context)!.translate(
+                      'OK',
+                    )!,
+                    onPressed: () {
+                      if (usernameController.text.isEmpty) {
+                        apiService.showSnackBar(text: "filed is empty!");
+                        return;
+                      }
+
+                      setState(() {
+                        isApiCallProcess = true;
+                      });
+
+                      apiService
+                          .NewRegister(
+                          usernameController.text,passwordController.text,securityQuestionselected as String,sqAnswerController.text)
+                          .then((response) async {
+                        if (response != false) {
+                          logindata = await SharedPreferences.getInstance();
+                          await logindata.setString(
+                              "token", response['data']['userToken']['token']);
+                          await logindata.setString("userId", response['data']['id']);
+
+                          apiService.showSnackBar(
+                              text: AppLocalizations.of(context)!
+                                  .translate(
+                                'Welcome',
+                              )!);
+
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>AddIntroduced()),
+                                (route) => false,
+                          );
+                        } else {
+                          setState(() {
+                            isApiCallProcess = false;
+                          });
+                          apiService.showSnackBar(
+                              text: response['message']);
+                        }
+                      });
+
+
+                    }),
               ],
             ),
           ),
-          Container(
-            padding: EdgeInsets.only(
-                top: MediaQuery.of(context).size.height * 0.17,
-                right: 35,
-                left: 35),
-            child: FormHelper.inputFieldWidget(
-              context,
-              "username",
-              AppLocalizations.of(context)!.translate(
-                'username',
-              )!,
-              (onValidateVal) {
-                if (onValidateVal.isEmpty) {
-                  return AppLocalizations.of(context)!.translate(
-                    'Validusername',
-                  )!;
-                }
-                return null;
-              },
-              (onSavedVal) {
-                userName = onSavedVal;
-              },
-              borderFocusColor: Colors.grey,
-              prefixIconColor: Colors.black,
-              borderColor: Colors.green,
-              textColor: Colors.black,
-              hintColor: Colors.black,
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.only(
-                top: MediaQuery.of(context).size.height * 0.29,
-                right: 35,
-                left: 35),
-            child: FormHelper.inputFieldWidget(
-              context,
-              "password",
-              AppLocalizations.of(context)!.translate(
-                'Password',
-              )!,
-              (onValidateVal) {
-                if (onValidateVal.isEmpty) {
-                  return AppLocalizations.of(context)!.translate(
-                    'ValidPassword',
-                  )!;
-                }
-                return null;
-              },
-              (onSavedVal) {
-                password = onSavedVal;
-              },
-              initialValue: "",
-              obscureText: hidePassword,
-              suffixIcon: IconButton(
-                  onPressed: () {
-                    setState(() {
-                      hidePassword = !hidePassword;
-                    });
-                  },
-                  icon: Icon(
-                      hidePassword ? Icons.visibility_off : Icons.visibility)),
-              borderFocusColor: Colors.grey,
-              prefixIconColor: Colors.black,
-              borderColor: Colors.green,
-              textColor: Colors.black,
-              hintColor: Colors.black,
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.only(
-              top: MediaQuery.of(context).size.height * 0.39,
-            ),
-            alignment: Alignment.topCenter,
-            child: DropdownButton(
-                hint: Text(
-                  AppLocalizations.of(context)!.translate(
-                    'sAnswer',
-                  )!,
-                ),
-                value: securityQuestionselected,
-                items: listDrap,
-                onChanged: (value) {
-                  setState(() {
-                    securityQuestionselected = value as String;
-                  });
-                }),
-          ),
-
-          /*DropdownButton(
-                items: items
-                    .map((item) => DropdownMenuItem<String>(
-                          child: Text(item),
-                          value: item,
-                        ))
-                    .toList(),
-                value: index,
-                hint: Text("سوال امنیتی"),
-                onChanged: (value) {
-                  setState(() {
-                    this.index == value as int;
-                  });
-                },
-              )),
-              */
-/*
-                FormHelper.inputFieldWidget(
-              context,
-              "securityQuestion",
-              "securityQuestion",
-              (onValidateVal) {
-                if (onValidateVal.isEmpty) {
-                  return "Username con\ ' t be empty.";
-                }
-                return null;
-              },
-              (onSavedVal) {
-                securityQuestionselected = (onSavedVal);
-              },
-              borderFocusColor: Colors.grey,
-              prefixIconColor: Colors.black,
-              borderColor: Colors.green,
-              textColor: Colors.black,
-              hintColor: Colors.black,
-            ),
-          ),*/
-          Container(
-            padding: EdgeInsets.only(
-                top: MediaQuery.of(context).size.height * 0.46,
-                right: 35,
-                left: 35),
-            child: FormHelper.inputFieldWidget(
-              context,
-              "sqAnswer",
-              AppLocalizations.of(context)!.translate(
-                'sqAnswer',
-              )!,
-              (onValidateVal) {
-                if (onValidateVal.isEmpty) {
-                  return AppLocalizations.of(context)!.translate(
-                    'ValidsqAnswer',
-                  )!;
-                }
-                return null;
-              },
-              (onSavedVal) {
-                sqAnswer = onSavedVal;
-              },
-              borderFocusColor: Colors.grey,
-              prefixIconColor: Colors.black,
-              borderColor: Colors.green,
-              textColor: Colors.black,
-              hintColor: Colors.black,
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.only(
-                top: MediaQuery.of(context).size.height * 0.58,
-                right: 110,
-                left: 110),
-            child: Buttontest(
-                text: AppLocalizations.of(context)!.translate(
-                  'register',
-                )!,
-                onPressed: () {
-                  if (validateAndSave()) {
-                    setState(() {
-                      isApiCallProcess = true;
-                    });
-
-                    RegisterRequestModel model = RegisterRequestModel(
-                        userName: userName,
-                        password: password,
-                        securityQuestion: securityQuestionselected as String,
-                        sqAnswer: sqAnswer);
-
-                    APIService.register(model).then((response) async {
-                      setState(() {
-                        isApiCallProcess = false;
-                      });
-                      //if (response.data != null) {
-                      if (response != false) {
-                        logindata = await SharedPreferences.getInstance();
-                        await logindata.setString(
-                            "token", response['userToken']['token']);
-                        await logindata.setString("userId", response['id']);
-
-                        FormHelper.showSimpleAlertDialog(
-                          context,
-                          Config.appName,
-                          AppLocalizations.of(context)!.translate(
-                            'Successful',
-                          )!,
-                          //"Registration Successful.",
-                          //"OK"
-                          AppLocalizations.of(context)!.translate(
-                            'OK',
-                          )!,
-                          () {
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => AddIntroduced()));
-                          },
-                        );
-                      } else {
-                        FormHelper.showSimpleAlertDialog(
-                          context,
-                          Config.appName,
-                          response.message,
-                          "OK",
-                          () {
-                            Navigator.of(context).pop();
-                          },
-                        );
-                      }
-                    });
-                  }
-                }),
-          ),
-        ],
+        ),
+      ),
       ),
     );
   }
 
-  bool validateAndSave() {
-    final form = globalFormKey.currentState;
-    if (form!.validate()) {
-      form.save();
-      return true;
-    }
-    return false;
+  cleartext(){
+    passwordController.clear();
+    usernameController.clear();
+    sqAnswerController.clear();
+
   }
 }

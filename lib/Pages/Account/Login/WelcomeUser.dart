@@ -12,7 +12,6 @@ import '../../../Utils/Text/Text.dart';
 import '../../../App_localizations.dart';
 import '../../../tabs.dart';
 import 'Pandect.dart';
-import 'Regulation.dart';
 
 class WelcomeUser extends StatefulWidget {
   const WelcomeUser({Key? key}) : super(key: key);

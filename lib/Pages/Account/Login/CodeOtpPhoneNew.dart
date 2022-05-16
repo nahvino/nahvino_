@@ -15,12 +15,12 @@ import '../../../Utils/Text/Text.dart';
 
 import '../../../tabs.dart';
 import 'AddIntroduced.dart';
+import 'OtpPhone.dart';
 import 'SignUp.dart';
 
 class CodeOtpPhoneNew extends StatefulWidget {
-  const CodeOtpPhoneNew({Key? key, required this.OtpCode, this.phone}) : super(key: key);
+  const CodeOtpPhoneNew({Key? key, required this.OtpCode}) : super(key: key);
   final OtpCode;
-  final phone;
 
   @override
   State<CodeOtpPhoneNew> createState() => _CodeOtpPhoneNewState();
@@ -86,7 +86,7 @@ class _CodeOtpPhoneNewState extends State<CodeOtpPhoneNew> {
                     ),
                     Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                       Text(AppLocalizations.of(context)!.translate(
-                        'set_phone_test',
+                        'vrifycodephonetoptext',
                       )!),
                       SizedBox(width: 3),
                       //Text(widget.setPhoneNumber)
@@ -94,11 +94,6 @@ class _CodeOtpPhoneNewState extends State<CodeOtpPhoneNew> {
                       textspan(
                         textAlign: TextAlign.center,
                         text: widget.OtpCode,
-                        color: Colors.green,
-                      ),
-                      textspan(
-                        textAlign: TextAlign.center,
-                        text: widget.phone,
                         color: Colors.green,
                       ),
                     ]),
@@ -177,7 +172,65 @@ class _CodeOtpPhoneNewState extends State<CodeOtpPhoneNew> {
                       ),
                     ),
                     SizedBox(
-                      height: 20,
+                      height: 10,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 45,right: 45),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder:
+                                          (context) => /*RegisterPage()*/ OtpPhoneNew()));
+                            },
+                            child: Caption1(
+                              color: Colors.cyan,
+                              textAlign: TextAlign.right,
+                              text: AppLocalizations.of(context)!.translate(
+                                'MobileNumberCorrection',
+                              )!,
+                            ),
+                          ),
+
+                          TimerButton(
+                            timeOutInSeconds: 120,
+                            disabledColor: Colors.transparent,
+                            color: Colors.cyan,
+                            disabledTextStyle: TextStyle(color: Colors.black54),
+                            buttonType: ButtonType.TextButton,
+                            label: AppLocalizations.of(context)!.translate(
+                              'ReCode',
+                            )!,
+                            onPressed: () {
+                              apiService.NewReSendCode(
+                                widget.OtpCode.toString(),
+                              ).then((response) async {
+                                setState(() {
+                                  isApiCallProcess = false;
+                                });
+                                if (response != false) {
+                                  apiService.showSnackBar(
+                                      text: AppLocalizations.of(context)!.translate(
+                                        'Resendcode',
+                                      )!);
+                                } else {
+                                  setState(() {
+                                    isApiCallProcess = true;
+                                  });
+                                  apiService.showSnackBar(text: response['message']);
+                                }
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 5,
                     ),
                     Buttontest(
                         text: AppLocalizations.of(context)!.translate(
@@ -282,35 +335,7 @@ class _CodeOtpPhoneNewState extends State<CodeOtpPhoneNew> {
                             }
                           });
                         }),
-                    TimerButton(
-                      timeOutInSeconds: 120,
-                      disabledColor: Colors.transparent,
-                      color: Colors.cyan,
-                      buttonType: ButtonType.TextButton,
-                      label: AppLocalizations.of(context)!.translate(
-                        'ReCode',
-                      )!,
-                      onPressed: () {
-                        apiService.NewReSendCode(
-                          widget.OtpCode.toString(),
-                        ).then((response) async {
-                          setState(() {
-                            isApiCallProcess = false;
-                          });
-                          if (response != false) {
-                            apiService.showSnackBar(
-                                text: AppLocalizations.of(context)!.translate(
-                              'Resendcode',
-                            )!);
-                          } else {
-                            setState(() {
-                              isApiCallProcess = true;
-                            });
-                            apiService.showSnackBar(text: response['message']);
-                          }
-                        });
-                      },
-                    ),
+
                   ],
                 ),
               ),

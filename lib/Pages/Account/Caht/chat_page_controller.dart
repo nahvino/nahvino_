@@ -24,8 +24,7 @@ class ChatPageController extends GetxController{
     super.onInit();
     _getMyData();
     changecolor();
-    dismissKeyboard();
-    showKeyboard();
+
 
   }
   @override
@@ -174,10 +173,12 @@ class ChatPageController extends GetxController{
    changecolor() {
     if (chatEditController.text.isEmpty) {
       return  Colors.black;
-    }else{
+    }
+    if(chatEditController.text.isNotEmpty){
       return Colors.cyan;
     }
-  }
+    update();
+   }
 
     chaticon() {
     if(iconcaht.value){
@@ -187,12 +188,11 @@ class ChatPageController extends GetxController{
     }
   }
 
-  void showKeyboard() {
-    focusNode.requestFocus();
+  final ScrollController scrcontroller = ScrollController();
+
+  void scrollDown() {
+    scrcontroller.jumpTo(scrcontroller.position.maxScrollExtent);
   }
 
-  void dismissKeyboard() {
-    focusNode.unfocus();
-  }
 
 }

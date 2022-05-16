@@ -1,16 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:Nahvino/Pages/Account/User/EditProfile.dart';
-import 'package:Nahvino/Pages/Account/login/SignIn.dart';
-import 'package:Nahvino/Pages/Account/login/Register.dart';
 import '../../../Utils/Button/Button.dart';
 import '../../../Utils/Text/Text.dart';
-import 'NewLogin.dart';
-import 'NewOtpPhone.dart';
-import 'NewRegister.dart';
-import 'OtpLogin.dart';
+import 'Login.dart';
+import 'OtpPhone.dart';
+import 'Register.dart';
 import '../../../App_localizations.dart';
-import 'package:connectivity/connectivity.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);

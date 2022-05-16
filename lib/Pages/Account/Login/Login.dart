@@ -11,7 +11,7 @@ import '../../../Utils/Text/Text.dart';
 import '../../../Utils/Text/TextField.dart';
 import '../../../tabs.dart';
 
-import 'NewCheckQuestionAnswer.dart';
+import 'CheckQuestionAnswer.dart';
 import 'SignUp.dart';
 
 class NewLogin extends StatefulWidget {
@@ -47,6 +47,7 @@ class _NewLoginState extends State<NewLogin> {
           leading: BackButton(
             color: Colors.black,
             onPressed: (() {
+              newLoginController.cleartext();
               Navigator.push(
                   context, MaterialPageRoute(builder: (context) => SignUp()));
             }),
@@ -175,4 +176,5 @@ class _NewLoginState extends State<NewLogin> {
           ),
         ));
   }
+
 }

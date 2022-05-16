@@ -25,7 +25,6 @@ class Chatpage extends StatelessWidget {
   late String adminName;
   final ChatPageController chatPageController = Get.put(ChatPageController());
 
-
   @override
   Widget build(BuildContext context) {
     _checkKEyboardAndEmojiVisibility();
@@ -88,9 +87,12 @@ class Chatpage extends StatelessWidget {
             actions: [
               IconButton(icon: Icon(Icons.search), onPressed: () {}),
               Obx(
-                    () =>
-                chatPageController.showScrollToEnd.value
-                    ? IconButton(onPressed: () {}, icon: Icon(Icons.home))
+                () => chatPageController.showScrollToEnd.value
+                    ? IconButton(
+                        onPressed: () {
+                          chatPageController.scrollDown();
+                        },
+                        icon: Icon(Icons.arrow_downward))
                     : SizedBox(),
               )
             ]),
@@ -100,8 +102,7 @@ class Chatpage extends StatelessWidget {
     );
   }
 
-  Widget body(BuildContext context) =>
-      Column(children: [
+  Widget body(BuildContext context) => Column(children: [
         Expanded(
           child: GetBuilder<ChatPageController>(builder: (controller) {
             return NotificationListener<ScrollNotification>(
@@ -119,8 +120,7 @@ class Chatpage extends StatelessWidget {
                 }
                 return true;
               },
-              child: Obx(() =>
-                  SingleChildScrollView(
+              child: Obx(() => SingleChildScrollView(
                     reverse: true,
                     child: Column(
                       children: [
@@ -153,8 +153,7 @@ class Chatpage extends StatelessWidget {
           }),
         ),
         GetBuilder<ChatPageController>(
-            builder: (controller) =>
-            chatPageController.MyRepledMessage != null
+            builder: (controller) => chatPageController.MyRepledMessage != null
                 ? _showReplay(context)
                 : SizedBox()),
         Card(
@@ -170,35 +169,35 @@ class Chatpage extends StatelessWidget {
                         child: IconButton(
                             icon: Icon(Icons.emoji_emotions_outlined),
                             onPressed: () {
-                              if (WidgetsBinding.instance!.window.viewInsets
-                                  .bottom >=
+                              if (WidgetsBinding
+                                      .instance!.window.viewInsets.bottom >=
                                   0) {
                                 FocusScope.of(context).unfocus();
-
                               }
-
                               Future.delayed(Duration(milliseconds: 10), () {
                                 chatPageController.emojiShowing.value =
-                                !chatPageController.emojiShowing.value;
+                                    !chatPageController.emojiShowing.value;
+                                chatPageController.hide.value =
+                                    !chatPageController.hide.value;
+                                chatPageController.show.value =
+                                    !chatPageController.show.value;
                               });
-                              chatPageController.hide.value=!chatPageController.hide.value;
-                              chatPageController.show.value=!chatPageController.show.value;
                             }),
                       ),
                       Visibility(
                         visible: chatPageController.hide(),
                         child: IconButton(
-                            icon:  Icon(Icons.keyboard),
+                            icon: Icon(Icons.keyboard),
                             onPressed: () {
-                              if (WidgetsBinding.instance!.window.viewInsets
-                                  .bottom >=
+                              if (WidgetsBinding
+                                      .instance!.window.viewInsets.bottom >=
                                   0) {
                                 FocusScope.of(context).requestFocus();
-
                               }
-                              chatPageController.hide.value=!chatPageController.hide.value;
-                              chatPageController.show.value=!chatPageController.show.value;
-
+                              chatPageController.hide.value =
+                                  !chatPageController.hide.value;
+                              chatPageController.show.value =
+                                  !chatPageController.show.value;
                             }),
                       ),
                     ],
@@ -206,27 +205,27 @@ class Chatpage extends StatelessWidget {
                 }),
                 Expanded(
                     child: TextField(
-                      decoration: InputDecoration(
-                          border: InputBorder.none,
-                          focusedBorder: InputBorder.none,
-                          enabledBorder: InputBorder.none,
-                          errorBorder: InputBorder.none,
-                          disabledBorder: InputBorder.none,
-                          hintText: "پیام خود را بنویسید"),
-                      keyboardType: TextInputType.multiline,
-                      autofocus: false,
-                      maxLines: 5,
-                      minLines: 1,
-                      enabled: true,
-                      textAlign: TextAlign.start,
-                      maxLengthEnforced: true,
-                      controller: chatPageController.chatEditController,
-                      inputFormatters: [
-                        FilteringTextInputFormatter.deny(
-                            RegExp(r'(کیر|کص|جنده|کصکش)', caseSensitive: false),
-                            replacementString: '')
-                      ],
-                    )),
+                  decoration: InputDecoration(
+                      border: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                      errorBorder: InputBorder.none,
+                      disabledBorder: InputBorder.none,
+                      hintText: "پیام خود را بنویسید"),
+                  keyboardType: TextInputType.multiline,
+                  autofocus: false,
+                  maxLines: 5,
+                  minLines: 1,
+                  enabled: true,
+                  textAlign: TextAlign.start,
+                  maxLengthEnforced: true,
+                  controller: chatPageController.chatEditController,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.deny(
+                        RegExp(r'(کیر|کص|جنده|کصکش)', caseSensitive: false),
+                        replacementString: '')
+                  ],
+                )),
                 IconButton(
                     icon: Icon(
                       Icons.send,
@@ -249,7 +248,6 @@ class Chatpage extends StatelessWidget {
                   onBackspacePressed: chatPageController.onBackspacePressed,
                   config: Config(
                       columns: 7,
-                      // Issue: https://github.com/flutter/flutter/issues/28894
                       emojiSizeMax: 32 * (Platform.isIOS ? 1.30 : 1.0),
                       verticalSpacing: 0,
                       horizontalSpacing: 0,
@@ -267,7 +265,7 @@ class Chatpage extends StatelessWidget {
                       recentsLimit: 28,
                       noRecentsText: 'No Recents',
                       noRecentsStyle:
-                      const TextStyle(fontSize: 20, color: Colors.black26),
+                          const TextStyle(fontSize: 20, color: Colors.black26),
                       tabIndicatorAnimDuration: kTabScrollDuration,
                       categoryIcons: const CategoryIcons(),
                       buttonMode: ButtonMode.MATERIAL)),
@@ -300,240 +298,248 @@ class Chatpage extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment:
-      fromMe ? MainAxisAlignment.end : MainAxisAlignment.start,
+          fromMe ? MainAxisAlignment.end : MainAxisAlignment.start,
       children: [
         fromMe
             ? ChatBubble(
-          clipper: ChatBubbleClipper1(type: BubbleType.receiverBubble),
-          backGroundColor: Color(0xffE7E7ED),
-          margin: EdgeInsets.only(top: 20),
-          child: Container(
-            constraints: BoxConstraints(
-              maxWidth: MediaQuery
-                  .of(context)
-                  .size
-                  .width * 0.7,
-            ),
-            child: InkWell(
-              onTap: () {
-                showDialog(
-                    context: context,
-                    builder: (context) =>
-                        Dialog(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              ListTile(
-                                onTap: () {
-                                  chatPageController.addToReply(chat);
-                                  Navigator.of(context).pop();
-                                },
-                                title: Text("Replay"),
-                              ),
-                              ListTile(
-                                onTap: () {
-                                  chatPageController.addToReply(chat);
-                                  Navigator.of(context).pop();
-                                },
-                                title: Text("Report"),
-                              ),
-                              if (fromMe)
-                                ListTile(
-                                  onTap: () {
-                                    chatPageController.DeleteMessage(
-                                        chat);
-                                    Navigator.of(context).pop();
-                                  },
-                                  title: Text("delete"),
-                                ),
-                            ],
-                          ),
-                        ));
-              },
-              child: Container(
-                constraints: BoxConstraints(
-                    maxWidth: MediaQuery
-                        .of(context)
-                        .size
-                        .width - 90),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Container(
-                      padding: EdgeInsets.only(
-                        top: 3,
-                        right: 10,
-                        left: 8,
-                        bottom: 3,
-                      ),
-                      child: Callout(
-                        color: Colors.teal,
-                        text: chat.userNameAlias!,
-                        textAlign: TextAlign.right,
-                      ),
-                    ),
-                    if (chat.parentMessageUserNameAlias != null)
-                      Container(
-                          child: Text(chat.parentMessageUserNameAlias!),
-                          color: Colors.grey[100],
-                          padding: EdgeInsets.all(12)),
-                    if (chat.parentMessageText != null)
-                    //Text(chat.parentMessageText!),
-
-                      Container(
-                          child: Text(chat.parentMessageText!),
-                          color: Colors.grey[100],
-                          padding: EdgeInsets.all(8)),
-                    Container(
-                      child: Padding(
-                        padding:
-                        EdgeInsets.only(right: 5, left: 5, top: 10),
-                        child: Subhead(
-                          color: Colors.black,
-                          text: chat.text!,
-                          textAlign: TextAlign.right,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(right: 5, left: 5),
-                      child: Footnate(
-                        color: Colors.black,
-                        text: chat.insertTime.toString(),
-                        textAlign: TextAlign.left,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        )
-            : ChatBubble(
-          clipper: ChatBubbleClipper1(type: BubbleType.sendBubble),
-          margin: EdgeInsets.only(top: 20),
-          backGroundColor: Colors.grey[100],
-          child: Container(
-            constraints: BoxConstraints(
-              maxWidth: MediaQuery
-                  .of(context)
-                  .size
-                  .width * 0.7,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                InkWell(
-                  child: Container(
-                    padding: EdgeInsets.only(
-                      top: 3,
-                      right: 8,
-                      left: 1,
-                      bottom: 3,
-                    ),
-                    child: Callout(
-                      color: Colors.teal,
-                      text: chat.userNameAlias!,
-                      textAlign: TextAlign.right,
-                    ),
+                clipper: ChatBubbleClipper1(type: BubbleType.receiverBubble),
+                backGroundColor: Color(0xffE7E7ED),
+                margin: EdgeInsets.only(top: 20),
+                child: Container(
+                  constraints: BoxConstraints(
+                    maxWidth: MediaQuery.of(context).size.width * 0.7,
                   ),
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                ViewProfileUesr(
-                                  userid: chat.userId,
-                                )));
-                  },
-                ),
-                InkWell(
-                  onTap: () {
-                    showDialog(
-                        context: context,
-                        builder: (context) =>
-                            Dialog(
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  ListTile(
-                                    onTap: () {
-                                      chatPageController.addToReply(chat);
-                                      Navigator.of(context).pop();
-                                    },
-                                    title: Text("Replay"),
-                                  ),
-                                  ListTile(
-                                    onTap: () {
-                                      chatPageController.addToReply(chat);
-                                      Navigator.of(context).pop();
-                                    },
-                                    title: Text("Report"),
-                                  ),
-                                  if (fromMe)
+                  child: InkWell(
+                    onTap: () {
+                      showDialog(
+                          context: context,
+                          builder: (context) => Dialog(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
                                     ListTile(
                                       onTap: () {
-                                        chatPageController.DeleteMessage(
-                                            chat);
+                                        chatPageController.addToReply(chat);
                                         Navigator.of(context).pop();
                                       },
-                                      title: Text("delete"),
+                                      title: Text("Replay"),
                                     ),
-                                ],
+                                    ListTile(
+                                      onTap: () {
+                                        chatPageController.addToReply(chat);
+                                        Navigator.of(context).pop();
+                                      },
+                                      title: Text("Report"),
+                                    ),
+                                    if (fromMe)
+                                      ListTile(
+                                        onTap: () {
+                                          chatPageController.DeleteMessage(
+                                              chat);
+                                          Navigator.of(context).pop();
+                                        },
+                                        title: Text("delete"),
+                                      ),
+                                  ],
+                                ),
+                              ));
+                    },
+                    child: Container(
+                      constraints: BoxConstraints(
+                          maxWidth: MediaQuery.of(context).size.width - 90),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                            child: Footnate(
+                              color: Colors.teal,
+                              text: chat.userNameAlias!,
+                              textAlign: TextAlign.right,
+                            ),
+                          ),
+                          if (chat.parentMessageUserNameAlias != null)
+                            if (chat.parentMessageText != null)
+                              Card(
+                                shape: Border(right: BorderSide(color: Colors.cyan, width: 5)),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8),
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Caption1(
+                                        text: chat
+                                            .parentMessageUserNameAlias!,
+                                      ),
+                                      Caption1(
+                                          text: chat.parentMessageText!),
+                                    ],
+                                  ),
+                                ),
+                                color: Colors.grey[100],
                               ),
-                            ));
-                  },
-                  child: Container(
-                    constraints: BoxConstraints(
-                        maxWidth: MediaQuery
-                            .of(context)
-                            .size
-                            .width - 90),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        if (chat.parentMessageUserNameAlias != null)
-                          Container(
-                              child:
-                              Text(chat.parentMessageUserNameAlias!),
-                              color: Colors.grey[100],
-                              padding: EdgeInsets.all(12)),
-                        if (chat.parentMessageText != null)
-                        //Text(chat.parentMessageText!),
-                          Container(
-                              child: Text(chat.parentMessageText!),
-                              color: Colors.grey[100],
-                              padding: EdgeInsets.all(8)),
-                        Container(
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                                right: 5, left: 5, top: 10),
-                            child: Subhead(
+                            /*Caption1(
+                                text: chat.parentMessageText!),*/
+                            /* Container(
+                              child: Subhead(
+                                color: Colors.black,
+                                text: chat.text!,
+                                textAlign: TextAlign.right,
+                              ),
+                            ),*/
+                            //Text(chat.parentMessageText!),
+                            Subhead(
                               color: Colors.black,
                               text: chat.text!,
                               textAlign: TextAlign.right,
                             ),
+                          Container(
+                            padding: EdgeInsets.only(right: 5, left: 5),
+                            child: Footnate(
+                              color: Colors.black,
+                              text: chat.insertTime.toString(),
+                              textAlign: TextAlign.left,
+                            ),
                           ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(right: 5, left: 5),
-                          child: Footnate(
-                            color: Colors.black,
-                            text: chat.insertTime.toString(),
-                            textAlign: TextAlign.left,
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ],
-            ),
-          ),
-          /*
+              )
+            : ChatBubble(
+                clipper: ChatBubbleClipper1(type: BubbleType.sendBubble),
+                margin: EdgeInsets.only(top: 10),
+                backGroundColor: Colors.cyan[50],
+                child: Container(
+                  constraints: BoxConstraints(
+                    maxWidth: MediaQuery.of(context).size.width * 0.7,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      InkWell(
+                        child: Container(
+                          child: Footnate(
+                            color: Colors.teal,
+                            text: chat.userNameAlias!,
+                            textAlign: TextAlign.right,
+                          ),
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ViewProfileUesr(
+                                        userid: chat.userId,
+                                      )));
+                        },
+                      ),
+                      InkWell(
+                        onTap: () {
+                          showDialog(
+                              context: context,
+                              builder: (context) => Dialog(
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        ListTile(
+                                          onTap: () {
+                                            chatPageController.addToReply(chat);
+                                            Navigator.of(context).pop();
+                                          },
+                                          title: Text("Replay"),
+                                        ),
+                                        ListTile(
+                                          onTap: () {
+                                            chatPageController.addToReply(chat);
+                                            Navigator.of(context).pop();
+                                          },
+                                          title: Text("Report"),
+                                        ),
+                                        if (fromMe)
+                                          ListTile(
+                                            onTap: () {
+                                              chatPageController.DeleteMessage(
+                                                  chat);
+                                              Navigator.of(context).pop();
+                                            },
+                                            title: Text("delete"),
+                                          ),
+                                      ],
+                                    ),
+                                  ));
+                        },
+                        child: Container(
+                          constraints: BoxConstraints(
+                              maxWidth: MediaQuery.of(context).size.width - 90),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              if (chat.parentMessageUserNameAlias != null)
+                                if (chat.parentMessageText != null)
+
+                                  Card(
+                                    shape:Border(right: BorderSide(color: Colors.cyan, width: 5)),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                        children: [
+                                          Caption1(
+                                            text: chat
+                                                .parentMessageUserNameAlias!,
+                                          ),
+                                          Caption1(
+                                              text: chat.parentMessageText!),
+                                        ],
+                                      ),
+                                    ),
+                                    color: Colors.grey[100],
+                                  ),
+                                Container(
+                                  child: Padding(
+                                    padding: EdgeInsets.only(right: 5, left: 5),
+                                    child: Subhead(
+                                      color: Colors.black,
+                                      text: chat.text!,
+                                      textAlign: TextAlign.right,
+                                    ),
+                                  ),
+                                ),
+                              /*   Subhead(
+                                  color: Colors.black,
+                                  text: chat.text!,
+                                  textAlign: TextAlign.right,
+                                ),*/
+
+                              Container(
+                                padding: EdgeInsets.only(right: 1, left: 1),
+                                child: Footnate(
+                                  color: Colors.black,
+                                  text: chat.insertTime.toString().replaceAll(
+                                      RegExp(
+                                          r'^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$'),
+                                      chat.insertTime.toString()),
+                                  textAlign: TextAlign.left,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                /*
         Card(
           clipBehavior: Clip.antiAliasWithSaveLayer,
           color: Colors.white,
@@ -629,7 +635,7 @@ class Chatpage extends StatelessWidget {
               ),
             ),
           ),*/
-        ),
+              ),
       ],
     );
   }
@@ -639,10 +645,7 @@ class Chatpage extends StatelessWidget {
       color: Colors.red.shade50,
       child: Container(
         padding: EdgeInsets.all(12),
-        width: MediaQuery
-            .of(context)
-            .size
-            .width,
+        width: MediaQuery.of(context).size.width,
         child: Row(
           children: [
             IconButton(
@@ -669,6 +672,4 @@ class Chatpage extends StatelessWidget {
       }
     }
   }
-
-
 }

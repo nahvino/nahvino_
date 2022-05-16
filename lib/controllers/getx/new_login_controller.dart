@@ -19,5 +19,8 @@ class NewLoginController extends GetxController{
   String? userToken;
   String? token;
 
-
+  cleartext(){
+    passwordController.clear();
+    usernameController.clear();
+  }
 }

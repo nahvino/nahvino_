@@ -585,7 +585,7 @@ class _ViewProfileState extends State<ViewProfile> {
                         MaterialPageRoute(
                             builder: (context) =>
                                 ViewProfileUesr())); },),*/
-                    Buttonfull(
+                 /*   Buttonfull(
                       text: AppLocalizations.of(context)!
                           .translate('Date_of_departure')!,
                       onPressed: () async {
@@ -615,8 +615,6 @@ class _ViewProfileState extends State<ViewProfile> {
 
                         // String formattedDate =intl.DateFormat.yMMMd().format(time) as TimeOfDay; +berlinWallFell;
                         //print(formattedDate);    // apiService.AddOrEditUserAbandon()
-
-
                         apiService.AddOrEditUserAbandon(berlinWallFell)
                             .then((response) async {
                           setState(() {
@@ -637,7 +635,7 @@ class _ViewProfileState extends State<ViewProfile> {
 
                       },
                       color: Colors.white,
-                    )
+                    ),*/
 
                   ],
                 ),

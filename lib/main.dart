@@ -3,9 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
-import 'Pages/Account/User/ViewProfile.dart';
-import 'Pages/Account/login/SignIn.dart';
-import 'Pages/Home.dart';
 import 'App_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'splash.dart';
@@ -144,11 +141,6 @@ class MyApp extends StatelessWidget {
         return supportedLocales.first;
       },*/
       home: Splash(),
-      routes: {
-        '/home': (context) => HomeScren(),
-        '/login': (context) => SignIn(),
-        '/viewprofile': (context) => ViewProfile()
-      },
     );
   }
 }

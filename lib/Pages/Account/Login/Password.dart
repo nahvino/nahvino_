@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../../App_localizations.dart';
 import '../../../Services/Login/ApiService.dart';
 import '../../../Utils/Button/Button.dart';
 import '../../../Utils/Text/TextField.dart';
 import '../../../Utils/Text/Text.dart';
-import '../User/ViewProfile.dart';
-import 'AddIntroduced.dart';
-import 'CodeOtpPhoneNew.dart';
-import 'NewLogin.dart';
+import 'Login.dart';
 import 'SignUp.dart';
 
 class NewPassword extends StatefulWidget {

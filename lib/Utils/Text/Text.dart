@@ -174,14 +174,14 @@ class Footnate extends StatelessWidget {
 
 class Caption1 extends StatelessWidget {
   Caption1(
-      { required this.text, required this.color, required TextAlign textAlign});
+      { required this.text, this.color, this.textAlign});
 
-  String text;
-  Color color;
-
+  String? text;
+  Color? color;
+  TextAlign? textAlign;
   @override
   Widget build(BuildContext context) {
-    return Text(text,
+    return Text(text!,textAlign: textAlign,
       style: TextStyle(
           color: color,
           fontSize: 12, fontFamily: 'Vazirmatn_Light'),);

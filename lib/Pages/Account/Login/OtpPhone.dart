@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -21,8 +20,10 @@ class OtpPhoneNew extends StatefulWidget {
 class _OtpPhoneNewState extends State<OtpPhoneNew> {
   bool isApiCallProcess = false;
   TextEditingController OtpPhoneController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
+  GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
   late APIService apiService;
-  String? phone="09";
+
   @override
   void initState() {
     super.initState();
@@ -38,6 +39,7 @@ class _OtpPhoneNewState extends State<OtpPhoneNew> {
         leading: BackButton(
           color: Colors.black,
           onPressed: (() {
+            OtpPhoneController.clear();
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => SignUp()));
           }),
@@ -51,11 +53,28 @@ class _OtpPhoneNewState extends State<OtpPhoneNew> {
           : SafeArea(
               child: SingleChildScrollView(
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Center(
                       child: Lottie.asset('assets/anim/login/send.json',
                           height: 150, width: 150),
                     ),
+                    TextOtpPhone(
+                      icon: Icon(Icons.phone_android, size: 32),
+                      suffixIcon: null,
+                      prefixIcon: null,
+                      hint: AppLocalizations.of(context)!.translate(
+                        'phoneNumber',
+                      )!,
+                      controller: OtpPhoneController,
+                      validator: (value) {
+                        if (value.isEmpty.hasMatch(value)) {
+                          return "شماره باموبایل نامعتبر است";
+                        }
+                        return null;
+                      },
+                    ),
+                    /*
                     Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -86,7 +105,7 @@ class _OtpPhoneNewState extends State<OtpPhoneNew> {
                           ),
                         ),
                       ],
-                    ),
+                    ),*/
                     Buttontest(
                         text: AppLocalizations.of(context)!.translate(
                           'OK',
@@ -99,7 +118,7 @@ class _OtpPhoneNewState extends State<OtpPhoneNew> {
                           setState(() {
                             isApiCallProcess = true;
                           });
-                          apiService.OtpPhone(phone!+OtpPhoneController.text)
+                          apiService.OtpPhone(OtpPhoneController.text)
                               .then((response) async {
                             if (response != false) {
                               apiService.showSnackBar(
@@ -108,7 +127,7 @@ class _OtpPhoneNewState extends State<OtpPhoneNew> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => CodeOtpPhoneNew(
-                                          OtpCode: OtpPhoneController.text,phone: phone.toString(),
+                                          OtpCode: OtpPhoneController.text,
                                         )),
                                 (route) => false,
                               );

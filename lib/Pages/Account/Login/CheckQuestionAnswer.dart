@@ -6,7 +6,7 @@ import '../../../Services/Login/ApiService.dart';
 import '../../../Utils/Button/Button.dart';
 import '../../../Utils/Text/TextField.dart';
 import '../../../Utils/Text/Text.dart';
-import 'NewPassword.dart';
+import 'Password.dart';
 import 'SignUp.dart';
 
 class NewCheckQuestionAnswer extends StatefulWidget {
