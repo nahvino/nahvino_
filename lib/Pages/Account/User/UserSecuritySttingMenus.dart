@@ -1,13 +1,9 @@
-import 'dart:io';
-import 'package:Nahvino/Model/User/user/viewprofile_response_model.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../App_localizations.dart';
-import '../../../Services/Login/User/Config.dart';
 import '../../../Services/login/ApiService.dart';
-import '../../../Utils/Button/Button.dart';
 import '../../../Utils/Button/SttingMenusButton.dart';
 import '../../../Utils/Text/Text.dart';
 import '../Login/SignUp.dart';
@@ -153,7 +149,7 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
                               ],
                             ),
                           ),
-                          PopupMenuDivider(height: 4),
+                         /* PopupMenuDivider(height: 4),
                           PopupMenuItem(
                             value: 1,
                             child: Row(
@@ -177,7 +173,7 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
                                 ),
                               ],
                             ),
-                          ),
+                          ),*/
                           PopupMenuDivider(height: 1),
                           PopupMenuItem(
                             child: Row(

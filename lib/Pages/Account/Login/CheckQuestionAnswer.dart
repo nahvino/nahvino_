@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -81,38 +82,48 @@ class _NewCheckQuestionAnswerState extends State<NewCheckQuestionAnswer> {
                 child: Lottie.asset('assets/anim/login/contract.json',
                     height: 150, width: 150),
               ),
-              TextOtpPhone(
-                icon: Icon(Icons.person),
-                suffixIcon: null,
-                prefixIcon: null,
-                hint: AppLocalizations.of(context)!.translate(
-                  'username',
-                )!,
-                controller: usernameController,
+              Padding(
+                padding: const EdgeInsets.only(right: 20, left: 25),
+                child: Column(
+                  children: [
+                    TextAll(
+                      icon: Icon(Icons.person),
+                      suffixIcon: null,
+                      prefixIcon: null,
+                      hint: AppLocalizations.of(context)!.translate(
+                        'username',
+                      )!,
+                      controller: usernameController,
+                    ),
+                    SizedBox(height: 20,),
+                    DropdownButton(
+                        hint: Text(
+                          AppLocalizations.of(context)!.translate(
+                            'sAnswer',
+                          )!,
+                        ),
+                        value: securityQuestionselected,
+                        items: listDrap,
+                        onChanged: (value) {
+                          setState(() {
+                            securityQuestionselected = value as String;
+                          });
+                        }),
+                    SizedBox(height: 10,),
+                    TextAll(
+                      icon: Icon(Icons.security),
+                      suffixIcon: null,
+                      prefixIcon: null,
+                      hint: AppLocalizations.of(context)!.translate(
+                        'sqAnswer',
+                      )!,
+                      controller: sqAnswerController,
+                    ),
+                    SizedBox(height: 20,),
+                  ],
+                ),
               ),
-              DropdownButton(
-                  hint: Text(
-                    AppLocalizations.of(context)!.translate(
-                      'sAnswer',
-                    )!,
-                  ),
-                  value: securityQuestionselected,
-                  items: listDrap,
-                  onChanged: (value) {
-                    setState(() {
-                      securityQuestionselected = value as String;
-                    });
-                  }),
 
-              TextOtpPhone(
-                icon: Icon(Icons.security),
-                suffixIcon: null,
-                prefixIcon: null,
-                hint: AppLocalizations.of(context)!.translate(
-                  'sqAnswer',
-                )!,
-                controller: sqAnswerController,
-              ),
               Buttontest(
                   text: AppLocalizations.of(context)!.translate(
                     'OK',
@@ -141,6 +152,9 @@ class _NewCheckQuestionAnswerState extends State<NewCheckQuestionAnswer> {
                               (route) => false,
                         );
                       } else {
+                        setState(() {
+                          isApiCallProcess = false;
+                        });
                         apiService.showSnackBar(
                             text: response['message'] ?? "sdd");
                       }

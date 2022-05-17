@@ -1,14 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:snippet_coder_utils/FormHelper.dart';
 import '../../../Model/user/user/viewprofile_response_model.dart';
 import '../../../Services/login/ApiService.dart';
 import '../../../Utils/Button/Button.dart';
 import '../../../Utils/Text/TextField.dart';
 import '../../../Utils/Text/Text.dart';
 import '../../../App_localizations.dart';
-import 'Pandect.dart';
 import 'WelcomeUser.dart';
 
 class AddIntroduced extends StatefulWidget {

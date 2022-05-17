@@ -59,22 +59,27 @@ class _ChangePhoneNumberState extends State<ChangePhoneNumber> {
                   icon: Icon(Icons.task_alt),
                   onPressed: (() {
                     if (currentPhoneNumber.text.isEmpty) {
-                      apiService.showSnackBar(
-                          text: "شماره تلفن نمی تواند خالی باشد");
+                      apiService.showSnackBar(text: AppLocalizations.of(context)!.translate(
+                        'ValidphoneNumber',
+                      )!);
                       return;
                     }
                     if (newPhoneNumber.text.isEmpty) {
-                      apiService.showSnackBar(
-                          text: "شماره تلفن نمی تواند خالی باشد");
+                      apiService.showSnackBar(text: AppLocalizations.of(context)!.translate(
+                        'ValidphoneNumber',
+                      )!);
                       return;
                     }
                     if (!currentPhoneNumber.text.startsWith("09")) {
-                      apiService.showSnackBar(text: "number is incorrect");
+                      apiService.showSnackBar(text:AppLocalizations.of(context)!.translate(
+                        'MobileNumberIncorrect',
+                      )!);
                       return;
                     }
                     if (!newPhoneNumber.text.startsWith("09")) {
-                      apiService.showSnackBar(text: "number is incorrect");
-                      return;
+                      apiService.showSnackBar(text:AppLocalizations.of(context)!.translate(
+                        'MobileNumberIncorrect',
+                      )!);                      return;
                     }
                     apiService.ChangePhoneNumber(
                             currentPhoneNumber.text, newPhoneNumber.text)
@@ -125,6 +130,7 @@ class _ChangePhoneNumberState extends State<ChangePhoneNumber> {
               ),
             ],
           ),
+          SizedBox(height: 20,),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -134,6 +140,7 @@ class _ChangePhoneNumberState extends State<ChangePhoneNumber> {
                   'phone_text_old',
                 )!,
               ),
+              SizedBox(height: 10,),
               TextOtpPhone(
                 controller: newPhoneNumber,
                 hint: AppLocalizations.of(context)!.translate(

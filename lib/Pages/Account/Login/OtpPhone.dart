@@ -70,12 +70,6 @@ class _OtpPhoneNewState extends State<OtpPhoneNew> {
                         'phoneNumber',
                       )!,
                       controller: OtpPhoneController,
-                      validator: (value) {
-                        if (value.isEmpty.hasMatch(value)) {
-                          return "شماره باموبایل نامعتبر است";
-                        }
-                        return null;
-                      },
                     ),
                     /*
                     Row(
@@ -115,11 +109,17 @@ class _OtpPhoneNewState extends State<OtpPhoneNew> {
                         )!,
                         onPressed: () {
                           if (OtpPhoneController.text.isEmpty) {
-                            apiService.showSnackBar(text: "filed is empty!");
+                            apiService.showSnackBar(text: AppLocalizations.of(context)!.translate(
+                              'ValidphoneNumber',
+                            )!,);
                             return;
                           }
                           if (!OtpPhoneController.text.startsWith("09")) {
-                            apiService.showSnackBar(text: "number is incorrect");
+                            apiService.showSnackBar(text:AppLocalizations.of(context)!.translate(
+                              'MobileNumberIncorrect',
+                            )!,);
+                            //ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("number is incorrect")));
+
                             return;
                           }
                           setState(() {

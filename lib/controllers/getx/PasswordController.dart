@@ -1,11 +1,9 @@
 import 'package:get/get.dart';
 
-
-class NewRegisterController extends GetxController{
+class PasswordController extends GetxController{
 
 
   RxBool obscurePasswordVisibility = true.obs;
-
 
 
 

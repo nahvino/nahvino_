@@ -1,31 +1,18 @@
-import 'dart:convert';
-import 'dart:io';
-import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:intl/intl.dart' as intl;
 import 'package:lottie/lottie.dart';
 import 'package:Nahvino/Pages/Account/User/EditProfile.dart';
 import 'package:Nahvino/Services/login/user/Config.dart';
-import 'package:persian_datetime_picker/persian_datetime_picker.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../Model/user/user/viewprofile_response_model.dart';
 import '../../../Services/Login/ApiService.dart';
 import '../../../Utils/Button/Button.dart';
-import '../../../Utils/Other/ArshadDialog.dart';
-import '../../../Utils/Other/BargDialog.dart';
 import '../../../Utils/Text/Text.dart';
 import '../../../App_localizations.dart';
-import '../../../tabs.dart';
 import '../Login/SignUp.dart';
 import 'Notifications.dart';
 import 'UserSecuritySttingMenus.dart';
-import 'ViewProfileUesr.dart';
 
 class ViewProfile extends StatefulWidget {
   const ViewProfile({Key? key}) : super(key: key);
@@ -189,7 +176,7 @@ class _ViewProfileState extends State<ViewProfile> {
                                       ],
                                     ),
                                   ),
-                                  PopupMenuDivider(height: 4),
+                              /*    PopupMenuDivider(height: 4),
                                   PopupMenuItem(
                                     value: 1,
                                     child: Row(
@@ -213,7 +200,7 @@ class _ViewProfileState extends State<ViewProfile> {
                                         ),
                                       ],
                                     ),
-                                  ),
+                                  ),*/
                                   PopupMenuDivider(height: 1),
                                   PopupMenuItem(
                                     child: Row(

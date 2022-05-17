@@ -97,11 +97,15 @@ class _SetPhoneNumberState extends State<SetPhoneNumber> {
               )!,
               onPressed: () {
                 if (setPhoneNumber.text.isEmpty) {
-                  apiService.showSnackBar(text: "شماره تلفن نمی تواند خالی باشد");
+                  apiService.showSnackBar(text: AppLocalizations.of(context)!.translate(
+                    'ValidphoneNumber',
+                  )!);
                   return;
                 }
                 if (!setPhoneNumber.text.startsWith("09")) {
-                  apiService.showSnackBar(text: "number is incorrect");
+                  apiService.showSnackBar(text:AppLocalizations.of(context)!.translate(
+                    'MobileNumberIncorrect',
+                  )!);
                   return;
                 }
                 apiService.SetPhoneNumber(setPhoneNumber.text).then((response) async {
@@ -111,13 +115,13 @@ class _SetPhoneNumberState extends State<SetPhoneNumber> {
                   //idficode = identifierCode;
                   //if (response.data != null) {
                   if (response != false) {
-                    apiService.showSnackBar(text:response['message'] ?? "کد تایید ارسال شد");
+                    apiService.showSnackBar(text:response['message']);
                     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                             builder: (context) => CheckCodeSetPhoneNumber(setPhoneNumber: setPhoneNumber.text)));
                   }else{
-                    apiService.showSnackBar(text: response['message'] ?? "sdd");
+                    apiService.showSnackBar(text: response['message']);
                   }
                 });
               },

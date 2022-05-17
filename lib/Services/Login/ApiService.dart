@@ -12,7 +12,6 @@ import 'package:Nahvino/Model/user/otp/otp_response_code_model.dart';
 import 'package:Nahvino/Model/user/user/viewprofile_response_model.dart';
 import 'package:Nahvino/Services/login/user/Config.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../App_localizations.dart';
 import '../../Model/user/login/resetpassword__request_model.dart';
 import '../../Model/user/login/resetpassword_response_model.dart';
 import '../../Model/user/otp/otp_request_code_model.dart';
@@ -61,14 +60,14 @@ class APIService {
     }
     return false;
   }
-
+  /*AppLocalizations.of(_context)!.translate(
+        'Pandect_snackbar_TiTle',
+      )! */
   void showSnackBar({required String text}) {
     //ScaffoldMessenger.of(_context).showSnackBar(SnackBar(content: Text(text)));
     Get.snackbar(
-      /*AppLocalizations.of(_context)!.translate(
-        'Pandect_snackbar_TiTle',
-      )! */ '',
-      text,
+
+      text,'',
       icon: Icon(Icons.notifications, color: Colors.white),
       snackPosition: SnackPosition.TOP,
     );

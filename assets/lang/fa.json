@@ -89,5 +89,6 @@
     "SignUp_top_text": "ورود با نام کاربری و رمز عبور",
     "Resendcode": "کد فعال مجدد ارسال شد",
     "vrifycodephonetoptext": "کد تایید خود را وارد کنید",
-    "MobileNumberCorrection": "تصحیح شماره موبایل"
+    "MobileNumberCorrection": "تصحیح شماره موبایل",
+    "MobileNumberIncorrect": "شماره موبایل نامعتبر است"
 }

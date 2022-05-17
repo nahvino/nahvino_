@@ -3,14 +3,12 @@ import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:Nahvino/controllers/getx/new_login_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../../App_localizations.dart';
 import '../../../Services/Login/ApiService.dart';
 import '../../../Utils/Button/Button.dart';
 import '../../../Utils/Text/Text.dart';
 import '../../../Utils/Text/TextField.dart';
 import '../../../tabs.dart';
-
 import 'CheckQuestionAnswer.dart';
 import 'SignUp.dart';
 

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:Nahvino/Pages/Account/User/ViewProfile.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import '../../../Services/login/ApiService.dart';
 import '../../../Utils/Text/TextField.dart';
 import '../../../Utils/Text/Text.dart';
 import '../../../App_localizations.dart';
+import '../../../controllers/getx/ChangePasswrodController.dart';
 import '../Login/CheckQuestionAnswer.dart';
 import 'UserSecuritySttingMenus.dart';
 
@@ -18,6 +21,8 @@ class _ChangePasswrodState extends State<ChangePasswrod> {
   TextEditingController currentPassword = TextEditingController();
   TextEditingController newPassword = TextEditingController();
   late APIService apiService;
+  ChangePasswrodController changepasswrodcontroller = Get.put(
+      ChangePasswrodController());
 
   @override
   void initState() {
@@ -29,17 +34,20 @@ class _ChangePasswrodState extends State<ChangePasswrod> {
   bool lang = false; // en => true / fa => false
   @override
   Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Scaffold(
-        backgroundColor: Colors.grey[200],
-        body: SafeArea(child: body(context)),
-      ),
-    );
+    return Obx(() {
+      return Directionality(
+        textDirection: TextDirection.rtl,
+        child: Scaffold(
+          backgroundColor: Colors.grey[200],
+          body: SafeArea(child: body(context)),
+        ),
+      );
+    });
   }
 
-  Widget body(BuildContext context) => SingleChildScrollView(
-    child: Column(
+  Widget body(BuildContext context) =>
+      SingleChildScrollView(
+        child: Column(
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -49,7 +57,8 @@ class _ChangePasswrodState extends State<ChangePasswrod> {
                   child: BackButton(
                     onPressed: (() {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => UserSecuritySttingMenus()));
+                          MaterialPageRoute(
+                              builder: (context) => UserSecuritySttingMenus()));
                     }),
                   ),
                 ),
@@ -59,34 +68,37 @@ class _ChangePasswrodState extends State<ChangePasswrod> {
                     icon: Icon(Icons.task_alt),
                     onPressed: (() {
                       if (currentPassword.text.isEmpty) {
-                        apiService.showSnackBar(text: "filed is empty!");
+                        apiService.showSnackBar(text: AppLocalizations.of(context)!.translate(
+                          'ValidPassword',
+                        )!);
                         return;
                       }
 
                       if (newPassword.text.isEmpty) {
-                        apiService.showSnackBar(text: "filed is empty!");
+                        apiService.showSnackBar(text: AppLocalizations.of(context)!.translate(
+                          'ValidPassword',
+                        )!);
                         return;
                       }
 
                       apiService.ChangePasswrod(
-                              currentPassword.text, newPassword.text)
+                          currentPassword.text, newPassword.text)
                           .then((response) async {
                         setState(() {
                           isApiCallProgress = false;
                         });
                         if (response != false) {
                           apiService.showSnackBar(
-                              text: response['message'] ??
-                                  "پسورد شما با موفقیت تغییر کرد");
+                              text: response['message']);
                           Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => ViewProfile()),
-                            (route) => false,
+                                (route) => false,
                           );
                         } else {
                           apiService.showSnackBar(
-                              text: response['message'] ?? "sdd");
+                              text: response['message']);
                         }
                       });
                     }),
@@ -107,11 +119,29 @@ class _ChangePasswrodState extends State<ChangePasswrod> {
               ],
             ),
             Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-              TextProfile(
+              /*  TextProfile(
                 controller: currentPassword,
                 hint: AppLocalizations.of(context)!.translate(
                   'textfilde_currentPassword',
                 )!,
+              ),*/
+              TextPassReAndLog(
+                icon: Icon(Icons.lock),
+                passwordInVisible: changepasswrodcontroller
+                    .obscurecurrentPasswordVisibility.value,
+                suffix: IconButton(onPressed: () {
+                  changepasswrodcontroller.obscurecurrentPasswordVisibility.value =
+                  !changepasswrodcontroller.obscurecurrentPasswordVisibility.value;
+                },
+                    icon: Icon(
+                        changepasswrodcontroller.obscurecurrentPasswordVisibility ==
+                            true
+                            ? Icons.visibility_off
+                            : Icons.visibility)),
+                hint: AppLocalizations.of(context)!.translate(
+                  'textfilde_currentPassword',
+                )!,
+                controller: currentPassword,
               ),
               TextButton(
                 onPressed: () {
@@ -128,14 +158,32 @@ class _ChangePasswrodState extends State<ChangePasswrod> {
                   )!,
                 ),
               ),
-              TextProfile(
+              /* TextProfile(
                 controller: newPassword,
                 hint: AppLocalizations.of(context)!.translate(
                   'textfilde_newPassword',
                 )!,
+              ),*/
+              TextPassReAndLog(
+                icon: Icon(Icons.lock),
+                passwordInVisible: changepasswrodcontroller
+                    .obscurenewPasswordVisibility.value,
+                suffix: IconButton(onPressed: () {
+                  changepasswrodcontroller.obscurenewPasswordVisibility.value =
+                  !changepasswrodcontroller.obscurenewPasswordVisibility.value;
+                },
+                    icon: Icon(
+                        changepasswrodcontroller.obscurenewPasswordVisibility ==
+                            true
+                            ? Icons.visibility_off
+                            : Icons.visibility)),
+                hint: AppLocalizations.of(context)!.translate(
+                  'textfilde_newPassword',
+                )!,
+                controller: newPassword,
               ),
             ]),
           ],
         ),
-  );
+      );
 }
