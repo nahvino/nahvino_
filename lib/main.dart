@@ -5,10 +5,12 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'App_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'LanguageConstants.dart';
 import 'splash.dart';
 
 import 'dart:async';
 import 'package:firebase_messaging/firebase_messaging.dart';
+
 /*
 /// Define a top-level named handler which background/terminated messages will
 /// call.
@@ -28,7 +30,7 @@ late AndroidNotificationChannel channel;
 late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
 */
-Future<void> main() async {
+/*Future<void> main() async {
 /*
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -107,12 +109,13 @@ Future<void> main() async {
   }
 */
 
-
   runApp(MyApp());
-}
+}*/
+void main() => runApp(MyApp());
 
+/*
 class MyApp extends StatelessWidget {
-
+  late Locale _locale;
 
   @override
   Widget build(BuildContext context) {
@@ -125,7 +128,7 @@ class MyApp extends StatelessWidget {
         Locale('en', 'US'),
         Locale('fa', 'IR'),
       ],
-      locale: Locale('fa', 'IR'),
+      locale: _locale,
       localizationsDelegates: [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
@@ -142,5 +145,74 @@ class MyApp extends StatelessWidget {
       },*/
       home: Splash(),
     );
+  }
+}
+*/
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+  static void setLocale(BuildContext context, Locale newLocale) {
+    _MyAppState? state = context.findAncestorStateOfType<_MyAppState>();
+    state?.setLocale(newLocale);
+  }
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  late Locale locale;
+
+  void setLocale(Locale locale) {
+    setState(() {
+      locale = locale;
+    });
+  }
+
+  @override
+  void didChangeDependencies() {
+    getLocale().then((locale) {
+      setState(() {
+        this.locale = locale;
+      });
+    });
+    super.didChangeDependencies();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (this.locale == null) {
+      return Container(
+        child: Center(
+          child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.blue)),
+        ),
+      );
+    }else {
+      return GetMaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primarySwatch: Colors.blueGrey,
+        ),
+        supportedLocales: [
+          Locale('en', 'US'),
+          Locale('fa', 'IR'),
+        ],
+        locale: locale,
+        localizationsDelegates: [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        localeResolutionCallback: (locale, supportedLocales) {
+          for (var supportedLocale in supportedLocales) {
+            if (supportedLocale.languageCode == locale!.languageCode &&
+                supportedLocale.countryCode == locale.countryCode) {
+              return supportedLocale;
+            }
+          }
+          return supportedLocales.first;
+        },
+        home: Splash(),
+      );
+    }
   }
 }

@@ -1,24 +1,11 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:Nahvino/Model/user/login/checkquestionanswer_request_model.dart';
-import 'package:Nahvino/Model/user/login/checkquestionanswer_response_model.dart';
-import 'package:Nahvino/Model/user/login/login_request_model.dart';
-import 'package:Nahvino/Model/user/login/login_response_model.dart';
 import 'package:http/http.dart' as http;
-import 'package:Nahvino/Model/user/login/register_request_model.dart';
-import 'package:Nahvino/Model/user/login/register_response_model.dart';
-import 'package:Nahvino/Model/user/otp/otp_response_code_model.dart';
 import 'package:Nahvino/Model/user/user/viewprofile_response_model.dart';
 import 'package:Nahvino/Services/login/user/Config.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../Model/user/login/resetpassword__request_model.dart';
-import '../../Model/user/login/resetpassword_response_model.dart';
-import '../../Model/user/otp/otp_request_code_model.dart';
-import '../../Model/user/otp/otp_request_model.dart';
-import '../../Model/user/otp/otp_response_model.dart';
-import '../../Model/user/otp/resendcode_request_model.dart';
-import '../../Model/user/otp/resendcode_response_model.dart';
+
 
 class APIService {
   static var client = http.Client();
@@ -32,10 +19,10 @@ class APIService {
     switch (data['statusCode']) {
       case 200:
         return true;
-    //  {
-    //    showSnackBar(text: data['message'] ?? "Token not send or expired!");
-    //     break;
-    //  }
+      //  {
+      //    showSnackBar(text: data['message'] ?? "Token not send or expired!");
+      //     break;
+      //  }
 
       case 401:
         {
@@ -60,246 +47,17 @@ class APIService {
     }
     return false;
   }
+
   /*AppLocalizations.of(_context)!.translate(
         'Pandect_snackbar_TiTle',
       )! */
   void showSnackBar({required String text}) {
     //ScaffoldMessenger.of(_context).showSnackBar(SnackBar(content: Text(text)));
     Get.snackbar(
-
-      text,'',
+      text,
+      '',
       icon: Icon(Icons.notifications, color: Colors.white),
       snackPosition: SnackPosition.TOP,
-    );
-  }
-
-  /*login--- static*/
-  static Future login(LoginRequestModel model,) async {
-    Map<String, String> requestHeaders = {
-      'Content-Type': 'application/json',
-    };
-
-    var url = Uri.parse(Config.baseURL + Config.login);
-
-    var response = await client.post(
-      url,
-      headers: requestHeaders,
-      body: jsonEncode(model.toJson()),
-    );
-
-    if (response.statusCode == 200) {
-      loginResponseJson(
-        response.body,
-      );
-
-      var data = json.decode(response.body);
-      return data['data'];
-    } else {
-      return false;
-    }
-
-    // if (validateResponse(response)) {
-    //   return json.decode(response.body);
-    // } else {
-    //   return false;
-    // }
-  }
-
-/*
-  static Future<RegisterResponseModel> register(
-    RegisterRequestModel model,
-  ) async {
-    Map<String, String> requestHeaders = {
-      'Content-Type': 'application/json',
-    };
-
-    var url = Uri.parse("https://api.nahvino.ir/api/v1/Account/SignUp");
-    var response = await client.post(
-      url,
-      headers: requestHeaders,
-      body: jsonEncode(model.toJson()),
-    );
-
-    return registerResponseJson(
-      response.body,
-    );
-  }
-*/
-
-  static Future register(RegisterRequestModel model,) async {
-    Map<String, String> requestHeaders = {
-      'Content-Type': 'application/json',
-    };
-    var url = Uri.parse(Config.baseURL + Config.register);
-    var response = await client.post(
-      url,
-      headers: requestHeaders,
-      body: jsonEncode(model.toJson()),
-    );
-
-    if (response.statusCode == 200) {
-      registerResponseJson(
-        response.body,
-      );
-      print(response);
-      var data = json.decode(response.body);
-      return data['data'];
-    } else {
-      return false;
-    }
-  }
-
-  static Future<bool> otpphone(OtpRequestModel model,) async {
-    Map<String, String> requestHeaders = {
-      'Content-Type': 'application/json',
-    };
-    var url = Uri.parse(Config.baseURL + Config.otpphone);
-    var response = await client.post(
-      url,
-      headers: requestHeaders,
-      body: jsonEncode(model.toJson()),
-    );
-    debugPrint(response.body);
-    if (response.statusCode == 200) {
-      otpsendphoneResponseJson(
-        response.body,
-      );
-
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-/*
-  static Future<OtpResponseModel> otpvrifay(
-    OtpRequestCodeModel model,
-  ) async {
-    Map<String, String> requestHeaders = {
-      'Content-Type': 'application/json',
-    };
-    var url = Uri.parse("https://api.nahvino.ir/api/v1/Account/CheckCode");
-    var response = await client.post(
-      url,
-      headers: requestHeaders,
-      body: jsonEncode(model.toJson()),
-    );
-
-    return otpResponseJson(
-      response.body,
-    );
-  }
-*/
-
-  /*otpvrifay*/
-  static Future otpvrifay(OtpRequestCodeModel model,) async {
-    Map<String, String> requestHeaders = {
-      'Content-Type': 'application/json',
-    };
-
-    var url = Uri.parse(Config.baseURL + Config.otpvrifay);
-    var response = await client.post(
-      url,
-      headers: requestHeaders,
-      body: jsonEncode(model.toJson()),
-    );
-
-    if (response.statusCode == 200) {
-      otpResponseJson(
-        response.body,
-      );
-
-      var data = json.decode(response.body);
-      return data['data'];
-    } else {
-      return false;
-    }
-  }
-
-  ////////
-  /*
-  static Future  otpvrifay(
-      OtpRequestCodeModel model,
-      ) async {
-    Map<String, String> requestHeaders = {
-      'Content-Type': 'application/json',
-    };
-
-    var url = Uri.parse("https://api.nahvino.ir/api/v1/Account/CheckCode");
-    var response = await client.post(
-      url,
-      headers: requestHeaders,
-      body: jsonEncode(model.toJson()),
-    );
-
-    if (response.statusCode == 200) {
-        otpResponseJson(
-          response.body,
-      );
-
-      var data = json.decode(response.body);
-      return data['data'];
-    } else {
-      return false;
-    }
-  }*/
-
-  static Future<ResendCodeResponseModel> resendcode(
-      ResendCodeRequestModel model,) async {
-    Map<String, String> requestHeaders = {
-      'Content-Type': 'application/json',
-    };
-    var url = Uri.parse(Config.baseURL + Config.resendcode);
-    var response = await client.post(
-      url,
-      headers: requestHeaders,
-      body: jsonEncode(model.toJson()),
-    );
-
-    return ResendCodeResponseJson(
-      response.body,
-    );
-  }
-
-  static Future checkquestionanswer(
-      CheckQuestionAnswerRequestModel model,) async {
-    Map<String, String> requestHeaders = {
-      'Content-Type': 'application/json',
-    };
-
-    var url = Uri.parse(Config.baseURL + Config.checkquestionanswer);
-    var response = await client.post(
-      url,
-      headers: requestHeaders,
-      body: jsonEncode(model.toJson()),
-    );
-    print(response.body);
-
-    if (response.statusCode == 200) {
-      checkquestionanswerresponseJson(
-        response.body,
-      );
-
-      return json.decode(response.body);
-    } else {
-      return false;
-    }
-  }
-
-  static Future<ResetpasswordResponseModel> repassword(
-      ResetpasswordRequestModel model,) async {
-    Map<String, String> requestHeaders = {
-      'Content-Type': 'application/json',
-    };
-    var url = Uri.parse(Config.baseURL + Config.repassword);
-    var response = await client.post(
-      url,
-      headers: requestHeaders,
-      body: jsonEncode(model.toJson()),
-    );
-
-    return resetpasswordresponseJson(
-      response.body,
     );
   }
 
@@ -349,33 +107,11 @@ class APIService {
     }
   }
 
-/*
   static Future getuserabandon() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
       'Authorization': "Bearer ${await preferences.getString("token")}"
-    };
-    var url = Uri.parse(Config.baseURL + Config.GetUserAbandon);
-    var response = await client.post(
-      url,
-      headers: requestHeaders,
-      body: jsonEncode(
-          {"userId": await preferences.getString("userId"),}),
-    );
-    debugPrint(response.body.toString());
-    if (response.statusCode == 200) {
-      return json.decode(response.body);
-    } else {
-      return false;
-    }
-  }
-*/
-  static Future getuserabandon() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    Map<String, String> requestHeaders = {
-      'Content-Type': 'application/json',
-      'Authorization': "Bearer ${ await preferences.getString("token")}"
     };
     var url = Uri.parse(Config.baseURL + Config.GetUserAbandon);
     var response = await client.post(
@@ -532,7 +268,7 @@ class APIService {
     );
 
     var multipartFile =
-    await http.MultipartFile.fromPath('ImageFile', imagePath);
+        await http.MultipartFile.fromPath('ImageFile', imagePath);
     request.files.add(multipartFile);
     http.StreamedResponse response = await request.send();
     final respStr = await response.stream.bytesToString();
@@ -593,8 +329,8 @@ class APIService {
     }
   }
 
-  Future ChangePhoneNumber(String currentPhoneNumber,
-      String newPhoneNumber) async {
+  Future ChangePhoneNumber(
+      String currentPhoneNumber, String newPhoneNumber) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
@@ -618,12 +354,8 @@ class APIService {
     }
   }
 
-
-
-
-
-  Future CheckCodeChangePhoneNumber(String currentPhoneNumber,
-      String newPhoneNumber, int code) async {
+  Future CheckCodeChangePhoneNumber(
+      String currentPhoneNumber, String newPhoneNumber, int code) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
@@ -686,10 +418,12 @@ class APIService {
     return false;
   }
 
-  Future NewRegister(String usernameController,
-      String passwordController,
-      String securityQuestionselected,
-      String sqAnswerController,) async {
+  Future NewRegister(
+    String usernameController,
+    String passwordController,
+    String securityQuestionselected,
+    String sqAnswerController,
+  ) async {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
     };
@@ -729,9 +463,11 @@ class APIService {
     return false;
   }
 
-  Future NewCheckQuestionAnswer(String usernameController,
-      String securityQuestionselected,
-      String sqAnswerController,) async {
+  Future NewCheckQuestionAnswer(
+    String usernameController,
+    String securityQuestionselected,
+    String sqAnswerController,
+  ) async {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
     };
@@ -810,42 +546,11 @@ class APIService {
     } else {
       return false;
     }
-
-
-    /* debugPrint(response.body.toString());
-    if (response.statusCode == 200) {
-      return json.decode(response.body);
-    } else {
-      return false;
-    }*/
   }
 
-
-//  Future getuserabndan() async {
-//   SharedPreferences preferences = await SharedPreferences.getInstance();
-//   Map<String, String> requestHeaders = {
-//     'Content-Type': 'application/json',
-//     'Authorization': "Bearer ${await preferences.getString("token")}"
-//   };
-//   var url = Uri.parse(Config.baseURL + Config.GetUserAbandon);
-//   var response = await client.post(
-//     url,
-//     headers: requestHeaders,
-//     body: jsonEncode(
-//         {"userId": await preferences.getString("userId"),}),
-//   );
-//
-//   debugPrint(response.body.toString());
-//   if (validateResponse(response)) {
-//     return json.decode(response.body);
-//   }
-//   return false;
-//
-// }
-
-
-static  Future GetProfileOtherUser(String GetProfileOtherUser,
-      ) async {
+  static Future GetProfileOtherUser(
+    String GetProfileOtherUser,
+  ) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
@@ -855,11 +560,9 @@ static  Future GetProfileOtherUser(String GetProfileOtherUser,
     var response = await client.post(
       url,
       headers: requestHeaders,
-      body: jsonEncode({
-        "userId": GetProfileOtherUser
-      }),
+      body: jsonEncode({"userId": GetProfileOtherUser}),
     );
-  //  debugPrint(response.body.toString());
+    //  debugPrint(response.body.toString());
     if (response.statusCode == 200) {
       return json.decode(response.body);
     } else {
@@ -867,5 +570,25 @@ static  Future GetProfileOtherUser(String GetProfileOtherUser,
     }
   }
 
+  static Future GetLastOtherVisit(
+    String GetLastOtherVisit,
+  ) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer ${await preferences.getString("token")}"
+    };
+    var url = Uri.parse(Config.baseURL + Config.GetLastOtherVisit);
+    var response = await client.post(
+      url,
+      headers: requestHeaders,
+      body: jsonEncode({"userId": GetLastOtherVisit}),
+    );
+    //  debugPrint(response.body.toString());
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    } else {
+      return false;
+    }
+  }
 }
-

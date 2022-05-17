@@ -24,7 +24,6 @@ class ViewProfile extends StatefulWidget {
 class _ViewProfileState extends State<ViewProfile> {
   bool isApiCallProgress = true;
 
-
   GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
   GetProfileUserResponseModel? resultResponse;
   var resultResponsee;
@@ -86,12 +85,11 @@ class _ViewProfileState extends State<ViewProfile> {
     APIService.getuserabandon().then((response) {
       print("APIService.getuserabandon => $response");
       if (response != null) {
-          resultResponseGetUserAbandon = response ?? tarikh;
+        resultResponseGetUserAbandon = response ?? tarikh;
       } else {
         setState(() {
           isApiCallProgress = false;
           resultResponseGetUserAbandon = response;
-
         });
       }
     });
@@ -107,16 +105,15 @@ class _ViewProfileState extends State<ViewProfile> {
         body: SafeArea(
             child: isApiCallProgress
                 ? Center(
-              child: Lottie.asset('assets/anim/phonix_storok.json',
-                  height: 300, width: 300),
-            )
+                    child: Lottie.asset('assets/anim/phonix_storok.json',
+                        height: 300, width: 300),
+                  )
                 : body(context)),
       ),
     );
   }
 
-  Widget body(BuildContext context) =>
-      SingleChildScrollView(
+  Widget body(BuildContext context) => SingleChildScrollView(
         child: Column(
           children: [
             Card(
@@ -133,10 +130,7 @@ class _ViewProfileState extends State<ViewProfile> {
                           children: [
                             Container(
                               padding: EdgeInsets.only(
-                                  right: MediaQuery
-                                      .of(context)
-                                      .size
-                                      .height *
+                                  right: MediaQuery.of(context).size.height *
                                       0.03),
                               child: textbold(
                                 textAlign: TextAlign.right,
@@ -149,14 +143,13 @@ class _ViewProfileState extends State<ViewProfile> {
                               height: 30,
                               child: PopupMenuButton<int>(
                                 icon: Icon(Icons.menu),
-                                itemBuilder: (context) =>
-                                [
+                                itemBuilder: (context) => [
                                   PopupMenuItem(
                                     value: 0,
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
                                       mainAxisAlignment:
-                                      MainAxisAlignment.start,
+                                          MainAxisAlignment.start,
                                       children: [
                                         Icon(
                                           Icons.security,
@@ -176,7 +169,7 @@ class _ViewProfileState extends State<ViewProfile> {
                                       ],
                                     ),
                                   ),
-                              /*    PopupMenuDivider(height: 4),
+                                  /*    PopupMenuDivider(height: 4),
                                   PopupMenuItem(
                                     value: 1,
                                     child: Row(
@@ -203,9 +196,10 @@ class _ViewProfileState extends State<ViewProfile> {
                                   ),*/
                                   PopupMenuDivider(height: 1),
                                   PopupMenuItem(
+                                    value: 4,
                                     child: Row(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.center,
+                                          MainAxisAlignment.center,
                                       children: [
                                         Caption1(
                                           textAlign: TextAlign.center,
@@ -225,7 +219,7 @@ class _ViewProfileState extends State<ViewProfile> {
                                     value: 2,
                                     child: Row(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.center,
+                                          MainAxisAlignment.center,
                                       children: [
                                         Icon(
                                           Icons.share,
@@ -251,8 +245,15 @@ class _ViewProfileState extends State<ViewProfile> {
                                     value: 3,
                                     child: Row(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.center,
+                                          MainAxisAlignment.center,
                                       children: [
+                                        Icon(
+                                          Icons.close,
+                                          color: Colors.cyan,
+                                        ),
+                                        SizedBox(
+                                          width: 8,
+                                        ),
                                         textspan(
                                           textAlign: TextAlign.center,
                                           color: Colors.black,
@@ -275,51 +276,53 @@ class _ViewProfileState extends State<ViewProfile> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 10,),
+                    SizedBox(
+                      height: 10,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         (resultResponse!.imageUrl != null &&
-                            resultResponse!.imageUrl != "")
+                                resultResponse!.imageUrl != "")
                             ? Card(
-                          shape: CircleBorder(),
-                          clipBehavior: Clip.antiAliasWithSaveLayer,
-                          child: Image.network(
-                            Config.fileurl + resultResponse!.imageUrl!,
-                            fit: BoxFit.cover,
-                            errorBuilder: (BuildContext context,
-                                Object exception,
-                                StackTrace? stackTrace) {
-                              return const Icon(Icons.person);
-                            },
-                            loadingBuilder: (BuildContext context,
-                                Widget child,
-                                ImageChunkEvent? loadingProgress) {
-                              if (loadingProgress == null) return child;
-                              return Center(
-                                child: CircularProgressIndicator(
-                                  value: loadingProgress
-                                      .expectedTotalBytes !=
-                                      null
-                                      ? loadingProgress
-                                      .cumulativeBytesLoaded /
-                                      loadingProgress
-                                          .expectedTotalBytes!
-                                      : null,
+                                shape: CircleBorder(),
+                                clipBehavior: Clip.antiAliasWithSaveLayer,
+                                child: Image.network(
+                                  Config.fileurl + resultResponse!.imageUrl!,
+                                  fit: BoxFit.cover,
+                                  errorBuilder: (BuildContext context,
+                                      Object exception,
+                                      StackTrace? stackTrace) {
+                                    return const Icon(Icons.person);
+                                  },
+                                  loadingBuilder: (BuildContext context,
+                                      Widget child,
+                                      ImageChunkEvent? loadingProgress) {
+                                    if (loadingProgress == null) return child;
+                                    return Center(
+                                      child: CircularProgressIndicator(
+                                        value: loadingProgress
+                                                    .expectedTotalBytes !=
+                                                null
+                                            ? loadingProgress
+                                                    .cumulativeBytesLoaded /
+                                                loadingProgress
+                                                    .expectedTotalBytes!
+                                            : null,
+                                      ),
+                                    );
+                                  },
+                                  height: 75,
+                                  width: 75,
                                 ),
-                              );
-                            },
-                            height: 75,
-                            width: 75,
-                          ),
-                        )
+                              )
                             : Image.asset(
-                          'assets/images/home/user.png',
-                          fit: BoxFit.cover,
-                          height: 75,
-                          width: 75,
-                        ),
+                                'assets/images/home/user.png',
+                                fit: BoxFit.cover,
+                                height: 75,
+                                width: 75,
+                              ),
                         Column(
                           children: [
                             textbold(
@@ -371,13 +374,11 @@ class _ViewProfileState extends State<ViewProfile> {
                             ),
                           ],
                         ),
-
                         Column(
                           children: [
                             Image(
                               height: 30,
-                              image: AssetImage(
-                                  "assets/images/home/bbarg.png"),
+                              image: AssetImage("assets/images/home/bbarg.png"),
                             ),
                             /*
                             InkWell(
@@ -404,7 +405,6 @@ class _ViewProfileState extends State<ViewProfile> {
                             ),
                           ],
                         ),
-
                         Column(
                           children: [
                             /*Padding(
@@ -416,46 +416,48 @@ class _ViewProfileState extends State<ViewProfile> {
                               ),
                             ),*/
                             (resultResponse!.parentImageUrl != null &&
-                                resultResponse!.parentImageUrl != "")
+                                    resultResponse!.parentImageUrl != "")
                                 ? Card(
-                              shape: CircleBorder(),
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              child: Image.network(
-                                Config.fileurl + resultResponse!.parentImageUrl!,
-                                fit: BoxFit.cover,
-                                errorBuilder: (BuildContext context,
-                                    Object exception,
-                                    StackTrace? stackTrace) {
-                                  return const Icon(Icons.person);
-                                },
-                                loadingBuilder: (BuildContext context,
-                                    Widget child,
-                                    ImageChunkEvent? loadingProgress) {
-                                  if (loadingProgress == null) return child;
-                                  return Center(
-                                    child: CircularProgressIndicator(
-                                      value: loadingProgress
-                                          .expectedTotalBytes !=
-                                          null
-                                          ? loadingProgress
-                                          .cumulativeBytesLoaded /
-                                          loadingProgress
-                                              .expectedTotalBytes!
-                                          : null,
+                                    shape: CircleBorder(),
+                                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                                    child: Image.network(
+                                      Config.fileurl +
+                                          resultResponse!.parentImageUrl!,
+                                      fit: BoxFit.cover,
+                                      errorBuilder: (BuildContext context,
+                                          Object exception,
+                                          StackTrace? stackTrace) {
+                                        return const Icon(Icons.person);
+                                      },
+                                      loadingBuilder: (BuildContext context,
+                                          Widget child,
+                                          ImageChunkEvent? loadingProgress) {
+                                        if (loadingProgress == null)
+                                          return child;
+                                        return Center(
+                                          child: CircularProgressIndicator(
+                                            value: loadingProgress
+                                                        .expectedTotalBytes !=
+                                                    null
+                                                ? loadingProgress
+                                                        .cumulativeBytesLoaded /
+                                                    loadingProgress
+                                                        .expectedTotalBytes!
+                                                : null,
+                                          ),
+                                        );
+                                      },
+                                      height: 30,
+                                      width: 30,
                                     ),
-                                  );
-                                },
-                                height: 30,
-                                width: 30,
-                              ),
-                            )
+                                  )
                                 : Image.asset(
-                              'assets/images/home/user.png',
-                              fit: BoxFit.cover,
-                              height: 30,
-                              width: 30,
-                            ),
-                        /*    InkWell(
+                                    'assets/images/home/user.png',
+                                    fit: BoxFit.cover,
+                                    height: 30,
+                                    width: 30,
+                                  ),
+                            /*    InkWell(
                               onTap: () {
 
                                 showDialog<void>(
@@ -477,7 +479,7 @@ class _ViewProfileState extends State<ViewProfile> {
                               height: 4,
                             ),
                             textspan(
-                              text:  resultResponse!.parentName!,
+                              text: resultResponse!.parentName!,
                               color: Colors.black,
                               textAlign: TextAlign.left,
                             ),
@@ -490,18 +492,9 @@ class _ViewProfileState extends State<ViewProfile> {
                     ),
                     Padding(
                       padding: EdgeInsets.only(
-                        right: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.03,
-                        bottom: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.02,
-                        top: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.01,
+                        right: MediaQuery.of(context).size.height * 0.03,
+                        bottom: MediaQuery.of(context).size.height * 0.02,
+                        top: MediaQuery.of(context).size.height * 0.01,
                       ),
                       child: textspan(
                         text: resultResponse!.bio ?? "empty bio",
@@ -539,7 +532,6 @@ class _ViewProfileState extends State<ViewProfile> {
                       alignment: Alignment.center,
                       child: ranksadadA[resultResponsee['data']],
                     ),
-
                   ],
                 ),
               ),
@@ -550,15 +542,17 @@ class _ViewProfileState extends State<ViewProfile> {
                 padding: const EdgeInsets.all(12.0),
                 child: Column(
                   children: [
-                    Body(textAlign: TextAlign.center,
+                    Body(
+                      textAlign: TextAlign.center,
                       color: Colors.cyan,
-                      text: resultResponseGetUserAbandon['data'] ?? tarikh,),
-                  /*  Buttonfull(text: 'تستی', color: Colors.white, onPressed: () {  Navigator.push(
+                      text: resultResponseGetUserAbandon['data'] ?? tarikh,
+                    ),
+                    /*  Buttonfull(text: 'تستی', color: Colors.white, onPressed: () {  Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
                                 ViewProfileUesr())); },),*/
-                 /*   Buttonfull(
+                    /*   Buttonfull(
                       text: AppLocalizations.of(context)!
                           .translate('Date_of_departure')!,
                       onPressed: () async {
@@ -609,7 +603,6 @@ class _ViewProfileState extends State<ViewProfile> {
                       },
                       color: Colors.white,
                     ),*/
-
                   ],
                 ),
               ),
@@ -629,61 +622,60 @@ class _ViewProfileState extends State<ViewProfile> {
             context, MaterialPageRoute(builder: (context) => Notifications()));
         break;
       case 2:
-      /* Share.share('اشتراک گذاری کد معرف', subject: resultResponse!.identifierCode
-            .toString() );*/
-        //Share.share(ranks.toString());
-        Share.share(  "\n  کد معرف شما:" + resultResponse!.identifierCode.toString() +" \n این عدد کد معرف من در نحوینو می باشد. اگر هنگام ثبت نام از این کد استفاده کنید ده شاهچر به شما اهدا میکنم و راهنمای شما در این مسلک زیبا خواهم بود");
+        Share.share("\n  کد معرف شما:" +
+            resultResponse!.identifierCode.toString() +
+            " \n این عدد کد معرف من در نحوینو می باشد. اگر هنگام ثبت نام از این کد استفاده کنید ده شاهچر به شما اهدا میکنم و راهنمای شما در این مسلک زیبا خواهم بود");
+
+        break;
+      case 4:
+        Share.share("\n  کد معرف شما:" +
+            resultResponse!.identifierCode.toString() +
+            " \n این عدد کد معرف من در نحوینو می باشد. اگر هنگام ثبت نام از این کد استفاده کنید ده شاهچر به شما اهدا میکنم و راهنمای شما در این مسلک زیبا خواهم بود");
 
         break;
       case 3:
         showDialog<String>(
           context: context,
-          builder: (BuildContext context) =>
-              AlertDialog(
-                  title: Text(AppLocalizations.of(context)!.translate(
-                    'apptitle',
-                  )!),
-                  content: Text(AppLocalizations.of(context)!.translate(
-                    'quExit',
-                  )!),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () =>
-                          Navigator.pop(
-                              context,
-                              AppLocalizations.of(context)!.translate(
-                                'Cancel',
-                              )!),
-                      child: Text(
-                        AppLocalizations.of(context)!.translate(
-                          'Cancel',
-                        )!,
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () async {
-                        final preferences = await SharedPreferences
-                            .getInstance();
-                        await preferences.clear();
-                        Future.delayed(const Duration(milliseconds: 1000), () {
-                         // exit(0);
-                          Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>SignUp()),
-                                (route) => false,
-                          );
-                        });
-                      },
-                      child: Text(AppLocalizations.of(context)!.translate(
-                        'OK',
+          builder: (BuildContext context) => AlertDialog(
+              title: Text(AppLocalizations.of(context)!.translate(
+                'apptitle',
+              )!),
+              content: Text(AppLocalizations.of(context)!.translate(
+                'quExit',
+              )!),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () => Navigator.pop(
+                      context,
+                      AppLocalizations.of(context)!.translate(
+                        'Cancel',
                       )!),
-                    ),
-                  ]),
+                  child: Text(
+                    AppLocalizations.of(context)!.translate(
+                      'Cancel',
+                    )!,
+                  ),
+                ),
+                TextButton(
+                  onPressed: () async {
+                    final preferences = await SharedPreferences.getInstance();
+                    await preferences.clear();
+                    Future.delayed(const Duration(milliseconds: 1000), () {
+                      // exit(0);
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(builder: (context) => SignUp()),
+                        (route) => false,
+                      );
+                    });
+                  },
+                  child: Text(AppLocalizations.of(context)!.translate(
+                    'OK',
+                  )!),
+                ),
+              ]),
         );
         break;
     }
   }
-
-
 }

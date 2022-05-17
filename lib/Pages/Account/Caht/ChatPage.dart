@@ -13,6 +13,7 @@ import 'package:flutter_html/shims/dart_ui_real.dart';
 import 'package:get/get.dart';
 import 'package:Nahvino/Pages/Account/Caht/ChatPageController.dart';
 import 'package:Nahvino/Pages/Account/Caht/AboutGroup.dart';
+import 'package:lottie/lottie.dart';
 import '../../../Model/User/SignalR/ReceiveMessageModel.dart';
 import '../../../Utils/Text/Text.dart';
 import '../User/ViewProfileUesr.dart';
@@ -29,8 +30,12 @@ class Chatpage extends StatelessWidget {
 
     return Directionality(
       textDirection: ui.TextDirection.rtl,
-      child: Obx(() {
-        return Scaffold(
+      child:  chatPageController.isApiCallProgress.value
+          ? Center(
+        child: Lottie.asset('assets/anim/login/submit-application-successfully.json',
+            height: 300, width: 300),
+      ) : Obx(() {
+        return  Scaffold(
             appBar: AppBar(
                 title: chatPageController.isInSearchMode.value
                     ? Expanded(
@@ -191,49 +196,6 @@ class Chatpage extends StatelessWidget {
                     icon: Icon(chatPageController.emojiShowing.value
                         ? Icons.keyboard
                         : Icons.emoji_emotions_outlined)),
-                /*Obx(() {
-                  return ;
-                  // return Column(
-                  //   children: [
-                  //     Visibility(
-                  //       visible: chatPageController.show(),
-                  //       child: IconButton(
-                  //           icon: Icon(Icons.emoji_emotions_outlined),
-                  //           onPressed: () {
-                  //             if (WidgetsBinding
-                  //                     .instance!.window.viewInsets.bottom >=
-                  //                 0) {
-                  //               FocusScope.of(context).unfocus();
-                  //             }
-                  //             Future.delayed(Duration(milliseconds: 10), () {
-                  //               chatPageController.emojiShowing.value =
-                  //                   !chatPageController.emojiShowing.value;
-                  //               chatPageController.hide.value =
-                  //                   !chatPageController.hide.value;
-                  //               chatPageController.show.value =
-                  //                   !chatPageController.show.value;
-                  //             });
-                  //           }),
-                  //     ),
-                  //     Visibility(
-                  //       visible: chatPageController.hide(),
-                  //       child: IconButton(
-                  //           icon: Icon(Icons.keyboard),
-                  //           onPressed: () {
-                  //             if (WidgetsBinding
-                  //                     .instance!.window.viewInsets.bottom >=
-                  //                 0) {
-                  //               FocusScope.of(context).requestFocus();
-                  //             }
-                  //             chatPageController.hide.value =
-                  //                 !chatPageController.hide.value;
-                  //             chatPageController.show.value =
-                  //                 !chatPageController.show.value;
-                  //           }),
-                  //     ),
-                  //   ],
-                  // );
-                }),*/
                 Expanded(
                     child: TextField(
                   decoration: InputDecoration(
@@ -306,23 +268,6 @@ class Chatpage extends StatelessWidget {
                     buttonMode: ButtonMode.MATERIAL)),
           ),
         ),
-        /*Container(
-      child: Buttonfull(
-          text: AppLocalizations.of(context)!
-              .translate('Date_of_departure')!,
-          onPressed: () {
-            if(model == null){
-              return;
-            }
-
-
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => AboutGroup(model: model!)));
-          },
-          color: Colors.white),
-    ),*/
       ]);
 
   Widget chatItem(context, index) {
@@ -451,38 +396,6 @@ class Chatpage extends StatelessWidget {
                                     .split(":")[1],
                             textAlign: TextAlign.left,
                           ),
-                          /*
-                    Row(
-                      mainAxisAlignment:
-                      MainAxisAlignment.end,
-                      children: [
-                        Footnate(
-                          color: Colors.black,
-                          text: chat.insertTime.toString().split("   ")[1].split("")[4],
-                          textAlign: TextAlign.right,
-                        ),
-                        Footnate(
-                          color: Colors.black,
-                          text: chat.insertTime.toString().split("   ")[1].split("")[3],
-                          textAlign: TextAlign.right,
-                        ),
-                        Footnate(
-                          color: Colors.black,
-                          text: chat.insertTime.toString().split("   ")[1].split("")[2],
-                          textAlign: TextAlign.right,
-                        ),
-                        Footnate(
-                          color: Colors.black,
-                          text: chat.insertTime.toString().split("   ")[1].split("")[1],
-                          textAlign: TextAlign.right,
-                        ),
-                        Footnate(
-                          color: Colors.black,
-                          text: chat.insertTime.toString().split("   ")[1].split("")[0].contains([1]+[0]),
-                          textAlign: TextAlign.right,
-                        ),
-                                              ],
-                    ),*/
                         ],
                       ),
                     ),
@@ -619,102 +532,6 @@ class Chatpage extends StatelessWidget {
                     ],
                   ),
                 ),
-                /*
-        Card(
-          clipBehavior: Clip.antiAliasWithSaveLayer,
-          color: Colors.white,
-          shape: RoundedRectangleBorder(
-              side: BorderSide(
-                  color: fromMe ? Colors.red : Colors.cyan, width: 2),
-              borderRadius: BorderRadius.circular(8)),
-          child: InkWell(
-            onTap: () {
-              showDialog(
-                  context: context,
-                  builder: (context) => Dialog(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            ListTile(
-                              onTap: () {
-                                chatPageController.addToReply(chat);
-                                Navigator.of(context).pop();
-                              },
-                              title: Text("Replay"),
-                            ),
-                            ListTile(
-                              onTap: () {
-                                chatPageController.addToReply(chat);
-                                Navigator.of(context).pop();
-                              },
-                              title: Text("Report"),
-                            ),
-                            if (fromMe)
-                              ListTile(
-                                onTap: () {
-                                  chatPageController.addToReply(chat);
-                                  Navigator.of(context).pop();
-                                },
-                                title: Text("delete"),
-                              ),
-                          ],
-                        ),
-                      ));
-            },
-            child: Container(
-              constraints: BoxConstraints(
-                  maxWidth: MediaQuery.of(context).size.width - 90),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Container(
-                    padding: EdgeInsets.only(
-                      top: 3,
-                      right: 10,
-                      left: 8,
-                      bottom: 3,
-                    ),
-                    child: Callout(
-                      color: Colors.teal,
-                      text: chat.userNameAlias!,
-                      textAlign: TextAlign.right,
-                    ),
-                  ),
-                  if (chat.parentMessageUserNameAlias != null)
-                    Container(
-                        child: Text(chat.parentMessageUserNameAlias!),
-                        color: Colors.grey[100],
-                        padding: EdgeInsets.all(12)),
-                  if (chat.parentMessageText != null)
-                    //Text(chat.parentMessageText!),
-
-                    Container(
-                        child: Text(chat.parentMessageText!),
-                        color: Colors.grey[100],
-                        padding: EdgeInsets.all(8)),
-                  Container(
-                    child: Padding(
-                      padding: EdgeInsets.only(right: 5, left: 5, top: 10),
-                      child: Subhead(
-                        color: Colors.black,
-                        text: chat.text!,
-                        textAlign: TextAlign.right,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.only(right: 5, left: 5),
-                    child: Footnate(
-                      color: Colors.black,
-                      text: ti,
-                      textAlign: TextAlign.left,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),*/
               ),
       ],
     );

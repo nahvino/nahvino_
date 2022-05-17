@@ -1,17 +1,21 @@
+import 'package:Nahvino/main.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../App_localizations.dart';
+import '../../../LanguageConstants.dart';
 import '../../../Services/login/ApiService.dart';
 import '../../../Utils/Button/SttingMenusButton.dart';
 import '../../../Utils/Text/Text.dart';
+import '../../../language.dart';
 import '../Login/SignUp.dart';
 import 'ChangePhoneNumber.dart';
 import 'ChangePasswrod.dart';
 import 'Notifications.dart';
 import 'SetPhoneNumber.dart';
 import 'ViewProfile.dart';
+
 
 class UserSecuritySttingMenus extends StatefulWidget {
   const UserSecuritySttingMenus({Key? key}) : super(key: key);
@@ -60,10 +64,14 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
       }
     });
 
-
   }
 
   bool lang = false; // en => true / fa => false
+  void changeLanguage(Language language) async {
+    Locale locale = (await setLocale(language.languageCode)) as Locale;
+    MyApp.setLocale(context, locale);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -87,9 +95,11 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
 
                Row(
+                 crossAxisAlignment: CrossAxisAlignment.center,
                  children: [
                    Container(
                       child: BackButton(
@@ -105,26 +115,21 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
                         bottom: 4),
                      child: textbold(
                        textAlign: TextAlign.right,
-                       text: resultResponsepro['userName'].toString(),
+                       text: resultResponsepro['userName'],
                        color: Colors.black,
                      ),
                    ),
                  ],
                ),
 
-                    /*
-                    Container(child: Lottie.asset('assets/anim/viewprofile/security-system.json',
-                        height: 70, width: 70),),*/
-
 
                     Container(
-                      alignment: Alignment.topLeft,
                       height: 30,
                       child: PopupMenuButton<int>(
-                        icon: Icon(Icons.menu),
+                        icon: Icon(Icons.menu ,),
                         itemBuilder: (context) =>
                         [
-                          PopupMenuItem(
+                       /*   PopupMenuItem(
                             value: 0,
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
@@ -148,7 +153,7 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
                                 ),
                               ],
                             ),
-                          ),
+                          ),*/
                          /* PopupMenuDivider(height: 4),
                           PopupMenuItem(
                             value: 1,
@@ -174,8 +179,9 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
                               ],
                             ),
                           ),*/
-                          PopupMenuDivider(height: 1),
+                       //   PopupMenuDivider(height: 1),
                           PopupMenuItem(
+                            value: 4,
                             child: Row(
                               mainAxisAlignment:
                               MainAxisAlignment.center,
@@ -226,6 +232,13 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
                               mainAxisAlignment:
                               MainAxisAlignment.center,
                               children: [
+                                Icon(
+                                  Icons.close,
+                                  color: Colors.cyan,
+                                ),
+                                SizedBox(
+                                  width: 8,
+                                ),
                                 textspan(
                                   textAlign: TextAlign.center,
                                   color: Colors.black,
@@ -371,6 +384,33 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
                     color: Colors.white,
                   ),
                   text: 'تغییر زبان'),*/
+              DropdownButton<Language>(
+                underline: SizedBox(),
+                icon: Icon(
+                  Icons.language,
+                  color: Colors.white,
+                ),
+                onChanged: (Language? language) {
+                  changeLanguage(language!);
+                },
+                items: Language.languageList()
+                    .map<DropdownMenuItem<Language>>(
+                      (e) => DropdownMenuItem<Language>(
+                    value: e,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        Text(
+                          e.flag,
+                          style: TextStyle(fontSize: 30),
+                        ),
+                        Text(e.name)
+                      ],
+                    ),
+                  ),
+                )
+                    .toList(),
+              ),
             ],
           )
         ],
@@ -379,17 +419,13 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
   void onSelected(BuildContext context, int item) {
     switch (item) {
       case 0:
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => UserSecuritySttingMenus()));
         break;
       case 1:
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => Notifications()));
         break;
       case 2:
-      /* Share.share('اشتراک گذاری کد معرف', subject: resultResponse!.identifierCode
-            .toString() );*/
-        Share.share(resultResponse!.identifierCode.toString());
+        Share.share(  "\n  کد معرف شما:" + resultResponsepro['identifierCode'].toString() +" \n این عدد کد معرف من در نحوینو می باشد. اگر هنگام ثبت نام از این کد استفاده کنید ده شاهچر به شما اهدا میکنم و راهنمای شما در این مسلک زیبا خواهم بود");
 
         break;
       case 3:
@@ -438,6 +474,10 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
                     ),
                   ]),
         );
+        break;
+      case 4:
+        Share.share(  "\n  کد معرف شما:" + resultResponsepro['identifierCode'].toString() +" \n این عدد کد معرف من در نحوینو می باشد. اگر هنگام ثبت نام از این کد استفاده کنید ده شاهچر به شما اهدا میکنم و راهنمای شما در این مسلک زیبا خواهم بود");
+
         break;
     }
   }

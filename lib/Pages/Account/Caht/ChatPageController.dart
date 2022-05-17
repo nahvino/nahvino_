@@ -16,10 +16,9 @@ class ChatPageController extends GetxController{
   String myUserId = "";
   RxBool iconcaht = false.obs;
   FocusNode focusNode = FocusNode();
-  RxBool  show = true.obs;
-  RxBool  hide = false.obs;
   RxBool  canSend = false.obs;
-  RxBool isInSearchMode = false.obs;
+  RxBool isInSearchMode = true.obs;
+  RxBool isApiCallProgress = false.obs;
   RxString searchText = "".obs;
   //final ScrollController _scrollController = ScrollController();
   @override
@@ -66,7 +65,6 @@ class ChatPageController extends GetxController{
       var res = message![0];
       ReceiveMessageModel? chatmodel;
       chatmodel = ReceiveMessageModel.fromJson(res);
-
       chats.add(chatmodel);
       update();
     });
@@ -86,10 +84,13 @@ class ChatPageController extends GetxController{
       }
       chats.sort((a, b) => a.id!.compareTo(b.id!));
       loadMoreLoading.value = false;
+      isApiCallProgress.value =false;
+
       update();
     });
     await connection.invoke('Group');
     getAllMessages();
+
     //await connection.invoke('GetAllMessage');
    // await connection.invoke('DeleteMessage');
   //  await connection.invoke('SendMessage', args: [myUserId,60, 'خداحافظ']);

@@ -16,6 +16,7 @@ import 'UserSecuritySttingMenus.dart';
 class ViewProfileUesr extends StatefulWidget {
   const ViewProfileUesr({Key? key, this.userid}) : super(key: key);
   final userid;
+
   @override
   State<ViewProfileUesr> createState() => _ViewProfileUesrState();
 }
@@ -26,6 +27,7 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
   GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
 
   var resultResponseViewProfileUesr;
+  var resultResponseGetLastOtherVisit;
   late APIService apiService;
   String? imagePath;
   String tarikh = "تاریخ";
@@ -58,22 +60,37 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
   List<Widget> ranksadadA = <Widget>[
     Lottie.asset('assets/anim/phonix.json'),
     Lottie.asset('assets/anim/phonix-die.json'),
+    Lottie.asset('assets/anim/phonix.json'),
+    Lottie.asset('assets/anim/phonix-die.json'),
+    Lottie.asset('assets/anim/phonix.json'),
+    Lottie.asset('assets/anim/phonix-die.json'),
+    Lottie.asset('assets/anim/phonix-die.json'),
+    Lottie.asset('assets/anim/phonix-die.json'),
+    Lottie.asset('assets/anim/phonix-die.json'),
   ];
-
-
 
   @override
   void initState() {
     super.initState();
     apiService = APIService(context);
-   Future.microtask(() {
-      APIService.GetProfileOtherUser(widget.userid.toString()).then((response)  {
+    Future.microtask(() {
+      APIService.GetProfileOtherUser(widget.userid.toString()).then((response) {
         //resultResponseViewProfileUesr = response;
         setState(() {
           isApiCallProgress = false;
           resultResponseViewProfileUesr = response;
         });
-        print("test------------------------------------> $resultResponseViewProfileUesr");
+        print(
+            "test------------------------------------> $resultResponseViewProfileUesr");
+      });
+      APIService.GetLastOtherVisit(widget.userid.toString()).then((response) {
+        //resultResponseViewProfileUesr = response;
+        setState(() {
+          isApiCallProgress = false;
+          resultResponseGetLastOtherVisit = response;
+        });
+        print(
+            "ققنوس------------------------------------> $resultResponseGetLastOtherVisit");
       });
 /*
       APIService.getprofileuser().then((response) {
@@ -113,19 +130,18 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
       child: Scaffold(
         backgroundColor: Colors.grey[200],
         body: //body(context)
-          SafeArea(
-            child: isApiCallProgress
-                ? Center(
-              child: Lottie.asset('assets/anim/phonix_storok.json',
-                  height: 300, width: 300),
-            )
-                : body(context)),
+            SafeArea(
+                child: isApiCallProgress
+                    ? Center(
+                        child: Lottie.asset('assets/anim/phonix_storok.json',
+                            height: 300, width: 300),
+                      )
+                    : body(context)),
       ),
     );
   }
 
-  Widget body(BuildContext context) =>
-      SingleChildScrollView(
+  Widget body(BuildContext context) => SingleChildScrollView(
         child: Column(
           children: [
             Card(
@@ -138,83 +154,94 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                     Column(
                       children: [
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            textbold(
-                              textAlign: TextAlign.right,
-                              text: resultResponseViewProfileUesr['userName'],
-                              color: Colors.black,
-                            ),
-                            Directionality(
-                              textDirection:  TextDirection.ltr,
-                              child: Container(
-                                alignment: Alignment.topLeft,
-                                height: 30,
-                                child: BackButton(
-                                  onPressed: (() {
-                                    Navigator.push(context,
-                                        MaterialPageRoute(builder: (context) => Chatpage()));
-                                  }),
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              textbold(
+                                textAlign: TextAlign.right,
+                                text: resultResponseViewProfileUesr['userName'],
+                                color: Colors.black,
                               ),
-  ),
-                            ),
-                      ]  ),
+                              Directionality(
+                                textDirection: TextDirection.ltr,
+                                child: Container(
+                                  alignment: Alignment.topLeft,
+                                  height: 30,
+                                  child: BackButton(
+                                    onPressed: (() {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  Chatpage()));
+                                    }),
+                                  ),
+                                ),
+                              ),
+                            ]),
                       ],
                     ),
-                    SizedBox(height: 10,),
+                    SizedBox(
+                      height: 10,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Column(children: [
-                       /*   textbold(
+                        Column(
+                          children: [
+                            /*   textbold(
                             textAlign: TextAlign.right,
                             text: resultResponseViewProfileUesr['userName'],
                             color: Colors.black,
                           ),*/
-                          (resultResponseViewProfileUesr['imageUrl']!= null &&
-                              resultResponseViewProfileUesr['imageUrl'] != "")
-                            ? Card(
-                          shape: CircleBorder(),
-                          clipBehavior: Clip.antiAliasWithSaveLayer,
-                          child: Image.network(
-                            Config.fileurl + resultResponseViewProfileUesr['imageUrl']!,
-                            fit: BoxFit.cover,
-                            errorBuilder: (BuildContext context,
-                                Object exception,
-                                StackTrace? stackTrace) {
-                              return const Icon(Icons.person);
-                            },
-                            loadingBuilder: (BuildContext context,
-                                Widget child,
-                                ImageChunkEvent? loadingProgress) {
-                              if (loadingProgress == null) return child;
-                              return Center(
-                                child: CircularProgressIndicator(
-                                  value: loadingProgress
-                                      .expectedTotalBytes !=
-                                      null
-                                      ? loadingProgress
-                                      .cumulativeBytesLoaded /
-                                      loadingProgress
-                                          .expectedTotalBytes!
-                                      : null,
-                                ),
-                              );
-                            },
-                            height: 75,
-                            width: 75,
-                          ),
-                        )
-                            : Image.asset(
-                          'assets/images/home/user.png',
-                          fit: BoxFit.cover,
-                          height: 75,
-                          width: 75,
-                        ),],),
-
-
+                            (resultResponseViewProfileUesr['imageUrl'] !=
+                                        null &&
+                                    resultResponseViewProfileUesr['imageUrl'] !=
+                                        "")
+                                ? Card(
+                                    shape: CircleBorder(),
+                                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                                    child: Image.network(
+                                      Config.fileurl +
+                                          resultResponseViewProfileUesr[
+                                              'imageUrl']!,
+                                      fit: BoxFit.cover,
+                                      errorBuilder: (BuildContext context,
+                                          Object exception,
+                                          StackTrace? stackTrace) {
+                                        return const Icon(Icons.person);
+                                      },
+                                      loadingBuilder: (BuildContext context,
+                                          Widget child,
+                                          ImageChunkEvent? loadingProgress) {
+                                        if (loadingProgress == null)
+                                          return child;
+                                        return Center(
+                                          child: CircularProgressIndicator(
+                                            value: loadingProgress
+                                                        .expectedTotalBytes !=
+                                                    null
+                                                ? loadingProgress
+                                                        .cumulativeBytesLoaded /
+                                                    loadingProgress
+                                                        .expectedTotalBytes!
+                                                : null,
+                                          ),
+                                        );
+                                      },
+                                      height: 75,
+                                      width: 75,
+                                    ),
+                                  )
+                                : Image.asset(
+                                    'assets/images/home/user.png',
+                                    fit: BoxFit.cover,
+                                    height: 75,
+                                    width: 75,
+                                  ),
+                          ],
+                        ),
                         Column(
                           children: [
                             textbold(
@@ -248,7 +275,9 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                                         border: Border.all(
                                             color: Colors.black26, width: 1)),
                                     child: textspan(
-                                      text: ranksadad[resultResponseViewProfileUesr['rank']],
+                                      text: ranksadad[
+                                          resultResponseViewProfileUesr[
+                                              'rank']],
                                       color: Colors.purpleAccent,
                                       textAlign: TextAlign.left,
                                     ),
@@ -257,7 +286,8 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                                     width: 5,
                                   ),
                                   textspan(
-                                    text: ranks[resultResponseViewProfileUesr['rank']],
+                                    text: ranks[
+                                        resultResponseViewProfileUesr['rank']],
                                     color: Colors.black,
                                     textAlign: TextAlign.left,
                                   ),
@@ -266,13 +296,11 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                             ),
                           ],
                         ),
-
                         Column(
                           children: [
                             Image(
                               height: 30,
-                              image: AssetImage(
-                                  "assets/images/home/bbarg.png"),
+                              image: AssetImage("assets/images/home/bbarg.png"),
                             ),
                             /*
                             InkWell(
@@ -293,55 +321,61 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                               height: 5,
                             ),
                             textspan(
-                              text: resultResponseViewProfileUesr['score'].toString(),
+                              text: resultResponseViewProfileUesr['score']
+                                  .toString(),
                               color: Colors.black,
                               textAlign: TextAlign.left,
                             ),
                           ],
                         ),
-
                         Column(
                           children: [
-                            (resultResponseViewProfileUesr['parentImageUrl'] != null &&
-                                resultResponseViewProfileUesr['parentImageUrl'] != "")
+                            (resultResponseViewProfileUesr['parentImageUrl'] !=
+                                        null &&
+                                    resultResponseViewProfileUesr[
+                                            'parentImageUrl'] !=
+                                        "")
                                 ? Card(
-                              shape: CircleBorder(),
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              child: Image.network(
-                                Config.fileurl + resultResponseViewProfileUesr['parentImageUrl']!,
-                                fit: BoxFit.cover,
-                                errorBuilder: (BuildContext context,
-                                    Object exception,
-                                    StackTrace? stackTrace) {
-                                  return const Icon(Icons.person);
-                                },
-                                loadingBuilder: (BuildContext context,
-                                    Widget child,
-                                    ImageChunkEvent? loadingProgress) {
-                                  if (loadingProgress == null) return child;
-                                  return Center(
-                                    child: CircularProgressIndicator(
-                                      value: loadingProgress
-                                          .expectedTotalBytes !=
-                                          null
-                                          ? loadingProgress
-                                          .cumulativeBytesLoaded /
-                                          loadingProgress
-                                              .expectedTotalBytes!
-                                          : null,
+                                    shape: CircleBorder(),
+                                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                                    child: Image.network(
+                                      Config.fileurl +
+                                          resultResponseViewProfileUesr[
+                                              'parentImageUrl']!,
+                                      fit: BoxFit.cover,
+                                      errorBuilder: (BuildContext context,
+                                          Object exception,
+                                          StackTrace? stackTrace) {
+                                        return const Icon(Icons.person);
+                                      },
+                                      loadingBuilder: (BuildContext context,
+                                          Widget child,
+                                          ImageChunkEvent? loadingProgress) {
+                                        if (loadingProgress == null)
+                                          return child;
+                                        return Center(
+                                          child: CircularProgressIndicator(
+                                            value: loadingProgress
+                                                        .expectedTotalBytes !=
+                                                    null
+                                                ? loadingProgress
+                                                        .cumulativeBytesLoaded /
+                                                    loadingProgress
+                                                        .expectedTotalBytes!
+                                                : null,
+                                          ),
+                                        );
+                                      },
+                                      height: 30,
+                                      width: 30,
                                     ),
-                                  );
-                                },
-                                height: 30,
-                                width: 30,
-                              ),
-                            )
+                                  )
                                 : Image.asset(
-                              'assets/images/home/user.png',
-                              fit: BoxFit.cover,
-                              height: 30,
-                              width: 30,
-                            ),
+                                    'assets/images/home/user.png',
+                                    fit: BoxFit.cover,
+                                    height: 30,
+                                    width: 30,
+                                  ),
                             /*    InkWell(
                               onTap: () {
 
@@ -364,7 +398,7 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                               height: 4,
                             ),
                             textspan(
-                              text:  resultResponseViewProfileUesr['parentName'],
+                              text: resultResponseViewProfileUesr['parentName'],
                               color: Colors.black,
                               textAlign: TextAlign.left,
                             ),
@@ -377,18 +411,9 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                     ),
                     Padding(
                       padding: EdgeInsets.only(
-                        right: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.03,
-                        bottom: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.02,
-                        top: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.01,
+                        right: MediaQuery.of(context).size.height * 0.03,
+                        bottom: MediaQuery.of(context).size.height * 0.02,
+                        top: MediaQuery.of(context).size.height * 0.01,
                       ),
                       child: textspan(
                         text: resultResponseViewProfileUesr['bio'],
@@ -396,12 +421,11 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                         textAlign: TextAlign.start,
                       ),
                     ),
-                                      ],
+                  ],
                 ),
               ),
             ),
-
-           /* Card(
+            Card(
               margin: EdgeInsets.symmetric(horizontal: 0, vertical: 6),
               child: Padding(
                 padding: const EdgeInsets.all(5.0),
@@ -420,11 +444,13 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                           BoxShadow(color: Colors.black, spreadRadius: 2),
                         ],
                       ),
-                      child: Text(""),
-                      //ranksadadA[resultResponsee['data']],
+                      child: //Text(""),
+                          ranksadadA[resultResponseGetLastOtherVisit['data']],
                     ),
-                    SizedBox(width: 9,),
-                    Container(
+                    SizedBox(
+                      width: 9,
+                    ),
+                    /*  Container(
                       height: 150,
                       width: 150,
                       alignment: Alignment.center,
@@ -449,19 +475,16 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                             text: "" /*resultResponseea['userName']*/,),
                         ],),
                       ),
-                    ),
-
+                    ),*/
                   ],
                 ),
               ),
-            ),*/
-         /*   Body(
+            ),
+            /*   Body(
                 textAlign: TextAlign.center,
                 color: Colors.cyan,
                 text: widget.userid.toString()),*/
           ],
         ),
       );
-
-
 }
