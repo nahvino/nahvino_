@@ -275,229 +275,215 @@ class _ViewProfileState extends State<ViewProfile> {
                         ),
                       ],
                     ),
-                    SingleChildScrollView(
-                      child: Row(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(
-                              bottom: MediaQuery
-                                  .of(context)
-                                  .size
-                                  .height * 0.16,
-                            ),
-                          ),
-                          (resultResponse!.imageUrl != null &&
-                              resultResponse!.imageUrl != "")
-                              ? Card(
-                            shape: CircleBorder(),
-                            clipBehavior: Clip.antiAliasWithSaveLayer,
-                            child: Image.network(
-                              Config.fileurl + resultResponse!.imageUrl!,
-                              fit: BoxFit.cover,
-                              errorBuilder: (BuildContext context,
-                                  Object exception,
-                                  StackTrace? stackTrace) {
-                                return const Icon(Icons.person);
-                              },
-                              loadingBuilder: (BuildContext context,
-                                  Widget child,
-                                  ImageChunkEvent? loadingProgress) {
-                                if (loadingProgress == null) return child;
-                                return Center(
-                                  child: CircularProgressIndicator(
-                                    value: loadingProgress
-                                        .expectedTotalBytes !=
-                                        null
-                                        ? loadingProgress
-                                        .cumulativeBytesLoaded /
-                                        loadingProgress
-                                            .expectedTotalBytes!
-                                        : null,
-                                  ),
-                                );
-                              },
-                              height: 75,
-                              width: 75,
-                            ),
-                          )
-                              : Image.asset(
-                            'assets/images/home/user.png',
+                    SizedBox(height: 10,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        (resultResponse!.imageUrl != null &&
+                            resultResponse!.imageUrl != "")
+                            ? Card(
+                          shape: CircleBorder(),
+                          clipBehavior: Clip.antiAliasWithSaveLayer,
+                          child: Image.network(
+                            Config.fileurl + resultResponse!.imageUrl!,
                             fit: BoxFit.cover,
+                            errorBuilder: (BuildContext context,
+                                Object exception,
+                                StackTrace? stackTrace) {
+                              return const Icon(Icons.person);
+                            },
+                            loadingBuilder: (BuildContext context,
+                                Widget child,
+                                ImageChunkEvent? loadingProgress) {
+                              if (loadingProgress == null) return child;
+                              return Center(
+                                child: CircularProgressIndicator(
+                                  value: loadingProgress
+                                      .expectedTotalBytes !=
+                                      null
+                                      ? loadingProgress
+                                      .cumulativeBytesLoaded /
+                                      loadingProgress
+                                          .expectedTotalBytes!
+                                      : null,
+                                ),
+                              );
+                            },
                             height: 75,
                             width: 75,
                           ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Column(
-                            children: [
-                              textbold(
-                                text: resultResponse!.nameAlias ?? "Guest",
-                                color: Colors.green,
-                                textAlign: TextAlign.start,
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Container(
-                                width: 80,
-                                height: 30,
-                                decoration: new BoxDecoration(
-                                    borderRadius: new BorderRadius.circular(8.0),
-                                    border: Border.all(
-                                        color: Colors.black26, width: 1)),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Container(
-                                      height: 20,
-                                      width: 20,
-                                      padding: EdgeInsets.only(
-                                        right: 6,
-                                        left: 1,
-                                        bottom: 2,
-                                      ),
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(50),
-                                          border: Border.all(
-                                              color: Colors.black26, width: 1)),
-                                      child: textspan(
-                                        text: ranksadad[resultResponse!.rank!],
-                                        color: Colors.purpleAccent,
-                                        textAlign: TextAlign.left,
-                                      ),
+                        )
+                            : Image.asset(
+                          'assets/images/home/user.png',
+                          fit: BoxFit.cover,
+                          height: 75,
+                          width: 75,
+                        ),
+                        Column(
+                          children: [
+                            textbold(
+                              text: resultResponse!.nameAlias ?? "Guest",
+                              color: Colors.green,
+                              textAlign: TextAlign.start,
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                              width: 80,
+                              height: 30,
+                              decoration: new BoxDecoration(
+                                  borderRadius: new BorderRadius.circular(8.0),
+                                  border: Border.all(
+                                      color: Colors.black26, width: 1)),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    height: 20,
+                                    width: 20,
+                                    padding: EdgeInsets.only(
+                                      right: 6,
+                                      left: 1,
+                                      bottom: 2,
                                     ),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                    textspan(
-                                      text: ranks[resultResponse!.rank!],
-                                      color: Colors.black,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(50),
+                                        border: Border.all(
+                                            color: Colors.black26, width: 1)),
+                                    child: textspan(
+                                      text: ranksadad[resultResponse!.rank!],
+                                      color: Colors.purpleAccent,
                                       textAlign: TextAlign.left,
                                     ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            width: 30,
-                          ),
-                          Column(
-                            children: [
-                              Image(
-                                height: 30,
-                                image: AssetImage(
-                                    "assets/images/home/bbarg.png"),
-                              ),
-                              /*
-                              InkWell(
-                                  child: Image(
-                                    height: 30,
-                                    image: AssetImage(
-                                        "assets/images/home/bbarg.png"),
                                   ),
-                                  onTap: () {
-                                    showDialog<void>(
-                                        context: context,
-                                        builder: (context) => BargDialog(
-                                              test: resultResponse!.score
-                                                  .toString(),
-                                            ));
-                                  }),*/
-                              SizedBox(
-                                height: 4,
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  textspan(
+                                    text: ranks[resultResponse!.rank!],
+                                    color: Colors.black,
+                                    textAlign: TextAlign.left,
+                                  ),
+                                ],
                               ),
-                              textspan(
-                                text: resultResponse!.score.toString(),
-                                color: Colors.black,
-                                textAlign: TextAlign.left,
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            width: 30,
-                          ),
-                          Column(
-                            children: [
-                              /*Padding(
-                                padding: EdgeInsets.only(
-                                  bottom: MediaQuery
-                                      .of(context)
-                                      .size
-                                      .height * 0.1,
-                                ),
-                              ),*/
-                              (resultResponse!.parentImageUrl != null &&
-                                  resultResponse!.parentImageUrl != "")
-                                  ? Card(
-                                shape: CircleBorder(),
-                                clipBehavior: Clip.antiAliasWithSaveLayer,
-                                child: Image.network(
-                                  Config.fileurl + resultResponse!.parentImageUrl!,
-                                  fit: BoxFit.cover,
-                                  errorBuilder: (BuildContext context,
-                                      Object exception,
-                                      StackTrace? stackTrace) {
-                                    return const Icon(Icons.person);
-                                  },
-                                  loadingBuilder: (BuildContext context,
-                                      Widget child,
-                                      ImageChunkEvent? loadingProgress) {
-                                    if (loadingProgress == null) return child;
-                                    return Center(
-                                      child: CircularProgressIndicator(
-                                        value: loadingProgress
-                                            .expectedTotalBytes !=
-                                            null
-                                            ? loadingProgress
-                                            .cumulativeBytesLoaded /
-                                            loadingProgress
-                                                .expectedTotalBytes!
-                                            : null,
-                                      ),
-                                    );
-                                  },
+                            ),
+                          ],
+                        ),
+
+                        Column(
+                          children: [
+                            Image(
+                              height: 30,
+                              image: AssetImage(
+                                  "assets/images/home/bbarg.png"),
+                            ),
+                            /*
+                            InkWell(
+                                child: Image(
                                   height: 30,
-                                  width: 30,
+                                  image: AssetImage(
+                                      "assets/images/home/bbarg.png"),
                                 ),
-                              )
-                                  : Image.asset(
-                                'assets/images/home/user.png',
+                                onTap: () {
+                                  showDialog<void>(
+                                      context: context,
+                                      builder: (context) => BargDialog(
+                                            test: resultResponse!.score
+                                                .toString(),
+                                          ));
+                                }),*/
+                            SizedBox(
+                              height: 4,
+                            ),
+                            textspan(
+                              text: resultResponse!.score.toString(),
+                              color: Colors.black,
+                              textAlign: TextAlign.left,
+                            ),
+                          ],
+                        ),
+
+                        Column(
+                          children: [
+                            /*Padding(
+                              padding: EdgeInsets.only(
+                                bottom: MediaQuery
+                                    .of(context)
+                                    .size
+                                    .height * 0.1,
+                              ),
+                            ),*/
+                            (resultResponse!.parentImageUrl != null &&
+                                resultResponse!.parentImageUrl != "")
+                                ? Card(
+                              shape: CircleBorder(),
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              child: Image.network(
+                                Config.fileurl + resultResponse!.parentImageUrl!,
                                 fit: BoxFit.cover,
+                                errorBuilder: (BuildContext context,
+                                    Object exception,
+                                    StackTrace? stackTrace) {
+                                  return const Icon(Icons.person);
+                                },
+                                loadingBuilder: (BuildContext context,
+                                    Widget child,
+                                    ImageChunkEvent? loadingProgress) {
+                                  if (loadingProgress == null) return child;
+                                  return Center(
+                                    child: CircularProgressIndicator(
+                                      value: loadingProgress
+                                          .expectedTotalBytes !=
+                                          null
+                                          ? loadingProgress
+                                          .cumulativeBytesLoaded /
+                                          loadingProgress
+                                              .expectedTotalBytes!
+                                          : null,
+                                    ),
+                                  );
+                                },
                                 height: 30,
                                 width: 30,
                               ),
-                          /*    InkWell(
-                                onTap: () {
+                            )
+                                : Image.asset(
+                              'assets/images/home/user.png',
+                              fit: BoxFit.cover,
+                              height: 30,
+                              width: 30,
+                            ),
+                        /*    InkWell(
+                              onTap: () {
 
-                                  showDialog<void>(
-                                      context: context,
-                                      builder: (context) => ArshadDialog());
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: Colors.black12),
-                                  height: 30,
-                                  width: 30,
-                                  child: Image(
-                                      image: AssetImage(
-                                          "assets/images/ram/man1.jpg")),
-                                ),
-                              ),*/
-                              SizedBox(
-                                height: 4,
+                                showDialog<void>(
+                                    context: context,
+                                    builder: (context) => ArshadDialog());
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.black12),
+                                height: 30,
+                                width: 30,
+                                child: Image(
+                                    image: AssetImage(
+                                        "assets/images/ram/man1.jpg")),
                               ),
-                              textspan(
-                                text:  resultResponse!.parentName!,
-                                color: Colors.black,
-                                textAlign: TextAlign.left,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+                            ),*/
+                            SizedBox(
+                              height: 4,
+                            ),
+                            textspan(
+                              text:  resultResponse!.parentName!,
+                              color: Colors.black,
+                              textAlign: TextAlign.left,
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                     SizedBox(
                       height: 0.5,
