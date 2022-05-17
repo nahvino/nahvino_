@@ -11,7 +11,7 @@ import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_1.dart';
 import 'package:flutter_html/shims/dart_ui_real.dart';
 import 'package:get/get.dart';
-import 'package:Nahvino/Pages/Account/Caht/chat_page_controller.dart';
+import 'package:Nahvino/Pages/Account/Caht/ChatPageController.dart';
 import 'package:Nahvino/Pages/Account/Caht/AboutGroup.dart';
 import '../../../Model/User/SignalR/ReceiveMessageModel.dart';
 import '../../../Utils/Text/Text.dart';

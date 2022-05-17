@@ -8,7 +8,7 @@ import '../../../Model/user/user/viewprofile_response_model.dart';
 import '../../../Services/Login/ApiService.dart';
 import '../../../Utils/Text/Text.dart';
 import '../../../App_localizations.dart';
-import '../Caht/chatpage.dart';
+import '../Caht/ChatPage.dart';
 import '../Login/SignUp.dart';
 import 'Notifications.dart';
 import 'UserSecuritySttingMenus.dart';

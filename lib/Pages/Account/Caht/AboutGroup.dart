@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import '../../../App_localizations.dart';
 import '../../../Model/User/SignalR/GroupModel.dart';
-import '../../../Model/User/user/viewprofile_response_model.dart';
 import '../../../Services/Login/User/Config.dart';
 import '../../../Utils/Text/Text.dart';
-import 'chatpage.dart';
+import 'ChatPage.dart';
 
 class AboutGroup extends StatefulWidget {
 
