@@ -157,7 +157,20 @@ class _NewRegisterState extends State<NewRegister> {
                     )!,
                     onPressed: () {
                       if (usernameController.text.isEmpty) {
-                        apiService.showSnackBar(text: "filed is empty!");
+                        apiService.showSnackBar(text: AppLocalizations.of(context)!.translate(
+                          'Validusername',
+                        )!,);
+                        return;
+                      }
+                      if (passwordController.text.isEmpty) {
+                        apiService.showSnackBar(text: AppLocalizations.of(context)!.translate(
+                          'ValidPassword',
+                        )!,);
+                        return;
+                      } if (sqAnswerController.text.isEmpty) {
+                        apiService.showSnackBar(text: AppLocalizations.of(context)!.translate(
+                          'ValidsqAnswer',
+                        )!,);
                         return;
                       }
 

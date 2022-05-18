@@ -1,4 +1,5 @@
 import 'package:Nahvino/main.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:share_plus/share_plus.dart';
@@ -232,10 +233,8 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
                               mainAxisAlignment:
                               MainAxisAlignment.center,
                               children: [
-                                Icon(
-                                  Icons.close,
-                                  color: Colors.cyan,
-                                ),
+                              Image.asset('assets/images/icon/pngwing.com.png',height: 24,width: 24,color: Colors.cyan),
+                            //Image(image: AssetImage('graphics/background.png')),
                                 SizedBox(
                                   width: 8,
                                 ),

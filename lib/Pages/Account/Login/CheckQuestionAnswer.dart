@@ -130,7 +130,9 @@ class _NewCheckQuestionAnswerState extends State<NewCheckQuestionAnswer> {
                   )!,
                   onPressed: () {
                     if (usernameController.text.isEmpty) {
-                      apiService.showSnackBar(text: "filed is empty!");
+                      apiService.showSnackBar(text:AppLocalizations.of(context)!.translate(
+                        'Validusername',
+                      )!,);
                       return;
                     }
                     setState(() {

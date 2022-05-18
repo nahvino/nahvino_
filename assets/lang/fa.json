@@ -56,6 +56,7 @@
     "YCTIANM": "کد شما جهت معرفی عضو جدید",
     "AddIntroduced": "معرف دارم",
     "AddIntroducedhint": "کد معرف خود را وارد کنید",
+    "NotEmptyAddIntroduced": "کد معرف نمی تواند خالی باشد",
     "NotIntroduced": "معرف ندارم",
     "quExit": "آیا مطئمن هستید می خواهید از اکانت خارج شوید؟",
     "nahvinoismaslk": "عزیز به مسلک نحوینو خوش آمدید",
@@ -90,5 +91,6 @@
     "Resendcode": "کد فعال مجدد ارسال شد",
     "vrifycodephonetoptext": "کد تایید خود را وارد کنید",
     "MobileNumberCorrection": "تصحیح شماره موبایل",
-    "MobileNumberIncorrect": "شماره موبایل نامعتبر است"
+    "MobileNumberIncorrect": "شماره موبایل نامعتبر است",
+    "UploadFaildImage": "بارگذاری عکس با خطا مواجعه شد"
 }

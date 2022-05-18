@@ -45,7 +45,6 @@ class ChatPageController extends GetxController{
       ))
       .build();
 
-
 /*
     connection.on('ReceiveMessage', (message) {
       print("-----------------------------------------");
@@ -85,15 +84,10 @@ class ChatPageController extends GetxController{
       chats.sort((a, b) => a.id!.compareTo(b.id!));
       loadMoreLoading.value = false;
       isApiCallProgress.value =false;
-
       update();
     });
     await connection.invoke('Group');
     getAllMessages();
-
-    //await connection.invoke('GetAllMessage');
-   // await connection.invoke('DeleteMessage');
-  //  await connection.invoke('SendMessage', args: [myUserId,60, 'خداحافظ']);
   }
 
   int chatPageSize = 0;
@@ -144,12 +138,8 @@ class ChatPageController extends GetxController{
       replay,
       text,
     ],);
-
     chatScrollController.animateTo(chatScrollController.position.minScrollExtent, duration: Duration(seconds: 1), curve: Curves.ease);
-
-
   }
-
   void addToReply(ReceiveMessageModel chat) {
     MyRepledMessage = chat;
     update();
@@ -178,7 +168,7 @@ class ChatPageController extends GetxController{
   }
 
 
-    chaticon() {
+  chaticon() {
     if(iconcaht.value){
       return Icon(Icons.emoji_emotions_outlined);
     }else{
@@ -189,9 +179,6 @@ class ChatPageController extends GetxController{
 
   void scrollDown() {
     chatScrollController.animateTo(chatScrollController.position.minScrollExtent, duration: Duration(seconds: 1), curve: Curves.ease);
-
   }
-
-
 
 }

@@ -247,10 +247,7 @@ class _ViewProfileState extends State<ViewProfile> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Icon(
-                                          Icons.close,
-                                          color: Colors.cyan,
-                                        ),
+                                        Image.asset('assets/images/icon/pngwing.com.png',height: 24,width: 24,color: Colors.cyan),
                                         SizedBox(
                                           width: 8,
                                         ),

@@ -116,7 +116,9 @@ class _AddIntroducedState extends State<AddIntroduced> {
                           )!,
                           onPressed: () {
                             if (identifierCode.text.isEmpty) {
-                              apiService.showSnackBar(text: "filed is empty!");
+                              apiService.showSnackBar(text: AppLocalizations.of(context)!.translate(
+                                'NotEmptyAddIntroduced',
+                              )!,);
                               return;
                             }
 

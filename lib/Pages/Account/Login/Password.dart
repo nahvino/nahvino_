@@ -105,7 +105,9 @@ class _NewPasswordState extends State<NewPassword> {
                     )!,
                     onPressed: () {
                       if (passwordController.text.isEmpty) {
-                        apiService.showSnackBar(text: "filed is empty!");
+                        apiService.showSnackBar(text: AppLocalizations.of(context)!.translate(
+                          'ValidPassword',
+                        )!,);
                         return;
                       }
                       setState(() {

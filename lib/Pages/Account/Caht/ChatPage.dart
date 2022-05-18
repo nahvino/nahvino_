@@ -30,95 +30,100 @@ class Chatpage extends StatelessWidget {
 
     return Directionality(
       textDirection: ui.TextDirection.rtl,
-      child:  chatPageController.isApiCallProgress.value
+      child: chatPageController.isApiCallProgress.value
           ? Center(
-        child: Lottie.asset('assets/anim/login/submit-application-successfully.json',
-            height: 300, width: 300),
-      ) : Obx(() {
-        return  Scaffold(
-            appBar: AppBar(
-                title: chatPageController.isInSearchMode.value
-                    ? Expanded(
-                        child: TextField(
-                        onChanged: (value) {
-                          chatPageController.searchText.value = value;
-                          chatPageController.update();
-                        },
-                        decoration: InputDecoration(hintText: "Search ..."),
-                      ))
-                    : Column(
-                        children: [
-                          Row(
-                            children: [
-                              Subhead(
-                                text: chatPageController.model!.name.toString(),
-                                color: Colors.white,
-                                textAlign: TextAlign.start,
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Caption2(
-                                text: 'تعداد اعضای گروه',
-                                color: Colors.amberAccent,
-                                textAlign: TextAlign.start,
-                              ),
-                              SizedBox(
-                                width: 4,
-                              ),
-                              Caption1(
-                                text: chatPageController.model!.userCount
-                                    .toString(),
-                                color: Colors.amberAccent,
-                                textAlign: TextAlign.start,
-                              ),
-                              SizedBox(
-                                width: 2,
-                              ),
-                              Caption2(
-                                text: 'نفر',
-                                color: Colors.amberAccent,
-                                textAlign: TextAlign.start,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                leading: IconButton(
-                    icon: Image.asset("assets/images/ram/gorp.png"),
-                    onPressed: () {
-                      if (chatPageController.model == null) {
-                        return;
-                      }
-
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => AboutGroup(
-                                  model: chatPageController.model!)));
-                    }),
-                actions: [
-                  IconButton(
-                      icon: Icon(chatPageController.isInSearchMode.value
-                          ? Icons.close
-                          : Icons.search),
-                      onPressed: () {
-                        chatPageController.isInSearchMode.value =
-                            !chatPageController.isInSearchMode.value;
-                        chatPageController.update();
-                      }),
-                  chatPageController.showScrollToEnd.value
-                      ? IconButton(
+              child: Lottie.asset(
+                  'assets/anim/login/submit-application-successfully.json',
+                  height: 300,
+                  width: 300),
+            )
+          : Obx(() {
+              return Scaffold(
+                  appBar: AppBar(
+                      title: chatPageController.isInSearchMode.value
+                          ? Expanded(
+                              child: TextField(
+                              onChanged: (value) {
+                                chatPageController.searchText.value = value;
+                                chatPageController.update();
+                              },
+                              decoration:
+                                  InputDecoration(hintText: "Search ..."),
+                            ))
+                          : Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Subhead(
+                                      text: chatPageController.model!.name
+                                          .toString(),
+                                      color: Colors.white,
+                                      textAlign: TextAlign.start,
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Caption2(
+                                      text: 'تعداد اعضای گروه',
+                                      color: Colors.amberAccent,
+                                      textAlign: TextAlign.start,
+                                    ),
+                                    SizedBox(
+                                      width: 4,
+                                    ),
+                                    Caption1(
+                                      text: chatPageController.model!.userCount
+                                          .toString(),
+                                      color: Colors.amberAccent,
+                                      textAlign: TextAlign.start,
+                                    ),
+                                    SizedBox(
+                                      width: 2,
+                                    ),
+                                    Caption2(
+                                      text: 'نفر',
+                                      color: Colors.amberAccent,
+                                      textAlign: TextAlign.start,
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                      leading: IconButton(
+                          icon: Image.asset("assets/images/ram/gorp.png"),
                           onPressed: () {
-                            chatPageController.scrollDown();
-                          },
-                          icon: Icon(Icons.arrow_downward))
-                      : SizedBox(),
-                ]),
-            backgroundColor: Colors.grey[200],
-            body: SafeArea(child: body(context)));
-      }),
+                            if (chatPageController.model == null) {
+                              return;
+                            }
+
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => AboutGroup(
+                                        model: chatPageController.model!)));
+                          }),
+                      actions: [
+                        IconButton(
+                            icon: Icon(chatPageController.isInSearchMode.value
+                                ? Icons.close
+                                : Icons.search),
+                            onPressed: () {
+                              chatPageController.isInSearchMode.value =
+                                  !chatPageController.isInSearchMode.value;
+                              chatPageController.update();
+                            }),
+                        chatPageController.showScrollToEnd.value
+                            ? IconButton(
+                                onPressed: () {
+                                  chatPageController.scrollDown();
+                                },
+                                icon: Icon(Icons.arrow_downward))
+                            : SizedBox(),
+                      ]),
+                  backgroundColor: Colors.grey[200],
+                  body: SafeArea(child: body(context)));
+            }),
     );
   }
 
@@ -349,6 +354,7 @@ class Chatpage extends StatelessWidget {
                           if (chat.parentMessageUserNameAlias != null)
                             if (chat.parentMessageText != null)
                               Card(
+                                color: Colors.grey[100],
                                 shape: Border(
                                     right: BorderSide(
                                         color: Colors.cyan, width: 5)),
@@ -366,7 +372,6 @@ class Chatpage extends StatelessWidget {
                                     ],
                                   ),
                                 ),
-                                color: Colors.grey[100],
                               ),
                           /*Caption1(
                                 text: chat.parentMessageText!),*/
