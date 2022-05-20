@@ -27,6 +27,8 @@ class _Splash extends State<Splash> {
     } else {
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => SignUp()));
+          //SignUp()
+
     }
   }
 

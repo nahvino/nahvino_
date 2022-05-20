@@ -444,8 +444,8 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                           BoxShadow(color: Colors.black, spreadRadius: 2),
                         ],
                       ),
-                      child: //Text(""),
-                          ranksadadA[resultResponseGetLastOtherVisit['data']],
+                      child: Text(""),
+                          //ranksadadA[resultResponseGetLastOtherVisit['data']],
                     ),
                     SizedBox(
                       width: 9,

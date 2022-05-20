@@ -17,7 +17,7 @@ class ChatPageController extends GetxController{
   RxBool iconcaht = false.obs;
   FocusNode focusNode = FocusNode();
   RxBool  canSend = false.obs;
-  RxBool isInSearchMode = true.obs;
+  RxBool isInSearchMode = false.obs;
   RxBool isApiCallProgress = false.obs;
   RxString searchText = "".obs;
   //final ScrollController _scrollController = ScrollController();

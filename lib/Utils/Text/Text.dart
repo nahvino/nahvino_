@@ -158,14 +158,14 @@ class Subhead extends StatelessWidget {
 
 class Footnate extends StatelessWidget {
   Footnate(
-      { required this.text, required this.color, required TextAlign textAlign});
+      { required this.text,  this.color,  TextAlign? textAlign});
 
-  String text;
-  Color color;
+  String? text;
+  Color? color;
 
   @override
   Widget build(BuildContext context) {
-    return Text(text,
+    return Text(text!,
       style: TextStyle(
           color: color,
           fontSize: 13, fontFamily: 'Vazirmatn_Regular'),);

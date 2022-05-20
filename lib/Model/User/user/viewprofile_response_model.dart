@@ -11,6 +11,7 @@ class GetProfileUserResponseModel {
      this.score,
     this.imageUrl,
      this.identifierCode,
+     this.parentId,
     this.parentName,
     this.parentImageUrl,
   });
@@ -21,6 +22,7 @@ class GetProfileUserResponseModel {
   int? score;
   String? imageUrl;
   int? identifierCode;
+  String? parentId;
   String? parentName;
   String? parentImageUrl;
 
@@ -32,6 +34,7 @@ class GetProfileUserResponseModel {
     score = json['score'];
     imageUrl = json['imageUrl'];
     identifierCode = json['identifierCode'];
+    parentId = json['parentId'];
     parentName = json['parentName'];
     parentImageUrl = json['parentImageUrl'];
   }
@@ -45,6 +48,7 @@ class GetProfileUserResponseModel {
     _data['score'] = score;
     _data['imageUrl'] = imageUrl;
     _data['identifierCode'] = identifierCode;
+    _data['parentId'] = parentId;
     _data['parentName'] = parentName;
     _data['parentImageUrl'] = parentImageUrl;
     return _data;

@@ -116,7 +116,7 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
                         bottom: 4),
                      child: textbold(
                        textAlign: TextAlign.right,
-                       text: resultResponsepro['userName'],
+                       text: resultResponsepro['userName'] ?? "",
                        color: Colors.black,
                      ),
                    ),
@@ -282,7 +282,7 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
                         SizedBox(width: 10,),
                         Icon(
                           Icons.lock,
-                          color: Colors.black,
+                          color: Colors.blue,
                         ),
                         MenusSttingButton(
                             onPressed: () {
@@ -316,7 +316,7 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
 
                         Icon(
                           Icons.phone_android,
-                          color: Colors.black,
+                          color: Colors.blue,
                         ),
                         MenusSttingButton(
                             onPressed: () {
@@ -352,7 +352,7 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
                         SizedBox(width: 10,),
                         Icon(
                           Icons.phonelink_setup,
-                          color: Colors.black,
+                          color: Colors.blue,
                         ),
                         MenusSttingButton(
                             onPressed: () {
@@ -424,7 +424,7 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
             context, MaterialPageRoute(builder: (context) => Notifications()));
         break;
       case 2:
-        Share.share(  "\n  کد معرف شما:" + resultResponsepro['identifierCode'].toString() +" \n این عدد کد معرف من در نحوینو می باشد. اگر هنگام ثبت نام از این کد استفاده کنید ده شاهچر به شما اهدا میکنم و راهنمای شما در این مسلک زیبا خواهم بود");
+        Share.share(resultResponsepro['identifierCode'].toString() +" \n این عدد کد معرف من در نحوینو می باشد. اگر هنگام ثبت نام از این کد استفاده کنید ده شاهپر به شما اهدا میکنم و راهنمای شما در این مسلک زیبا خواهم بود");
 
         break;
       case 3:
@@ -475,7 +475,7 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
         );
         break;
       case 4:
-        Share.share(  "\n  کد معرف شما:" + resultResponsepro['identifierCode'].toString() +" \n این عدد کد معرف من در نحوینو می باشد. اگر هنگام ثبت نام از این کد استفاده کنید ده شاهچر به شما اهدا میکنم و راهنمای شما در این مسلک زیبا خواهم بود");
+        Share.share(resultResponsepro['identifierCode'].toString() +" \n این عدد کد معرف من در نحوینو می باشد. اگر هنگام ثبت نام از این کد استفاده کنید ده شاهپر به شما اهدا میکنم و راهنمای شما در این مسلک زیبا خواهم بود");
 
         break;
     }
