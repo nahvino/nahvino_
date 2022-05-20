@@ -14,7 +14,6 @@ import '../../../App_localizations.dart';
 import '../Login/SignUp.dart';
 import 'Notifications.dart';
 import 'UserSecuritySttingMenus.dart';
-import 'ViewProfileUesr.dart';
 import 'ViewProfileUesrArshed.dart';
 
 class ViewProfile extends StatefulWidget {
@@ -74,7 +73,7 @@ class _ViewProfileState extends State<ViewProfile> {
         print("getprofileuser-------------------------- => $response");
         resultResponse = response;
         APIService.GetLastVisit().then((response) {
-          print("APIService.GetLastVisit => $response");
+          print(" قوقوی---------------------------- => $response");
           setState(() {
             isApiCallProgress = false;
             resultResponsee = response;
@@ -91,7 +90,7 @@ class _ViewProfileState extends State<ViewProfile> {
         isApiCallProgress = false;
         resultResponseGetUserAbandon = response;
       });
-   /*   if (response != null) {
+      /*   if (response != null) {
         resultResponseGetUserAbandon = response ?? tarikh;
       } else {
         setState(() {
@@ -134,21 +133,21 @@ class _ViewProfileState extends State<ViewProfile> {
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
                             Container(
                               padding: EdgeInsets.only(
                                   right: MediaQuery.of(context).size.height *
                                       0.02),
                               child: textbold(
                                 textAlign: TextAlign.right,
-                                text: resultResponse!.userName ?? "مهمان",
+                                text: resultResponse!.userName!,
                                 color: Colors.black,
                               ),
                             ),
                             Container(
                               alignment: Alignment.topLeft,
-                             height: 30,
+                              height: 30,
                               child: PopupMenuButton<int>(
                                 icon: Icon(Icons.menu),
                                 itemBuilder: (context) => [
@@ -255,7 +254,11 @@ class _ViewProfileState extends State<ViewProfile> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Image.asset('assets/images/icon/pngwing.com.png',height: 24,width: 24,color: Colors.cyan),
+                                        Image.asset(
+                                            'assets/images/icon/pngwing.com.png',
+                                            height: 24,
+                                            width: 24,
+                                            color: Colors.cyan),
                                         SizedBox(
                                           width: 8,
                                         ),
@@ -361,7 +364,8 @@ class _ViewProfileState extends State<ViewProfile> {
                                         border: Border.all(
                                             color: Colors.black26, width: 1)),
                                     child: textspan(
-                                      text: ranksadad[resultResponse!.rank!],
+                                      text:
+                                          ranksadad[resultResponse!.rank ?? 0],
                                       color: Colors.purpleAccent,
                                       textAlign: TextAlign.left,
                                     ),
@@ -421,56 +425,59 @@ class _ViewProfileState extends State<ViewProfile> {
                               ),
                             ),*/
 
-                              InkWell(
+                            InkWell(
                               onTap: () {
-
-                               /*showDialog<void>(
+                                /*showDialog<void>(
                                     context: context,
                                     builder: (context) => /*ArshadDialog()*/ ViewProfileUesr(userid: resultResponse!.parentId,));*/
-                                showDialog<void>(context: context, builder: (context) => ViewProfileUesrArshed(userid: resultResponse!.parentId,));
+                                showDialog<void>(
+                                    context: context,
+                                    builder: (context) => ViewProfileUesrArshed(
+                                          userid: resultResponse!.parentId,
+                                        ));
                               },
-                             child:  (resultResponse!.parentImageUrl != null &&
-                                 resultResponse!.parentImageUrl != "")
-                                 ? Card(
-                               shape: CircleBorder(),
-                               clipBehavior: Clip.antiAliasWithSaveLayer,
-                               child: Image.network(
-                                 Config.fileurl +
-                                     resultResponse!.parentImageUrl!,
-                                 fit: BoxFit.cover,
-                                 errorBuilder: (BuildContext context,
-                                     Object exception,
-                                     StackTrace? stackTrace) {
-                                   return const Icon(Icons.person);
-                                 },
-                                 loadingBuilder: (BuildContext context,
-                                     Widget child,
-                                     ImageChunkEvent? loadingProgress) {
-                                   if (loadingProgress == null)
-                                     return child;
-                                   return Center(
-                                     child: CircularProgressIndicator(
-                                       value: loadingProgress
-                                           .expectedTotalBytes !=
-                                           null
-                                           ? loadingProgress
-                                           .cumulativeBytesLoaded /
-                                           loadingProgress
-                                               .expectedTotalBytes!
-                                           : null,
-                                     ),
-                                   );
-                                 },
-                                 height: 30,
-                                 width: 30,
-                               ),
-                             )
-                                 : Image.asset(
-                               'assets/images/home/user.png',
-                               fit: BoxFit.cover,
-                               height: 30,
-                               width: 30,
-                             ),
+                              child: (resultResponse!.parentImageUrl != null &&
+                                      resultResponse!.parentImageUrl != "")
+                                  ? Card(
+                                      shape: CircleBorder(),
+                                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                                      child: Image.network(
+                                        Config.fileurl +
+                                            resultResponse!.parentImageUrl!,
+                                        fit: BoxFit.cover,
+                                        errorBuilder: (BuildContext context,
+                                            Object exception,
+                                            StackTrace? stackTrace) {
+                                          return const Icon(Icons.person);
+                                        },
+                                        loadingBuilder: (BuildContext context,
+                                            Widget child,
+                                            ImageChunkEvent? loadingProgress) {
+                                          if (loadingProgress == null)
+                                            return child;
+                                          return Center(
+                                            child: CircularProgressIndicator(
+                                              value: loadingProgress
+                                                          .expectedTotalBytes !=
+                                                      null
+                                                  ? loadingProgress
+                                                          .cumulativeBytesLoaded /
+                                                      loadingProgress
+                                                          .expectedTotalBytes!
+                                                  : null,
+                                            ),
+                                          );
+                                        },
+                                        height: 30,
+                                        width: 30,
+                                      ),
+                                    )
+                                  : Image.asset(
+                                      'assets/images/home/user.png',
+                                      fit: BoxFit.cover,
+                                      height: 30,
+                                      width: 30,
+                                    ),
                             ),
                             SizedBox(
                               height: 4,
@@ -488,22 +495,23 @@ class _ViewProfileState extends State<ViewProfile> {
                       height: 0.5,
                     ),
                     Padding(
-                      padding: EdgeInsets.only(
-                        right: MediaQuery.of(context).size.height * 0.03,
-                        bottom: MediaQuery.of(context).size.height * 0.02,
-                        top: MediaQuery.of(context).size.height * 0.01,
-                      ),
-                      child:resultResponse!.bio == null || resultResponse!.bio == ""  ? textspan(
-                        text: "بیو گرافی شما",
-                        color: Colors.black38,
-                        textAlign: TextAlign.start,
-                      ) :
-                      textspan(
-                        text: resultResponse!.bio.toString(),
-                        color: Colors.black,
-                        textAlign: TextAlign.start,)
-                    ),
-
+                        padding: EdgeInsets.only(
+                          right: MediaQuery.of(context).size.height * 0.03,
+                          bottom: MediaQuery.of(context).size.height * 0.02,
+                          top: MediaQuery.of(context).size.height * 0.01,
+                        ),
+                        child: resultResponse!.bio == null ||
+                                resultResponse!.bio == ""
+                            ? textspan(
+                                text: "بیو گرافی شما",
+                                color: Colors.black38,
+                                textAlign: TextAlign.start,
+                              )
+                            : textspan(
+                                text: resultResponse!.bio.toString(),
+                                color: Colors.black,
+                                textAlign: TextAlign.start,
+                              )),
                     SizedBox(
                       height: 1,
                     ),
@@ -532,13 +540,13 @@ class _ViewProfileState extends State<ViewProfile> {
                   children: [
                     Container(
                       alignment: Alignment.center,
-                      child:ranksadadA[resultResponsee['data']],
+                      child: ranksadadA[resultResponsee['data']],
                     ),
                   ],
                 ),
               ),
             ),
-            Card(
+      /*      Card(
               margin: EdgeInsets.symmetric(horizontal: 0, vertical: 6),
               child: Padding(
                 padding: const EdgeInsets.all(12.0),
@@ -546,10 +554,95 @@ class _ViewProfileState extends State<ViewProfile> {
                   children: [
                     Body(
                       textAlign: TextAlign.center,
-                      color: Colors.cyan,
-                      text: resultResponseGetUserAbandon['data'].toString().split(" ")[0] ?? "",
+                      color: Colors.black87,
+                      text: "پاکی شما تا این لحظه",
                     ),
-               /*   Body(
+                    SizedBox(height: 10,),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          height: 75,
+                          width: 75,
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 17,left: 0,right:0 ,bottom: 10),
+                            child: Column(
+                              children: [
+
+                                Footnate(
+                                  textAlign: TextAlign.center,
+                                  color: Colors.cyan,
+                                  text: resultResponseGetUserAbandon['data']
+                                          .toString()
+                                          .split(" ")[0] ??
+                                      "",
+                                ),
+                                Caption2(
+                                    textAlign: TextAlign.center,
+                                    color: Colors.cyan,
+                                    text: "سال"
+                                ),
+                              ],
+                            ),
+                          ),
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(width: 4, color: Colors.red)),
+                        ),
+                        SizedBox(width: 5,),
+                        Container(
+                          height: 75,
+                          width: 75,
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 17,left: 0,right: 0,bottom: 10),
+                            child: Column(
+                              children: [
+
+                                Footnate(
+                                  textAlign: TextAlign.center,
+                                  color: Colors.cyan,
+                                  text: "5" //resultResponseGetUserAbandon['data'].toString().split(" ")[1].toString() ?? ""
+                                ),
+                                Caption2(
+                                    textAlign: TextAlign.center,
+                                    color: Colors.cyan,
+                                    text: "ماه"
+                                ),
+                              ],
+                            ),
+                          ),
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(width: 4, color: Colors.red)),
+                        ),
+                        SizedBox(width: 5,),
+                        Container(
+                          height: 75,
+                          width: 75,
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 17,left: 0,right: 0,bottom: 10),
+                            child: Column(
+                              children: [
+                                Footnate(
+                                    textAlign: TextAlign.center,
+                                    color: Colors.cyan,
+                                    text: "1" //resultResponseGetUserAbandon['data'].toString().split(" ")[1].toString() ?? ""
+                                ),
+                                Caption2(
+                                    textAlign: TextAlign.center,
+                                    color: Colors.cyan,
+                                    text: "روز"
+                                ),
+                              ],
+                            ),
+                          ),
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(width: 4, color: Colors.red)),
+                        ),
+
+                        /*   Body(
                       textAlign: TextAlign.center,
                       color: Colors.cyan,
                       text: resultResponseGetUserAbandon['data'].toString().split(" ")[1]  ,
@@ -558,6 +651,14 @@ class _ViewProfileState extends State<ViewProfile> {
                       textAlign: TextAlign.center,
                       color: Colors.cyan,
                       text: resultResponseGetUserAbandon['data'].toString().split(" ")[2]  ,
+                    ),*/
+                      ],
+                    ),
+
+                   /* Body(
+                      textAlign: TextAlign.center,
+                      color: Colors.black87,
+                      text: "هدف بعدی شما پر کردن سه ماه است",
                     ),*/
                     /*  Buttonfull(text: 'تستی', color: Colors.white, onPressed: () {  Navigator.push(
                         context,
@@ -618,11 +719,10 @@ class _ViewProfileState extends State<ViewProfile> {
                   ],
                 ),
               ),
-            ),
+            ),*/
           ],
         ),
       );
-
 
   void onSelected(BuildContext context, int item) {
     switch (item) {
@@ -635,14 +735,12 @@ class _ViewProfileState extends State<ViewProfile> {
             context, MaterialPageRoute(builder: (context) => Notifications()));
         break;
       case 2:
-        Share.share(
-            resultResponse!.identifierCode.toString() +
+        Share.share(resultResponse!.identifierCode.toString() +
             " \n این عدد کد معرف من در نحوینو می باشد. اگر هنگام ثبت نام از این کد استفاده کنید ده شاهپر به شما اهدا میکنم و راهنمای شما در این مسلک زیبا خواهم بود");
 
         break;
       case 4:
-        Share.share(
-            resultResponse!.identifierCode.toString() +
+        Share.share(resultResponse!.identifierCode.toString() +
             " \n این عدد کد معرف من در نحوینو می باشد. اگر هنگام ثبت نام از این کد استفاده کنید ده شاهپر به شما اهدا میکنم و راهنمای شما در این مسلک زیبا خواهم بود");
 
         break;
