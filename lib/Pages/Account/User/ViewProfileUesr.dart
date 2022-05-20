@@ -2,16 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:Nahvino/Services/login/user/Config.dart';
-import 'package:share_plus/share_plus.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import '../../../Model/user/user/viewprofile_response_model.dart';
 import '../../../Services/Login/ApiService.dart';
 import '../../../Utils/Text/Text.dart';
-import '../../../App_localizations.dart';
 import '../Caht/ChatPage.dart';
-import '../Login/SignUp.dart';
-import 'Notifications.dart';
-import 'UserSecuritySttingMenus.dart';
+
 
 class ViewProfileUesr extends StatefulWidget {
   const ViewProfileUesr({Key? key, this.userid}) : super(key: key);
@@ -445,7 +439,7 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                         ],
                       ),
                       child: Text(""),
-                          //ranksadadA[resultResponseGetLastOtherVisit['data']],
+                         // ranksadadA[resultResponseGetLastOtherVisit['data']] ??  Lottie.asset('assets/anim/phonix.json'),
                     ),
                     SizedBox(
                       width: 9,

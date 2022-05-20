@@ -236,6 +236,7 @@ class Chatpage extends StatelessWidget {
                     ),
                     onPressed: () {
                       chatPageController.sendMessage();
+                      chatPageController.canSend.value = true;
                     }),
               ],
             )),

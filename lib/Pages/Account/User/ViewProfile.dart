@@ -15,6 +15,7 @@ import '../Login/SignUp.dart';
 import 'Notifications.dart';
 import 'UserSecuritySttingMenus.dart';
 import 'ViewProfileUesr.dart';
+import 'ViewProfileUesrArshed.dart';
 
 class ViewProfile extends StatefulWidget {
   const ViewProfile({Key? key}) : super(key: key);
@@ -141,7 +142,7 @@ class _ViewProfileState extends State<ViewProfile> {
                                       0.02),
                               child: textbold(
                                 textAlign: TextAlign.right,
-                                text: resultResponse!.userName ?? "Guest",
+                                text: resultResponse!.userName ?? "مهمان",
                                 color: Colors.black,
                               ),
                             ),
@@ -423,9 +424,10 @@ class _ViewProfileState extends State<ViewProfile> {
                               InkWell(
                               onTap: () {
 
-                                showDialog<void>(
+                               /*showDialog<void>(
                                     context: context,
-                                    builder: (context) => /*ArshadDialog()*/ ViewProfileUesr(userid: resultResponse!.parentId,));
+                                    builder: (context) => /*ArshadDialog()*/ ViewProfileUesr(userid: resultResponse!.parentId,));*/
+                                showDialog<void>(context: context, builder: (context) => ViewProfileUesrArshed(userid: resultResponse!.parentId,));
                               },
                              child:  (resultResponse!.parentImageUrl != null &&
                                  resultResponse!.parentImageUrl != "")
@@ -491,12 +493,17 @@ class _ViewProfileState extends State<ViewProfile> {
                         bottom: MediaQuery.of(context).size.height * 0.02,
                         top: MediaQuery.of(context).size.height * 0.01,
                       ),
-                      child:textspan(
-                        text: resultResponse!.bio ?? "بیو گرافی شما",
-                        color: Colors.black,
+                      child:resultResponse!.bio == null || resultResponse!.bio == ""  ? textspan(
+                        text: "بیو گرافی شما",
+                        color: Colors.black38,
                         textAlign: TextAlign.start,
-                      ),
+                      ) :
+                      textspan(
+                        text: resultResponse!.bio.toString(),
+                        color: Colors.black,
+                        textAlign: TextAlign.start,)
                     ),
+
                     SizedBox(
                       height: 1,
                     ),
@@ -540,8 +547,18 @@ class _ViewProfileState extends State<ViewProfile> {
                     Body(
                       textAlign: TextAlign.center,
                       color: Colors.cyan,
-                      text: ""//resultResponseGetUserAbandon['data'] ?? "" ,
+                      text: resultResponseGetUserAbandon['data'].toString().split(" ")[0] ?? "",
                     ),
+               /*   Body(
+                      textAlign: TextAlign.center,
+                      color: Colors.cyan,
+                      text: resultResponseGetUserAbandon['data'].toString().split(" ")[1]  ,
+                    ),
+                    Body(
+                      textAlign: TextAlign.center,
+                      color: Colors.cyan,
+                      text: resultResponseGetUserAbandon['data'].toString().split(" ")[2]  ,
+                    ),*/
                     /*  Buttonfull(text: 'تستی', color: Colors.white, onPressed: () {  Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -606,21 +623,7 @@ class _ViewProfileState extends State<ViewProfile> {
         ),
       );
 
- /*bio(){
-    if(resultResponse!.bio == null){
-      textspan(
-        text: "بیو گرافی شما",
-        color: Colors.black45,
-        textAlign: TextAlign.start,
-      );
-    }else{
-      textspan(
-        text: resultResponse!.bio!,
-        color: Colors.black,
-        textAlign: TextAlign.start,
-      );
-    }
-  }*/
+
   void onSelected(BuildContext context, int item) {
     switch (item) {
       case 0:
