@@ -5,6 +5,7 @@ import 'package:Nahvino/Services/login/user/Config.dart';
 import '../../../Services/Login/ApiService.dart';
 import '../../../Utils/Text/Text.dart';
 import '../Caht/ChatPage.dart';
+import 'ViewProfile.dart';
 
 
 class ViewProfileUesrArshed extends StatefulWidget {
@@ -119,14 +120,9 @@ class _ViewProfileUesrArshedState extends State<ViewProfileUesrArshed> {
   bool lang = false; // en => true / fa => false
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-        child: isApiCallProgress
-            ?
-           Lottie.asset('assets/anim/phonix_storok.json',
-              height: 300, width: 300)
-            : body(context),
+    return
 
-        /*Scaffold(
+        Scaffold(
           backgroundColor: Colors.grey[200],
           body: //body(context)
           SafeArea(
@@ -136,7 +132,7 @@ class _ViewProfileUesrArshedState extends State<ViewProfileUesrArshed> {
                     height: 300, width: 300),
               )
                   : body(context)),
-        ),*/
+
       );
 
   }
@@ -159,10 +155,10 @@ class _ViewProfileUesrArshedState extends State<ViewProfileUesrArshed> {
                         children: [
                           textbold(
                             textAlign: TextAlign.right,
-                            text: resultResponseViewProfileUesr['userName'].toString() ?? " ",
+                            text: resultResponseViewProfileUesr['userName'] ?? "نام کاربری",
                             color: Colors.black,
                           ),
-                       /*   Directionality(
+                         Directionality(
                             textDirection: TextDirection.ltr,
                             child: Container(
                               alignment: Alignment.topLeft,
@@ -173,11 +169,11 @@ class _ViewProfileUesrArshedState extends State<ViewProfileUesrArshed> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              Chatpage()));
+                                              ViewProfile()));
                                 }),
                               ),
                             ),
-                          ),*/
+                          ),
                         ]),
                   ],
                 ),
@@ -321,7 +317,7 @@ class _ViewProfileUesrArshedState extends State<ViewProfileUesrArshed> {
                           height: 5,
                         ),
                         textspan(
-                          text: resultResponseViewProfileUesr['score'].toString() ?? "0"
+                          text: resultResponseViewProfileUesr['score']
                               .toString(),
                           color: Colors.black,
                           textAlign: TextAlign.left,
@@ -425,7 +421,7 @@ class _ViewProfileUesrArshedState extends State<ViewProfileUesrArshed> {
             ),
           ),
         ),
-      /*  Card(
+     /*   Card(
           margin: EdgeInsets.symmetric(horizontal: 0, vertical: 6),
           child: Padding(
             padding: const EdgeInsets.all(5.0),
@@ -444,8 +440,7 @@ class _ViewProfileUesrArshedState extends State<ViewProfileUesrArshed> {
                       BoxShadow(color: Colors.black, spreadRadius: 2),
                     ],
                   ),
-                  child: Text(""),
-                  // ranksadadA[resultResponseGetLastOtherVisit['data']] ??  Lottie.asset('assets/anim/phonix.json'),
+                  child: ranksadadA[resultResponseGetLastOtherVisit['data']] ??  Lottie.asset('assets/anim/phonix.json'),
                 ),
                 SizedBox(
                   width: 9,

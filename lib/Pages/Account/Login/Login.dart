@@ -167,6 +167,7 @@ class _NewLoginState extends State<NewLogin> {
                                 .showSnackBar(text: response['message']);
                           }
                         });
+                        newLoginController.cleartext();
                       }),
                 ],
               ),

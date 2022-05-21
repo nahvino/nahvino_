@@ -141,7 +141,7 @@ class _ViewProfileState extends State<ViewProfile> {
                                       0.02),
                               child: textbold(
                                 textAlign: TextAlign.right,
-                                text: resultResponse!.userName!,
+                                text: resultResponse!.userName ?? "مهمان",
                                 color: Colors.black,
                               ),
                             ),
@@ -334,7 +334,7 @@ class _ViewProfileState extends State<ViewProfile> {
                         Column(
                           children: [
                             textbold(
-                              text: resultResponse!.nameAlias ?? "مهمان",
+                              text: resultResponse!.nameAlias ?? "",
                               color: Colors.green,
                               textAlign: TextAlign.start,
                             ),
@@ -430,11 +430,18 @@ class _ViewProfileState extends State<ViewProfile> {
                                 /*showDialog<void>(
                                     context: context,
                                     builder: (context) => /*ArshadDialog()*/ ViewProfileUesr(userid: resultResponse!.parentId,));*/
-                                showDialog<void>(
+                            /*    showDialog<void>(
                                     context: context,
                                     builder: (context) => ViewProfileUesrArshed(
                                           userid: resultResponse!.parentId,
-                                        ));
+                                        ));*/
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                    ViewProfileUesrArshed(
+                                      userid: resultResponse!.parentId,
+                                    )));
                               },
                               child: (resultResponse!.parentImageUrl != null &&
                                       resultResponse!.parentImageUrl != "")
@@ -546,7 +553,7 @@ class _ViewProfileState extends State<ViewProfile> {
                 ),
               ),
             ),
-      /*      Card(
+            Card(
               margin: EdgeInsets.symmetric(horizontal: 0, vertical: 6),
               child: Padding(
                 padding: const EdgeInsets.all(12.0),
@@ -557,7 +564,9 @@ class _ViewProfileState extends State<ViewProfile> {
                       color: Colors.black87,
                       text: "پاکی شما تا این لحظه",
                     ),
-                    SizedBox(height: 10,),
+                    SizedBox(
+                      height: 10,
+                    ),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -566,23 +575,21 @@ class _ViewProfileState extends State<ViewProfile> {
                           height: 75,
                           width: 75,
                           child: Padding(
-                            padding: const EdgeInsets.only(top: 17,left: 0,right:0 ,bottom: 10),
+                            padding: const EdgeInsets.only(
+                                top: 17, left: 0, right: 0, bottom: 10),
                             child: Column(
                               children: [
-
                                 Footnate(
                                   textAlign: TextAlign.center,
                                   color: Colors.cyan,
                                   text: resultResponseGetUserAbandon['data']
-                                          .toString()
-                                          .split(" ")[0] ??
-                                      "",
+                                      .toString()
+                                      .split(" ")[0],
                                 ),
                                 Caption2(
                                     textAlign: TextAlign.center,
                                     color: Colors.cyan,
-                                    text: "سال"
-                                ),
+                                    text: "سال"),
                               ],
                             ),
                           ),
@@ -590,25 +597,28 @@ class _ViewProfileState extends State<ViewProfile> {
                               shape: BoxShape.circle,
                               border: Border.all(width: 4, color: Colors.red)),
                         ),
-                        SizedBox(width: 5,),
+                        SizedBox(
+                          width: 5,
+                        ),
                         Container(
                           height: 75,
                           width: 75,
                           child: Padding(
-                            padding: const EdgeInsets.only(top: 17,left: 0,right: 0,bottom: 10),
+                            padding: const EdgeInsets.only(
+                                top: 17, left: 0, right: 0, bottom: 10),
                             child: Column(
                               children: [
-
                                 Footnate(
-                                  textAlign: TextAlign.center,
-                                  color: Colors.cyan,
-                                  text: "5" //resultResponseGetUserAbandon['data'].toString().split(" ")[1].toString() ?? ""
-                                ),
+                                    textAlign: TextAlign.center,
+                                    color: Colors.cyan,
+                                    text: resultResponseGetUserAbandon['data']
+                                        .toString()
+                                        .split(" ")[1]
+                                        .toString()),
                                 Caption2(
                                     textAlign: TextAlign.center,
                                     color: Colors.cyan,
-                                    text: "ماه"
-                                ),
+                                    text: "ماه"),
                               ],
                             ),
                           ),
@@ -616,24 +626,28 @@ class _ViewProfileState extends State<ViewProfile> {
                               shape: BoxShape.circle,
                               border: Border.all(width: 4, color: Colors.red)),
                         ),
-                        SizedBox(width: 5,),
+                        SizedBox(
+                          width: 5,
+                        ),
                         Container(
                           height: 75,
                           width: 75,
                           child: Padding(
-                            padding: const EdgeInsets.only(top: 17,left: 0,right: 0,bottom: 10),
+                            padding: const EdgeInsets.only(
+                                top: 17, left: 0, right: 0, bottom: 10),
                             child: Column(
                               children: [
                                 Footnate(
                                     textAlign: TextAlign.center,
                                     color: Colors.cyan,
-                                    text: "1" //resultResponseGetUserAbandon['data'].toString().split(" ")[1].toString() ?? ""
-                                ),
+                                    text: resultResponseGetUserAbandon['data']
+                                        .toString()
+                                        .split(" ")[2]
+                                        .toString()),
                                 Caption2(
                                     textAlign: TextAlign.center,
                                     color: Colors.cyan,
-                                    text: "روز"
-                                ),
+                                    text: "روز"),
                               ],
                             ),
                           ),
@@ -655,7 +669,7 @@ class _ViewProfileState extends State<ViewProfile> {
                       ],
                     ),
 
-                   /* Body(
+                    /* Body(
                       textAlign: TextAlign.center,
                       color: Colors.black87,
                       text: "هدف بعدی شما پر کردن سه ماه است",
@@ -719,7 +733,7 @@ class _ViewProfileState extends State<ViewProfile> {
                   ],
                 ),
               ),
-            ),*/
+            ),
           ],
         ),
       );

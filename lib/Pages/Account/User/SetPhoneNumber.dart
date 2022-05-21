@@ -108,6 +108,14 @@ class _SetPhoneNumberState extends State<SetPhoneNumber> {
                   )!);
                   return;
                 }
+                if (setPhoneNumber.text.length < 11) {
+                  apiService.showSnackBar(
+                    text: AppLocalizations.of(context)!.translate(
+                      'MobileNumberIncorrect',
+                    )!,
+                  );
+                  return;
+                }
                 apiService.SetPhoneNumber(setPhoneNumber.text).then((response) async {
                   setState(() {
                     isApiCallProgress = false;

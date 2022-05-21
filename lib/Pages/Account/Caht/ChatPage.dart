@@ -340,13 +340,14 @@ class Chatpage extends StatelessWidget {
                               ));
                     },
                     child: Container(
+
                       constraints: BoxConstraints(
                           maxWidth: MediaQuery.of(context).size.width - 90),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
-                            child: Footnate(
+                            child: Subhead(
                               color: Colors.teal,
                               text: chat.userNameAlias!,
                               textAlign: TextAlign.right,
@@ -354,7 +355,69 @@ class Chatpage extends StatelessWidget {
                           ),
                           if (chat.parentMessageUserNameAlias != null)
                             if (chat.parentMessageText != null)
-                              Card(
+                              Row(
+                                  crossAxisAlignment:
+                                  CrossAxisAlignment.start,
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.start,
+                                  children: [
+                                    /* Container(
+                                          width: 5,
+                                          height: 10,
+                                          decoration: BoxDecoration(
+                                            borderRadius:BorderRadius.circular(20.0) ,
+                                            shape: BoxShape.rectangle,
+                                            color: Colors.amberAccent,
+                                          ),
+                                        ),*/
+                                    /*    ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(20.0),
+                                          child: Container(
+                                            width: 5,
+                                            color: Colors.green,
+                                          ),
+                                        ),*/
+                                    Expanded(
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(7.0),
+                                          shape: BoxShape.rectangle,
+                                          color: Colors.black12,
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            Container(
+                                              width: 5,
+                                              height: 50,
+                                              decoration: BoxDecoration(
+                                                borderRadius:BorderRadius.only(bottomRight: Radius.circular(5) ,topRight: Radius.circular(5)) ,
+                                                shape: BoxShape.rectangle,
+                                                color: Colors.greenAccent,
+                                              ),
+                                            ),
+                                            SizedBox(width: 7,),
+                                            Column(
+                                              crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                              children: [
+                                                Footnate(
+                                                  text: chat
+                                                      .parentMessageUserNameAlias!,
+                                                ),
+                                                Caption1(
+                                                    text: chat.parentMessageText!.length > 30 ?  '${chat.parentMessageText!.substring(0,30) }...' : chat.parentMessageText),
+
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ]),
+                           /*   Card(
                                 color: Colors.grey[100],
                                 shape: Border(
                                     right: BorderSide(
@@ -366,14 +429,14 @@ class Chatpage extends StatelessWidget {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Caption1(
+                                      Footnate(
                                         text: chat.parentMessageUserNameAlias!,
                                       ),
                                       Caption1(text: chat.parentMessageText!),
                                     ],
                                   ),
                                 ),
-                              ),
+                              ),*/
                           /*Caption1(
                                 text: chat.parentMessageText!),*/
                           /* Container(
@@ -422,7 +485,7 @@ class Chatpage extends StatelessWidget {
                     children: [
                       InkWell(
                         child: Container(
-                          child: Footnate(
+                          child: Subhead(
                             color: Colors.teal,
                             text: chat.userNameAlias!,
                             textAlign: TextAlign.right,
@@ -480,7 +543,71 @@ class Chatpage extends StatelessWidget {
                             children: [
                               if (chat.parentMessageUserNameAlias != null)
                                 if (chat.parentMessageText != null)
-                                  Card(
+                                  Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                       /* Container(
+                                          width: 5,
+                                          height: 10,
+                                          decoration: BoxDecoration(
+                                            borderRadius:BorderRadius.circular(20.0) ,
+                                            shape: BoxShape.rectangle,
+                                            color: Colors.amberAccent,
+                                          ),
+                                        ),*/
+                                    /*    ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(20.0),
+                                          child: Container(
+                                            width: 5,
+                                            color: Colors.green,
+                                          ),
+                                        ),*/
+                                        Expanded(
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(7.0),
+                                              shape: BoxShape.rectangle,
+                                              color: Colors.black12,
+                                            ),
+                                            child: Row(
+                                              children: [
+                                                Container(
+                                                  width: 5,
+                                                  height: 50,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:BorderRadius.only(bottomRight: Radius.circular(5) ,topRight: Radius.circular(5)) ,
+                                                    shape: BoxShape.rectangle,
+                                                    color: Colors.greenAccent,
+                                                  ),
+                                                ),
+                                                SizedBox(width: 7,),
+                                                Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  children: [
+                                                    Footnate(
+                                                      text: chat
+                                                          .parentMessageUserNameAlias!,
+                                                    ),
+                                                    Caption1(
+                                                        text: chat.parentMessageText!.length > 30 ?  '${chat.parentMessageText!.substring(0,30) }...' : chat.parentMessageText),
+                                                    /*Caption1(
+                                                        text: chat
+                                                            .parentMessageText!),*/
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ]),
+                              /*  Card(
                                     shape: Border(
                                         right: BorderSide(
                                             color: Colors.cyan, width: 5)),
@@ -492,7 +619,7 @@ class Chatpage extends StatelessWidget {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Caption1(
+                                          Footnate(
                                             text: chat
                                                 .parentMessageUserNameAlias!,
                                           ),
@@ -502,7 +629,7 @@ class Chatpage extends StatelessWidget {
                                       ),
                                     ),
                                     color: Colors.grey[100],
-                                  ),
+                                  ),*/
                               /*   Container(
                                 child: Padding(
                                   padding: EdgeInsets.only(right: 5, left: 5),

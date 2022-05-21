@@ -81,6 +81,22 @@ class _ChangePhoneNumberState extends State<ChangePhoneNumber> {
                         'MobileNumberIncorrect',
                       )!);                      return;
                     }
+                    if (currentPhoneNumber.text.length < 11) {
+                      apiService.showSnackBar(
+                        text: AppLocalizations.of(context)!.translate(
+                          'MobileNumberIncorrect',
+                        )!,
+                      );
+                      return;
+                    }
+                    if (newPhoneNumber.text.length < 11) {
+                      apiService.showSnackBar(
+                        text: AppLocalizations.of(context)!.translate(
+                          'MobileNumberIncorrect',
+                        )!,
+                      );
+                      return;
+                    }
                     apiService.ChangePhoneNumber(
                             currentPhoneNumber.text, newPhoneNumber.text)
                         .then((response) async {
