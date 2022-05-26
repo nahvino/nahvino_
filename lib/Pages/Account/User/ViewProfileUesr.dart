@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
@@ -5,7 +7,6 @@ import 'package:Nahvino/Services/login/user/Config.dart';
 import '../../../Services/Login/ApiService.dart';
 import '../../../Utils/Text/Text.dart';
 import '../Caht/ChatPage.dart';
-
 
 class ViewProfileUesr extends StatefulWidget {
   const ViewProfileUesr({Key? key, this.userid}) : super(key: key);
@@ -21,7 +22,8 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
   GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
 
   var resultResponseViewProfileUesr;
-  var resultResponseGetLastOtherVisit;
+  late Map<String, dynamic> resultResponseGetLastOtherVisit;
+  var resultResponseGetUserAbandon;
   late APIService apiService;
   String? imagePath;
   String tarikh = "تاریخ";
@@ -52,15 +54,15 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
   ];
 
   List<Widget> ranksadadA = <Widget>[
-    Lottie.asset('assets/anim/phonix.json'),
-    Lottie.asset('assets/anim/phonix-die.json'),
-    Lottie.asset('assets/anim/phonix.json'),
-    Lottie.asset('assets/anim/phonix-die.json'),
-    Lottie.asset('assets/anim/phonix.json'),
-    Lottie.asset('assets/anim/phonix-die.json'),
-    Lottie.asset('assets/anim/phonix-die.json'),
-    Lottie.asset('assets/anim/phonix-die.json'),
-    Lottie.asset('assets/anim/phonix-die.json'),
+    Lottie.asset('assets/anim/phonix.json' ,fit:BoxFit.cover ),
+    Lottie.asset('assets/anim/phonix.json',fit:BoxFit.cover ),
+
+
+
+
+
+
+
   ];
 
   @override
@@ -69,50 +71,22 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
     apiService = APIService(context);
     Future.microtask(() {
       APIService.GetProfileOtherUser(widget.userid.toString()).then((response) {
-        //resultResponseViewProfileUesr = response;
-        setState(() {
-          isApiCallProgress = false;
-          resultResponseViewProfileUesr = response;
-        });
-        print(
-            "test------------------------------------> $resultResponseViewProfileUesr");
-      });
-      APIService.GetLastOtherVisit(widget.userid.toString()).then((response) {
-        //resultResponseViewProfileUesr = response;
-        setState(() {
-          isApiCallProgress = false;
+        resultResponseViewProfileUesr = response;
+        print("test-----------> $resultResponseViewProfileUesr");
+        APIService.GetLastOtherVisit(widget.userid.toString()).then((response) {
           resultResponseGetLastOtherVisit = response;
-        });
-        print(
-            "ققنوس------------------------------------> $resultResponseGetLastOtherVisit");
-      });
-/*
-      APIService.getprofileuser().then((response) {
-        print("APIService.getprofileuser => $response");
-        resultResponse = response;
-        APIService.GetLastVisit().then((response) {
-          print("APIService.GetLastVisit => $response");
-          setState(() {
-            isApiCallProgress = false;
-            resultResponsee = response;
+          print(" قوقوی---------------------------- => $response");
+          APIService.getuserabandonViewProfileUesr(widget.userid.toString())
+              .then((response) {
+            print("تاریخ ترک ------------- => $response");
+            setState(() {
+              isApiCallProgress = false;
+
+              resultResponseGetUserAbandon = response;
+            });
           });
         });
-      }).onError((error, stackTrace) {
-        print(error);
       });
-    });
-
-    APIService.getuserabandon().then((response) {
-      print("APIService.getuserabandon => $response");
-      if (response != null) {
-        resultResponseGetUserAbandon = response ?? tarikh;
-      } else {
-        setState(() {
-          isApiCallProgress = false;
-          resultResponseGetUserAbandon = response;
-
-        });
-      }*/
     });
   }
 
@@ -239,7 +213,9 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                         Column(
                           children: [
                             textbold(
-                              text: resultResponseViewProfileUesr['nameAlias'],
+                              text:
+                                  resultResponseViewProfileUesr['nameAlias'] ??
+                                      "",
                               color: Colors.green,
                               textAlign: TextAlign.start,
                             ),
@@ -410,7 +386,7 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                         top: MediaQuery.of(context).size.height * 0.01,
                       ),
                       child: textspan(
-                        text: resultResponseViewProfileUesr['bio'],
+                        text: resultResponseViewProfileUesr['bio'] ?? "",
                         color: Colors.black,
                         textAlign: TextAlign.start,
                       ),
@@ -427,49 +403,106 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Container(
-                      height: 150,
-                      width: 150,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        shape: BoxShape.rectangle,
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                        boxShadow: const [
-                          BoxShadow(color: Colors.black, spreadRadius: 2),
-                        ],
+                    Expanded(
+                      child: Container(
+                        height: 150,
+                        width: 150,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          shape: BoxShape.rectangle,
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          boxShadow: const [
+                            BoxShadow(color: Colors.cyan, spreadRadius: 2),
+                          ],
+                        ),
+                        child: ranksadadA[resultResponseGetLastOtherVisit['data']],
                       ),
-                      child: Text(""),
-                         // ranksadadA[resultResponseGetLastOtherVisit['data']] ??  Lottie.asset('assets/anim/phonix.json'),
                     ),
                     SizedBox(
                       width: 9,
                     ),
-                    /*  Container(
+                    Container(
                       height: 150,
                       width: 150,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         shape: BoxShape.rectangle,
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
                         boxShadow: const [
-                          BoxShadow(color: Colors.black, spreadRadius: 2),
+                          BoxShadow(color: Colors.cyan, spreadRadius: 2),
                         ],
                       ),
                       child: Padding(
                         padding: const EdgeInsets.only(top: 50),
-                        child: Column(children: [
-                          Body(
-                            textAlign: TextAlign.center,
-                            color: Colors.cyan,
-                            text: "تاریخ آغاز ترک",),
-                          Body(
-                            textAlign: TextAlign.center,
-                            color: Colors.cyan,
-                            text: "" /*resultResponseea['userName']*/,),
-                        ],),
+                        child: Column(
+                          children: [
+                            Footnate(
+                              textAlign: TextAlign.center,
+                              color: Colors.cyan,
+                              text: "مدت پاکی:",
+                            ),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Column(
+                                  children: [
+                                    Footnate(
+                                      textAlign: TextAlign.center,
+                                      color: Colors.cyan,
+                                      text: resultResponseGetUserAbandon['data']
+                                          .split(" ")[0]
+                                          .toString(),
+                                    ),
+                                    Caption2(
+                                        textAlign: TextAlign.center,
+                                        color: Colors.cyan,
+                                        text: "سال"),
+                                  ],
+                                ),
+                                SizedBox(width: 5,),
+                                Column(
+                                  children: [
+                                    Footnate(
+                                        textAlign: TextAlign.center,
+                                        color: Colors.cyan,
+                                        text:
+                                            resultResponseGetUserAbandon['data']
+                                                .toString()
+                                                .split(" ")[1]
+                                                .toString()),
+                                    Caption2(
+                                        textAlign: TextAlign.center,
+                                        color: Colors.cyan,
+                                        text: "ماه"),
+                                  ],
+                                ),
+                                SizedBox(width: 5,),
+
+                                Column(
+                                  children: [
+                                    Footnate(
+                                        textAlign: TextAlign.center,
+                                        color: Colors.cyan,
+                                        text:
+                                            resultResponseGetUserAbandon['data']
+                                                .toString()
+                                                .split(" ")[2]
+                                                .toString()),
+                                    Caption2(
+                                        textAlign: TextAlign.center,
+                                        color: Colors.cyan,
+                                        text: "روز"),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                    ),*/
+                    ),
                   ],
                 ),
               ),

@@ -100,7 +100,7 @@ class _NewRegisterState extends State<NewRegister> {
                           child: Lottie.asset('assets/anim/login/contract.json',
                               height: 150, width: 150),
                         ),
-                        TextAll(
+                        TextProfileEn(
                           icon: Icon(Icons.person),
                           suffixIcon: null,
                           prefixIcon: null,

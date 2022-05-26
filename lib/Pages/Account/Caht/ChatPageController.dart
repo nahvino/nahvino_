@@ -21,6 +21,7 @@ class ChatPageController extends GetxController{
   RxBool isInSearchMode = false.obs;
   RxBool isApiCallProgress = true.obs;
   RxString searchText = "".obs;
+
   //final ScrollController _scrollController = ScrollController();
   @override
   void onInit(){
@@ -34,14 +35,14 @@ class ChatPageController extends GetxController{
     super.dispose();
   }
   Future _getMyData() async{
-   SharedPreferences preferences = await SharedPreferences.getInstance();
+    SharedPreferences preferences = await SharedPreferences.getInstance();
     myUserId = await preferences.getString("userId") ?? "";
     //myUserId="01d772d7-4a35-498e-9f24-5a27e5ef1438";
   }
 
   final connection = HubConnectionBuilder()
       .withUrl(
-      'https://api.nahvino.ir/HubChatPartnership',
+      'https://api.faradeiazoapi.xyz/HubChatPartnership',
       HttpConnectionOptions(
         logging: (level, message) => print(message),
       ))
@@ -85,9 +86,9 @@ class ChatPageController extends GetxController{
           chats.add(chatmodel);
         }
       }
-      chats.sort((b, a) => a.id!.compareTo(b.id!));
+      //chats = chats.reversed.toList();
+      chats.sort((a, b) => a.id!.compareTo(b.id!));
       loadMoreLoading.value = false;
-      isApiCallProgress.value =false;
 
       update();
 
@@ -101,9 +102,8 @@ class ChatPageController extends GetxController{
   RxBool loadMoreLoading = false.obs;
   RxBool showScrollToEnd = false.obs;
   ScrollController chatScrollController = ScrollController();
+  ScrollController chatSingleChildScrollController = ScrollController();
 
-  final ItemScrollController itemScrollController = ItemScrollController();
-  final ItemPositionsListener itemPositionsListener = ItemPositionsListener.create();
 
 
 
@@ -159,15 +159,6 @@ class ChatPageController extends GetxController{
 
   void DeleteMessage(ReceiveMessageModel chat) {
     connection.invoke('DeleteMessage', args: [chat.id],);
-    connection.on('GetAllMessage', (messages) {
-      print(messages.toString());
-      for(var item in messages![0]){
-        ReceiveMessageModel? chatmodel;
-        chatmodel = ReceiveMessageModel.fromJson(item);
-        chats.add(chatmodel);
-      }
-      update();
-    });
     connection.invoke('GetAllMessage');
     //chats.remove(chat);
     update();
@@ -190,14 +181,14 @@ class ChatPageController extends GetxController{
 
 
   void scrollDown() {
-    chatScrollController.animateTo(chatScrollController.position.minScrollExtent, duration: Duration(seconds: 1), curve: Curves.ease);
+    chatSingleChildScrollController.animateTo(chatSingleChildScrollController.position.minScrollExtent, duration: Duration(seconds: 1), curve: Curves.ease);
   }
 
   void scrollToChat(ReceiveMessageModel chat) {
     int index = chats.lastIndexWhere((element) => element.text == chat.parentMessageText && element.userNameAlias == chat.parentMessageUserNameAlias);
 
     if(index != -1){
-      itemScrollController.jumpTo(index: index);
+
     }
   }
 

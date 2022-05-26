@@ -576,7 +576,7 @@ class APIService {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
-      'Authorization': "Bearer ${await preferences.getString("token")}"
+      //'Authorization': "Bearer ${await preferences.getString("token")}"
     };
     var url = Uri.parse(Config.baseURL + Config.GetLastOtherVisit);
     var response = await client.post(
@@ -591,4 +591,27 @@ class APIService {
       return false;
     }
   }
+
+  static Future getuserabandonViewProfileUesr(     String getuserabandonViewProfileUesr,
+      ) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer ${await preferences.getString("token")}"
+    };
+    var url = Uri.parse(Config.baseURL + Config.GetUserAbandon);
+    var response = await client.post(
+      url,
+      headers: requestHeaders,
+      body: jsonEncode({"userId":getuserabandonViewProfileUesr}),
+    );
+    debugPrint(response.body.toString());
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    } else {
+      return false;
+    }
+  }
+
+
 }
