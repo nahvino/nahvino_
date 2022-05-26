@@ -93,5 +93,12 @@
     "vrifycodephonetoptext": "کد تایید خود را وارد کنید",
     "MobileNumberCorrection": "تصحیح شماره موبایل",
     "MobileNumberIncorrect": "شماره موبایل نامعتبر است",
-    "UploadFaildImage": "بارگذاری عکس با خطا مواجعه شد"
+    "UploadFaildImage": "بارگذاری عکس با خطا مواجعه شد",
+    "Replay": "پاسخ",
+    "Report": "گزارش",
+    "delete": "حذف",
+    "Termsandservices": "شرایط استفاده از خدمات",
+    "And": "و",
+    "Privacy": "حریم خصوصی",
+    "IAccept": "را می پذیرم."
 }

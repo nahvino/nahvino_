@@ -4,6 +4,7 @@ import 'package:lottie/lottie.dart';
 import '../../../App_localizations.dart';
 import '../../../Services/Login/ApiService.dart';
 import '../../../Utils/Button/Button.dart';
+import '../../../Utils/Text/Text.dart';
 import '../../../Utils/Text/TextField.dart';
 import 'CodeOtpPhoneNew.dart';
 import 'SignUp.dart';
@@ -100,6 +101,57 @@ class _OtpPhoneNewState extends State<OtpPhoneNew> {
                         ),
                       ],
                     ),*/
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder:
+                                        (context) => /*RegisterPage()*/ OtpPhoneNew()));
+                          },
+                          child: Caption1(
+                            color: Colors.cyan,
+                            textAlign: TextAlign.center,
+                            text: AppLocalizations.of(context)!.translate(
+                              'Termsandservices',
+                            )!,
+                          ),
+                        ),
+                        Caption1(
+                          color: Colors.black,
+                          textAlign: TextAlign.center,
+                          text: AppLocalizations.of(context)!.translate(
+                            'And',
+                          )!,
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder:
+                                        (context) => /*RegisterPage()*/ OtpPhoneNew()));
+                          },
+                          child: Caption1(
+                            color: Colors.cyan,
+                            textAlign: TextAlign.center,
+                            text: AppLocalizations.of(context)!.translate(
+                              'Privacy',
+                            )!,
+                          ),
+                        ),
+                        Caption1(
+                          color: Colors.black,
+                          textAlign: TextAlign.center,
+                          text: AppLocalizations.of(context)!.translate(
+                            'IAccept',
+                          )!,
+                        ),
+                      ],),
                     Buttontest(
                         text: AppLocalizations.of(context)!.translate(
                           'OK',

@@ -383,7 +383,7 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
                     color: Colors.white,
                   ),
                   text: 'تغییر زبان'),*/
-              DropdownButton<Language>(
+          /*    DropdownButton<Language>(
                 underline: SizedBox(),
                 icon: Icon(
                   Icons.language,
@@ -409,7 +409,7 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
                   ),
                 )
                     .toList(),
-              ),
+              ),*/
             ],
           )
         ],

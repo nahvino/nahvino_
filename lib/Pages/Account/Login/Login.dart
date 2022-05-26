@@ -61,115 +61,117 @@ class _NewLoginState extends State<NewLogin> {
           )
               : SafeArea(
             child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Center(
-                    child: Lottie.asset(
-                        'assets/anim/login/key-login.json',
-                        height: 150,
-                        width: 150),
-                  ),
-                  TextAll(
-                    icon: Icon(Icons.person),
-                    suffixIcon: null,
-                    prefixIcon: null,
-                    hint: AppLocalizations.of(context)!.translate(
-                      'username',
-                    )!,
-                    controller: newLoginController.usernameController,
-                  ),
-                  TextPassReAndLog(
-                    icon: Icon(Icons.lock),
-                    passwordInVisible: newLoginController
-                        .obscurePasswordVisibility.value,
-                    suffix: IconButton(
-                        onPressed: () {
-                          newLoginController
-                              .obscurePasswordVisibility.value =
-                          !newLoginController
-                              .obscurePasswordVisibility.value;
-                        },
-                        icon: Icon(newLoginController
-                            .obscurePasswordVisibility ==
-                            true
-                            ? Icons.visibility_off
-                            : Icons.visibility)),
-                    hint: AppLocalizations.of(context)!.translate(
-                      'Password',
-                    )!,
-                    controller: newLoginController.passwordController,
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  NewCheckQuestionAnswer()));
-                    },
-                    child: textspan(
-                      color: Colors.black,
-                      textAlign: TextAlign.center,
-                      text: AppLocalizations.of(context)!.translate(
-                        'SignIn_fpass_text',
-                      )!,
+              child: Form(
+                child: Column(
+                  children: [
+                    Center(
+                      child: Lottie.asset(
+                          'assets/anim/login/key-login.json',
+                          height: 150,
+                          width: 150),
                     ),
-                  ),
-                  Buttontest(
-                      text: AppLocalizations.of(context)!.translate(
-                        'OK',
+                    TextAll(
+                      icon: Icon(Icons.person),
+                      suffixIcon: null,
+                      prefixIcon: null,
+                      hint: AppLocalizations.of(context)!.translate(
+                        'username',
                       )!,
+                      controller: newLoginController.usernameController,
+                    ),
+                    TextPassReAndLog(
+                      icon: Icon(Icons.lock),
+                      passwordInVisible: newLoginController
+                          .obscurePasswordVisibility.value,
+                      suffix: IconButton(
+                          onPressed: () {
+                            newLoginController
+                                .obscurePasswordVisibility.value =
+                            !newLoginController
+                                .obscurePasswordVisibility.value;
+                          },
+                          icon: Icon(newLoginController
+                              .obscurePasswordVisibility ==
+                              true
+                              ? Icons.visibility_off
+                              : Icons.visibility)),
+                      hint: AppLocalizations.of(context)!.translate(
+                        'Password',
+                      )!,
+                      controller: newLoginController.passwordController,
+                    ),
+                    TextButton(
                       onPressed: () {
-                        if (newLoginController
-                            .usernameController.text.isEmpty) {
-                          newLoginController.apiService.showSnackBar(
-                              text: "نام کاربری نمی تواند خالی باشد");
-                          return;
-                        }
-
-                        newLoginController.isApiCallProcess.value = true;
-
-                        newLoginController.apiService
-                            .NewLogin(
-                            newLoginController
-                                .usernameController.text,
-                            newLoginController
-                                .passwordController.text)
-                            .then((response) async {
-                          newLoginController.isApiCallProcess.value =
-                          false;
-
-                          if (response != false) {
-                            newLoginController.logindata =
-                            await SharedPreferences.getInstance();
-                            await newLoginController.logindata.setString(
-                                "token",
-                                response['data']['userToken']['token']);
-                            await newLoginController.logindata.setString(
-                                "userId", response['data']['id']);
-
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    NewCheckQuestionAnswer()));
+                      },
+                      child: textspan(
+                        color: Colors.black,
+                        textAlign: TextAlign.center,
+                        text: AppLocalizations.of(context)!.translate(
+                          'SignIn_fpass_text',
+                        )!,
+                      ),
+                    ),
+                    Buttontest(
+                        text: AppLocalizations.of(context)!.translate(
+                          'OK',
+                        )!,
+                        onPressed: () {
+                          if (newLoginController
+                              .usernameController.text.isEmpty) {
                             newLoginController.apiService.showSnackBar(
-                                text: AppLocalizations.of(context)!
-                                    .translate(
-                                  'Welcome',
-                                )!);
-
-                            //await Future.delayed(Duration(seconds: 2));
-
-                            Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => MyTabs()),
-                                  (route) => false,
-                            );
-                          } else {
-                            newLoginController.apiService
-                                .showSnackBar(text: response['message']);
+                                text: "نام کاربری نمی تواند خالی باشد");
+                            return;
                           }
-                        });
-                        newLoginController.cleartext();
-                      }),
-                ],
+
+                          newLoginController.isApiCallProcess.value = true;
+
+                          newLoginController.apiService
+                              .NewLogin(
+                              newLoginController
+                                  .usernameController.text,
+                              newLoginController
+                                  .passwordController.text)
+                              .then((response) async {
+                            newLoginController.isApiCallProcess.value =
+                            false;
+
+                            if (response != false) {
+                              newLoginController.logindata =
+                              await SharedPreferences.getInstance();
+                              await newLoginController.logindata.setString(
+                                  "token",
+                                  response['data']['userToken']['token']);
+                              await newLoginController.logindata.setString(
+                                  "userId", response['data']['id']);
+
+                              newLoginController.apiService.showSnackBar(
+                                  text: AppLocalizations.of(context)!
+                                      .translate(
+                                    'Welcome',
+                                  )!);
+
+                            //  await Future.delayed(Duration(seconds: 2));
+
+                              Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => MyTabs()),
+                                    (route) => false,
+                              );
+                            } else {
+                              newLoginController.apiService
+                                  .showSnackBar(text: response['message']);
+                            }
+                          });
+                          newLoginController.cleartext();
+                        }),
+                  ],
+                ),
               ),
             ),
           ),

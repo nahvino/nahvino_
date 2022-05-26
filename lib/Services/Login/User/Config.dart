@@ -1,7 +1,12 @@
 class Config {
   static const String appName = "Nahvino";
-  static const String baseURL = "https://api.nahvino.ir";
-  static const String fileurl = "https://static.nahvino.ir";
+
+  //static const String baseURL = "https://api.nahvino.ir";
+  static const String baseURL = "https://api.faradeiazoapi.xyz";
+
+  //static const String fileurl = "https://static.nahvino.ir";
+  //static const String fileurl = "https://static.faradeiazoapi.xyz";
+  static const String fileurl = "http://static.faradeiazoapi.xyz";
 
   static const String login = "/api/v1/Account/SignIn";
   static const String register = "/api/v1/Account/SignUp";
@@ -27,10 +32,8 @@ class Config {
       "/api/v1/Account/CheckCodeChangePhoneNumber";
   static const String CheckCodeSetPhoneNumber =
       "/api/v1/Account/CheckCodeSetPhoneNumber";
-  static const String EditUserAbandon =
-      "/api/v1/Account/AddOrEditUserAbandon";
+  static const String EditUserAbandon = "/api/v1/Account/AddOrEditUserAbandon";
   static const String GetProfileOtherUser =
       "/api/v1/Account/GetProfileOtherUser";
   static const String GetLastOtherVisit = "/api/v1/Account/GetLastOtherVisit";
-
 }

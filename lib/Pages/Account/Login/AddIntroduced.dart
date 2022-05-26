@@ -108,6 +108,7 @@ class _AddIntroducedState extends State<AddIntroduced> {
                           'AddIntroducedhint',
                         )!,
                       ),
+                      SizedBox(height: 10,),
                       Container(
                         height: 50,
                         child: Buttonfull(
@@ -146,7 +147,7 @@ class _AddIntroducedState extends State<AddIntroduced> {
                         ),
                       ),
                       SizedBox(
-                        height: 20,
+                        height: 10,
                       ),
                       Container(
                         width: 200,

@@ -28,7 +28,7 @@ class _ViewProfileState extends State<ViewProfile> {
 
   GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
   GetProfileUserResponseModel? resultResponse;
-  var resultResponsee;
+  late Map<String, dynamic> resultResponsee;
   var resultResponseGetUserAbandon;
   late APIService apiService;
   String? imagePath;
@@ -73,24 +73,15 @@ class _ViewProfileState extends State<ViewProfile> {
         print("getprofileuser-------------------------- => $response");
         resultResponse = response;
         APIService.GetLastVisit().then((response) {
+          resultResponsee = response;
           print(" قوقوی---------------------------- => $response");
-          setState(() {
-            isApiCallProgress = false;
-            resultResponsee = response;
-          });
-        });
-      }).onError((error, stackTrace) {
-        print(error);
-      });
-    });
-
-    APIService.getuserabandon().then((response) {
-      print("تاریخ ترک ------------- => $response");
-      setState(() {
-        isApiCallProgress = false;
-        resultResponseGetUserAbandon = response;
-      });
-      /*   if (response != null) {
+          APIService.getuserabandon().then((response) {
+            print("تاریخ ترک ------------- => $response");
+            setState(() {
+              isApiCallProgress = false;
+              resultResponseGetUserAbandon = response;
+            });
+            /*   if (response != null) {
         resultResponseGetUserAbandon = response ?? tarikh;
       } else {
         setState(() {
@@ -98,7 +89,13 @@ class _ViewProfileState extends State<ViewProfile> {
           resultResponseGetUserAbandon = response;
         });
       }*/
+          });
+        });
+      }).onError((error, stackTrace) {
+        print(error);
+      });
     });
+
   }
 
   bool lang = false; // en => true / fa => false
@@ -109,8 +106,9 @@ class _ViewProfileState extends State<ViewProfile> {
       child: Scaffold(
         backgroundColor: Colors.grey[200],
         body: SafeArea(
-            child: isApiCallProgress
-                ? Center(
+            child: isApiCallProgress /*&& resultResponse == null &&  resultResponsee == null && resultResponseGetUserAbandon == null*/
+
+        ? Center(
                     child: Lottie.asset('assets/anim/phonix_storok.json',
                         height: 300, width: 300),
                   )
@@ -141,7 +139,8 @@ class _ViewProfileState extends State<ViewProfile> {
                                       0.02),
                               child: textbold(
                                 textAlign: TextAlign.right,
-                                text: resultResponse!.userName ?? "مهمان",
+                                text: resultResponse
+                                    ?.userName ?? "مهمان",
                                 color: Colors.black,
                               ),
                             ),
@@ -583,8 +582,9 @@ class _ViewProfileState extends State<ViewProfile> {
                                   textAlign: TextAlign.center,
                                   color: Colors.cyan,
                                   text: resultResponseGetUserAbandon['data']
+                                      .split(" ")[0]
                                       .toString()
-                                      .split(" ")[0],
+                                  ,
                                 ),
                                 Caption2(
                                     textAlign: TextAlign.center,

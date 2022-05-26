@@ -14,6 +14,8 @@ import 'package:get/get.dart';
 import 'package:Nahvino/Pages/Account/Caht/ChatPageController.dart';
 import 'package:Nahvino/Pages/Account/Caht/AboutGroup.dart';
 import 'package:lottie/lottie.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import '../../../App_localizations.dart';
 import '../../../Model/User/SignalR/ReceiveMessageModel.dart';
 import '../../../Utils/Text/Text.dart';
 import '../User/ViewProfileUesr.dart';
@@ -27,8 +29,7 @@ class Chatpage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _checkKEyboardAndEmojiVisibility();
-
-    return Directionality(
+        return Directionality(
       textDirection: ui.TextDirection.rtl,
       child: chatPageController.isApiCallProgress.value
           ? Center(
@@ -41,15 +42,14 @@ class Chatpage extends StatelessWidget {
               return Scaffold(
                   appBar: AppBar(
                       title: chatPageController.isInSearchMode.value
-                          ? Expanded(
-                              child: TextField(
-                              onChanged: (value) {
-                                chatPageController.searchText.value = value;
-                                chatPageController.update();
-                              },
-                              decoration:
-                                  InputDecoration(hintText: "Search ..."),
-                            ))
+                          ? TextField(
+                          onChanged: (value) {
+                            chatPageController.searchText.value = value;
+                            chatPageController.update();
+                          },
+                          decoration:
+                              InputDecoration(hintText: "Search ..."),
+                            )
                           : Column(
                               children: [
                                 Row(
@@ -131,27 +131,29 @@ class Chatpage extends StatelessWidget {
         Expanded(
           child: GetBuilder<ChatPageController>(builder: (controller) {
             return NotificationListener<ScrollNotification>(
-              onNotification: (notification) {
-                controller.showScrollToEnd.value =
-                    notification.metrics.pixels >= 90;
+              // onNotification: (notification) {
+              //   controller.itemPositionsListener.itemPositions.value. =
+              //       notification.metrics.pixels >= 90;
+              //
+              //   if (notification.metrics.pixels ==
+              //       notification.metrics.maxScrollExtent) {
+              //     // load more
+              //     if (controller.loadMoreLoading.value == false) {
+              //       print("Load more");
+              //       controller.getAllMessages();
+              //     }
+              //   }
+              //   return true;
+              // },
+              child: Column(
+                children: [
 
-                if (notification.metrics.pixels ==
-                    notification.metrics.maxScrollExtent) {
-                  // load more
-                  if (controller.loadMoreLoading.value == false) {
-                    print("Load more");
-                    controller.getAllMessages();
-                  }
-                }
-                return true;
-              },
-              child: SingleChildScrollView(
-                controller: controller.chatScrollController,
-                reverse: true,
-                child: Column(
-                  children: [
-                    ListView.builder(
-                      reverse: false,
+
+                  Expanded(
+                    child: ScrollablePositionedList.builder(
+                      itemScrollController: controller.itemScrollController,
+                      itemPositionsListener: controller.itemPositionsListener,
+                      reverse: true,
                       shrinkWrap: true,
                       itemCount: chatPageController.searchText.value != "" &&
                               chatPageController.isInSearchMode.value
@@ -162,15 +164,15 @@ class Chatpage extends StatelessWidget {
                               .length
                           : chatPageController.chats.length,
                       itemBuilder: chatItem,
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: AlwaysScrollableScrollPhysics(),
                     ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    if (controller.loadMoreLoading.value)
-                      CircularProgressIndicator(),
-                  ],
-                ),
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  if (controller.loadMoreLoading.value)
+                    CircularProgressIndicator(),
+                ],
               ),
             );
           }),
@@ -317,14 +319,28 @@ class Chatpage extends StatelessWidget {
                                         chatPageController.addToReply(chat);
                                         Navigator.of(context).pop();
                                       },
-                                      title: Text("Replay"),
+                                      title: Subhead(
+                                        color: Colors.black,
+                                        text: AppLocalizations.of(context)!
+                                            .translate(
+                                          'Replay',
+                                        )!,
+                                        textAlign: TextAlign.right,
+                                      ),
                                     ),
                                     ListTile(
                                       onTap: () {
                                         chatPageController.addToReply(chat);
                                         Navigator.of(context).pop();
                                       },
-                                      title: Text("Report"),
+                                      title: Subhead(
+                                        color: Colors.black,
+                                        text: AppLocalizations.of(context)!
+                                            .translate(
+                                          'Report',
+                                        )!,
+                                        textAlign: TextAlign.right,
+                                      ),
                                     ),
                                     if (fromMe)
                                       ListTile(
@@ -333,7 +349,14 @@ class Chatpage extends StatelessWidget {
                                               chat);
                                           Navigator.of(context).pop();
                                         },
-                                        title: Text("delete"),
+                                        title:  Subhead(
+                                          color: Colors.black,
+                                          text: AppLocalizations.of(context)!
+                                              .translate(
+                                            'delete',
+                                          )!,
+                                          textAlign: TextAlign.right,
+                                        ),
                                       ),
                                   ],
                                 ),
@@ -355,31 +378,35 @@ class Chatpage extends StatelessWidget {
                           ),
                           if (chat.parentMessageUserNameAlias != null)
                             if (chat.parentMessageText != null)
-                              Row(
-                                  crossAxisAlignment:
-                                  CrossAxisAlignment.start,
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.start,
-                                  children: [
-                                    /* Container(
-                                          width: 5,
-                                          height: 10,
-                                          decoration: BoxDecoration(
-                                            borderRadius:BorderRadius.circular(20.0) ,
-                                            shape: BoxShape.rectangle,
-                                            color: Colors.amberAccent,
-                                          ),
-                                        ),*/
-                                    /*    ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(20.0),
-                                          child: Container(
+                              InkWell(
+                                onTap: (){
+                                  chatPageController.scrollToChat(chat);
+                                },
+                                child: Row(
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.start,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      /* Container(
                                             width: 5,
-                                            color: Colors.green,
-                                          ),
-                                        ),*/
-                                    Expanded(
-                                      child: Container(
+                                            height: 10,
+                                            decoration: BoxDecoration(
+                                              borderRadius:BorderRadius.circular(20.0) ,
+                                              shape: BoxShape.rectangle,
+                                              color: Colors.amberAccent,
+                                            ),
+                                          ),*/
+                                      /*    ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(20.0),
+                                            child: Container(
+                                              width: 5,
+                                              color: Colors.green,
+                                            ),
+                                          ),*/
+                                      Container(
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(7.0),
                                           shape: BoxShape.rectangle,
@@ -415,8 +442,8 @@ class Chatpage extends StatelessWidget {
                                           ],
                                         ),
                                       ),
-                                    ),
-                                  ]),
+                                    ]),
+                              ),
                            /*   Card(
                                 color: Colors.grey[100],
                                 shape: Border(
@@ -513,14 +540,28 @@ class Chatpage extends StatelessWidget {
                                             chatPageController.addToReply(chat);
                                             Navigator.of(context).pop();
                                           },
-                                          title: Text("Replay"),
+                                          title: Subhead(
+                                            color: Colors.black,
+                                            text: AppLocalizations.of(context)!
+                                                .translate(
+                                              'Replay',
+                                            )!,
+                                            textAlign: TextAlign.right,
+                                          ),
                                         ),
                                         ListTile(
                                           onTap: () {
                                             chatPageController.addToReply(chat);
                                             Navigator.of(context).pop();
                                           },
-                                          title: Text("Report"),
+                                          title: Subhead(
+                                            color: Colors.black,
+                                            text: AppLocalizations.of(context)!
+                                                .translate(
+                                              'Report',
+                                            )!,
+                                            textAlign: TextAlign.right,
+                                          ),
                                         ),
                                         if (fromMe)
                                           ListTile(
@@ -529,7 +570,14 @@ class Chatpage extends StatelessWidget {
                                                   chat);
                                               Navigator.of(context).pop();
                                             },
-                                            title: Text("delete"),
+                                            title: Subhead(
+                                              color: Colors.black,
+                                              text: AppLocalizations.of(context)!
+                                                  .translate(
+                                                'delete',
+                                              )!,
+                                              textAlign: TextAlign.right,
+                                            ),
                                           ),
                                       ],
                                     ),
@@ -543,31 +591,36 @@ class Chatpage extends StatelessWidget {
                             children: [
                               if (chat.parentMessageUserNameAlias != null)
                                 if (chat.parentMessageText != null)
-                                  Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                       /* Container(
-                                          width: 5,
-                                          height: 10,
-                                          decoration: BoxDecoration(
-                                            borderRadius:BorderRadius.circular(20.0) ,
-                                            shape: BoxShape.rectangle,
-                                            color: Colors.amberAccent,
-                                          ),
-                                        ),*/
-                                    /*    ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(20.0),
-                                          child: Container(
+                                  InkWell(
+                                    onTap: (){
+                                      chatPageController.scrollToChat(chat);
+                                    },
+                                    child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        mainAxisSize: MainAxisSize.min,
+
+                                        children: [
+                                         /* Container(
                                             width: 5,
-                                            color: Colors.green,
-                                          ),
-                                        ),*/
-                                        Expanded(
-                                          child: Container(
+                                            height: 10,
+                                            decoration: BoxDecoration(
+                                              borderRadius:BorderRadius.circular(20.0) ,
+                                              shape: BoxShape.rectangle,
+                                              color: Colors.amberAccent,
+                                            ),
+                                          ),*/
+                                      /*    ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(20.0),
+                                            child: Container(
+                                              width: 5,
+                                              color: Colors.green,
+                                            ),
+                                          ),*/
+                                          Container(
                                             decoration: BoxDecoration(
                                               borderRadius: BorderRadius.circular(7.0),
                                               shape: BoxShape.rectangle,
@@ -605,8 +658,8 @@ class Chatpage extends StatelessWidget {
                                               ],
                                             ),
                                           ),
-                                        ),
-                                      ]),
+                                        ]),
+                                  ),
                               /*  Card(
                                     shape: Border(
                                         right: BorderSide(

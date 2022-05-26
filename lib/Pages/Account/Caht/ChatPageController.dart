@@ -3,6 +3,7 @@ import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:Nahvino/Model/User/SignalR/GroupModel.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:signalr_core/signalr_core.dart';
 import '../../../Model/User/SignalR/ReceiveMessageModel.dart';
@@ -18,13 +19,14 @@ class ChatPageController extends GetxController{
   FocusNode focusNode = FocusNode();
   RxBool  canSend = true.obs;
   RxBool isInSearchMode = false.obs;
-  RxBool isApiCallProgress = false.obs;
+  RxBool isApiCallProgress = true.obs;
   RxString searchText = "".obs;
   //final ScrollController _scrollController = ScrollController();
   @override
   void onInit(){
     super.onInit();
     _getMyData();
+
   }
   @override
   void dispose(){
@@ -79,12 +81,17 @@ class ChatPageController extends GetxController{
       for(var item in messages![0]){
         ReceiveMessageModel? chatmodel;
         chatmodel = ReceiveMessageModel.fromJson(item);
-        chats.add(chatmodel);
+        if(chats.where((element) => element.id == chatmodel!.id).length <= 0){
+          chats.add(chatmodel);
+        }
       }
-      chats.sort((a, b) => a.id!.compareTo(b.id!));
+      chats.sort((b, a) => a.id!.compareTo(b.id!));
       loadMoreLoading.value = false;
       isApiCallProgress.value =false;
+
       update();
+
+
     });
     await connection.invoke('Group');
     getAllMessages();
@@ -94,6 +101,11 @@ class ChatPageController extends GetxController{
   RxBool loadMoreLoading = false.obs;
   RxBool showScrollToEnd = false.obs;
   ScrollController chatScrollController = ScrollController();
+
+  final ItemScrollController itemScrollController = ItemScrollController();
+  final ItemPositionsListener itemPositionsListener = ItemPositionsListener.create();
+
+
 
   Future getAllMessages()async{
     if(loadMoreLoading.value){
@@ -179,6 +191,14 @@ class ChatPageController extends GetxController{
 
   void scrollDown() {
     chatScrollController.animateTo(chatScrollController.position.minScrollExtent, duration: Duration(seconds: 1), curve: Curves.ease);
+  }
+
+  void scrollToChat(ReceiveMessageModel chat) {
+    int index = chats.lastIndexWhere((element) => element.text == chat.parentMessageText && element.userNameAlias == chat.parentMessageUserNameAlias);
+
+    if(index != -1){
+      itemScrollController.jumpTo(index: index);
+    }
   }
 
 }
