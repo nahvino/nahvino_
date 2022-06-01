@@ -4,7 +4,7 @@ class Config {
   //static const String baseURL = "https://api.nahvino.ir";
   static const String baseURL = "https://api.faradeiazoapi.xyz";
 
-  //static const String fileurl = "https://static.nahvino.ir";
+ // static const String fileurl = "https://static.nahvino.ir";
   //static const String fileurl = "https://static.faradeiazoapi.xyz";
   static const String fileurl = "http://static.faradeiazoapi.xyz";
 

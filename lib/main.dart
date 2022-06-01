@@ -151,18 +151,17 @@ class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
   static void setLocale(BuildContext context, Locale newLocale) {
     _MyAppState? state = context.findAncestorStateOfType<_MyAppState>();
-    state?.setLocale(newLocale);
+    state!.setLocale(newLocale);
   }
   @override
   State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-  late Locale locale;
-
-  void setLocale(Locale locale) {
+  Locale? _locale;
+  setLocale(Locale locale) {
     setState(() {
-      locale = locale;
+      _locale = locale;
     });
   }
 
@@ -170,15 +169,16 @@ class _MyAppState extends State<MyApp> {
   void didChangeDependencies() {
     getLocale().then((locale) {
       setState(() {
-        this.locale = locale;
+        this._locale = locale;
       });
     });
     super.didChangeDependencies();
   }
 
+
   @override
   Widget build(BuildContext context) {
-    if (this.locale == null) {
+    if (this._locale == null) {
       return Container(
         child: Center(
           child: CircularProgressIndicator(
@@ -192,14 +192,15 @@ class _MyAppState extends State<MyApp> {
           primarySwatch: Colors.blueGrey,
         ),
         supportedLocales: [
-          Locale('en', 'US'),
           Locale('fa', 'IR'),
+          Locale('en', 'US'),
         ],
-        locale: locale,
+        locale: _locale,
         localizationsDelegates: [
           AppLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate
         ],
         localeResolutionCallback: (locale, supportedLocales) {
           for (var supportedLocale in supportedLocales) {

@@ -54,15 +54,13 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
   ];
 
   List<Widget> ranksadadA = <Widget>[
-    Lottie.asset('assets/anim/phonix.json' ,fit:BoxFit.cover ),
-    Lottie.asset('assets/anim/phonix.json',fit:BoxFit.cover ),
-
-
-
-
-
-
-
+    Lottie.asset('assets/anim/phonix/level2.json', fit: BoxFit.cover),
+    Lottie.asset('assets/anim/phonix/level3.json', fit: BoxFit.cover),
+    Lottie.asset('assets/anim/phonix/level4.json', fit: BoxFit.cover),
+    Lottie.asset('assets/anim/phonix/level5.json', fit: BoxFit.cover),
+    Lottie.asset('assets/anim/phonix/level6.json', fit: BoxFit.cover),
+    Lottie.asset('assets/anim/phonix/level7.json', fit: BoxFit.cover),
+    Lottie.asset('assets/anim/phonix/level8.json', fit: BoxFit.cover),
   ];
 
   @override
@@ -101,7 +99,7 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
             SafeArea(
                 child: isApiCallProgress
                     ? Center(
-                        child: Lottie.asset('assets/anim/phonix_storok.json',
+                        child: Lottie.asset('assets/anim/loading/loading.json',
                             height: 300, width: 300),
                       )
                     : body(context)),
@@ -416,7 +414,8 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                             BoxShadow(color: Colors.cyan, spreadRadius: 2),
                           ],
                         ),
-                        child: ranksadadA[resultResponseGetLastOtherVisit['data']],
+                        child:
+                            ranksadadA[resultResponseGetLastOtherVisit['data']],
                       ),
                     ),
                     SizedBox(
@@ -462,7 +461,9 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                                         text: "سال"),
                                   ],
                                 ),
-                                SizedBox(width: 5,),
+                                SizedBox(
+                                  width: 5,
+                                ),
                                 Column(
                                   children: [
                                     Footnate(
@@ -479,8 +480,9 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                                         text: "ماه"),
                                   ],
                                 ),
-                                SizedBox(width: 5,),
-
+                                SizedBox(
+                                  width: 5,
+                                ),
                                 Column(
                                   children: [
                                     Footnate(

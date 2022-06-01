@@ -49,7 +49,7 @@ class _AddIntroducedState extends State<AddIntroduced> {
         body: SafeArea(
             child: isApiCallProgress
                 ? Center(
-                    child: Lottie.asset('assets/anim/data.json',
+                    child: Lottie.asset('assets/anim/loading/loading.json',
                         height: 300, width: 300),
                   )
                 : body(context)),

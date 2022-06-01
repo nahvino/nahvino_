@@ -52,6 +52,8 @@ dependencies:
   firebase_core: any
   firebase_messaging: ^10.0.0
   pinput: ^2.2.7
+  cached_network_image: ^3.2.0
+  percent_indicator: ^4.0.0
 
 dev_dependencies:
   flutter_test:
@@ -108,8 +110,9 @@ flutter:
     - assets/images/login/
     - assets/images/ram/
     - assets/images/sinupbak.png
-    - assets/anim/data.json
     - assets/anim/
+    - assets/anim/loading/
+    - assets/anim/phonix/
     - assets/anim/login/
     - assets/anim/user/
     - assets/anim/chat/

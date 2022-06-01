@@ -39,38 +39,34 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
     Future.microtask(() {
            APIService.UserSecuritySttingMenus().then((response) {
         print("APIService.UserSecuritySttingMenus => $response");
-        setState(() {
-          isApiCallProgress = false;
           resultResponse = response;
-        });
+
+        APIService.profilleall().then((response) {
+          print("APIService.profilleall => $response");
+          setState(() {
+            isApiCallProgress = false;
+            resultResponsepro = response;
+          });
       });
 
     }).onError((error, stackTrace) {
       print(error);
     });
 
-    APIService.profilleall().then((response) {
-      print("APIService.profilleall => $response");
-    /*  setState(() {
-        isApiCallProgress = false;
-        resultResponsepro = response;
-      });*/
-      if (response != null) {
-        resultResponsepro = response ?? "اطلاعات یافت نشد";
-      } else {
-        setState(() {
-          isApiCallProgress = false;
-          resultResponsepro = response;
-        });
-      }
-    });
 
+
+    });
   }
 
   bool lang = false; // en => true / fa => false
   void changeLanguage(Language language) async {
-    Locale locale = (await setLocale(language.languageCode)) as Locale;
-    MyApp.setLocale(context, locale);
+
+    Locale _locale = (await setLocale(language.languageCode)) as Locale;
+    MyApp.setLocale(context, _locale);
+
+   setState(() {
+
+   });
   }
 
   @override
@@ -82,7 +78,7 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
         body: SafeArea(
             child: isApiCallProgress
                 ? Center(
-                    child: Lottie.asset('assets/anim/data.json',
+                    child: Lottie.asset('assets/anim/loading/loading.json',
                         height: 300, width: 300),
                   )
                 : body(context)),
@@ -383,7 +379,7 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
                     color: Colors.white,
                   ),
                   text: 'تغییر زبان'),*/
-          /*    DropdownButton<Language>(
+             DropdownButton<Language>(
                 underline: SizedBox(),
                 icon: Icon(
                   Icons.language,
@@ -409,7 +405,7 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
                   ),
                 )
                     .toList(),
-              ),*/
+              ),
             ],
           )
         ],

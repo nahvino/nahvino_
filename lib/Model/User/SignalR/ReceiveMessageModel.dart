@@ -13,7 +13,7 @@ class ReceiveMessageModel {
     //required this.insertTime,
 
   });
-  int? id;
+  late int id;
   String? userNameAlias;
   String? parentMessageUserNameAlias;
   String? parentMessageText;

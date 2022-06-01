@@ -3,38 +3,35 @@ import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:Nahvino/Model/User/SignalR/GroupModel.dart';
-import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:signalr_core/signalr_core.dart';
 import '../../../Model/User/SignalR/ReceiveMessageModel.dart';
 
-
-class ChatPageController extends GetxController{
-
+class ChatPageController extends GetxController {
   RxBool emojiShowing = false.obs;
   TextEditingController chatEditController = TextEditingController();
   GroupModel? model;
   String myUserId = "";
   RxBool iconcaht = false.obs;
   FocusNode focusNode = FocusNode();
-  RxBool  canSend = true.obs;
+  RxBool canSend = true.obs;
   RxBool isInSearchMode = false.obs;
   RxBool isApiCallProgress = true.obs;
   RxString searchText = "".obs;
 
-  //final ScrollController _scrollController = ScrollController();
   @override
-  void onInit(){
+  void onInit() {
     super.onInit();
     _getMyData();
-
   }
+
   @override
-  void dispose(){
+  void dispose() {
     chatEditController.clear();
     super.dispose();
   }
-  Future _getMyData() async{
+
+  Future _getMyData() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     myUserId = await preferences.getString("userId") ?? "";
     //myUserId="01d772d7-4a35-498e-9f24-5a27e5ef1438";
@@ -42,24 +39,11 @@ class ChatPageController extends GetxController{
 
   final connection = HubConnectionBuilder()
       .withUrl(
-      'https://api.faradeiazoapi.xyz/HubChatPartnership',
-      HttpConnectionOptions(
-        logging: (level, message) => print(message),
-      ))
+          'https://api.faradeiazoapi.xyz/HubChatPartnership',
+          HttpConnectionOptions(
+            logging: (level, message) => print(message),
+          ))
       .build();
-
-/*
-    connection.on('ReceiveMessage', (message) {
-      print("-----------------------------------------");
-      print(message.toString());
-      var res = message![0];
-      ReceiveMessageModel? chatmodel;
-      chatmodel = ReceiveMessageModel.fromJson(res);
-      chats.add(chatmodel);
-      update();
-    });
-*/
-
   Future<void> openSignalRConnection() async {
     await connection.start();
     connection.on('ReceiveMessage', (message) {
@@ -70,29 +54,31 @@ class ChatPageController extends GetxController{
       chats.add(chatmodel);
       update();
     });
-    // connection.invoke('GetGroup');
     connection.on('GetInfoGroup', (GroupDto) {
       print(GroupDto.toString());
       var res = GroupDto![0];
       model = GroupModel.fromJson(res);
       update();
     });
+    connection.on('ReceiveDeleteMessage', (messageIds) {
+      print('chat id is:' + messageIds.toString());
+      chats.removeWhere((chat) => messageIds!.contains(chat.id));
+      update();
+    });
     connection.on('GetAllMessage', (messages) {
       print(messages.toString());
-      for(var item in messages![0]){
+      for (var item in messages![0]) {
         ReceiveMessageModel? chatmodel;
         chatmodel = ReceiveMessageModel.fromJson(item);
-        if(chats.where((element) => element.id == chatmodel!.id).length <= 0){
+        if (chats.where((element) => element.id == chatmodel!.id).length <= 0) {
           chats.add(chatmodel);
         }
       }
       //chats = chats.reversed.toList();
-      chats.sort((a, b) => a.id!.compareTo(b.id!));
+      chats.sort((a, b) => a.id.compareTo(b.id));
       loadMoreLoading.value = false;
-
+      //Future.delayed(Duration(seconds: 3), () => isApiCallProgress.value = false);
       update();
-
-
     });
     await connection.invoke('Group');
     getAllMessages();
@@ -104,21 +90,16 @@ class ChatPageController extends GetxController{
   ScrollController chatScrollController = ScrollController();
   ScrollController chatSingleChildScrollController = ScrollController();
 
-
-
-
-  Future getAllMessages()async{
-    if(loadMoreLoading.value){
+  Future getAllMessages() async {
+    if (loadMoreLoading.value) {
       return;
     }
     chatPageSize++;
     loadMoreLoading.value = true;
-    await connection.invoke('GetAllMessage',args: [chatPageSize,50]);
+    await connection.invoke('GetAllMessage', args: [chatPageSize, 50]);
   }
 
-
   List<ReceiveMessageModel> chats = [];
-
 
   onEmojiSelected(Emoji emoji) {
     chatEditController
@@ -134,62 +115,73 @@ class ChatPageController extends GetxController{
           TextPosition(offset: chatEditController.text.length));
   }
 
-
   ReceiveMessageModel? MyRepledMessage;
+
 /*UserId ParentMessageId  Message */
-  sendMessage() async{
-    if(chatEditController.text.isEmpty){
+  sendMessage() async {
+    if (chatEditController.text.isEmpty) {
       return;
     }
     String text = chatEditController.text;
     chatEditController.clear();
     var replay = MyRepledMessage == null ? null : MyRepledMessage!.id;
     MyRepledMessage = null;
-    await connection.invoke('SendMessage', args: [
-      myUserId,
-      replay,
-      text,
-    ],);
-    chatScrollController.animateTo(chatScrollController.position.minScrollExtent, duration: Duration(seconds: 1), curve: Curves.ease);
+    await connection.invoke(
+      'SendMessage',
+      args: [
+        myUserId,
+        replay,
+        text,
+      ],
+    );
+    /* chatScrollController.animateTo(
+        chatScrollController.position.minScrollExtent,
+        duration: Duration(seconds: 1),
+        curve: Curves.ease);*/
+   scrollDown();
   }
+
   void addToReply(ReceiveMessageModel chat) {
     MyRepledMessage = chat;
     update();
   }
 
-  void DeleteMessage(ReceiveMessageModel chat) {
-    connection.invoke('DeleteMessage', args: [chat.id],);
-    connection.invoke('GetAllMessage');
-    //chats.remove(chat);
+  void DeleteMessage(ReceiveMessageModel chat) async {
+    connection.invoke(
+      'DeleteMessage',
+      args: [chat.id],
+    );
+    // chats.remove(chat.id);
+    //chats.clear();
+
     update();
   }
-
 
   void removeMyReplyedMessage() {
     MyRepledMessage = null;
     update();
   }
 
-
   chaticon() {
-    if(iconcaht.value){
+    if (iconcaht.value) {
       return Icon(Icons.emoji_emotions_outlined);
-    }else{
+    } else {
       return Icon(Icons.keyboard);
     }
   }
 
-
   void scrollDown() {
-    chatSingleChildScrollController.animateTo(chatSingleChildScrollController.position.minScrollExtent, duration: Duration(seconds: 1), curve: Curves.ease);
+    chatSingleChildScrollController.animateTo(
+        chatSingleChildScrollController.position.minScrollExtent,
+        duration: Duration(seconds: 1),
+        curve: Curves.ease);
   }
 
   void scrollToChat(ReceiveMessageModel chat) {
-    int index = chats.lastIndexWhere((element) => element.text == chat.parentMessageText && element.userNameAlias == chat.parentMessageUserNameAlias);
+    int index = chats.lastIndexWhere((element) =>
+        element.text == chat.parentMessageText &&
+        element.userNameAlias == chat.parentMessageUserNameAlias);
 
-    if(index != -1){
-
-    }
+    if (index != -1) {}
   }
-
 }

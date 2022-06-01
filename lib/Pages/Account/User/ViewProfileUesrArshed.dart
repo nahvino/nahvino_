@@ -52,15 +52,13 @@ class _ViewProfileUesrArshedState extends State<ViewProfileUesrArshed> {
   ];
 
   List<Widget> ranksadadA = <Widget>[
-    Lottie.asset('assets/anim/phonix.json'),
-    Lottie.asset('assets/anim/phonix-die.json'),
-    Lottie.asset('assets/anim/phonix.json'),
-    Lottie.asset('assets/anim/phonix-die.json'),
-    Lottie.asset('assets/anim/phonix.json'),
-    Lottie.asset('assets/anim/phonix-die.json'),
-    Lottie.asset('assets/anim/phonix-die.json'),
-    Lottie.asset('assets/anim/phonix-die.json'),
-    Lottie.asset('assets/anim/phonix-die.json'),
+    Lottie.asset('assets/anim/phonix/level2.json'),
+    Lottie.asset('assets/anim/phonix/level3.json'),
+    Lottie.asset('assets/anim/phonix/level4.json'),
+    Lottie.asset('assets/anim/phonix/level5.json'),
+    Lottie.asset('assets/anim/phonix/level6.json'),
+    Lottie.asset('assets/anim/phonix/level7.json'),
+    Lottie.asset('assets/anim/phonix/level8.json'),
   ];
 
   @override
@@ -97,7 +95,7 @@ class _ViewProfileUesrArshedState extends State<ViewProfileUesrArshed> {
           SafeArea(
               child: isApiCallProgress
                   ? Center(
-                      child: Lottie.asset('assets/anim/phonix_storok.json',
+                      child: Lottie.asset('assets/anim/loading/loading.json',
                           height: 300, width: 300),
                     )
                   : body(context)),

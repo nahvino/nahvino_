@@ -1,9 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:lottie/lottie.dart';
 import 'package:Nahvino/Pages/Account/User/EditProfile.dart';
 import 'package:Nahvino/Services/login/user/Config.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../Model/user/user/viewprofile_response_model.dart';
@@ -32,8 +34,7 @@ class _ViewProfileState extends State<ViewProfile> {
   var resultResponseGetUserAbandon;
   late APIService apiService;
   String? imagePath;
-  String? tarikh = "تاریخ";
-  String date = "1408/10/12 20:12:00";
+  var tabdel;
 
   List<String> ranks = <String>[
     "مبتدی",
@@ -60,8 +61,14 @@ class _ViewProfileState extends State<ViewProfile> {
   ];
 
   List<Widget> ranksadadA = <Widget>[
-    Lottie.asset('assets/anim/phonix.json'),
-    Lottie.asset('assets/anim/phonix-die.json'),
+    Lottie.asset('assets/anim/phonix/level2.json'),
+    Lottie.asset('assets/anim/phonix/level3.json'),
+    Lottie.asset('assets/anim/phonix/level4.json'),
+    Lottie.asset('assets/anim/phonix/level5.json'),
+    Lottie.asset('assets/anim/phonix/level6.json'),
+    Lottie.asset('assets/anim/phonix/level7.json'),
+    Lottie.asset('assets/anim/phonix/level8.json'),
+
   ];
 
   @override
@@ -81,101 +88,102 @@ class _ViewProfileState extends State<ViewProfile> {
               isApiCallProgress = false;
               resultResponseGetUserAbandon = response;
             });
-            /*   if (response != null) {
-        resultResponseGetUserAbandon = response ?? tarikh;
-      } else {
-        setState(() {
-          isApiCallProgress = false;
-          resultResponseGetUserAbandon = response;
-        });
-      }*/
           });
         });
       }).onError((error, stackTrace) {
         print(error);
       });
     });
-
   }
 
   bool lang = false; // en => true / fa => false
   @override
   Widget build(BuildContext context) {
-    return Directionality(
+       return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
         backgroundColor: Colors.grey[200],
         body: SafeArea(
-            child: isApiCallProgress /*&& resultResponse == null &&  resultResponsee == null && resultResponseGetUserAbandon == null*/
+            child:
+                isApiCallProgress /*&& resultResponse == null &&  resultResponsee == null && resultResponseGetUserAbandon == null*/
 
-        ? Center(
-                    child: Lottie.asset('assets/anim/phonix_storok.json',
-                        height: 300, width: 300),
-                  )
-                : body(context)),
+                    ? Center(
+                        child: Lottie.asset('assets/anim/loading/loading.json',
+                            height: 300, width: 300),
+                      )
+                    : body(context)),
       ),
     );
   }
 
-  Widget body(BuildContext context) => SingleChildScrollView(
-        child: Column(
-          children: [
-            Card(
-              margin: EdgeInsets.only(bottom: 6),
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                              padding: EdgeInsets.only(
-                                  right: MediaQuery.of(context).size.height *
-                                      0.02),
-                              child: textbold(
-                                textAlign: TextAlign.right,
-                                text: resultResponse
-                                    ?.userName ?? "مهمان",
-                                color: Colors.black,
-                              ),
+  Widget body(BuildContext context) {
+    String date = resultResponseGetUserAbandon['data'].split(" ")[2];
+    tabdel = int.parse(date);
+    if (tabdel < 0) {
+      tabdel = 0;
+    }
+   return SingleChildScrollView(
+      child: Column(
+        children: [
+          Card(
+            margin: EdgeInsets.only(bottom: 6),
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            padding: EdgeInsets.only(
+                                right: MediaQuery
+                                    .of(context)
+                                    .size
+                                    .height *
+                                    0.02),
+                            child: textbold(
+                              textAlign: TextAlign.right,
+                              text: resultResponse?.userName ?? "مهمان",
+                              color: Colors.black,
                             ),
-                            Container(
-                              alignment: Alignment.topLeft,
-                              height: 30,
-                              child: PopupMenuButton<int>(
-                                icon: Icon(Icons.menu),
-                                itemBuilder: (context) => [
-                                  PopupMenuItem(
-                                    value: 0,
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Icon(
-                                          Icons.security,
-                                          color: Colors.cyan,
-                                        ),
-                                        const SizedBox(
-                                          width: 7,
-                                        ),
-                                        textspan(
-                                          textAlign: TextAlign.end,
-                                          text: AppLocalizations.of(context)!
-                                              .translate(
-                                            'Security_settings',
-                                          )!,
-                                          color: Colors.black,
-                                        ),
-                                      ],
-                                    ),
+                          ),
+                          Container(
+                            alignment: Alignment.topLeft,
+                            height: 30,
+                            child: PopupMenuButton<int>(
+                              icon: Icon(Icons.menu),
+                              itemBuilder: (context) =>
+                              [
+                                PopupMenuItem(
+                                  value: 0,
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.start,
+                                    children: [
+                                      Icon(
+                                        Icons.security,
+                                        color: Colors.cyan,
+                                      ),
+                                      const SizedBox(
+                                        width: 7,
+                                      ),
+                                      textspan(
+                                        textAlign: TextAlign.end,
+                                        text: AppLocalizations.of(context)!
+                                            .translate(
+                                          'Security_settings',
+                                        )!,
+                                        color: Colors.black,
+                                      ),
+                                    ],
                                   ),
-                                  /*    PopupMenuDivider(height: 4),
+                                ),
+                                /*    PopupMenuDivider(height: 4),
                                   PopupMenuItem(
                                     value: 1,
                                     child: Row(
@@ -200,195 +208,202 @@ class _ViewProfileState extends State<ViewProfile> {
                                       ],
                                     ),
                                   ),*/
-                                  PopupMenuDivider(height: 1),
-                                  PopupMenuItem(
-                                    value: 4,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Caption1(
-                                          textAlign: TextAlign.center,
-                                          color: Colors.black,
-                                          text: AppLocalizations.of(context)!
-                                              .translate(
-                                            'YCTIANM',
-                                          )!,
-                                        ),
-                                        const SizedBox(
-                                          width: 2,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  PopupMenuItem(
-                                    value: 2,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Icon(
-                                          Icons.share,
-                                          color: Colors.cyan,
-                                        ),
-                                        SizedBox(
-                                          width: 8,
-                                        ),
-                                        textspan(
-                                          textAlign: TextAlign.center,
-                                          text: resultResponse!.identifierCode
-                                              .toString(),
-                                          color: Colors.black,
-                                        ),
-                                        const SizedBox(
-                                          width: 7,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  PopupMenuDivider(),
-                                  PopupMenuItem(
-                                    value: 3,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Image.asset(
-                                            'assets/images/icon/pngwing.com.png',
-                                            height: 24,
-                                            width: 24,
-                                            color: Colors.cyan),
-                                        SizedBox(
-                                          width: 8,
-                                        ),
-                                        textspan(
-                                          textAlign: TextAlign.center,
-                                          color: Colors.black,
-                                          text: AppLocalizations.of(context)!
-                                              .translate(
-                                            'Eixt',
-                                          )!,
-                                        ),
-                                        const SizedBox(
-                                          width: 7,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                                onSelected: (item) => onSelected(context, item),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        (resultResponse!.imageUrl != null &&
-                                resultResponse!.imageUrl != "")
-                            ? Card(
-                                shape: CircleBorder(),
-                                clipBehavior: Clip.antiAliasWithSaveLayer,
-                                child: Image.network(
-                                  Config.fileurl + resultResponse!.imageUrl!,
-                                  fit: BoxFit.cover,
-                                  errorBuilder: (BuildContext context,
-                                      Object exception,
-                                      StackTrace? stackTrace) {
-                                    return const Icon(Icons.person);
-                                  },
-                                  loadingBuilder: (BuildContext context,
-                                      Widget child,
-                                      ImageChunkEvent? loadingProgress) {
-                                    if (loadingProgress == null) return child;
-                                    return Center(
-                                      child: CircularProgressIndicator(
-                                        value: loadingProgress
-                                                    .expectedTotalBytes !=
-                                                null
-                                            ? loadingProgress
-                                                    .cumulativeBytesLoaded /
-                                                loadingProgress
-                                                    .expectedTotalBytes!
-                                            : null,
+                                PopupMenuDivider(height: 1),
+                                PopupMenuItem(
+                                  value: 4,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.center,
+                                    children: [
+                                      Caption1(
+                                        textAlign: TextAlign.center,
+                                        color: Colors.black,
+                                        text: AppLocalizations.of(context)!
+                                            .translate(
+                                          'YCTIANM',
+                                        )!,
                                       ),
-                                    );
-                                  },
-                                  height: 75,
-                                  width: 75,
+                                      const SizedBox(
+                                        width: 2,
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              )
-                            : Image.asset(
-                                'assets/images/home/user.png',
-                                fit: BoxFit.cover,
-                                height: 75,
-                                width: 75,
+                                PopupMenuItem(
+                                  value: 2,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.share,
+                                        color: Colors.cyan,
+                                      ),
+                                      SizedBox(
+                                        width: 8,
+                                      ),
+                                      textspan(
+                                        textAlign: TextAlign.center,
+                                        text: resultResponse!.identifierCode
+                                            .toString(),
+                                        color: Colors.black,
+                                      ),
+                                      const SizedBox(
+                                        width: 7,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                PopupMenuDivider(),
+                                PopupMenuItem(
+                                  value: 3,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.center,
+                                    children: [
+                                      Image.asset(
+                                          'assets/images/icon/pngwing.com.png',
+                                          height: 24,
+                                          width: 24,
+                                          color: Colors.cyan),
+                                      SizedBox(
+                                        width: 8,
+                                      ),
+                                      textspan(
+                                        textAlign: TextAlign.center,
+                                        color: Colors.black,
+                                        text: AppLocalizations.of(context)!
+                                            .translate(
+                                          'Eixt',
+                                        )!,
+                                      ),
+                                      const SizedBox(
+                                        width: 7,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                              onSelected: (item) => onSelected(context, item),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      (resultResponse!.imageUrl != null &&
+                          resultResponse!.imageUrl != "")
+                          ? Card(
+                        shape: CircleBorder(),
+                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                        child: Image.network(
+                          Config.fileurl + resultResponse!.imageUrl!,
+                          fit: BoxFit.cover,
+                          errorBuilder: (BuildContext context,
+                              Object exception,
+                              StackTrace? stackTrace) {
+                            return const Icon(Icons.person);
+                          },
+                          loadingBuilder: (BuildContext context,
+                              Widget child,
+                              ImageChunkEvent? loadingProgress) {
+                            if (loadingProgress == null) return child;
+                            return Center(
+                              child: CircularProgressIndicator(
+                                value: loadingProgress
+                                    .expectedTotalBytes !=
+                                    null
+                                    ? loadingProgress
+                                    .cumulativeBytesLoaded /
+                                    loadingProgress
+                                        .expectedTotalBytes!
+                                    : null,
                               ),
-                        Column(
-                          children: [
-                            textbold(
-                              text: resultResponse!.nameAlias ?? "",
-                              color: Colors.green,
-                              textAlign: TextAlign.start,
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Container(
-                              width: 80,
-                              height: 30,
-                              decoration: new BoxDecoration(
-                                  borderRadius: new BorderRadius.circular(8.0),
-                                  border: Border.all(
-                                      color: Colors.black26, width: 1)),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    height: 20,
-                                    width: 20,
-                                    padding: EdgeInsets.only(
-                                      right: 6,
-                                      left: 1,
-                                      bottom: 2,
-                                    ),
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(50),
-                                        border: Border.all(
-                                            color: Colors.black26, width: 1)),
-                                    child: textspan(
-                                      text:
-                                          ranksadad[resultResponse!.rank ?? 0],
-                                      color: Colors.purpleAccent,
-                                      textAlign: TextAlign.left,
-                                    ),
+                            );
+                          },
+                          height: 75,
+                          width: 75,
+                        ),
+                      )
+                      /*    CachedNetworkImage(
+                      imageUrl: Config.fileurl + resultResponse!.imageUrl!,
+                      placeholder: (context, url) => CircularProgressIndicator(),
+                      errorWidget: (context, url, error) => Icon(Icons.error),
+                      height: 100,
+                      width: 100,
+                    )*/
+                          : Image.asset(
+                        'assets/images/home/user.png',
+                        fit: BoxFit.cover,
+                        height: 75,
+                        width: 75,
+                      ),
+                      Column(
+                        children: [
+                          textbold(
+                            text: resultResponse!.nameAlias ?? "",
+                            color: Colors.green,
+                            textAlign: TextAlign.start,
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                            width: 80,
+                            height: 30,
+                            decoration: new BoxDecoration(
+                                borderRadius: new BorderRadius.circular(8.0),
+                                border: Border.all(
+                                    color: Colors.black26, width: 1)),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  height: 20,
+                                  width: 20,
+                                  padding: EdgeInsets.only(
+                                    right: 6,
+                                    left: 1,
+                                    bottom: 2,
                                   ),
-                                  SizedBox(
-                                    width: 5,
-                                  ),
-                                  textspan(
-                                    text: ranks[resultResponse!.rank!],
-                                    color: Colors.black,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(50),
+                                      border: Border.all(
+                                          color: Colors.black26, width: 1)),
+                                  child: textspan(
+                                    text:
+                                    ranksadad[resultResponse!.rank ?? 0],
+                                    color: Colors.purpleAccent,
                                     textAlign: TextAlign.left,
                                   ),
-                                ],
-                              ),
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                textspan(
+                                  text: ranks[resultResponse!.rank!],
+                                  color: Colors.black,
+                                  textAlign: TextAlign.left,
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            Image(
-                              height: 30,
-                              image: AssetImage("assets/images/home/bbarg.png"),
-                            ),
-                            /*
+                          ),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Image(
+                            height: 30,
+                            image: AssetImage("assets/images/home/bbarg.png"),
+                          ),
+                          /*
                             InkWell(
                                 child: Image(
                                   height: 30,
@@ -403,19 +418,19 @@ class _ViewProfileState extends State<ViewProfile> {
                                                 .toString(),
                                           ));
                                 }),*/
-                            SizedBox(
-                              height: 4,
-                            ),
-                            textspan(
-                              text: resultResponse!.score.toString(),
-                              color: Colors.black,
-                              textAlign: TextAlign.left,
-                            ),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            /*Padding(
+                          SizedBox(
+                            height: 4,
+                          ),
+                          textspan(
+                            text: resultResponse!.score.toString(),
+                            color: Colors.black,
+                            textAlign: TextAlign.left,
+                          ),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          /*Padding(
                               padding: EdgeInsets.only(
                                 bottom: MediaQuery
                                     .of(context)
@@ -424,158 +439,169 @@ class _ViewProfileState extends State<ViewProfile> {
                               ),
                             ),*/
 
-                            InkWell(
-                              onTap: () {
-                                /*showDialog<void>(
+                          InkWell(
+                            onTap: () {
+                              /*showDialog<void>(
                                     context: context,
                                     builder: (context) => /*ArshadDialog()*/ ViewProfileUesr(userid: resultResponse!.parentId,));*/
-                            /*    showDialog<void>(
+                              /*    showDialog<void>(
                                     context: context,
                                     builder: (context) => ViewProfileUesrArshed(
                                           userid: resultResponse!.parentId,
                                         ));*/
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                    ViewProfileUesrArshed(
-                                      userid: resultResponse!.parentId,
-                                    )));
-                              },
-                              child: (resultResponse!.parentImageUrl != null &&
-                                      resultResponse!.parentImageUrl != "")
-                                  ? Card(
-                                      shape: CircleBorder(),
-                                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                                      child: Image.network(
-                                        Config.fileurl +
-                                            resultResponse!.parentImageUrl!,
-                                        fit: BoxFit.cover,
-                                        errorBuilder: (BuildContext context,
-                                            Object exception,
-                                            StackTrace? stackTrace) {
-                                          return const Icon(Icons.person);
-                                        },
-                                        loadingBuilder: (BuildContext context,
-                                            Widget child,
-                                            ImageChunkEvent? loadingProgress) {
-                                          if (loadingProgress == null)
-                                            return child;
-                                          return Center(
-                                            child: CircularProgressIndicator(
-                                              value: loadingProgress
-                                                          .expectedTotalBytes !=
-                                                      null
-                                                  ? loadingProgress
-                                                          .cumulativeBytesLoaded /
-                                                      loadingProgress
-                                                          .expectedTotalBytes!
-                                                  : null,
-                                            ),
-                                          );
-                                        },
-                                        height: 30,
-                                        width: 30,
-                                      ),
-                                    )
-                                  : Image.asset(
-                                      'assets/images/home/user.png',
-                                      fit: BoxFit.cover,
-                                      height: 30,
-                                      width: 30,
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          ViewProfileUesrArshed(
+                                            userid: resultResponse!.parentId,
+                                          )));
+                            },
+                            child: (resultResponse!.parentImageUrl != null &&
+                                resultResponse!.parentImageUrl != "")
+                                ? Card(
+                              shape: CircleBorder(),
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              child: Image.network(
+                                Config.fileurl +
+                                    resultResponse!.parentImageUrl!,
+                                fit: BoxFit.cover,
+                                errorBuilder: (BuildContext context,
+                                    Object exception,
+                                    StackTrace? stackTrace) {
+                                  return const Icon(Icons.person);
+                                },
+                                loadingBuilder: (BuildContext context,
+                                    Widget child,
+                                    ImageChunkEvent? loadingProgress) {
+                                  if (loadingProgress == null)
+                                    return child;
+                                  return Center(
+                                    child: CircularProgressIndicator(
+                                      value: loadingProgress
+                                          .expectedTotalBytes !=
+                                          null
+                                          ? loadingProgress
+                                          .cumulativeBytesLoaded /
+                                          loadingProgress
+                                              .expectedTotalBytes!
+                                          : null,
                                     ),
+                                  );
+                                },
+                                height: 30,
+                                width: 30,
+                              ),
+                            )
+                                : Image.asset(
+                              'assets/images/home/user.png',
+                              fit: BoxFit.cover,
+                              height: 30,
+                              width: 30,
                             ),
-                            SizedBox(
-                              height: 4,
-                            ),
-                            textspan(
-                              text: resultResponse!.parentName!,
-                              color: Colors.black,
-                              textAlign: TextAlign.left,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 0.5,
-                    ),
-                    Padding(
-                        padding: EdgeInsets.only(
-                          right: MediaQuery.of(context).size.height * 0.03,
-                          bottom: MediaQuery.of(context).size.height * 0.02,
-                          top: MediaQuery.of(context).size.height * 0.01,
-                        ),
-                        child: resultResponse!.bio == null ||
-                                resultResponse!.bio == ""
-                            ? textspan(
-                                text: "بیو گرافی شما",
-                                color: Colors.black38,
-                                textAlign: TextAlign.start,
-                              )
-                            : textspan(
-                                text: resultResponse!.bio.toString(),
-                                color: Colors.black,
-                                textAlign: TextAlign.start,
-                              )),
-                    SizedBox(
-                      height: 1,
-                    ),
-                    Buttonfull(
-                      text: AppLocalizations.of(context)!.translate(
-                        'Edit Profile',
-                      )!,
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    EditProfile(model: resultResponse!)));
-                      },
-                      color: Colors.white,
-                    )
-                  ],
-                ),
+                          ),
+                          SizedBox(
+                            height: 4,
+                          ),
+                          textspan(
+                            text: resultResponse!.parentName!,
+                            color: Colors.black,
+                            textAlign: TextAlign.left,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 0.5,
+                  ),
+                  Padding(
+                      padding: EdgeInsets.only(
+                        right: MediaQuery
+                            .of(context)
+                            .size
+                            .height * 0.03,
+                        bottom: MediaQuery
+                            .of(context)
+                            .size
+                            .height * 0.02,
+                        top: MediaQuery
+                            .of(context)
+                            .size
+                            .height * 0.01,
+                      ),
+                      child: resultResponse!.bio == null ||
+                          resultResponse!.bio == ""
+                          ? textspan(
+                        text: "بیو گرافی شما",
+                        color: Colors.black38,
+                        textAlign: TextAlign.start,
+                      )
+                          : textspan(
+                        text: resultResponse!.bio.toString(),
+                        color: Colors.black,
+                        textAlign: TextAlign.start,
+                      )),
+                  SizedBox(
+                    height: 1,
+                  ),
+                  Buttonfull(
+                    text: AppLocalizations.of(context)!.translate(
+                      'Edit Profile',
+                    )!,
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  EditProfile(model: resultResponse!)));
+                    },
+                    color: Colors.white,
+                  )
+                ],
               ),
             ),
-            Card(
-              margin: EdgeInsets.symmetric(horizontal: 0, vertical: 6),
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Column(
-                  children: [
-                    Container(
-                      alignment: Alignment.center,
-                      child: ranksadadA[resultResponsee['data']],
-                    ),
-                  ],
-                ),
+          ),
+          Card(
+            margin: EdgeInsets.symmetric(horizontal: 0, vertical: 6),
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Column(
+                children: [
+                  Container(
+                    alignment: Alignment.center,
+                    child: ranksadadA[resultResponsee['data']],
+                  ),
+                ],
               ),
             ),
-            Card(
-              margin: EdgeInsets.symmetric(horizontal: 0, vertical: 6),
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Column(
-                  children: [
-                    Body(
-                      textAlign: TextAlign.center,
-                      color: Colors.black87,
-                      text: "پاکی شما تا این لحظه",
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          height: 75,
-                          width: 75,
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                                top: 17, left: 0, right: 0, bottom: 10),
+          ),
+          Card(
+            margin: EdgeInsets.symmetric(horizontal: 0, vertical: 6),
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Column(
+                children: [
+                  Body(
+                    textAlign: TextAlign.center,
+                    color: Colors.black87,
+                    text: "پاکی شما تا این لحظه",
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        child: CircularPercentIndicator(
+                          radius: 35.0,
+                          lineWidth: 5.0,
+                          percent: 0.71,
+                          animation: true,
+                          center: Padding(
+                            padding: const EdgeInsets.all(15.0),
                             child: Column(
                               children: [
                                 Footnate(
@@ -583,8 +609,7 @@ class _ViewProfileState extends State<ViewProfile> {
                                   color: Colors.cyan,
                                   text: resultResponseGetUserAbandon['data']
                                       .split(" ")[0]
-                                      .toString()
-                                  ,
+                                      .toString(),
                                 ),
                                 Caption2(
                                     textAlign: TextAlign.center,
@@ -593,19 +618,20 @@ class _ViewProfileState extends State<ViewProfile> {
                               ],
                             ),
                           ),
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(width: 4, color: Colors.red)),
+                          progressColor: Colors.cyanAccent,
                         ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Container(
-                          height: 75,
-                          width: 75,
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                                top: 17, left: 0, right: 0, bottom: 10),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Container(
+                        child: CircularPercentIndicator(
+                          radius: 35.0,
+                          lineWidth: 5.0,
+                          percent: 0.71,
+                          animation: true,
+                          center: Padding(
+                            padding: const EdgeInsets.all(15.0),
                             child: Column(
                               children: [
                                 Footnate(
@@ -622,28 +648,32 @@ class _ViewProfileState extends State<ViewProfile> {
                               ],
                             ),
                           ),
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(width: 4, color: Colors.red)),
+                          progressColor: Colors.cyanAccent,
                         ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Container(
-                          height: 75,
-                          width: 75,
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                                top: 17, left: 0, right: 0, bottom: 10),
+                      ),
+                      SizedBox(
+                        width: 15,
+                      ),
+                      Container(
+                        child: CircularPercentIndicator(
+                          radius: 35.0,
+                          lineWidth: 5.0,
+                          percent: 0.1,
+                          animation: true,
+                          center: Padding(
+                            padding: const EdgeInsets.all(15.0),
                             child: Column(
                               children: [
                                 Footnate(
                                     textAlign: TextAlign.center,
                                     color: Colors.cyan,
-                                    text: resultResponseGetUserAbandon['data']
+                                    text: tabdel
                                         .toString()
-                                        .split(" ")[2]
-                                        .toString()),
+                                  /*resultResponseGetUserAbandon['data']
+                                          .toString()
+                                          .split(" ")[2]
+                                          .toString()*/
+                                ),
                                 Caption2(
                                     textAlign: TextAlign.center,
                                     color: Colors.cyan,
@@ -651,12 +681,12 @@ class _ViewProfileState extends State<ViewProfile> {
                               ],
                             ),
                           ),
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(width: 4, color: Colors.red)),
+                          progressColor: Colors.cyanAccent,
                         ),
+                      ),
 
-                        /*   Body(
+
+                      /*Body(
                       textAlign: TextAlign.center,
                       color: Colors.cyan,
                       text: resultResponseGetUserAbandon['data'].toString().split(" ")[1]  ,
@@ -666,20 +696,20 @@ class _ViewProfileState extends State<ViewProfile> {
                       color: Colors.cyan,
                       text: resultResponseGetUserAbandon['data'].toString().split(" ")[2]  ,
                     ),*/
-                      ],
-                    ),
+                    ],
+                  ),
 
-                    /* Body(
+                  /* Body(
                       textAlign: TextAlign.center,
                       color: Colors.black87,
                       text: "هدف بعدی شما پر کردن سه ماه است",
                     ),*/
-                    /*  Buttonfull(text: 'تستی', color: Colors.white, onPressed: () {  Navigator.push(
+                  /*  Buttonfull(text: 'تستی', color: Colors.white, onPressed: () {  Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
                                 ViewProfileUesr())); },),*/
-                    /*   Buttonfull(
+                  /*   Buttonfull(
                       text: AppLocalizations.of(context)!
                           .translate('Date_of_departure')!,
                       onPressed: () async {
@@ -730,13 +760,14 @@ class _ViewProfileState extends State<ViewProfile> {
                       },
                       color: Colors.white,
                     ),*/
-                  ],
-                ),
+                ],
               ),
             ),
-          ],
-        ),
-      );
+          ),
+        ],
+      ),
+    );
+  }
 
   void onSelected(BuildContext context, int item) {
     switch (item) {
