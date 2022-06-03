@@ -10,6 +10,10 @@ import 'splash.dart';
 import 'dart:async';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  print("Handling a background message: ${message.messageId}");
+}
+
 /*
 /// Define a top-level named handler which background/terminated messages will
 /// call.
@@ -149,16 +153,61 @@ class MyApp extends StatelessWidget {
 */
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
+
   static void setLocale(BuildContext context, Locale newLocale) {
     _MyAppState? state = context.findAncestorStateOfType<_MyAppState>();
     state!.setLocale(newLocale);
   }
+
   @override
   State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
+
+  late final FirebaseMessaging _messaging;
+  late int _totalNotifications;
+
+  String messgaeTitle = 'Empty';
+  String notificationAlert = 'Alert';
+
+  void registerNotfition() async {
+    await Firebase.initializeApp();
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+    NotificationSettings setings = await _messaging.requestPermission(
+      alert: true,
+      badge: true,
+      provisional: false,
+      sound: true,
+    );
+    if (setings.authorizationStatus == AuthorizationStatus.authorized) {
+      FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+        setState(() {
+          messgaeTitle=message.data["title"];
+          notificationAlert=message.data["body"];
+        });
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    _totalNotifications=0;
+    registerNotfition();
+
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      setState(() {
+        messgaeTitle = message.data["title"];
+        notificationAlert = message.data['body'];
+      });
+    });
+
+    super.initState();
+
+  }
+
   Locale? _locale;
+
   setLocale(Locale locale) {
     setState(() {
       _locale = locale;
@@ -175,7 +224,6 @@ class _MyAppState extends State<MyApp> {
     super.didChangeDependencies();
   }
 
-
   @override
   Widget build(BuildContext context) {
     if (this._locale == null) {
@@ -185,7 +233,7 @@ class _MyAppState extends State<MyApp> {
               valueColor: AlwaysStoppedAnimation<Color>(Colors.blue)),
         ),
       );
-    }else {
+    } else {
       return GetMaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
@@ -212,7 +260,7 @@ class _MyAppState extends State<MyApp> {
           return supportedLocales.first;
         },
         home: Splash(),
-       // initialRoute:Splash() ,
+        // initialRoute:Splash() ,
       );
     }
   }

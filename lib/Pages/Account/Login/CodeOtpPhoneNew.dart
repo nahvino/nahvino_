@@ -2,10 +2,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lottie/lottie.dart';
+import 'package:otp_timer_button/otp_timer_button.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:pinput/pinput.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:timer_button/timer_button.dart';
+//import 'package:timer_button/timer_button.dart';
 import '../../../App_localizations.dart';
 import '../../../Services/Login/ApiService.dart';
 import '../../../Utils/Button/Button.dart';
@@ -192,8 +193,43 @@ class _CodeOtpPhoneNewState extends State<CodeOtpPhoneNew> {
                               )!,
                             ),
                           ),
-
-                          TimerButton(
+                          OtpTimerButton(
+                            height: 60,
+                            text: Text(
+                              'ارسال مجدد',
+                            ),
+                            duration: 120,
+                            radius: 30,
+                            backgroundColor: Colors.cyan,
+                            textColor: Colors.white,
+                            buttonType: ButtonType.text_button, // or ButtonType.outlined_button
+                            loadingIndicator: CircularProgressIndicator(
+                              strokeWidth: 2,
+                              color: Colors.cyan,
+                            ),
+                            loadingIndicatorColor: Colors.cyan,
+                            onPressed: () {
+                              apiService.NewReSendCode(
+                                widget.OtpCode.toString(),
+                              ).then((response) async {
+                                setState(() {
+                                  isApiCallProcess = false;
+                                });
+                                if (response != false) {
+                                  apiService.showSnackBar(
+                                      text: AppLocalizations.of(context)!.translate(
+                                        'Resendcode',
+                                      )!);
+                                } else {
+                                  setState(() {
+                                    isApiCallProcess = true;
+                                  });
+                                  apiService.showSnackBar(text: response['message']);
+                                }
+                              });
+                            },
+                          ),
+                     /*    TimerButton(
                             timeOutInSeconds: 120,
                             disabledColor: Colors.transparent,
                             color: Colors.cyan,
@@ -222,7 +258,7 @@ class _CodeOtpPhoneNewState extends State<CodeOtpPhoneNew> {
                                 }
                               });
                             },
-                          ),
+                          ),*/
                         ],
                       ),
                     ),

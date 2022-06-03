@@ -1,15 +1,10 @@
 import 'dart:io';
 import 'dart:ui' as ui;
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_chat_bubble/bubble_type.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_1.dart';
-import 'package:flutter_html/shims/dart_ui_real.dart';
 import 'package:get/get.dart';
 import 'package:Nahvino/Pages/Account/Caht/ChatPageController.dart';
 import 'package:Nahvino/Pages/Account/Caht/AboutGroup.dart';
@@ -36,14 +31,12 @@ class _ChatpageState extends State<Chatpage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     Future.delayed(Duration(seconds: 3),
         () => chatPageController.isApiCallProgress.value = false);
     adminid = chatPageController.model?.adminId.toString();
     nazer1 = chatPageController.model?.supervisor1Id.toString();
     nazer2 = chatPageController.model?.supervisor2Id.toString();
-    print("=====>$adminid");
   }
 
   @override
@@ -201,7 +194,7 @@ class _ChatpageState extends State<Chatpage> {
               children: [
                 IconButton(
                     onPressed: () {
-                      if (WidgetsBinding.instance!.window.viewInsets.bottom >
+                      if (WidgetsBinding.instance.window.viewInsets.bottom >
                           0) {
                         FocusScope.of(context).unfocus();
 
@@ -276,9 +269,9 @@ class _ChatpageState extends State<Chatpage> {
                     enableSkinTones: true,
                     showRecentsTab: true,
                     recentsLimit: 28,
-                    noRecentsText: 'No Recents',
-                    noRecentsStyle:
-                        const TextStyle(fontSize: 20, color: Colors.black26),
+                    //noRecentsText: 'No Recents',
+                  //  noRecentsStyle:
+                    //    const TextStyle(fontSize: 20, color: Colors.black26),
                     tabIndicatorAnimDuration: kTabScrollDuration,
                     categoryIcons: const CategoryIcons(),
                     buttonMode: ButtonMode.MATERIAL)),
@@ -299,6 +292,7 @@ class _ChatpageState extends State<Chatpage> {
       chat = chatPageController.chats[index];
     }
     bool fromMe = chat.userId == chatPageController.myUserId;
+    bool admin = chatPageController.myUserId == adminid;
 
     return Row(
       mainAxisSize: MainAxisSize.min,
@@ -352,6 +346,7 @@ class _ChatpageState extends State<Chatpage> {
                                           textAlign: TextAlign.right,
                                         ),
                                       ),
+
                                   ],
                                 ),
                               ));
@@ -536,8 +531,57 @@ class _ChatpageState extends State<Chatpage> {
                                               textAlign: TextAlign.right,
                                             ),
                                           ),
-
-
+                                        if (nazer2 == chatPageController.myUserId)
+                                          ListTile(
+                                            onTap: () {
+                                              chatPageController.DeleteMessage(
+                                                  chat);
+                                              Navigator.of(context).pop();
+                                            },
+                                            title: Subhead(
+                                              color: Colors.black,
+                                              text:
+                                              AppLocalizations.of(context)!
+                                                  .translate(
+                                                'delete',
+                                              )!,
+                                              textAlign: TextAlign.right,
+                                            ),
+                                          ),
+                                        if (nazer1 == chatPageController.myUserId)
+                                          ListTile(
+                                            onTap: () {
+                                              chatPageController.DeleteMessage(
+                                                  chat);
+                                              Navigator.of(context).pop();
+                                            },
+                                            title: Subhead(
+                                              color: Colors.black,
+                                              text:
+                                              AppLocalizations.of(context)!
+                                                  .translate(
+                                                'delete',
+                                              )!,
+                                              textAlign: TextAlign.right,
+                                            ),
+                                          ),
+                                        if (adminid == chatPageController.myUserId)
+                                          ListTile(
+                                            onTap: () {
+                                              chatPageController.DeleteMessage(
+                                                  chat);
+                                              Navigator.of(context).pop();
+                                            },
+                                            title: Subhead(
+                                              color: Colors.black,
+                                              text:
+                                              AppLocalizations.of(context)!
+                                                  .translate(
+                                                'delete',
+                                              )!,
+                                              textAlign: TextAlign.right,
+                                            ),
+                                          ),
                                       ],
                                     ),
                                   ));
@@ -672,7 +716,7 @@ class _ChatpageState extends State<Chatpage> {
 
   void _checkKEyboardAndEmojiVisibility() {
     if (chatPageController.emojiShowing.isTrue) {
-      if (WidgetsBinding.instance!.window.viewInsets.bottom > 0) {
+      if (WidgetsBinding.instance.window.viewInsets.bottom > 0) {
         chatPageController.emojiShowing.value = false;
       }
     }

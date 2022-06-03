@@ -65,6 +65,7 @@ class APIService {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
+
       'Authorization': "Bearer ${await preferences.getString("token")}"
     };
     var url = Uri.parse(Config.baseURL + Config.editprofileuser);

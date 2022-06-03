@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:Nahvino/Pages/testpage.dart';
 import '../Services/login/ApiService.dart';
@@ -21,6 +22,12 @@ class HomeScren extends StatefulWidget {
 class _HomeScrenState extends State<HomeScren> {
   var resultResponsee;
   bool isApiCallProgress = true;
+  String messageTitle = "Empty";
+  String notificationAlert = "alert";
+ // late final FirebaseMessaging _messaging;
+//  late int _totalNotifications;
+
+
 
   @override
   void initState() {
@@ -29,6 +36,7 @@ class _HomeScrenState extends State<HomeScren> {
       setState(() {
         isApiCallProgress = false;
         resultResponsee = response;
+
       });
     });
   }
@@ -38,7 +46,13 @@ class _HomeScrenState extends State<HomeScren> {
     return SafeArea(
       child: Column(
         children: [
-
+          Text(
+            notificationAlert,
+          ),
+          Text(
+            messageTitle,
+            style: Theme.of(context).textTheme.headline4,
+          ),
         ],
       ),
     );

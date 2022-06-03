@@ -61,6 +61,7 @@ class _ViewProfileState extends State<ViewProfile> {
   ];
 
   List<Widget> ranksadadA = <Widget>[
+    Lottie.asset('assets/anim/phonix/level1.json'),
     Lottie.asset('assets/anim/phonix/level2.json'),
     Lottie.asset('assets/anim/phonix/level3.json'),
     Lottie.asset('assets/anim/phonix/level4.json'),
@@ -554,7 +555,7 @@ class _ViewProfileState extends State<ViewProfile> {
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  EditProfile(model: resultResponse!)));
+                                  EditProfile(model: resultResponse!,)));
                     },
                     color: Colors.white,
                   )

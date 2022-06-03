@@ -54,6 +54,7 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
   ];
 
   List<Widget> ranksadadA = <Widget>[
+    Lottie.asset('assets/anim/phonix/level1.json', fit: BoxFit.cover),
     Lottie.asset('assets/anim/phonix/level2.json', fit: BoxFit.cover),
     Lottie.asset('assets/anim/phonix/level3.json', fit: BoxFit.cover),
     Lottie.asset('assets/anim/phonix/level4.json', fit: BoxFit.cover),

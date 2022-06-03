@@ -40,7 +40,6 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
            APIService.UserSecuritySttingMenus().then((response) {
         print("APIService.UserSecuritySttingMenus => $response");
           resultResponse = response;
-
         APIService.profilleall().then((response) {
           print("APIService.profilleall => $response");
           setState(() {
