@@ -5,7 +5,7 @@ import 'package:lottie/lottie.dart';
 import 'package:Nahvino/Model/user/user/viewprofile_request_model.dart';
 import 'package:Nahvino/Model/user/user/viewprofile_response_model.dart';
 
-import '../../../Services/Login/User/Config.dart';
+import '../../../Services/config.dart';
 import '../../../Services/login/ApiService.dart';
 import '../../../Utils/Button/Button.dart';
 import '../../../Utils/Text/Text.dart';
@@ -107,7 +107,7 @@ class _WelcomeUserState extends State<WelcomeUser> {
                           shape: CircleBorder(),
                           clipBehavior: Clip.antiAliasWithSaveLayer,
                           child: Image.network(
-                            Config.fileurl + resultResponse!.parentImageUrl!,
+                            configss.fileurl + resultResponse!.parentImageUrl!,
                             fit: BoxFit.cover,
                             errorBuilder: (BuildContext context,
                                 Object exception,

@@ -1,4 +1,4 @@
-class Config {
+class configss {
   static const String appName = "Nahvino";
 
   //static const String baseURL = "https://api.nahvino.ir";

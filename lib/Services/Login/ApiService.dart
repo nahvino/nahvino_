@@ -3,10 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:Nahvino/Model/user/user/viewprofile_response_model.dart';
-import 'package:Nahvino/Services/login/user/Config.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-
+import '../config.dart';
 class APIService {
   static var client = http.Client();
 
@@ -68,7 +66,7 @@ class APIService {
 
       'Authorization': "Bearer ${await preferences.getString("token")}"
     };
-    var url = Uri.parse(Config.baseURL + Config.editprofileuser);
+    var url = Uri.parse(configss.baseURL + configss.editprofileuser);
     var response = await client.post(
       url,
       headers: requestHeaders,
@@ -93,7 +91,7 @@ class APIService {
       'Content-Type': 'application/json',
       'Authorization': "Bearer ${await preferences.getString("token")}"
     };
-    var url = Uri.parse(Config.baseURL + Config.getprofileuser);
+    var url = Uri.parse(configss.baseURL + configss.getprofileuser);
     var response = await client.post(
       url,
       headers: requestHeaders,
@@ -114,7 +112,7 @@ class APIService {
       'Content-Type': 'application/json',
       'Authorization': "Bearer ${await preferences.getString("token")}"
     };
-    var url = Uri.parse(Config.baseURL + Config.GetUserAbandon);
+    var url = Uri.parse(configss.baseURL + configss.GetUserAbandon);
     var response = await client.post(
       url,
       headers: requestHeaders,
@@ -134,7 +132,7 @@ class APIService {
       'Content-Type': 'application/json',
       //'Authorization' : "Bearer ${ await preferences.getString("token")}"
     };
-    var url = Uri.parse(Config.baseURL + Config.GetLastVisit);
+    var url = Uri.parse(configss.baseURL + configss.GetLastVisit);
     var response = await client.post(
       url,
       headers: requestHeaders,
@@ -154,7 +152,7 @@ class APIService {
       'Content-Type': 'application/json',
       'Authorization': "Bearer ${await preferences.getString("token")}"
     };
-    var url = Uri.parse(Config.baseURL + Config.UserSecuritySttingMenus);
+    var url = Uri.parse(configss.baseURL + configss.UserSecuritySttingMenus);
 
     var response = await client.post(
       url,
@@ -175,7 +173,7 @@ class APIService {
       'Content-Type': 'application/json',
       'Authorization': "Bearer ${await preferences.getString("token")}"
     };
-    var url = Uri.parse(Config.baseURL + Config.getprofileuser);
+    var url = Uri.parse(configss.baseURL + configss.getprofileuser);
 
     var response = await client.post(
       url,
@@ -195,7 +193,7 @@ class APIService {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
     };
-    var url = Uri.parse(Config.baseURL + Config.AddIntroduced);
+    var url = Uri.parse(configss.baseURL + configss.AddIntroduced);
     var response = await client.post(
       url,
       headers: requestHeaders,
@@ -218,7 +216,7 @@ class APIService {
       'Content-Type': 'application/json',
       'Authorization': "Bearer ${await preferences.getString("token")}"
     };
-    var url = Uri.parse(Config.baseURL + Config.ChangePasswrod);
+    var url = Uri.parse(configss.baseURL + configss.ChangePasswrod);
     var response = await client.post(
       url,
       headers: requestHeaders,
@@ -247,7 +245,7 @@ class APIService {
       'Content-Type': 'application/json',
       'Authorization': "Bearer ${await preferences.getString("token")}"
     };
-    var url = Uri.parse(Config.baseURL + Config.NotIntroduced);
+    var url = Uri.parse(configss.baseURL + configss.NotIntroduced);
     var response = await client.post(
       url,
       headers: requestHeaders,
@@ -265,7 +263,7 @@ class APIService {
   Future uploadProfileImage(String imagePath) async {
     var request = http.MultipartRequest(
       'POST',
-      Uri.parse(Config.baseURL + Config.uploadProfileImage),
+      Uri.parse(configss.baseURL + configss.uploadProfileImage),
     );
 
     var multipartFile =
@@ -288,7 +286,7 @@ class APIService {
       'Content-Type': 'application/json',
       'Authorization': "Bearer ${await preferences.getString("token")}"
     };
-    var url = Uri.parse(Config.baseURL + Config.SetPhoneNumber);
+    var url = Uri.parse(configss.baseURL + configss.SetPhoneNumber);
     var response = await client.post(
       url,
       headers: requestHeaders,
@@ -312,7 +310,7 @@ class APIService {
       'Content-Type': 'application/json',
       'Authorization': "Bearer ${await preferences.getString("token")}"
     };
-    var url = Uri.parse(Config.baseURL + Config.CheckCodeSetPhoneNumber);
+    var url = Uri.parse(configss.baseURL + configss.CheckCodeSetPhoneNumber);
     var response = await client.post(
       url,
       headers: requestHeaders,
@@ -337,7 +335,7 @@ class APIService {
       'Content-Type': 'application/json',
       'Authorization': "Bearer ${await preferences.getString("token")}"
     };
-    var url = Uri.parse(Config.baseURL + Config.ChangePhoneNumber);
+    var url = Uri.parse(configss.baseURL + configss.ChangePhoneNumber);
     var response = await client.post(
       url,
       headers: requestHeaders,
@@ -362,7 +360,7 @@ class APIService {
       'Content-Type': 'application/json',
       'Authorization': "Bearer ${await preferences.getString("token")}"
     };
-    var url = Uri.parse(Config.baseURL + Config.CheckCodeChangePhoneNumber);
+    var url = Uri.parse(configss.baseURL + configss.CheckCodeChangePhoneNumber);
     var response = await client.post(
       url,
       headers: requestHeaders,
@@ -386,7 +384,7 @@ class APIService {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
     };
-    var url = Uri.parse(Config.baseURL + Config.otpphone);
+    var url = Uri.parse(configss.baseURL + configss.otpphone);
     var response = await client.post(
       url,
       headers: requestHeaders,
@@ -405,7 +403,7 @@ class APIService {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
     };
-    var url = Uri.parse(Config.baseURL + Config.otpvrifay);
+    var url = Uri.parse(configss.baseURL + configss.otpvrifay);
     var response = await client.post(
       url,
       headers: requestHeaders,
@@ -428,7 +426,7 @@ class APIService {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
     };
-    var url = Uri.parse(Config.baseURL + Config.register);
+    var url = Uri.parse(configss.baseURL + configss.register);
     var response = await client.post(
       url,
       headers: requestHeaders,
@@ -450,7 +448,7 @@ class APIService {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
     };
-    var url = Uri.parse(Config.baseURL + Config.login);
+    var url = Uri.parse(configss.baseURL + configss.login);
     var response = await client.post(
       url,
       headers: requestHeaders,
@@ -472,7 +470,7 @@ class APIService {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
     };
-    var url = Uri.parse(Config.baseURL + Config.checkquestionanswer);
+    var url = Uri.parse(configss.baseURL + configss.checkquestionanswer);
     var response = await client.post(
       url,
       headers: requestHeaders,
@@ -493,7 +491,7 @@ class APIService {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
     };
-    var url = Uri.parse(Config.baseURL + Config.repassword);
+    var url = Uri.parse(configss.baseURL + configss.repassword);
     var response = await client.post(
       url,
       headers: requestHeaders,
@@ -512,7 +510,7 @@ class APIService {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
     };
-    var url = Uri.parse(Config.baseURL + Config.resendcode);
+    var url = Uri.parse(configss.baseURL + configss.resendcode);
     var response = await client.post(
       url,
       headers: requestHeaders,
@@ -533,7 +531,7 @@ class APIService {
       'Content-Type': 'application/json',
       'Authorization': "Bearer ${await preferences.getString("token")}"
     };
-    var url = Uri.parse(Config.baseURL + Config.EditUserAbandon);
+    var url = Uri.parse(configss.baseURL + configss.EditUserAbandon);
     var response = await client.post(
       url,
       headers: requestHeaders,
@@ -557,7 +555,7 @@ class APIService {
       'Content-Type': 'application/json',
       'Authorization': "Bearer ${await preferences.getString("token")}"
     };
-    var url = Uri.parse(Config.baseURL + Config.GetProfileOtherUser);
+    var url = Uri.parse(configss.baseURL + configss.GetProfileOtherUser);
     var response = await client.post(
       url,
       headers: requestHeaders,
@@ -579,7 +577,7 @@ class APIService {
       'Content-Type': 'application/json',
       //'Authorization': "Bearer ${await preferences.getString("token")}"
     };
-    var url = Uri.parse(Config.baseURL + Config.GetLastOtherVisit);
+    var url = Uri.parse(configss.baseURL + configss.GetLastOtherVisit);
     var response = await client.post(
       url,
       headers: requestHeaders,
@@ -600,7 +598,7 @@ class APIService {
       'Content-Type': 'application/json',
       'Authorization': "Bearer ${await preferences.getString("token")}"
     };
-    var url = Uri.parse(Config.baseURL + Config.GetUserAbandon);
+    var url = Uri.parse(configss.baseURL + configss.GetUserAbandon);
     var response = await client.post(
       url,
       headers: requestHeaders,

@@ -54,7 +54,9 @@ dependencies:
   firebase_messaging: ^11.4.1
   overlay_support: ^2.0.1
   pinput: ^2.2.7
+  #cacheimage
   cached_network_image: ^3.2.0
+  flutter_cache_manager: ^3.3.0
   percent_indicator: ^4.0.0
   otp_timer_button: ^1.1.0
 

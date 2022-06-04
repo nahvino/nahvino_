@@ -1,11 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 import '../../../App_localizations.dart';
 import '../../../Model/User/SignalR/GroupModel.dart';
-import '../../../Services/Login/User/Config.dart';
+import '../../../Services/config.dart';
 import '../../../Utils/Text/Text.dart';
 import 'ChatPage.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+
 
 class AboutGroup extends StatefulWidget {
 
@@ -113,26 +114,40 @@ class _AboutGroupState extends State<AboutGroup> {
                                 ),
                                 Column(
                                   children: [
-                                  /*  Container(
-                                      decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                            fit: BoxFit.cover,
-                                            image: AssetImage(
-                                                "assets/images/ram/man1.jpg"),
-                                          ),
-                                          shape: BoxShape.circle,
-                                          color: Colors.redAccent),
-                                      height: 50,
-                                      width: 50,
-                                    ),*/
-
                                     (widget.model.adminImageurl != null &&
                                         widget.model.adminImageurl != "")
                                         ? Card(
                                       shape: CircleBorder(),
                                       clipBehavior: Clip.antiAliasWithSaveLayer,
+                                      child: CachedNetworkImage(
+                                        height: 50,
+                                        width: 50,
+                                        cacheManager: CacheManager(Config('customCacheKey',
+                                            stalePeriod: Duration(days: 7), maxNrOfCacheObjects: 100)),
+                                        imageUrl: configss.fileurl + widget.model.adminImageurl!,
+                                        imageBuilder: (context, imageProvider) => Container(
+                                          decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                              image: imageProvider,
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        ),
+                                        placeholder: (context, url) => CircularProgressIndicator(),
+                                        errorWidget: (context, url, error) => Icon(Icons.error),
+                                      ),
+                                    ): Image.asset(
+                                      'assets/images/home/user.png',
+                                      fit: BoxFit.cover,
+                                      height: 50,
+                                      width: 50,
+                                    ),
+
+                                    /*Card(
+                                      shape: CircleBorder(),
+                                      clipBehavior: Clip.antiAliasWithSaveLayer,
                                       child: Image.network(
-                                        Config.fileurl + widget.model.adminImageurl!,
+                                        configss.fileurl + widget.model.adminImageurl!,
                                         fit: BoxFit.cover,
                                         errorBuilder: (BuildContext context,
                                             Object exception,
@@ -165,7 +180,7 @@ class _AboutGroupState extends State<AboutGroup> {
                                       fit: BoxFit.cover,
                                       height: 50,
                                       width: 50,
-                                    ),
+                                    ),*/
                                     Callout(color: Colors.black, textAlign: TextAlign.center, text:widget.model.adminName!)
 
                                   ],
@@ -187,8 +202,34 @@ class _AboutGroupState extends State<AboutGroup> {
                                       ? Card(
                                     shape: CircleBorder(),
                                     clipBehavior: Clip.antiAliasWithSaveLayer,
+                                    child: CachedNetworkImage(
+                                      height: 50,
+                                      width: 50,
+                                      cacheManager: CacheManager(Config('customCacheKey',
+                                          stalePeriod: Duration(days: 7), maxNrOfCacheObjects: 100)),
+                                      imageUrl: configss.fileurl + widget.model.supervisor1Imageurl!,
+                                      imageBuilder: (context, imageProvider) => Container(
+                                        decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                            image: imageProvider,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+                                      placeholder: (context, url) => CircularProgressIndicator(),
+                                      errorWidget: (context, url, error) => Icon(Icons.error),
+                                    ),
+                                  ): Image.asset(
+                                    'assets/images/home/user.png',
+                                    fit: BoxFit.cover,
+                                    height: 50,
+                                    width: 50,
+                                  ),
+                                  /*Card(
+                                    shape: CircleBorder(),
+                                    clipBehavior: Clip.antiAliasWithSaveLayer,
                                     child: Image.network(
-                                      Config.fileurl + widget.model.supervisor1Imageurl!,
+                                      configss.fileurl + widget.model.supervisor1Imageurl!,
                                       fit: BoxFit.cover,
                                       errorBuilder: (BuildContext context,
                                           Object exception,
@@ -221,7 +262,7 @@ class _AboutGroupState extends State<AboutGroup> {
                                     fit: BoxFit.cover,
                                     height: 50,
                                     width: 50,
-                                  ),
+                                  ),*/
                                   Callout(color: Colors.black, textAlign: TextAlign.center, text:widget.model.supervisor1Name!)
 
                                 ],
@@ -240,11 +281,38 @@ class _AboutGroupState extends State<AboutGroup> {
                                   children: [
                                     (widget.model.supervisor2Imageurl != null &&
                                         widget.model.supervisor2Imageurl != "")
-                                        ? Card(
+                                        ?
+                                    Card(
+                                      shape: CircleBorder(),
+                                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                                      child: CachedNetworkImage(
+                                        height: 50,
+                                        width: 50,
+                                        cacheManager: CacheManager(Config('customCacheKey',
+                                            stalePeriod: Duration(days: 7), maxNrOfCacheObjects: 100)),
+                                        imageUrl: configss.fileurl + widget.model.supervisor2Imageurl!,
+                                        imageBuilder: (context, imageProvider) => Container(
+                                          decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                              image: imageProvider,
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        ),
+                                        placeholder: (context, url) => CircularProgressIndicator(),
+                                        errorWidget: (context, url, error) => Icon(Icons.error),
+                                      ),
+                                    ): Image.asset(
+                                      'assets/images/home/user.png',
+                                      fit: BoxFit.cover,
+                                      height: 50,
+                                      width: 50,
+                                    ),
+                                    /*Card(
                                       shape: CircleBorder(),
                                       clipBehavior: Clip.antiAliasWithSaveLayer,
                                       child: Image.network(
-                                        Config.fileurl + widget.model.supervisor2Imageurl!,
+                                        configss.fileurl + widget.model.supervisor2Imageurl!,
                                         fit: BoxFit.cover,
                                         errorBuilder: (BuildContext context,
                                             Object exception,
@@ -277,7 +345,7 @@ class _AboutGroupState extends State<AboutGroup> {
                                       fit: BoxFit.cover,
                                       height: 50,
                                       width: 50,
-                                    ),
+                                    ),*/
                                     Callout(color: Colors.black, textAlign: TextAlign.center, text:widget.model.supervisor2Name!)
                                   ],
                                 ),

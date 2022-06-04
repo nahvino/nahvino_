@@ -1,18 +1,17 @@
-import 'package:get/get.dart';
 
-class validator{
+import 'package:Nahvino/controllers/getx/edit_text_validator_controller.dart';
+import 'package:flutter/material.dart';
 
-  void zaban( input , error){
-    final alphanumeric = RegExp("[A-Z a-z 0-9]");
-    if(alphanumeric.hasMatch(input) == false){
+class Validator {
+  final alphanumeric = RegExp("[A-Z a-z 0-9]");
+    void zaban({required String? error, required  dynamic input}) {
+    if (alphanumeric.hasMatch(input) == false) {
       error = "نام کاربری نمی تواند فارسی باشد.";
-    }else{
+    } else {
       error = null;
     }
-    if((input).isEmpty){
+    if ((input).isEmpty) {
       error = "نام کاربری نمی تواند خالی باشد.";
     }
   }
-
 }
-

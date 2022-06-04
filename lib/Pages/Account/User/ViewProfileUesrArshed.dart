@@ -1,11 +1,11 @@
-import 'package:flutter/cupertino.dart';
+import 'package:Nahvino/Services/config.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:Nahvino/Services/login/user/Config.dart';
 import '../../../Services/Login/ApiService.dart';
 import '../../../Utils/Text/Text.dart';
-import '../Caht/ChatPage.dart';
 import 'ViewProfile.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
 class ViewProfileUesrArshed extends StatefulWidget {
   const ViewProfileUesrArshed({Key? key, this.userid}) : super(key: key);
@@ -165,7 +165,7 @@ class _ViewProfileUesrArshedState extends State<ViewProfileUesrArshed> {
                                     shape: CircleBorder(),
                                     clipBehavior: Clip.antiAliasWithSaveLayer,
                                     child: Image.network(
-                                      Config.fileurl +
+                                      configss.fileurl +
                                           resultResponseViewProfileUesr[
                                               'imageUrl']!,
                                       fit: BoxFit.cover,
@@ -301,10 +301,38 @@ class _ViewProfileUesrArshedState extends State<ViewProfileUesrArshed> {
                                             'parentImageUrl'] !=
                                         "")
                                 ? Card(
+                              shape: CircleBorder(),
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              child: CachedNetworkImage(
+                                height: 75,
+                                width: 75,
+                                cacheManager: CacheManager(Config('customCacheKey',
+                                    stalePeriod: Duration(days: 7), maxNrOfCacheObjects: 100)),
+                                imageUrl: configss.fileurl + resultResponseViewProfileUesr[
+                                'parentImageUrl']!,
+                                imageBuilder: (context, imageProvider) => Container(
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: imageProvider,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                                placeholder: (context, url) => CircularProgressIndicator(),
+                                errorWidget: (context, url, error) => Icon(Icons.error),
+                              ),
+                            ): Image.asset(
+                              'assets/images/home/user.png',
+                              fit: BoxFit.cover,
+                              height: 75,
+                              width: 75,
+                            ),
+
+                            /*Card(
                                     shape: CircleBorder(),
                                     clipBehavior: Clip.antiAliasWithSaveLayer,
                                     child: Image.network(
-                                      Config.fileurl +
+                                      configss.fileurl +
                                           resultResponseViewProfileUesr[
                                               'parentImageUrl']!,
                                       fit: BoxFit.cover,
@@ -340,7 +368,7 @@ class _ViewProfileUesrArshedState extends State<ViewProfileUesrArshed> {
                                     fit: BoxFit.cover,
                                     height: 30,
                                     width: 30,
-                                  ),
+                                  ),*/
                             /*    InkWell(
                               onTap: () {
 

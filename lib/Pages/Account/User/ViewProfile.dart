@@ -1,15 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:lottie/lottie.dart';
 import 'package:Nahvino/Pages/Account/User/EditProfile.dart';
-import 'package:Nahvino/Services/login/user/Config.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../Model/user/user/viewprofile_response_model.dart';
 import '../../../Services/Login/ApiService.dart';
+import '../../../Services/config.dart';
 import '../../../Utils/Button/Button.dart';
 import '../../../Utils/Text/Text.dart';
 import '../../../App_localizations.dart';
@@ -23,6 +23,7 @@ class ViewProfile extends StatefulWidget {
 
   @override
   State<ViewProfile> createState() => _ViewProfileState();
+
 }
 
 class _ViewProfileState extends State<ViewProfile> {
@@ -34,7 +35,7 @@ class _ViewProfileState extends State<ViewProfile> {
   var resultResponseGetUserAbandon;
   late APIService apiService;
   String? imagePath;
-  var tabdel;
+  late int tabdel;
 
   List<String> ranks = <String>[
     "مبتدی",
@@ -71,6 +72,19 @@ class _ViewProfileState extends State<ViewProfile> {
     Lottie.asset('assets/anim/phonix/level8.json'),
 
   ];
+
+  Day(){
+    double dotabdel = tabdel.toDouble();
+
+    double range= 0.00;
+    late double a = range;
+    for (double i = 0.00; i<=dotabdel / 29.00; i+=0.037){
+      range =i;
+      print("=====================>$range");
+    }
+    return a;
+  }
+
 
   @override
   void initState() {
@@ -301,7 +315,7 @@ class _ViewProfileState extends State<ViewProfile> {
                     children: [
                       (resultResponse!.imageUrl != null &&
                           resultResponse!.imageUrl != "")
-                          ? Card(
+                          ? /*Card(
                         shape: CircleBorder(),
                         clipBehavior: Clip.antiAliasWithSaveLayer,
                         child: Image.network(
@@ -333,6 +347,8 @@ class _ViewProfileState extends State<ViewProfile> {
                           width: 75,
                         ),
                       )
+
+
                       /*    CachedNetworkImage(
                       imageUrl: Config.fileurl + resultResponse!.imageUrl!,
                       placeholder: (context, url) => CircularProgressIndicator(),
@@ -341,6 +357,33 @@ class _ViewProfileState extends State<ViewProfile> {
                       width: 100,
                     )*/
                           : Image.asset(
+                        'assets/images/home/user.png',
+                        fit: BoxFit.cover,
+                        height: 75,
+                        width: 75,
+                      ),*/
+
+                      Card(
+                        shape: CircleBorder(),
+                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                        child: CachedNetworkImage(
+                          height: 75,
+                          width: 75,
+                          cacheManager: CacheManager(Config('customCacheKey',
+                              stalePeriod: Duration(days: 7), maxNrOfCacheObjects: 100)),
+                          imageUrl: configss.fileurl + resultResponse!.imageUrl!,
+                          imageBuilder: (context, imageProvider) => Container(
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: imageProvider,
+                                  fit: BoxFit.cover,
+                                 ),
+                            ),
+                          ),
+                          placeholder: (context, url) => CircularProgressIndicator(),
+                          errorWidget: (context, url, error) => Icon(Icons.error),
+                        ),
+                      ): Image.asset(
                         'assets/images/home/user.png',
                         fit: BoxFit.cover,
                         height: 75,
@@ -460,11 +503,38 @@ class _ViewProfileState extends State<ViewProfile> {
                             },
                             child: (resultResponse!.parentImageUrl != null &&
                                 resultResponse!.parentImageUrl != "")
-                                ? Card(
+                                ?
+                            Card(
+                              shape: CircleBorder(),
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              child: CachedNetworkImage(
+                                height: 45,
+                                width: 45,
+                                cacheManager: CacheManager(Config('customCacheKey',
+                                    stalePeriod: Duration(days: 7), maxNrOfCacheObjects: 100)),
+                                imageUrl: configss.fileurl + resultResponse!.parentImageUrl!,
+                                imageBuilder: (context, imageProvider) => Container(
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        image: imageProvider,
+                                        fit: BoxFit.cover,
+                                     ),
+                                  ),
+                                ),
+                                placeholder: (context, url) => CircularProgressIndicator(),
+                                errorWidget: (context, url, error) => Icon(Icons.error),
+                              ),
+                            ): Image.asset(
+                              'assets/images/home/user.png',
+                              fit: BoxFit.cover,
+                              height: 45,
+                              width: 45,
+                            ),
+                            /*Card(
                               shape: CircleBorder(),
                               clipBehavior: Clip.antiAliasWithSaveLayer,
                               child: Image.network(
-                                Config.fileurl +
+                                configss.fileurl +
                                     resultResponse!.parentImageUrl!,
                                 fit: BoxFit.cover,
                                 errorBuilder: (BuildContext context,
@@ -499,7 +569,7 @@ class _ViewProfileState extends State<ViewProfile> {
                               fit: BoxFit.cover,
                               height: 30,
                               width: 30,
-                            ),
+                            ),*/
                           ),
                           SizedBox(
                             height: 4,
@@ -659,7 +729,7 @@ class _ViewProfileState extends State<ViewProfile> {
                         child: CircularPercentIndicator(
                           radius: 35.0,
                           lineWidth: 5.0,
-                          percent: 0.1,
+                          percent:Day(),
                           animation: true,
                           center: Padding(
                             padding: const EdgeInsets.all(15.0),
@@ -769,6 +839,7 @@ class _ViewProfileState extends State<ViewProfile> {
       ),
     );
   }
+
 
   void onSelected(BuildContext context, int item) {
     switch (item) {

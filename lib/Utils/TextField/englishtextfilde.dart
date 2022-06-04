@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class TextProfileEn extends StatefulWidget {
-  const  TextProfileEn({
+class EnglishTextFilde extends StatefulWidget {
+  const  EnglishTextFilde({
     Key? key,
     this.hint,
     this.controller,
@@ -17,10 +17,10 @@ class TextProfileEn extends StatefulWidget {
   final Widget? suffixIcon;
 
   @override
-  State<TextProfileEn> createState() => _TextProfileEnState();
+  State<EnglishTextFilde> createState() => _EnglishTextFildeState();
 }
 
-class _TextProfileEnState extends State<TextProfileEn> {
+class _EnglishTextFildeState extends State<EnglishTextFilde> {
   String? error;
   final alphanumeric = RegExp("[A-Z a-z 0-9]");
 
@@ -46,7 +46,7 @@ class _TextProfileEnState extends State<TextProfileEn> {
 
             });
           },
-          style: TextStyle(fontSize: 16, fontFamily: 'vazirlight'),
+          style: TextStyle(fontSize: 16, fontFamily: 'Vazirmatn_Medium'),
           decoration: InputDecoration(
             hintText: widget.hint,
             errorText: error,
