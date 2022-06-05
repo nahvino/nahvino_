@@ -10,7 +10,6 @@ import 'package:Nahvino/Pages/Account/Caht/ChatPageController.dart';
 import 'package:Nahvino/Pages/Account/Caht/AboutGroup.dart';
 import 'package:lottie/lottie.dart';
 import '../../../App_localizations.dart';
-import '../../../Model/User/SignalR/GroupModel.dart';
 import '../../../Model/User/SignalR/ReceiveMessageModel.dart';
 import '../../../Utils/Text/Text.dart';
 import '../User/ViewProfileUesr.dart';
@@ -292,8 +291,6 @@ class _ChatpageState extends State<Chatpage> {
       chat = chatPageController.chats[index];
     }
     bool fromMe = chat.userId == chatPageController.myUserId;
-    bool admin = chatPageController.myUserId == adminid;
-
     return Row(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment:

@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:lottie/lottie.dart';
 import 'package:Nahvino/Pages/Account/User/EditProfile.dart';
@@ -23,7 +22,6 @@ class ViewProfile extends StatefulWidget {
 
   @override
   State<ViewProfile> createState() => _ViewProfileState();
-
 }
 
 class _ViewProfileState extends State<ViewProfile> {
@@ -35,7 +33,9 @@ class _ViewProfileState extends State<ViewProfile> {
   var resultResponseGetUserAbandon;
   late APIService apiService;
   String? imagePath;
-  late int tabdel;
+  late int day;
+  late int month;
+  late int year;
 
   List<String> ranks = <String>[
     "مبتدی",
@@ -70,21 +70,41 @@ class _ViewProfileState extends State<ViewProfile> {
     Lottie.asset('assets/anim/phonix/level6.json'),
     Lottie.asset('assets/anim/phonix/level7.json'),
     Lottie.asset('assets/anim/phonix/level8.json'),
-
   ];
 
-  Day(){
-    double dotabdel = tabdel.toDouble();
+  Day() {
+    double dotabdel = day.toDouble();
 
-    double range= 0.00;
+    double range = 0.00;
     late double a = range;
-    for (double i = 0.00; i<=dotabdel / 29.00; i+=0.037){
-      range =i;
+    for (double i = 0.00; i <= dotabdel / 29.00; i += 0.037) {
+      range = i;
       print("=====================>$range");
     }
     return a;
   }
 
+  Month() {
+    double dotabdel = month.toDouble();
+    double range = 0.00;
+    late double a = range;
+    for (double i = 0.00; i <= dotabdel / 12.00; i += 0.11) {
+      range = i;
+      print("Month=====================>$range");
+    }
+    return a;
+  }
+
+  Year() {
+    double dotabdel = year.toDouble();
+    double range = 0.00;
+    late double a = range;
+    for (double i = 0.00; i <= dotabdel / 100.0; i += 2.0) {
+      range = i;
+      print("Year=====================>$range");
+    }
+    return a;
+  }
 
   @override
   void initState() {
@@ -114,7 +134,7 @@ class _ViewProfileState extends State<ViewProfile> {
   bool lang = false; // en => true / fa => false
   @override
   Widget build(BuildContext context) {
-       return Directionality(
+    return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
         backgroundColor: Colors.grey[200],
@@ -133,11 +153,16 @@ class _ViewProfileState extends State<ViewProfile> {
 
   Widget body(BuildContext context) {
     String date = resultResponseGetUserAbandon['data'].split(" ")[2];
-    tabdel = int.parse(date);
-    if (tabdel < 0) {
-      tabdel = 0;
+    String mont = resultResponseGetUserAbandon['data'].split(" ")[1];
+    String yaer = resultResponseGetUserAbandon['data'].split(" ")[0];
+    day = int.parse(date);
+    month = int.parse(mont);
+    year = int.parse(yaer);
+    if (day < 0) {
+      day = 0;
     }
-   return SingleChildScrollView(
+
+    return SingleChildScrollView(
       child: Column(
         children: [
           Card(
@@ -155,11 +180,8 @@ class _ViewProfileState extends State<ViewProfile> {
                         children: [
                           Container(
                             padding: EdgeInsets.only(
-                                right: MediaQuery
-                                    .of(context)
-                                    .size
-                                    .height *
-                                    0.02),
+                                right:
+                                    MediaQuery.of(context).size.height * 0.02),
                             child: textbold(
                               textAlign: TextAlign.right,
                               text: resultResponse?.userName ?? "مهمان",
@@ -171,14 +193,12 @@ class _ViewProfileState extends State<ViewProfile> {
                             height: 30,
                             child: PopupMenuButton<int>(
                               icon: Icon(Icons.menu),
-                              itemBuilder: (context) =>
-                              [
+                              itemBuilder: (context) => [
                                 PopupMenuItem(
                                   value: 0,
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       Icon(
                                         Icons.security,
@@ -227,8 +247,7 @@ class _ViewProfileState extends State<ViewProfile> {
                                 PopupMenuItem(
                                   value: 4,
                                   child: Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Caption1(
                                         textAlign: TextAlign.center,
@@ -247,8 +266,7 @@ class _ViewProfileState extends State<ViewProfile> {
                                 PopupMenuItem(
                                   value: 2,
                                   child: Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Icon(
                                         Icons.share,
@@ -273,8 +291,7 @@ class _ViewProfileState extends State<ViewProfile> {
                                 PopupMenuItem(
                                   value: 3,
                                   child: Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Image.asset(
                                           'assets/images/icon/pngwing.com.png',
@@ -314,7 +331,7 @@ class _ViewProfileState extends State<ViewProfile> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       (resultResponse!.imageUrl != null &&
-                          resultResponse!.imageUrl != "")
+                              resultResponse!.imageUrl != "")
                           ? /*Card(
                         shape: CircleBorder(),
                         clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -363,32 +380,39 @@ class _ViewProfileState extends State<ViewProfile> {
                         width: 75,
                       ),*/
 
-                      Card(
-                        shape: CircleBorder(),
-                        clipBehavior: Clip.antiAliasWithSaveLayer,
-                        child: CachedNetworkImage(
-                          height: 75,
-                          width: 75,
-                          cacheManager: CacheManager(Config('customCacheKey',
-                              stalePeriod: Duration(days: 7), maxNrOfCacheObjects: 100)),
-                          imageUrl: configss.fileurl + resultResponse!.imageUrl!,
-                          imageBuilder: (context, imageProvider) => Container(
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image: imageProvider,
-                                  fit: BoxFit.cover,
-                                 ),
+                          Card(
+                              shape: CircleBorder(),
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              child: CachedNetworkImage(
+                                height: 75,
+                                width: 75,
+                                cacheManager: CacheManager(Config(
+                                    'customCacheKey',
+                                    stalePeriod: Duration(days: 7),
+                                    maxNrOfCacheObjects: 100)),
+                                imageUrl: configss.fileurl +
+                                    resultResponse!.imageUrl!,
+                                imageBuilder: (context, imageProvider) =>
+                                    Container(
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: imageProvider,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                                placeholder: (context, url) =>
+                                    CircularProgressIndicator(),
+                                errorWidget: (context, url, error) =>
+                                    Icon(Icons.error),
+                              ),
+                            )
+                          : Image.asset(
+                              'assets/images/home/user.png',
+                              fit: BoxFit.cover,
+                              height: 75,
+                              width: 75,
                             ),
-                          ),
-                          placeholder: (context, url) => CircularProgressIndicator(),
-                          errorWidget: (context, url, error) => Icon(Icons.error),
-                        ),
-                      ): Image.asset(
-                        'assets/images/home/user.png',
-                        fit: BoxFit.cover,
-                        height: 75,
-                        width: 75,
-                      ),
                       Column(
                         children: [
                           textbold(
@@ -422,8 +446,7 @@ class _ViewProfileState extends State<ViewProfile> {
                                       border: Border.all(
                                           color: Colors.black26, width: 1)),
                                   child: textspan(
-                                    text:
-                                    ranksadad[resultResponse!.rank ?? 0],
+                                    text: ranksadad[resultResponse!.rank ?? 0],
                                     color: Colors.purpleAccent,
                                     textAlign: TextAlign.left,
                                   ),
@@ -502,34 +525,40 @@ class _ViewProfileState extends State<ViewProfile> {
                                           )));
                             },
                             child: (resultResponse!.parentImageUrl != null &&
-                                resultResponse!.parentImageUrl != "")
-                                ?
-                            Card(
-                              shape: CircleBorder(),
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              child: CachedNetworkImage(
-                                height: 45,
-                                width: 45,
-                                cacheManager: CacheManager(Config('customCacheKey',
-                                    stalePeriod: Duration(days: 7), maxNrOfCacheObjects: 100)),
-                                imageUrl: configss.fileurl + resultResponse!.parentImageUrl!,
-                                imageBuilder: (context, imageProvider) => Container(
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        image: imageProvider,
-                                        fit: BoxFit.cover,
-                                     ),
+                                    resultResponse!.parentImageUrl != "")
+                                ? Card(
+                                    shape: CircleBorder(),
+                                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                                    child: CachedNetworkImage(
+                                      height: 45,
+                                      width: 45,
+                                      cacheManager: CacheManager(Config(
+                                          'customCacheKey',
+                                          stalePeriod: Duration(days: 7),
+                                          maxNrOfCacheObjects: 100)),
+                                      imageUrl: configss.fileurl +
+                                          resultResponse!.parentImageUrl!,
+                                      imageBuilder: (context, imageProvider) =>
+                                          Container(
+                                        decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                            image: imageProvider,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+                                      placeholder: (context, url) =>
+                                          CircularProgressIndicator(),
+                                      errorWidget: (context, url, error) =>
+                                          Icon(Icons.error),
+                                    ),
+                                  )
+                                : Image.asset(
+                                    'assets/images/home/user.png',
+                                    fit: BoxFit.cover,
+                                    height: 45,
+                                    width: 45,
                                   ),
-                                ),
-                                placeholder: (context, url) => CircularProgressIndicator(),
-                                errorWidget: (context, url, error) => Icon(Icons.error),
-                              ),
-                            ): Image.asset(
-                              'assets/images/home/user.png',
-                              fit: BoxFit.cover,
-                              height: 45,
-                              width: 45,
-                            ),
                             /*Card(
                               shape: CircleBorder(),
                               clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -588,31 +617,22 @@ class _ViewProfileState extends State<ViewProfile> {
                   ),
                   Padding(
                       padding: EdgeInsets.only(
-                        right: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.03,
-                        bottom: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.02,
-                        top: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.01,
+                        right: MediaQuery.of(context).size.height * 0.03,
+                        bottom: MediaQuery.of(context).size.height * 0.02,
+                        top: MediaQuery.of(context).size.height * 0.01,
                       ),
                       child: resultResponse!.bio == null ||
-                          resultResponse!.bio == ""
+                              resultResponse!.bio == ""
                           ? textspan(
-                        text: "بیو گرافی شما",
-                        color: Colors.black38,
-                        textAlign: TextAlign.start,
-                      )
+                              text: "بیو گرافی شما",
+                              color: Colors.black38,
+                              textAlign: TextAlign.start,
+                            )
                           : textspan(
-                        text: resultResponse!.bio.toString(),
-                        color: Colors.black,
-                        textAlign: TextAlign.start,
-                      )),
+                              text: resultResponse!.bio.toString(),
+                              color: Colors.black,
+                              textAlign: TextAlign.start,
+                            )),
                   SizedBox(
                     height: 1,
                   ),
@@ -624,8 +644,9 @@ class _ViewProfileState extends State<ViewProfile> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) =>
-                                  EditProfile(model: resultResponse!,)));
+                              builder: (context) => EditProfile(
+                                    model: resultResponse!,
+                                  )));
                     },
                     color: Colors.white,
                   )
@@ -669,7 +690,7 @@ class _ViewProfileState extends State<ViewProfile> {
                         child: CircularPercentIndicator(
                           radius: 35.0,
                           lineWidth: 5.0,
-                          percent: 0.71,
+                          percent: Year(),
                           animation: true,
                           center: Padding(
                             padding: const EdgeInsets.all(15.0),
@@ -678,9 +699,11 @@ class _ViewProfileState extends State<ViewProfile> {
                                 Footnate(
                                   textAlign: TextAlign.center,
                                   color: Colors.cyan,
-                                  text: resultResponseGetUserAbandon['data']
+                                  text: yaer.toString(),
+
+                                  /*resultResponseGetUserAbandon['data']
                                       .split(" ")[0]
-                                      .toString(),
+                                      .toString(),*/
                                 ),
                                 Caption2(
                                     textAlign: TextAlign.center,
@@ -699,7 +722,7 @@ class _ViewProfileState extends State<ViewProfile> {
                         child: CircularPercentIndicator(
                           radius: 35.0,
                           lineWidth: 5.0,
-                          percent: 0.71,
+                          percent: Month(),
                           animation: true,
                           center: Padding(
                             padding: const EdgeInsets.all(15.0),
@@ -708,10 +731,12 @@ class _ViewProfileState extends State<ViewProfile> {
                                 Footnate(
                                     textAlign: TextAlign.center,
                                     color: Colors.cyan,
-                                    text: resultResponseGetUserAbandon['data']
+                                    text: month.toString()),
+
+                                /*resultResponseGetUserAbandon['data']
                                         .toString()
                                         .split(" ")[1]
-                                        .toString()),
+                                        .toString())*/
                                 Caption2(
                                     textAlign: TextAlign.center,
                                     color: Colors.cyan,
@@ -729,7 +754,7 @@ class _ViewProfileState extends State<ViewProfile> {
                         child: CircularPercentIndicator(
                           radius: 35.0,
                           lineWidth: 5.0,
-                          percent:Day(),
+                          percent: Day(),
                           animation: true,
                           center: Padding(
                             padding: const EdgeInsets.all(15.0),
@@ -738,13 +763,12 @@ class _ViewProfileState extends State<ViewProfile> {
                                 Footnate(
                                     textAlign: TextAlign.center,
                                     color: Colors.cyan,
-                                    text: tabdel
-                                        .toString()
-                                  /*resultResponseGetUserAbandon['data']
+                                    text: day.toString()
+                                    /*resultResponseGetUserAbandon['data']
                                           .toString()
                                           .split(" ")[2]
                                           .toString()*/
-                                ),
+                                    ),
                                 Caption2(
                                     textAlign: TextAlign.center,
                                     color: Colors.cyan,
@@ -755,7 +779,6 @@ class _ViewProfileState extends State<ViewProfile> {
                           progressColor: Colors.cyanAccent,
                         ),
                       ),
-
 
                       /*Body(
                       textAlign: TextAlign.center,
@@ -839,7 +862,6 @@ class _ViewProfileState extends State<ViewProfile> {
       ),
     );
   }
-
 
   void onSelected(BuildContext context, int item) {
     switch (item) {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class textspan extends StatelessWidget {
   textspan(
       {required this.text, required this.color, required TextAlign textAlign});
@@ -17,6 +18,7 @@ class textspan extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class textbold extends StatelessWidget {
   textbold(
       {required this.text, required this.color, required TextAlign textAlign});
@@ -34,6 +36,7 @@ class textbold extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class LargeTitle extends StatelessWidget {
   LargeTitle(
       {required this.text, required this.color, required TextAlign textAlign});
@@ -50,6 +53,7 @@ class LargeTitle extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class Title1 extends StatelessWidget {
   Title1(
       {required this.text, required this.color, required TextAlign textAlign});
@@ -66,6 +70,7 @@ class Title1 extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class Title2 extends StatelessWidget {
   Title2(
       {required this.text, required this.color, required TextAlign textAlign});
@@ -83,6 +88,7 @@ class Title2 extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class Title3 extends StatelessWidget {
   Title3(
       {required this.text, required this.color, required TextAlign textAlign});
@@ -99,8 +105,9 @@ class Title3 extends StatelessWidget {
   }
 }
 
-class Headline extends StatelessWidget {
-  Headline(
+// ignore: must_be_immutable
+class HeadLine extends StatelessWidget {
+  HeadLine(
       {required this.text, required this.color, required TextAlign textAlign});
 
   String text;
@@ -119,6 +126,7 @@ class Headline extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class Body extends StatelessWidget {
   Body({required this.text, required this.color, required TextAlign textAlign});
 
@@ -135,6 +143,7 @@ class Body extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class Callout extends StatelessWidget {
   Callout(
       {required this.text, required this.color, required TextAlign textAlign});
@@ -152,6 +161,7 @@ class Callout extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class Subhead extends StatelessWidget {
   Subhead(
       {required this.text, required this.color, required TextAlign textAlign});
@@ -169,6 +179,7 @@ class Subhead extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class Footnate extends StatelessWidget {
   Footnate({required this.text, this.color, TextAlign? textAlign});
 
@@ -185,6 +196,7 @@ class Footnate extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class Caption1 extends StatelessWidget {
   Caption1({required this.text, this.color, this.textAlign});
 
@@ -196,7 +208,6 @@ class Caption1 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text!,
-
       textAlign: textAlign,
       style:
           TextStyle(color: color, fontSize: 12, fontFamily: 'Vazirmatn_Light'),
@@ -204,6 +215,7 @@ class Caption1 extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class Caption2 extends StatelessWidget {
   Caption2(
       {required this.text, required this.color, required TextAlign textAlign});

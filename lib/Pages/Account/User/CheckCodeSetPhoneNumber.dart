@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
 import '../../../Services/login/ApiService.dart';
@@ -42,7 +41,7 @@ class _CheckCodeSetPhoneNumberState extends State<CheckCodeSetPhoneNumber> {
   }
 
   Widget body(BuildContext context) => SingleChildScrollView(
-    child: Column(children: [
+        child: Column(children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -50,8 +49,10 @@ class _CheckCodeSetPhoneNumberState extends State<CheckCodeSetPhoneNumber> {
                 alignment: Alignment.topLeft,
                 child: BackButton(
                   onPressed: (() {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => SetPhoneNumber()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SetPhoneNumber()));
                   }),
                 ),
               ),
@@ -83,7 +84,6 @@ class _CheckCodeSetPhoneNumberState extends State<CheckCodeSetPhoneNumber> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-
                 SizedBox(width: 3),
                 //Text(widget.setPhoneNumber)
                 textspan(
@@ -92,26 +92,31 @@ class _CheckCodeSetPhoneNumberState extends State<CheckCodeSetPhoneNumber> {
                   color: Colors.green,
                 ),
               ]),
-            /*  TextProfile(
+              /*  TextProfile(
                 controller: code,
                 hint: AppLocalizations.of(context)!.translate(
                   'phone_text_filed',
                 )!,
               ),*/
-              SizedBox(height: 10,),
+              SizedBox(
+                height: 10,
+              ),
               Directionality(
                 textDirection: TextDirection.ltr,
-                child: Pinput(controller:code
-                  ,autofocus: true,
+                child: Pinput(
+                  controller: code,
+                  autofocus: true,
                   enabled: true,
                   length: 5,
                   keyboardType: TextInputType.number,
                   mainAxisAlignment: MainAxisAlignment.center,
-                  androidSmsAutofillMethod: AndroidSmsAutofillMethod.smsUserConsentApi,
+                  androidSmsAutofillMethod:
+                      AndroidSmsAutofillMethod.smsUserConsentApi,
                 ),
               ),
-              SizedBox(height: 10,),
-
+              SizedBox(
+                height: 10,
+              ),
               Buttonfull(
                 color: Colors.white,
                 text: AppLocalizations.of(context)!.translate(
@@ -124,8 +129,8 @@ class _CheckCodeSetPhoneNumberState extends State<CheckCodeSetPhoneNumber> {
                     return;
                   }
                   apiService
-                      .checkcodesetPhoneNumber(
-                          widget.setPhoneNumber.toString(), int.parse(code.text))
+                      .checkcodesetPhoneNumber(widget.setPhoneNumber.toString(),
+                          int.parse(code.text))
                       .then((response) async {
                     setState(() {
                       isApiCallProgress = false;
@@ -135,10 +140,13 @@ class _CheckCodeSetPhoneNumberState extends State<CheckCodeSetPhoneNumber> {
                     if (response != false) {
                       apiService.showSnackBar(
                           text: response['message'] ?? "کد تایید ارسال شد");
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (context) => ViewProfile()));
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ViewProfile()));
                     } else {
-                      apiService.showSnackBar(text: response['message'] ?? "sdd");
+                      apiService.showSnackBar(
+                          text: response['message'] ?? "sdd");
                     }
                   });
                 },
@@ -146,5 +154,5 @@ class _CheckCodeSetPhoneNumberState extends State<CheckCodeSetPhoneNumber> {
             ],
           ),
         ]),
-  );
+      );
 }

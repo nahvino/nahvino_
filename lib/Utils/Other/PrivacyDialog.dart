@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import '../../App_localizations.dart';
 import '../Button/Button.dart';
 
+// ignore: must_be_immutable
 class PrivacyDialog extends StatelessWidget {
   var size;
 
   @override
   Widget build(BuildContext context) {
-    final mediaQuery = MediaQuery.of(context);
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       elevation: 0,

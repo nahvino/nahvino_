@@ -37,6 +37,13 @@
             {
               "client_id": "721961416036-rj10dcgvmvi93t11dlbhr4o1qd1cqf47.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "721961416036-41v7r3tsund8fvmnbi74ued45ihbspf2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.nahvino"
+              }
             }
           ]
         }

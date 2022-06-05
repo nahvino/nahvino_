@@ -1,8 +1,17 @@
-import 'package:flutter/cupertino.dart';
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class SttingMenusButton extends StatelessWidget {
-  SttingMenusButton({Key? key, required this.text, required this.onPressed, required this.icon, this.prefixIcon, this.suffixIcon, this.color})
+  SttingMenusButton(
+      {Key? key,
+      required this.text,
+      required this.onPressed,
+      required this.icon,
+      this.prefixIcon,
+      this.suffixIcon,
+      this.color})
       : super(key: key);
 
   VoidCallback onPressed;
@@ -17,8 +26,7 @@ class SttingMenusButton extends StatelessWidget {
       alignment: Alignment.center,
       child: RaisedButton(
         onPressed: onPressed,
-        shape:
-        RoundedRectangleBorder(borderRadius: BorderRadius.circular(0.0)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0.0)),
         padding: EdgeInsets.all(0.0),
         child: Ink(
           decoration: BoxDecoration(
@@ -31,7 +39,7 @@ class SttingMenusButton extends StatelessWidget {
                   center: Alignment(0.0, 0.0)),
               borderRadius: BorderRadius.circular(0.0)),
           child: Container(
-            constraints: BoxConstraints( minHeight: 50.0),
+            constraints: BoxConstraints(minHeight: 50.0),
             alignment: Alignment.center,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -43,7 +51,8 @@ class SttingMenusButton extends StatelessWidget {
                 Text(
                   text,
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.white, fontSize: 25 , fontFamily: 'byekan'),
+                  style: TextStyle(
+                      color: Colors.white, fontSize: 25, fontFamily: 'byekan'),
                 ),
               ],
             ),
@@ -53,29 +62,37 @@ class SttingMenusButton extends StatelessWidget {
     );
   }
 }
-
+// ignore: must_be_immutable
 class MenusSttingButton extends StatelessWidget {
-  MenusSttingButton({Key? key,  this.text,  this.onPressed,   this.iconn, this.prefixIcon, this.suffixIcon, this.color})
+  MenusSttingButton(
+      {Key? key,
+      this.text,
+      this.onPressed,
+      this.iconn,
+      this.prefixIcon,
+      this.suffixIcon,
+      this.color})
       : super(key: key);
 
   VoidCallback? onPressed;
   String? text;
-   Widget? iconn;
-   Widget? color;
-   Widget? prefixIcon;
-   Widget? suffixIcon;
+  Widget? iconn;
+  Widget? color;
+  Widget? prefixIcon;
+  Widget? suffixIcon;
   @override
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.topRight,
       child: TextButton(
         onPressed: onPressed,
-        child:  Row(
+        child: Row(
           children: [
             Text(
               text!,
               textAlign: TextAlign.right,
-              style: TextStyle(color: Colors.black, fontSize: 25 , fontFamily: 'byekan'),
+              style: TextStyle(
+                  color: Colors.black, fontSize: 25, fontFamily: 'byekan'),
             ),
           ],
         ),

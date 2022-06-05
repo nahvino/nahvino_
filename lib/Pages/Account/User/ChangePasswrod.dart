@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:Nahvino/Pages/Account/User/ViewProfile.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import '../../../Services/login/ApiService.dart';
 import '../../../Utils/Text/TextField.dart';
 import '../../../Utils/Text/Text.dart';

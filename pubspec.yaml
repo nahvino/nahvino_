@@ -51,7 +51,6 @@ dependencies:
   share_plus: ^4.0.4
   #notifications:
   firebase_core: ^1.17.1
-  firebase_messaging: ^11.4.1
   overlay_support: ^2.0.1
   pinput: ^2.2.7
   #cacheimage
@@ -59,6 +58,7 @@ dependencies:
   flutter_cache_manager: ^3.3.0
   percent_indicator: ^4.0.0
   otp_timer_button: ^1.1.0
+  firebase_messaging: ^11.4.1
 
 dev_dependencies:
   flutter_test:

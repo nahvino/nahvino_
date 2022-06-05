@@ -2,14 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:Nahvino/Pages/Account/Caht/ChatPageController.dart';
-import 'package:Nahvino/Pages/Home.dart';
 import 'package:Nahvino/Pages/Settings.dart';
 import 'package:Nahvino/App_localizations.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'Pages/Account/Caht/ChatPage.dart';
 import 'Pages/Account/User/ViewProfile.dart';
 import 'App_localizations.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 
 class MyTabs extends StatefulWidget {
   const MyTabs({Key? key}) : super(key: key);

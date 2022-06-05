@@ -5,11 +5,13 @@ import 'package:http/http.dart' as http;
 import 'package:Nahvino/Model/user/user/viewprofile_response_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../config.dart';
+
 class APIService {
   static var client = http.Client();
 
+  BuildContext context;
 
-  APIService(this._context);
+  APIService(this.context);
 
   bool validateResponse(http.Response response) {
     var data = json.decode(response.body);
@@ -62,7 +64,6 @@ class APIService {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
-
       'Authorization': "Bearer ${await preferences.getString("token")}"
     };
     var url = Uri.parse(configss.baseURL + configss.editprofileuser);
@@ -379,7 +380,6 @@ class APIService {
   }
 
   Future OtpPhone(String OtpPhoneController) async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
     };
@@ -571,7 +571,7 @@ class APIService {
   static Future GetLastOtherVisit(
     String GetLastOtherVisit,
   ) async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
+   // SharedPreferences preferences = await SharedPreferences.getInstance();
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
       //'Authorization': "Bearer ${await preferences.getString("token")}"
@@ -590,8 +590,9 @@ class APIService {
     }
   }
 
-  static Future getuserabandonViewProfileUesr(     String getuserabandonViewProfileUesr,
-      ) async {
+  static Future getuserabandonViewProfileUesr(
+    String getuserabandonViewProfileUesr,
+  ) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
@@ -601,7 +602,7 @@ class APIService {
     var response = await client.post(
       url,
       headers: requestHeaders,
-      body: jsonEncode({"userId":getuserabandonViewProfileUesr}),
+      body: jsonEncode({"userId": getuserabandonViewProfileUesr}),
     );
     debugPrint(response.body.toString());
     if (response.statusCode == 200) {
@@ -610,6 +611,4 @@ class APIService {
       return false;
     }
   }
-
-
 }

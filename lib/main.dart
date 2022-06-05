@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'App_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'LanguageConstants.dart';
 import 'splash.dart';
-
 import 'dart:async';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'firebase_options.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   print("Handling a background message: ${message.messageId}");
@@ -164,17 +163,21 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
-  late final FirebaseMessaging _messaging;
-  late int _totalNotifications;
+  late final FirebaseMessaging messaging;
+  late int totalNotifications;
 
   String messgaeTitle = 'Empty';
   String notificationAlert = 'Alert';
 
-  void registerNotfition() async {
-    await Firebase.initializeApp();
+  Future<void> registerNotfition() async {
+    //await Firebase.initializeApp();
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+    String? fcntoken = await FirebaseMessaging.instance.getToken();
+    print("-----------token------------->$fcntoken");
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-    NotificationSettings setings = await _messaging.requestPermission(
+    NotificationSettings setings = await messaging.requestPermission(
       alert: true,
       badge: true,
       provisional: false,
@@ -183,8 +186,8 @@ class _MyAppState extends State<MyApp> {
     if (setings.authorizationStatus == AuthorizationStatus.authorized) {
       FirebaseMessaging.onMessage.listen((RemoteMessage message) {
         setState(() {
-          messgaeTitle=message.data["title"];
-          notificationAlert=message.data["body"];
+          messgaeTitle = message.data["title"];
+          notificationAlert = message.data["body"];
         });
       });
     }
@@ -192,7 +195,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    _totalNotifications=0;
+    totalNotifications = 0;
     registerNotfition();
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
@@ -203,7 +206,6 @@ class _MyAppState extends State<MyApp> {
     });
 
     super.initState();
-
   }
 
   Locale? _locale;

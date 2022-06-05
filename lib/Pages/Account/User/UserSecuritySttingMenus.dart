@@ -1,5 +1,4 @@
 import 'package:Nahvino/main.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:share_plus/share_plus.dart';
@@ -60,6 +59,7 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
   bool lang = false; // en => true / fa => false
   void changeLanguage(Language language) async {
 
+    // ignore: unnecessary_cast
     Locale _locale = (await setLocale(language.languageCode)) as Locale;
     MyApp.setLocale(context, _locale);
 
