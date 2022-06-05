@@ -8,7 +8,6 @@ import '../config.dart';
 class APIService {
   static var client = http.Client();
 
-  BuildContext _context;
 
   APIService(this._context);
 
