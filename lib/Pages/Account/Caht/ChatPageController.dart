@@ -6,6 +6,7 @@ import 'package:Nahvino/Model/User/SignalR/GroupModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:signalr_core/signalr_core.dart';
 import '../../../Model/User/SignalR/ReceiveMessageModel.dart';
+import '../../../Services/config.dart';
 
 class ChatPageController extends GetxController {
   RxBool emojiShowing = false.obs;
@@ -37,9 +38,11 @@ class ChatPageController extends GetxController {
     //myUserId="01d772d7-4a35-498e-9f24-5a27e5ef1438";
   }
 
+  var url = Uri.parse(configss.baseURL + configss.repassword);
   final connection = HubConnectionBuilder()
       .withUrl(
           'https://api.faradeiazoapi.xyz/HubChatPartnership',
+          //'https://tset.faradeiazoapi.xyz/HubChatPartnership',
           HttpConnectionOptions(
             logging: (level, message) => print(message),
           ))
@@ -138,7 +141,7 @@ class ChatPageController extends GetxController {
         chatScrollController.position.minScrollExtent,
         duration: Duration(seconds: 1),
         curve: Curves.ease);*/
-   scrollDown();
+    scrollDown();
   }
 
   void addToReply(ReceiveMessageModel chat) {

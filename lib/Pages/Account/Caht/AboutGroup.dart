@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../App_localizations.dart';
 import '../../../Model/User/SignalR/GroupModel.dart';
+import '../../../Services/Login/ApiService.dart';
 import '../../../Services/config.dart';
 import '../../../Utils/Text/Text.dart';
+import '../../../controllers/getx/aboutgroupcontroller.dart';
+import '../User/ViewProfileUesr.dart';
 import 'ChatPage.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
-
 class AboutGroup extends StatefulWidget {
-
   final GroupModel model;
   const AboutGroup({Key? key, required this.model}) : super(key: key);
 
@@ -20,9 +24,43 @@ class AboutGroup extends StatefulWidget {
 class _AboutGroupState extends State<AboutGroup> {
   bool isApiCallProgress = true;
   bool lang = false; // en => true / fa => false
-  bool isSwitched = false;
+  bool? isSwitched = false;
+  late APIService apiService;
+  AboutGroupController noti = Get.put(AboutGroupController());
+  GetStorage reqtokenapi = GetStorage();
 
+  @override
+  void initState() {
+    GetStorage.init();
+    super.initState();
+    apiService = APIService(context);
+    getSwitchValues();
+  }
 
+  getSwitchValues() async {
+    isSwitched = (await getSwitchState())!;
+    setState(() {});
+  }
+
+  Future<bool> saveSwitchState(bool value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool("switchState", value);
+    print('Switch Value saved $value');
+    return prefs.setBool("switchState", value);
+  }
+
+  Future<bool?> getSwitchState() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (prefs.getBool("switchState") == null) {
+      isSwitched = false;
+    }
+    if (prefs.getBool("switchState") != null) {
+      isSwitched = prefs.getBool("switchState");
+    }
+    print(isSwitched);
+
+    return isSwitched;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,8 +94,7 @@ class _AboutGroupState extends State<AboutGroup> {
                           decoration: BoxDecoration(
                               image: DecorationImage(
                                 fit: BoxFit.cover,
-                                image: AssetImage(
-                                    "assets/images/ram/gorp.png"),
+                                image: AssetImage("assets/images/ram/gorp.png"),
                               ),
                               shape: BoxShape.circle,
                               color: Colors.transparent),
@@ -68,15 +105,15 @@ class _AboutGroupState extends State<AboutGroup> {
                       Title2(
                         textAlign: TextAlign.end,
                         color: Colors.black,
-                        text: widget.model.name?? AppLocalizations.of(context)!.translate(
-                          'GroupAboutName',
-                        )!,
+                        text: widget.model.name ??
+                            AppLocalizations.of(context)!.translate(
+                              'GroupAboutName',
+                            )!,
                       ),
                     ],
                   ),
                   Column(
                     children: [
-
                       Directionality(
                         textDirection: TextDirection.ltr,
                         child: BackButton(
@@ -112,79 +149,106 @@ class _AboutGroupState extends State<AboutGroup> {
                                     'GroupOower',
                                   )!,
                                 ),
-                                Column(
-                                  children: [
-                                    (widget.model.adminImageurl != null &&
-                                        widget.model.adminImageurl != "")
-                                        ? Card(
-                                      shape: CircleBorder(),
-                                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                                      child: CachedNetworkImage(
-                                        height: 50,
-                                        width: 50,
-                                        cacheManager: CacheManager(Config('customCacheKey',
-                                            stalePeriod: Duration(days: 7), maxNrOfCacheObjects: 100)),
-                                        imageUrl: configss.fileurl + widget.model.adminImageurl!,
-                                        imageBuilder: (context, imageProvider) => Container(
-                                          decoration: BoxDecoration(
-                                            image: DecorationImage(
-                                              image: imageProvider,
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
+                                InkWell(
+                                    child: Column(
+                                      children: [
+                                        (widget.model.adminImageurl != null &&
+                                                widget.model.adminImageurl !=
+                                                    "")
+                                            ? Card(
+                                                shape: CircleBorder(),
+                                                clipBehavior:
+                                                    Clip.antiAliasWithSaveLayer,
+                                                child: CachedNetworkImage(
+                                                  height: 50,
+                                                  width: 50,
+                                                  cacheManager: CacheManager(
+                                                      Config(
+                                                          'customCacheKey',
+                                                          stalePeriod:
+                                                              Duration(days: 7),
+                                                          maxNrOfCacheObjects:
+                                                              100)),
+                                                  imageUrl: configss.fileurl +
+                                                      widget
+                                                          .model.adminImageurl!,
+                                                  imageBuilder: (context,
+                                                          imageProvider) =>
+                                                      Container(
+                                                    decoration: BoxDecoration(
+                                                      image: DecorationImage(
+                                                        image: imageProvider,
+                                                        fit: BoxFit.cover,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  placeholder: (context, url) =>
+                                                      CircularProgressIndicator(),
+                                                  errorWidget:
+                                                      (context, url, error) =>
+                                                          Icon(Icons.error),
+                                                ),
+                                              )
+                                            : Image.asset(
+                                                'assets/images/home/user.png',
+                                                fit: BoxFit.cover,
+                                                height: 50,
+                                                width: 50,
+                                              ),
+
+                                        /*Card(
+                                        shape: CircleBorder(),
+                                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                                        child: Image.network(
+                                          configss.fileurl + widget.model.adminImageurl!,
+                                          fit: BoxFit.cover,
+                                          errorBuilder: (BuildContext context,
+                                              Object exception,
+                                              StackTrace? stackTrace) {
+                                            return const Icon(Icons.person);
+                                          },
+                                          loadingBuilder: (BuildContext context,
+                                              Widget child,
+                                              ImageChunkEvent? loadingProgress) {
+                                            if (loadingProgress == null) return child;
+                                            return Center(
+                                              child: CircularProgressIndicator(
+                                                value: loadingProgress
+                                                    .expectedTotalBytes !=
+                                                    null
+                                                    ? loadingProgress
+                                                    .cumulativeBytesLoaded /
+                                                    loadingProgress
+                                                        .expectedTotalBytes!
+                                                    : null,
+                                              ),
+                                            );
+                                          },
+                                          height: 50,
+                                          width: 50,
                                         ),
-                                        placeholder: (context, url) => CircularProgressIndicator(),
-                                        errorWidget: (context, url, error) => Icon(Icons.error),
-                                      ),
-                                    ): Image.asset(
-                                      'assets/images/home/user.png',
-                                      fit: BoxFit.cover,
-                                      height: 50,
-                                      width: 50,
-                                    ),
-
-                                    /*Card(
-                                      shape: CircleBorder(),
-                                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                                      child: Image.network(
-                                        configss.fileurl + widget.model.adminImageurl!,
+                                      )
+                                          : Image.asset(
+                                        'assets/images/home/user.png',
                                         fit: BoxFit.cover,
-                                        errorBuilder: (BuildContext context,
-                                            Object exception,
-                                            StackTrace? stackTrace) {
-                                          return const Icon(Icons.person);
-                                        },
-                                        loadingBuilder: (BuildContext context,
-                                            Widget child,
-                                            ImageChunkEvent? loadingProgress) {
-                                          if (loadingProgress == null) return child;
-                                          return Center(
-                                            child: CircularProgressIndicator(
-                                              value: loadingProgress
-                                                  .expectedTotalBytes !=
-                                                  null
-                                                  ? loadingProgress
-                                                  .cumulativeBytesLoaded /
-                                                  loadingProgress
-                                                      .expectedTotalBytes!
-                                                  : null,
-                                            ),
-                                          );
-                                        },
                                         height: 50,
                                         width: 50,
-                                      ),
-                                    )
-                                        : Image.asset(
-                                      'assets/images/home/user.png',
-                                      fit: BoxFit.cover,
-                                      height: 50,
-                                      width: 50,
-                                    ),*/
-                                    Callout(color: Colors.black, textAlign: TextAlign.center, text:widget.model.adminName!)
-
-                                  ],
-                                ),
+                                      ),*/
+                                        Callout(
+                                            color: Colors.teal,
+                                            textAlign: TextAlign.center,
+                                            text: widget.model.adminName!)
+                                      ],
+                                    ),
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ViewProfileUesr(
+                                                      userid: widget
+                                                          .model.adminId)));
+                                    }),
                               ],
                             ),
                             Column(children: [
@@ -195,124 +259,58 @@ class _AboutGroupState extends State<AboutGroup> {
                                   'GroupAdmin1',
                                 )!,
                               ),
-                              Column(
-                                children: [
-                                  (widget.model.supervisor1Imageurl != null &&
-                                      widget.model.supervisor1Imageurl != "")
-                                      ? Card(
-                                    shape: CircleBorder(),
-                                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                                    child: CachedNetworkImage(
-                                      height: 50,
-                                      width: 50,
-                                      cacheManager: CacheManager(Config('customCacheKey',
-                                          stalePeriod: Duration(days: 7), maxNrOfCacheObjects: 100)),
-                                      imageUrl: configss.fileurl + widget.model.supervisor1Imageurl!,
-                                      imageBuilder: (context, imageProvider) => Container(
-                                        decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                            image: imageProvider,
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                      ),
-                                      placeholder: (context, url) => CircularProgressIndicator(),
-                                      errorWidget: (context, url, error) => Icon(Icons.error),
-                                    ),
-                                  ): Image.asset(
-                                    'assets/images/home/user.png',
-                                    fit: BoxFit.cover,
-                                    height: 50,
-                                    width: 50,
-                                  ),
-                                  /*Card(
-                                    shape: CircleBorder(),
-                                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                                    child: Image.network(
-                                      configss.fileurl + widget.model.supervisor1Imageurl!,
-                                      fit: BoxFit.cover,
-                                      errorBuilder: (BuildContext context,
-                                          Object exception,
-                                          StackTrace? stackTrace) {
-                                        return const Icon(Icons.person);
-                                      },
-                                      loadingBuilder: (BuildContext context,
-                                          Widget child,
-                                          ImageChunkEvent? loadingProgress) {
-                                        if (loadingProgress == null) return child;
-                                        return Center(
-                                          child: CircularProgressIndicator(
-                                            value: loadingProgress
-                                                .expectedTotalBytes !=
-                                                null
-                                                ? loadingProgress
-                                                .cumulativeBytesLoaded /
-                                                loadingProgress
-                                                    .expectedTotalBytes!
-                                                : null,
-                                          ),
-                                        );
-                                      },
-                                      height: 50,
-                                      width: 50,
-                                    ),
-                                  )
-                                      : Image.asset(
-                                    'assets/images/home/user.png',
-                                    fit: BoxFit.cover,
-                                    height: 50,
-                                    width: 50,
-                                  ),*/
-                                  Callout(color: Colors.black, textAlign: TextAlign.center, text:widget.model.supervisor1Name!)
-
-                                ],
-                              ),
-                            ]),
-                            Column(
-                              children: [
-                                Subhead(
-                                  textAlign: TextAlign.end,
-                                  color: Colors.purpleAccent,
-                                  text: AppLocalizations.of(context)!.translate(
-                                    'GroupAdmin2',
-                                  )!,
-                                ),
-                                Column(
-                                  children: [
-                                    (widget.model.supervisor2Imageurl != null &&
-                                        widget.model.supervisor2Imageurl != "")
-                                        ?
-                                    Card(
-                                      shape: CircleBorder(),
-                                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                                      child: CachedNetworkImage(
-                                        height: 50,
-                                        width: 50,
-                                        cacheManager: CacheManager(Config('customCacheKey',
-                                            stalePeriod: Duration(days: 7), maxNrOfCacheObjects: 100)),
-                                        imageUrl: configss.fileurl + widget.model.supervisor2Imageurl!,
-                                        imageBuilder: (context, imageProvider) => Container(
-                                          decoration: BoxDecoration(
-                                            image: DecorationImage(
-                                              image: imageProvider,
+                              InkWell(
+                                  child: Column(
+                                    children: [
+                                      (widget.model.supervisor1Imageurl !=
+                                                  null &&
+                                              widget.model
+                                                      .supervisor1Imageurl !=
+                                                  "")
+                                          ? Card(
+                                              shape: CircleBorder(),
+                                              clipBehavior:
+                                                  Clip.antiAliasWithSaveLayer,
+                                              child: CachedNetworkImage(
+                                                height: 50,
+                                                width: 50,
+                                                cacheManager: CacheManager(
+                                                    Config('customCacheKey',
+                                                        stalePeriod:
+                                                            Duration(days: 7),
+                                                        maxNrOfCacheObjects:
+                                                            100)),
+                                                imageUrl: configss.fileurl +
+                                                    widget.model
+                                                        .supervisor1Imageurl!,
+                                                imageBuilder:
+                                                    (context, imageProvider) =>
+                                                        Container(
+                                                  decoration: BoxDecoration(
+                                                    image: DecorationImage(
+                                                      image: imageProvider,
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ),
+                                                ),
+                                                placeholder: (context, url) =>
+                                                    CircularProgressIndicator(),
+                                                errorWidget:
+                                                    (context, url, error) =>
+                                                        Icon(Icons.error),
+                                              ),
+                                            )
+                                          : Image.asset(
+                                              'assets/images/home/user.png',
                                               fit: BoxFit.cover,
+                                              height: 50,
+                                              width: 50,
                                             ),
-                                          ),
-                                        ),
-                                        placeholder: (context, url) => CircularProgressIndicator(),
-                                        errorWidget: (context, url, error) => Icon(Icons.error),
-                                      ),
-                                    ): Image.asset(
-                                      'assets/images/home/user.png',
-                                      fit: BoxFit.cover,
-                                      height: 50,
-                                      width: 50,
-                                    ),
-                                    /*Card(
+                                      /*Card(
                                       shape: CircleBorder(),
                                       clipBehavior: Clip.antiAliasWithSaveLayer,
                                       child: Image.network(
-                                        configss.fileurl + widget.model.supervisor2Imageurl!,
+                                        configss.fileurl + widget.model.supervisor1Imageurl!,
                                         fit: BoxFit.cover,
                                         errorBuilder: (BuildContext context,
                                             Object exception,
@@ -346,9 +344,132 @@ class _AboutGroupState extends State<AboutGroup> {
                                       height: 50,
                                       width: 50,
                                     ),*/
-                                    Callout(color: Colors.black, textAlign: TextAlign.center, text:widget.model.supervisor2Name!)
-                                  ],
+                                      Callout(
+                                          color: Colors.teal,
+                                          textAlign: TextAlign.center,
+                                          text: widget.model.supervisor1Name!)
+                                    ],
+                                  ),
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ViewProfileUesr(
+                                                    userid: widget
+                                                        .model.supervisor1Id)));
+                                  }),
+                            ]),
+                            Column(
+                              children: [
+                                Subhead(
+                                  textAlign: TextAlign.end,
+                                  color: Colors.purpleAccent,
+                                  text: AppLocalizations.of(context)!.translate(
+                                    'GroupAdmin2',
+                                  )!,
                                 ),
+                                InkWell(
+                                    child: Column(
+                                      children: [
+                                        (widget.model.supervisor2Imageurl !=
+                                                    null &&
+                                                widget.model
+                                                        .supervisor2Imageurl !=
+                                                    "")
+                                            ? Card(
+                                                shape: CircleBorder(),
+                                                clipBehavior:
+                                                    Clip.antiAliasWithSaveLayer,
+                                                child: CachedNetworkImage(
+                                                  height: 50,
+                                                  width: 50,
+                                                  cacheManager: CacheManager(
+                                                      Config(
+                                                          'customCacheKey',
+                                                          stalePeriod:
+                                                              Duration(days: 7),
+                                                          maxNrOfCacheObjects:
+                                                              100)),
+                                                  imageUrl: configss.fileurl +
+                                                      widget.model
+                                                          .supervisor2Imageurl!,
+                                                  imageBuilder: (context,
+                                                          imageProvider) =>
+                                                      Container(
+                                                    decoration: BoxDecoration(
+                                                      image: DecorationImage(
+                                                        image: imageProvider,
+                                                        fit: BoxFit.cover,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  placeholder: (context, url) =>
+                                                      CircularProgressIndicator(),
+                                                  errorWidget:
+                                                      (context, url, error) =>
+                                                          Icon(Icons.error),
+                                                ),
+                                              )
+                                            : Image.asset(
+                                                'assets/images/home/user.png',
+                                                fit: BoxFit.cover,
+                                                height: 50,
+                                                width: 50,
+                                              ),
+                                        /*Card(
+                                        shape: CircleBorder(),
+                                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                                        child: Image.network(
+                                          configss.fileurl + widget.model.supervisor2Imageurl!,
+                                          fit: BoxFit.cover,
+                                          errorBuilder: (BuildContext context,
+                                              Object exception,
+                                              StackTrace? stackTrace) {
+                                            return const Icon(Icons.person);
+                                          },
+                                          loadingBuilder: (BuildContext context,
+                                              Widget child,
+                                              ImageChunkEvent? loadingProgress) {
+                                            if (loadingProgress == null) return child;
+                                            return Center(
+                                              child: CircularProgressIndicator(
+                                                value: loadingProgress
+                                                    .expectedTotalBytes !=
+                                                    null
+                                                    ? loadingProgress
+                                                    .cumulativeBytesLoaded /
+                                                    loadingProgress
+                                                        .expectedTotalBytes!
+                                                    : null,
+                                              ),
+                                            );
+                                          },
+                                          height: 50,
+                                          width: 50,
+                                        ),
+                                      )
+                                          : Image.asset(
+                                        'assets/images/home/user.png',
+                                        fit: BoxFit.cover,
+                                        height: 50,
+                                        width: 50,
+                                      ),*/
+                                        Callout(
+                                            color: Colors.teal,
+                                            textAlign: TextAlign.center,
+                                            text: widget.model.supervisor2Name!)
+                                      ],
+                                    ),
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ViewProfileUesr(
+                                                      userid: widget.model
+                                                          .supervisor2Id)));
+                                    }),
                               ],
                             ),
                           ],
@@ -398,10 +519,26 @@ class _AboutGroupState extends State<AboutGroup> {
                             )!,
                           ),
                           Switch(
-                              value: isSwitched,
-                              onChanged: (value) {
+                              value: isSwitched!,
+                              onChanged: (bool values) {
                                 setState(() {
-                                  isSwitched = value;
+                                  if (isSwitched = values) {
+                                    isSwitched = values;
+                                    APIService.deletetokenapi()
+                                        .then((response) {
+                                      print(
+                                          "deletetokenapi---------------------------- => $response");
+                                    });
+                                    saveSwitchState(values);
+                                  } else {
+                                    values = false;
+                                    APIService.notificationaApi()
+                                        .then((response) {
+                                      print(
+                                          "Notfiiiiiiiiiiiiiiiii---------------------------- => $response");
+                                    });
+                                    saveSwitchState(values);
+                                  }
                                 });
                               }),
                         ],

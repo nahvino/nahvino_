@@ -1,13 +1,15 @@
-class Validator {
+import 'package:get/get.dart';
+
+class Validator extends GetxController {
+  RxString username = RxString('');
+  RxnString errorText = RxnString(null);
+  Rxn<Function()> submitFunc = Rxn<Function()>(null);
   final alphanumeric = RegExp("[A-Z a-z 0-9]");
-    void zaban({required String? error, required  dynamic input}) {
-    if (alphanumeric.hasMatch(input) == false) {
-      error = "نام کاربری نمی تواند فارسی باشد.";
-    } else {
-      error = null;
-    }
-    if ((input).isEmpty) {
-      error = "نام کاربری نمی تواند خالی باشد.";
-    }
+
+  @override
+  void onInit() {
+    super.onInit();
   }
+
+  
 }

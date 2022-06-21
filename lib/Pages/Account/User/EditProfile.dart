@@ -15,6 +15,7 @@ import '../../../Utils/Text/TextField.dart';
 import '../../../App_localizations.dart';
 import '../../../Utils/TextField/englishtextfilde.dart';
 import '../../../Utils/TextField/publictextfilde.dart';
+import '../../../Utils/Validator/validator.dart';
 
 class EditProfile extends StatefulWidget {
   final GetProfileUserResponseModel model;
@@ -28,17 +29,17 @@ class EditProfile extends StatefulWidget {
 class _EditProfileState extends State<EditProfile> {
   GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
   bool isApiCallProcess = false;
+  final alphanumeric = RegExp("[A-Z a-z 0-9]");
   TextEditingController userNameController = TextEditingController();
   TextEditingController nameAliasController = TextEditingController();
   TextEditingController bioController = TextEditingController();
   TextEditingController tarikhController = TextEditingController();
-
+  Validator vlid = Get.put(Validator()); // controller
   String? imagePath;
   final ImagePicker _picker = ImagePicker();
   APIService? apiService;
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   late String berlinWallFell = "تاریخ ترک";
-
+  String? error;
   void initState() {
     super.initState();
     apiService = APIService(context);
@@ -73,201 +74,193 @@ class _EditProfileState extends State<EditProfile> {
             )
           : SafeArea(
               child: SingleChildScrollView(
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 30, top: 12),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Card(
-                                shape: CircleBorder(),
-                                clipBehavior: Clip.antiAliasWithSaveLayer,
-                                child: InkWell(
-                                  onTap: () async {
-                                    await showDialog(
-                                        context: context,
-                                        builder: (c) => Dialog(
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: [
-                                                  ListTile(
-                                                    title: Text(
-                                                      AppLocalizations.of(
-                                                              context)!
-                                                          .translate(
-                                                        'Camera',
-                                                      )!,
-                                                    ),
-                                                    onTap: () async {
-                                                      final XFile? photo =
-                                                          await _picker.pickImage(
-                                                              source:
-                                                                  ImageSource
-                                                                      .camera,
-                                                              maxHeight: 512,
-                                                              maxWidth: 512,
-                                                              imageQuality: 50);
-                                                      if (photo != null) {
-                                                        setState(() {
-                                                          imagePath =
-                                                              photo.path;
-                                                          Navigator.pop(c);
-                                                        });
-                                                      }
-                                                    },
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 30, top: 12),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Card(
+                              shape: CircleBorder(),
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              child: InkWell(
+                                onTap: () async {
+                                  await showDialog(
+                                      context: context,
+                                      builder: (c) => Dialog(
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                ListTile(
+                                                  title: Text(
+                                                    AppLocalizations.of(
+                                                            context)!
+                                                        .translate(
+                                                      'Camera',
+                                                    )!,
                                                   ),
-                                                  ListTile(
-                                                    title: Text(
-                                                      AppLocalizations.of(
-                                                              context)!
-                                                          .translate(
-                                                        'Gallery',
-                                                      )!,
-                                                    ),
-                                                    onTap: () async {
-                                                      final XFile? photo =
-                                                          await _picker
-                                                              .pickImage(
-                                                        source:
-                                                            ImageSource.gallery,
-                                                        maxHeight: 512,
-                                                        maxWidth: 512,
-                                                            imageQuality: 50
-                                                      );
-                                                      if (photo != null) {
-                                                        setState(() {
-                                                          imagePath =
-                                                              photo.path;
-                                                          Navigator.pop(c);
-                                                        });
-                                                      }
-                                                    },
+                                                  onTap: () async {
+                                                    final XFile? photo =
+                                                        await _picker.pickImage(
+                                                            source: ImageSource
+                                                                .camera,
+                                                            maxHeight: 512,
+                                                            maxWidth: 512,
+                                                            imageQuality: 25);
+                                                    if (photo != null) {
+                                                      setState(() {
+                                                        imagePath = photo.path;
+                                                        Navigator.pop(c);
+                                                      });
+                                                    }
+                                                  },
+                                                ),
+                                                ListTile(
+                                                  title: Text(
+                                                    AppLocalizations.of(
+                                                            context)!
+                                                        .translate(
+                                                      'Gallery',
+                                                    )!,
                                                   ),
-                                                ],
-                                              ),
-                                            ));
-                                  },
-                                  child: Container(
-                                    height: 100,
-                                    width: 100,
-                                    child: imagePath == null
-                                        ? (widget.model.imageUrl == null ||
-                                                widget.model.imageUrl == "")
-                                            ? Icon(Icons.person)
-                                            : Image.network(
-                                        configss.fileurl +
-                                                    widget.model.imageUrl!,
-                                                fit: BoxFit.cover)
-                                        : Image.file(File(imagePath!),
-                                            fit: BoxFit.cover),
-                                  ),
-                                )),
-                            if (imagePath != null)
-                              IconButton(
-                                  onPressed: () =>
-                                      setState(() => imagePath = null),
-                                  icon: Icon(Icons.close))
-                          ],
-                        ),
+                                                  onTap: () async {
+                                                    final XFile? photo =
+                                                        await _picker.pickImage(
+                                                            source: ImageSource
+                                                                .gallery,
+                                                            maxHeight: 512,
+                                                            maxWidth: 512,
+                                                            imageQuality: 25);
+                                                    if (photo != null) {
+                                                      setState(() {
+                                                        imagePath = photo.path;
+                                                        Navigator.pop(c);
+                                                      });
+                                                    }
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                          ));
+                                },
+                                child: Container(
+                                  height: 100,
+                                  width: 100,
+                                  child: imagePath == null
+                                      ? (widget.model.imageUrl == null ||
+                                              widget.model.imageUrl == "")
+                                          ? Icon(Icons.person)
+                                          : Image.network(
+                                              configss.fileurl +
+                                                  widget.model.imageUrl!,
+                                              fit: BoxFit.cover)
+                                      : Image.file(File(imagePath!),
+                                          fit: BoxFit.cover),
+                                ),
+                              )),
+                          if (imagePath != null)
+                            IconButton(
+                                onPressed: () =>
+                                    setState(() => imagePath = null),
+                                icon: Icon(Icons.close))
+                        ],
                       ),
-                      EnglishTextFilde(
-                        controller: userNameController,
-                        hint: AppLocalizations.of(context)!.translate(
-                          'username',
-                        )!,
-                      ),
-                      PublicTextFilde(
-                        controller: nameAliasController,
-                        hint: AppLocalizations.of(context)!.translate(
-                          'name',
-                        )!,
-                      ),
-                      PublicTextFilde(
-                          hint: berlinWallFell,
-                          ontap: () async {
-                            Jalali? picked = await showPersianDatePicker(
-                              context: context,
-                              initialDate: Jalali.now(),
-                              firstDate: Jalali(1320, 1),
-                              lastDate: Jalali.now(),
+                    ),
+                    EnglishTextFilde(
+                      controller: userNameController,
+                      hint: AppLocalizations.of(context)!.translate(
+                        'username',
+                      )!,
+                      errorttext: vlid.errorText.value,
+                    ),
+                    PublicTextFilde(
+                      controller: nameAliasController,
+                      hint: AppLocalizations.of(context)!.translate(
+                        'name',
+                      )!,
+                    ),
+                    PublicTextFilde(
+                        hint: berlinWallFell,
+                        ontap: () async {
+                          Jalali? picked = await showPersianDatePicker(
+                            context: context,
+                            initialDate: Jalali.now(),
+                            firstDate: Jalali(1320, 1),
+                            lastDate: Jalali.now(),
+                          );
+                          print(picked!.formatCompactDate());
+                          berlinWallFell = picked.formatCompactDate();
+                        }),
+                    TextProfileBio(
+                      controller: bioController,
+                      hint: AppLocalizations.of(context)!.translate(
+                        'bio',
+                      )!,
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Buttonfull(
+                      text: AppLocalizations.of(context)!.translate(
+                        'OK',
+                      )!,
+                      onPressed: () async {
+                        if (userNameController.text.isEmpty) {
+                          print("thvsd");
+                          return;
+                        }
+                        
+                        setState(() {
+                          isApiCallProcess = true;
+                        });
+
+                        if (imagePath != null) {
+                          var response =
+                              await apiService?.uploadProfileImage(imagePath!);
+                          if (response != false) {
+                            widget.model.imageUrl = response;
+                          } else {
+                            apiService!.showSnackBar(
+                              text: AppLocalizations.of(context)!.translate(
+                                'UploadFaildImage',
+                              )!,
                             );
-                            print(picked!.formatCompactDate());
-                            berlinWallFell = picked.formatCompactDate();
-                          }),
-                      TextProfileBio(
-                        controller: bioController,
-                        hint: AppLocalizations.of(context)!.translate(
-                          'bio',
-                        )!,
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Buttonfull(
-                        text: AppLocalizations.of(context)!.translate(
-                          'OK',
-                        )!,
-                        onPressed: () async {
-                          if (userNameController.text.isEmpty) {
-                             print("thvsd");
                             return;
                           }
+                        }
+                        widget.model.imageUrl ??= "";
+                        widget.model.userName = userNameController.text;
+                        widget.model.nameAlias = nameAliasController.text;
+                        widget.model.bio = bioController.text;
+
+                        apiService!.editprofileuser(widget.model).then((value) {
                           setState(() {
-                            isApiCallProcess = true;
+                            isApiCallProcess = false;
+                            Get.offAll(MyTabs());
                           });
-
-                          if (imagePath != null) {
-                            var response = await apiService
-                                ?.uploadProfileImage(imagePath!);
-                            if (response != false) {
-                              widget.model.imageUrl = response;
-                            } else {
-                              apiService!.showSnackBar(
-                                text: AppLocalizations.of(context)!.translate(
-                                  'UploadFaildImage',
-                                )!,
-                              );
-                              return;
-                            }
-                          }
-                          widget.model.imageUrl ??= "";
-                          widget.model.userName = userNameController.text;
-                          widget.model.nameAlias = nameAliasController.text;
-                          widget.model.bio = bioController.text;
-
-                          apiService!
-                              .editprofileuser(widget.model)
-                              .then((value) {
+                          
+                        });
+                        apiService?.AddOrEditUserAbandon(berlinWallFell)
+                            .then((response) async {
+                          if (response != false) {
+                            apiService?.showSnackBar(text: response['message']);
+                          } else {
+                            apiService?.showSnackBar(text: response['message']);
                             setState(() {
-                              isApiCallProcess = false;
-                              Get.offAll(MyTabs());
+                              isApiCallProcess = true;
                             });
-                          });
-                          apiService?.AddOrEditUserAbandon(berlinWallFell)
-                              .then((response) async {
-                            if (response != false) {
-                              apiService?.showSnackBar(
-                                  text: response['message']);
-                            } else {
-                              apiService?.showSnackBar(
-                                  text: response['message']);
-                              setState(() {
-                                isApiCallProcess = true;
-                              });
-                            }
-                          });
-                        },
-                        color: Colors.white,
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      /* Buttonfull(
+                          }
+                        });
+                      },
+                      color: Colors.white,
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    /* Buttonfull(
                         text: AppLocalizations.of(context)!
                             .translate('Date_of_departure')!,
                         onPressed: () async {
@@ -321,8 +314,7 @@ class _EditProfileState extends State<EditProfile> {
                         },
                         color: Colors.white,
                       ),*/
-                    ],
-                  ),
+                  ],
                 ),
               ),
             ),

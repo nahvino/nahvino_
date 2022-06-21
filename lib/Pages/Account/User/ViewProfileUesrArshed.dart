@@ -164,6 +164,41 @@ class _ViewProfileUesrArshedState extends State<ViewProfileUesrArshed> {
                                 ? Card(
                                     shape: CircleBorder(),
                                     clipBehavior: Clip.antiAliasWithSaveLayer,
+                                    child: CachedNetworkImage(
+                                      height: 75,
+                                      width: 75,
+                                      cacheManager: CacheManager(Config(
+                                          'customCacheKey',
+                                          stalePeriod: Duration(days: 7),
+                                          maxNrOfCacheObjects: 100)),
+                                      imageUrl: configss.fileurl +
+                                          resultResponseViewProfileUesr[
+                                              'imageUrl']!,
+                                      imageBuilder: (context, imageProvider) =>
+                                          Container(
+                                        decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                            image: imageProvider,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+                                      placeholder: (context, url) =>
+                                          CircularProgressIndicator(),
+                                      errorWidget: (context, url, error) =>
+                                          Icon(Icons.error),
+                                    ),
+                                  )
+                                : Image.asset(
+                                    'assets/images/home/user.png',
+                                    fit: BoxFit.cover,
+                                    height: 75,
+                                    width: 75,
+                                  ),
+
+                            /*Card(
+                                    shape: CircleBorder(),
+                                    clipBehavior: Clip.antiAliasWithSaveLayer,
                                     child: Image.network(
                                       configss.fileurl +
                                           resultResponseViewProfileUesr[
@@ -201,7 +236,7 @@ class _ViewProfileUesrArshedState extends State<ViewProfileUesrArshed> {
                                     fit: BoxFit.cover,
                                     height: 75,
                                     width: 75,
-                                  ),
+                                  ),*/
                           ],
                         ),
                         Column(
@@ -210,7 +245,7 @@ class _ViewProfileUesrArshedState extends State<ViewProfileUesrArshed> {
                               text:
                                   resultResponseViewProfileUesr['nameAlias'] ??
                                       "",
-                              color: Colors.green,
+                              color: Colors.teal,
                               textAlign: TextAlign.start,
                             ),
                             SizedBox(
@@ -301,32 +336,39 @@ class _ViewProfileUesrArshedState extends State<ViewProfileUesrArshed> {
                                             'parentImageUrl'] !=
                                         "")
                                 ? Card(
-                              shape: CircleBorder(),
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              child: CachedNetworkImage(
-                                height: 75,
-                                width: 75,
-                                cacheManager: CacheManager(Config('customCacheKey',
-                                    stalePeriod: Duration(days: 7), maxNrOfCacheObjects: 100)),
-                                imageUrl: configss.fileurl + resultResponseViewProfileUesr[
-                                'parentImageUrl']!,
-                                imageBuilder: (context, imageProvider) => Container(
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      image: imageProvider,
-                                      fit: BoxFit.cover,
+                                    shape: CircleBorder(),
+                                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                                    child: CachedNetworkImage(
+                                      height: 45,
+                                      width: 45,
+                                      cacheManager: CacheManager(Config(
+                                          'customCacheKey',
+                                          stalePeriod: Duration(days: 7),
+                                          maxNrOfCacheObjects: 100)),
+                                      imageUrl: configss.fileurl +
+                                          resultResponseViewProfileUesr[
+                                              'parentImageUrl']!,
+                                      imageBuilder: (context, imageProvider) =>
+                                          Container(
+                                        decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                            image: imageProvider,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+                                      placeholder: (context, url) =>
+                                          CircularProgressIndicator(),
+                                      errorWidget: (context, url, error) =>
+                                          Icon(Icons.error),
                                     ),
+                                  )
+                                : Image.asset(
+                                    'assets/images/home/user.png',
+                                    fit: BoxFit.cover,
+                                    height: 45,
+                                    width: 45,
                                   ),
-                                ),
-                                placeholder: (context, url) => CircularProgressIndicator(),
-                                errorWidget: (context, url, error) => Icon(Icons.error),
-                              ),
-                            ): Image.asset(
-                              'assets/images/home/user.png',
-                              fit: BoxFit.cover,
-                              height: 75,
-                              width: 75,
-                            ),
 
                             /*Card(
                                     shape: CircleBorder(),
@@ -394,7 +436,7 @@ class _ViewProfileUesrArshedState extends State<ViewProfileUesrArshed> {
                               text:
                                   resultResponseViewProfileUesr['parentName'] ??
                                       "",
-                              color: Colors.black,
+                              color: Colors.teal,
                               textAlign: TextAlign.left,
                             ),
                           ],

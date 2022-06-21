@@ -16,7 +16,6 @@ import 'Notifications.dart';
 import 'SetPhoneNumber.dart';
 import 'ViewProfile.dart';
 
-
 class UserSecuritySttingMenus extends StatefulWidget {
   const UserSecuritySttingMenus({Key? key}) : super(key: key);
 
@@ -36,36 +35,28 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
   void initState() {
     super.initState();
     Future.microtask(() {
-           APIService.UserSecuritySttingMenus().then((response) {
+      APIService.UserSecuritySttingMenus().then((response) {
         print("APIService.UserSecuritySttingMenus => $response");
-          resultResponse = response;
+        resultResponse = response;
         APIService.profilleall().then((response) {
           print("APIService.profilleall => $response");
           setState(() {
             isApiCallProgress = false;
             resultResponsepro = response;
           });
+        });
+      }).onError((error, stackTrace) {
+        print(error);
       });
-
-    }).onError((error, stackTrace) {
-      print(error);
-    });
-
-
-
     });
   }
 
   bool lang = false; // en => true / fa => false
   void changeLanguage(Language language) async {
-
     // ignore: unnecessary_cast
     Locale _locale = (await setLocale(language.languageCode)) as Locale;
     MyApp.setLocale(context, _locale);
-
-   setState(() {
-
-   });
+    setState(() {});
   }
 
   @override
@@ -90,42 +81,41 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
           Column(
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-
-               Row(
-                 crossAxisAlignment: CrossAxisAlignment.center,
-                 children: [
-                   Container(
-                      child: BackButton(
-                        onPressed: (() {
-                          Navigator.pushReplacement(
-                              context, MaterialPageRoute(builder: (context) => ViewProfile()));
-                        }),
-                      ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          child: BackButton(
+                            onPressed: (() {
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ViewProfile()));
+                            }),
+                          ),
+                        ),
+                        Container(
+                          alignment: Alignment.topRight,
+                          padding: EdgeInsets.only(bottom: 4),
+                          child: textbold(
+                            textAlign: TextAlign.right,
+                            text: resultResponsepro['userName'] ?? "",
+                            color: Colors.black,
+                          ),
+                        ),
+                      ],
                     ),
-                   Container(
-                     alignment: Alignment.topRight,
-                     padding: EdgeInsets.only(
-                        bottom: 4),
-                     child: textbold(
-                       textAlign: TextAlign.right,
-                       text: resultResponsepro['userName'] ?? "",
-                       color: Colors.black,
-                     ),
-                   ),
-                 ],
-               ),
-
-
                     Container(
                       height: 30,
                       child: PopupMenuButton<int>(
-                        icon: Icon(Icons.menu ,),
-                        itemBuilder: (context) =>
-                        [
-                       /*   PopupMenuItem(
+                        icon: Icon(
+                          Icons.menu,
+                        ),
+                        itemBuilder: (context) => [
+                          /*   PopupMenuItem(
                             value: 0,
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
@@ -150,7 +140,7 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
                               ],
                             ),
                           ),*/
-                         /* PopupMenuDivider(height: 4),
+                          /* PopupMenuDivider(height: 4),
                           PopupMenuItem(
                             value: 1,
                             child: Row(
@@ -175,18 +165,16 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
                               ],
                             ),
                           ),*/
-                       //   PopupMenuDivider(height: 1),
+                          //   PopupMenuDivider(height: 1),
                           PopupMenuItem(
                             value: 4,
                             child: Row(
-                              mainAxisAlignment:
-                              MainAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Caption1(
                                   textAlign: TextAlign.center,
                                   color: Colors.black,
-                                  text: AppLocalizations.of(context)!
-                                      .translate(
+                                  text: AppLocalizations.of(context)!.translate(
                                     'YCTIANM',
                                   )!,
                                 ),
@@ -199,8 +187,7 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
                           PopupMenuItem(
                             value: 2,
                             child: Row(
-                              mainAxisAlignment:
-                              MainAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Icon(
                                   Icons.share,
@@ -211,7 +198,7 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
                                 ),
                                 textspan(
                                   textAlign: TextAlign.center,
-                                  text:resultResponsepro['identifierCode']
+                                  text: resultResponsepro['identifierCode']
                                       .toString(),
                                   color: Colors.black,
                                 ),
@@ -225,19 +212,21 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
                           PopupMenuItem(
                             value: 3,
                             child: Row(
-                              mainAxisAlignment:
-                              MainAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                              Image.asset('assets/images/icon/pngwing.com.png',height: 24,width: 24,color: Colors.cyan),
-                            //Image(image: AssetImage('graphics/background.png')),
+                                Image.asset(
+                                    'assets/images/icon/pngwing.com.png',
+                                    height: 24,
+                                    width: 24,
+                                    color: Colors.cyan),
+                                //Image(image: AssetImage('graphics/background.png')),
                                 SizedBox(
                                   width: 8,
                                 ),
                                 textspan(
                                   textAlign: TextAlign.center,
                                   color: Colors.black,
-                                  text: AppLocalizations.of(context)!
-                                      .translate(
+                                  text: AppLocalizations.of(context)!.translate(
                                     'Eixt',
                                   )!,
                                 ),
@@ -251,10 +240,9 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
                         onSelected: (item) => onSelected(context, item),
                       ),
                     ),
-              ]),
+                  ]),
               Container(
                 alignment: Alignment.topCenter,
-
                 child: Column(
                   children: [
                     Title2(
@@ -267,14 +255,18 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
                   ],
                 ),
               ),
-              SizedBox(height: 20,),
+              SizedBox(
+                height: 20,
+              ),
               Visibility(
                 visible: resultResponse['password'],
                 child: Column(
                   children: [
                     Row(
                       children: [
-                        SizedBox(width: 10,),
+                        SizedBox(
+                          width: 10,
+                        ),
                         Icon(
                           Icons.lock,
                           color: Colors.blue,
@@ -290,7 +282,7 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
                       ],
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(right: 30,left: 30),
+                      padding: const EdgeInsets.only(right: 30, left: 30),
                       child: Divider(
                         height: 0,
                         thickness: 0.3,
@@ -300,15 +292,18 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
                   ],
                 ),
               ),
-              SizedBox(height: 5,),
+              SizedBox(
+                height: 5,
+              ),
               Visibility(
                 visible: resultResponse['password'],
                 child: Column(
                   children: [
                     Row(
                       children: [
-                        SizedBox(width: 10,),
-
+                        SizedBox(
+                          width: 10,
+                        ),
                         Icon(
                           Icons.phone_android,
                           color: Colors.blue,
@@ -320,12 +315,11 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
                                   MaterialPageRoute(
                                       builder: (context) => SetPhoneNumber()));
                             },
-
                             text: 'موبایل'),
                       ],
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(right: 30,left: 30),
+                      padding: const EdgeInsets.only(right: 30, left: 30),
                       child: Divider(
                         height: 0,
                         thickness: 0.3,
@@ -335,16 +329,18 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
                   ],
                 ),
               ),
-
-              SizedBox(height: 5,),
+              SizedBox(
+                height: 5,
+              ),
               Visibility(
                 visible: resultResponse['phoneNumber'],
-                child:
-                Column(
+                child: Column(
                   children: [
                     Row(
                       children: [
-                        SizedBox(width: 10,),
+                        SizedBox(
+                          width: 10,
+                        ),
                         Icon(
                           Icons.phonelink_setup,
                           color: Colors.blue,
@@ -354,13 +350,14 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => ChangePhoneNumber()));
+                                      builder: (context) =>
+                                          ChangePhoneNumber()));
                             },
                             text: 'تغییر شماره تلفن'),
                       ],
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(right: 30,left: 30),
+                      padding: const EdgeInsets.only(right: 30, left: 30),
                       child: Divider(
                         height: 0,
                         thickness: 0.3,
@@ -371,14 +368,14 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
                 ),
               ),
 
-             /* SttingMenusButton(
+              /* SttingMenusButton(
                   onPressed: () => AppLocalizations.of(context)?.setLocale(Locale.fromSubtags(languageCode: 'en')),
                   icon: Icon(
                     Icons.language,
                     color: Colors.white,
                   ),
                   text: 'تغییر زبان'),*/
-             DropdownButton<Language>(
+              DropdownButton<Language>(
                 underline: SizedBox(),
                 icon: Icon(
                   Icons.language,
@@ -390,19 +387,19 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
                 items: Language.languageList()
                     .map<DropdownMenuItem<Language>>(
                       (e) => DropdownMenuItem<Language>(
-                    value: e,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[
-                        Text(
-                          e.flag,
-                          style: TextStyle(fontSize: 30),
+                        value: e,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: <Widget>[
+                            Text(
+                              e.flag,
+                              style: TextStyle(fontSize: 30),
+                            ),
+                            Text(e.name)
+                          ],
                         ),
-                        Text(e.name)
-                      ],
-                    ),
-                  ),
-                )
+                      ),
+                    )
                     .toList(),
               ),
             ],
@@ -419,58 +416,56 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
             context, MaterialPageRoute(builder: (context) => Notifications()));
         break;
       case 2:
-        Share.share(resultResponsepro['identifierCode'].toString() +" \n این عدد کد معرف من در نحوینو می باشد. اگر هنگام ثبت نام از این کد استفاده کنید ده شاهپر به شما اهدا میکنم و راهنمای شما در این مسلک زیبا خواهم بود");
+        Share.share(resultResponsepro['identifierCode'].toString() +
+            " \n این عدد کد معرف من در نحوینو می باشد. اگر هنگام ثبت نام از این کد استفاده کنید ده شاهپر به شما اهدا میکنم و راهنمای شما در این مسلک زیبا خواهم بود");
 
         break;
       case 3:
         showDialog<String>(
           context: context,
-          builder: (BuildContext context) =>
-              AlertDialog(
-                  title: Text(AppLocalizations.of(context)!.translate(
-                    'apptitle',
-                  )!),
-                  content: Text(AppLocalizations.of(context)!.translate(
-                    'quExit',
-                  )!),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () =>
-                          Navigator.pop(
-                              context,
-                              AppLocalizations.of(context)!.translate(
-                                'Cancel',
-                              )!),
-                      child: Text(
-                        AppLocalizations.of(context)!.translate(
-                          'Cancel',
-                        )!,
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () async {
-                        final preferences = await SharedPreferences
-                            .getInstance();
-                        await preferences.clear();
-                        Future.delayed(const Duration(milliseconds: 1000), () {
-                          //exit(0);
-                          Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>SignUp()),
-                                (route) => false,
-                          );
-                        });
-                      },
-                      child: Text(AppLocalizations.of(context)!.translate(
-                        'OK',
+          builder: (BuildContext context) => AlertDialog(
+              title: Text(AppLocalizations.of(context)!.translate(
+                'apptitle',
+              )!),
+              content: Text(AppLocalizations.of(context)!.translate(
+                'quExit',
+              )!),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () => Navigator.pop(
+                      context,
+                      AppLocalizations.of(context)!.translate(
+                        'Cancel',
                       )!),
-                    ),
-                  ]),
+                  child: Text(
+                    AppLocalizations.of(context)!.translate(
+                      'Cancel',
+                    )!,
+                  ),
+                ),
+                TextButton(
+                  onPressed: () async {
+                    final preferences = await SharedPreferences.getInstance();
+                    await preferences.clear();
+                    Future.delayed(const Duration(milliseconds: 1000), () {
+                      //exit(0);
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(builder: (context) => SignUp()),
+                        (route) => false,
+                      );
+                    });
+                  },
+                  child: Text(AppLocalizations.of(context)!.translate(
+                    'OK',
+                  )!),
+                ),
+              ]),
         );
         break;
       case 4:
-        Share.share(resultResponsepro['identifierCode'].toString() +" \n این عدد کد معرف من در نحوینو می باشد. اگر هنگام ثبت نام از این کد استفاده کنید ده شاهپر به شما اهدا میکنم و راهنمای شما در این مسلک زیبا خواهم بود");
+        Share.share(resultResponsepro['identifierCode'].toString() +
+            " \n این عدد کد معرف من در نحوینو می باشد. اگر هنگام ثبت نام از این کد استفاده کنید ده شاهپر به شما اهدا میکنم و راهنمای شما در این مسلک زیبا خواهم بود");
 
         break;
     }

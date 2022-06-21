@@ -8,10 +8,11 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'Pages/Account/Caht/ChatPage.dart';
 import 'Pages/Account/User/ViewProfile.dart';
 import 'App_localizations.dart';
+import 'Pages/Home.dart';
 
 class MyTabs extends StatefulWidget {
-  const MyTabs({Key? key}) : super(key: key);
-
+  const MyTabs({Key? key, this.tabIndex}) : super(key: key);
+  final int? tabIndex;
   @override
   _MyTabsState createState() => _MyTabsState();
 }
@@ -19,16 +20,11 @@ class MyTabs extends StatefulWidget {
 class _MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
   late PersistentTabController _controller;
 
-  ChatPageController chatPageController = Get.put(ChatPageController());
-
   @override
   void initState() {
     super.initState();
 
-    _controller = PersistentTabController(initialIndex: 1);
-    chatPageController.openSignalRConnection();
-
-
+    _controller = PersistentTabController(initialIndex: widget.tabIndex ?? 0);
   }
 
   @override
@@ -78,7 +74,7 @@ class _MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
 
   List<PersistentBottomNavBarItem> _navBarsItems() {
     return [
-   /*  PersistentBottomNavBarItem(
+      /*  PersistentBottomNavBarItem(
         title: AppLocalizations.of(context)!.translate(
           'Home',
         ),
@@ -88,7 +84,7 @@ class _MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
         activeColorPrimary: CupertinoColors.white,
         inactiveColorPrimary: CupertinoColors.white,
       ),*/
-      PersistentBottomNavBarItem(
+      /*  PersistentBottomNavBarItem(
         title: AppLocalizations.of(context)!.translate(
           'Blog',
         ),
@@ -97,7 +93,7 @@ class _MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
         textStyle: TextStyle(fontSize: 12, fontFamily: 'Vazirmatn_Light'),
         activeColorPrimary: CupertinoColors.white,
         inactiveColorPrimary: CupertinoColors.white,
-      ),
+      ),*/
       PersistentBottomNavBarItem(
         title: AppLocalizations.of(context)!.translate(
           'Profile',
@@ -123,8 +119,8 @@ class _MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
 
   List<Widget> _buildScreens() {
     return [
-     // HomeScren(),
-      SettingScreen(),
+      //  HomeScren(),
+      // SettingScreen(),
       ViewProfile(),
       Chatpage(),
     ];

@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:ui' as ui;
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_chat_bubble/bubble_type.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_1.dart';
@@ -31,7 +32,7 @@ class _ChatpageState extends State<Chatpage> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(seconds: 3),
+    Future.delayed(Duration(seconds: 1),
         () => chatPageController.isApiCallProgress.value = false);
     adminid = chatPageController.model?.adminId.toString();
     nazer1 = chatPageController.model?.supervisor1Id.toString();
@@ -59,45 +60,54 @@ class _ChatpageState extends State<Chatpage> {
                             },
                             decoration: InputDecoration(hintText: "جستجو"),
                           )
-                        : Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Subhead(
-                                    text: chatPageController.model!.name!,
-                                    color: Colors.white,
-                                    textAlign: TextAlign.start,
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Caption2(
-                                    text: 'تعداد اعضای گروه',
-                                    color: Colors.amberAccent,
-                                    textAlign: TextAlign.start,
-                                  ),
-                                  SizedBox(
-                                    width: 4,
-                                  ),
-                                  Caption1(
-                                    text: chatPageController.model!.userCount
-                                        .toString(),
-                                    color: Colors.amberAccent,
-                                    textAlign: TextAlign.start,
-                                  ),
-                                  SizedBox(
-                                    width: 2,
-                                  ),
-                                  Caption2(
-                                    text: 'نفر',
-                                    color: Colors.amberAccent,
-                                    textAlign: TextAlign.start,
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
+                        : InkWell(
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Subhead(
+                                      text:
+                                          chatPageController.model!.name ?? "",
+                                      color: Colors.white,
+                                      textAlign: TextAlign.start,
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Caption2(
+                                      text: 'تعداد اعضای گروه',
+                                      color: Colors.amberAccent,
+                                      textAlign: TextAlign.start,
+                                    ),
+                                    SizedBox(
+                                      width: 4,
+                                    ),
+                                    Caption1(
+                                      text: chatPageController.model!.userCount
+                                          .toString(),
+                                      color: Colors.amberAccent,
+                                      textAlign: TextAlign.start,
+                                    ),
+                                    SizedBox(
+                                      width: 2,
+                                    ),
+                                    Caption2(
+                                      text: 'نفر',
+                                      color: Colors.amberAccent,
+                                      textAlign: TextAlign.start,
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => AboutGroup(
+                                          model: chatPageController.model!)));
+                            }),
                     leading: IconButton(
                         icon: Image.asset("assets/images/ram/gorp.png"),
                         onPressed: () {
@@ -227,6 +237,7 @@ class _ChatpageState extends State<Chatpage> {
                   minLines: 1,
                   enabled: true,
                   textAlign: TextAlign.start,
+                  style: TextStyle(fontSize: 16, fontFamily: 'Vazirmatn_Light'),
                   controller: chatPageController.chatEditController,
                 )),
                 IconButton(
@@ -269,7 +280,7 @@ class _ChatpageState extends State<Chatpage> {
                     showRecentsTab: true,
                     recentsLimit: 28,
                     //noRecentsText: 'No Recents',
-                  //  noRecentsStyle:
+                    //  noRecentsStyle:
                     //    const TextStyle(fontSize: 20, color: Colors.black26),
                     tabIndicatorAnimDuration: kTabScrollDuration,
                     categoryIcons: const CategoryIcons(),
@@ -291,191 +302,36 @@ class _ChatpageState extends State<Chatpage> {
       chat = chatPageController.chats[index];
     }
     bool fromMe = chat.userId == chatPageController.myUserId;
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment:
-          fromMe ? MainAxisAlignment.end : MainAxisAlignment.start,
+    return Column(
+      crossAxisAlignment:
+          fromMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
       children: [
-        fromMe
-            ? ChatBubble(
-                clipper: ChatBubbleClipper1(type: BubbleType.receiverBubble),
-                backGroundColor: Color(0xffE7E7ED),
-                margin: EdgeInsets.only(top: 10),
-                child: Container(
-                  constraints: BoxConstraints(
-                    maxWidth: MediaQuery.of(context).size.width * 0.7,
-                  ),
-                  child: InkWell(
-                    onTap: () {
-                      showDialog(
-                          context: context,
-                          builder: (context) => Dialog(
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    ListTile(
-                                      onTap: () {
-                                        chatPageController.addToReply(chat);
-                                        Navigator.of(context).pop();
-                                      },
-                                      title: Subhead(
-                                        color: Colors.black,
-                                        text: AppLocalizations.of(context)!
-                                            .translate(
-                                          'Replay',
-                                        )!,
-                                        textAlign: TextAlign.right,
-                                      ),
-                                    ),
-                                    if (fromMe)
-                                      ListTile(
-                                        onTap: () {
-                                          chatPageController.DeleteMessage(
-                                              chat);
-                                          Navigator.of(context).pop();
-                                        },
-                                        title: Subhead(
-                                          color: Colors.black,
-                                          text: AppLocalizations.of(context)!
-                                              .translate(
-                                            'delete',
-                                          )!,
-                                          textAlign: TextAlign.right,
-                                        ),
-                                      ),
-
-                                  ],
-                                ),
-                              ));
-                    },
+        // Container(
+        //   alignment: Alignment.center,
+        //   child: Footnate(
+        //     color: Colors.black,
+        //     text: csسhat.insertTime.toString().split("   ")[1].split(":")[0] +
+        //         ":" +
+        //         chat.insertTime.toString().split("   ")[1].split(":")[1],
+        //     textAlign: TextAlign.left,
+        //   ),
+        // ),
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment:
+              fromMe ? MainAxisAlignment.end : MainAxisAlignment.start,
+          children: [
+            fromMe
+                ? ChatBubble(
+                    clipper:
+                        ChatBubbleClipper1(type: BubbleType.receiverBubble),
+                    backGroundColor: Color(0xffE7E7ED),
+                    margin: EdgeInsets.only(top: 4, bottom: 4),
                     child: Container(
                       constraints: BoxConstraints(
-                          maxWidth: MediaQuery.of(context).size.width - 90),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            child: Subhead(
-                              color: Colors.teal,
-                              text: chat.userNameAlias!,
-                              textAlign: TextAlign.right,
-                            ),
-                          ),
-                          if (chat.parentMessageUserNameAlias != null)
-                            if (chat.parentMessageText != null)
-                              InkWell(
-                                onTap: () {
-                                  chatPageController.scrollToChat(chat);
-                                },
-                                child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(7.0),
-                                          shape: BoxShape.rectangle,
-                                          color: Colors.black12,
-                                        ),
-                                        child: Row(
-                                          children: [
-                                            Container(
-                                              width: 5,
-                                              height: 50,
-                                              decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.only(
-                                                    bottomRight:
-                                                        Radius.circular(5),
-                                                    topRight:
-                                                        Radius.circular(5)),
-                                                shape: BoxShape.rectangle,
-                                                color: Colors.greenAccent,
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 7,
-                                            ),
-                                            Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              children: [
-                                                Footnate(
-                                                  text: chat
-                                                      .parentMessageUserNameAlias!,
-                                                ),
-                                                Caption1(
-                                                    text: chat.parentMessageText!
-                                                                .length >
-                                                            30
-                                                        ? '${chat.parentMessageText!.substring(0, 30)}...'
-                                                        : chat
-                                                            .parentMessageText),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ]),
-                              ),
-                          Subhead(
-                            color: Colors.black,
-                            text: chat.text!,
-                            textAlign: TextAlign.right,
-                          ),
-                          Footnate(
-                            color: Colors.black,
-                            text: chat.insertTime
-                                    .toString()
-                                    .split("   ")[1]
-                                    .split(":")[0] +
-                                ":" +
-                                chat.insertTime
-                                    .toString()
-                                    .split("   ")[1]
-                                    .split(":")[1],
-                            textAlign: TextAlign.left,
-                          ),
-                        ],
+                        maxWidth: MediaQuery.of(context).size.width * 0.7,
                       ),
-                    ),
-                  ),
-                ),
-              )
-            : ChatBubble(
-                clipper: ChatBubbleClipper1(type: BubbleType.sendBubble),
-                margin: EdgeInsets.only(top: 10),
-                backGroundColor: Colors.cyan[50],
-                child: Container(
-                  constraints: BoxConstraints(
-                    maxWidth: MediaQuery.of(context).size.width * 0.7,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      InkWell(
-                        child: Container(
-                          child: Subhead(
-                            color: Colors.teal,
-                            text: chat.userNameAlias ?? "بدون نام",
-                            textAlign: TextAlign.right,
-                          ),
-                        ),
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ViewProfileUesr(
-                                        userid: chat.userId,
-                                      )));
-                        },
-                      ),
-                      InkWell(
+                      child: InkWell(
                         onTap: () {
                           showDialog(
                               context: context,
@@ -499,20 +355,18 @@ class _ChatpageState extends State<Chatpage> {
                                         ),
                                         ListTile(
                                           onTap: () {
-                                            chatPageController.addToReply(chat);
+                                            Clipboard.setData(ClipboardData(
+                                                text: chat.text!));
                                             Navigator.of(context).pop();
                                           },
                                           title: Subhead(
                                             color: Colors.black,
-                                            text: AppLocalizations.of(context)!
-                                                .translate(
-                                              'Report',
-                                            )!,
+                                            text: "کپی",
                                             textAlign: TextAlign.right,
                                           ),
                                         ),
                                         if (fromMe)
-                                            ListTile(
+                                          ListTile(
                                             onTap: () {
                                               chatPageController.DeleteMessage(
                                                   chat);
@@ -528,57 +382,6 @@ class _ChatpageState extends State<Chatpage> {
                                               textAlign: TextAlign.right,
                                             ),
                                           ),
-                                        if (nazer2 == chatPageController.myUserId)
-                                          ListTile(
-                                            onTap: () {
-                                              chatPageController.DeleteMessage(
-                                                  chat);
-                                              Navigator.of(context).pop();
-                                            },
-                                            title: Subhead(
-                                              color: Colors.black,
-                                              text:
-                                              AppLocalizations.of(context)!
-                                                  .translate(
-                                                'delete',
-                                              )!,
-                                              textAlign: TextAlign.right,
-                                            ),
-                                          ),
-                                        if (nazer1 == chatPageController.myUserId)
-                                          ListTile(
-                                            onTap: () {
-                                              chatPageController.DeleteMessage(
-                                                  chat);
-                                              Navigator.of(context).pop();
-                                            },
-                                            title: Subhead(
-                                              color: Colors.black,
-                                              text:
-                                              AppLocalizations.of(context)!
-                                                  .translate(
-                                                'delete',
-                                              )!,
-                                              textAlign: TextAlign.right,
-                                            ),
-                                          ),
-                                        if (adminid == chatPageController.myUserId)
-                                          ListTile(
-                                            onTap: () {
-                                              chatPageController.DeleteMessage(
-                                                  chat);
-                                              Navigator.of(context).pop();
-                                            },
-                                            title: Subhead(
-                                              color: Colors.black,
-                                              text:
-                                              AppLocalizations.of(context)!
-                                                  .translate(
-                                                'delete',
-                                              )!,
-                                              textAlign: TextAlign.right,
-                                            ),
-                                          ),
                                       ],
                                     ),
                                   ));
@@ -589,6 +392,13 @@ class _ChatpageState extends State<Chatpage> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              Container(
+                                child: Subhead(
+                                  color: Colors.teal,
+                                  text: chat.userNameAlias!,
+                                  textAlign: TextAlign.right,
+                                ),
+                              ),
                               if (chat.parentMessageUserNameAlias != null)
                                 if (chat.parentMessageText != null)
                                   InkWell(
@@ -646,9 +456,6 @@ class _ChatpageState extends State<Chatpage> {
                                                             ? '${chat.parentMessageText!.substring(0, 30)}...'
                                                             : chat
                                                                 .parentMessageText),
-                                                    /*Caption1(
-                                                        text: chat
-                                                            .parentMessageText!),*/
                                                   ],
                                                 ),
                                               ],
@@ -678,10 +485,273 @@ class _ChatpageState extends State<Chatpage> {
                           ),
                         ),
                       ),
-                    ],
+                    ),
+                  )
+                : ChatBubble(
+                    clipper: ChatBubbleClipper1(type: BubbleType.sendBubble),
+                    margin: EdgeInsets.only(top: 4, bottom: 4),
+                    backGroundColor: Colors.cyan[50],
+                    child: Container(
+                      constraints: BoxConstraints(
+                        maxWidth: MediaQuery.of(context).size.width * 0.7,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          InkWell(
+                            child: Container(
+                              child: Subhead(
+                                color: Colors.teal,
+                                text: chat.userNameAlias ?? "بدون نام",
+                                textAlign: TextAlign.right,
+                              ),
+                            ),
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ViewProfileUesr(
+                                            userid: chat.userId,
+                                          )));
+                            },
+                          ),
+                          InkWell(
+                            onTap: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) => Dialog(
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            ListTile(
+                                              onTap: () {
+                                                chatPageController
+                                                    .addToReply(chat);
+                                                Navigator.of(context).pop();
+                                              },
+                                              title: Subhead(
+                                                color: Colors.black,
+                                                text: AppLocalizations.of(
+                                                        context)!
+                                                    .translate(
+                                                  'Replay',
+                                                )!,
+                                                textAlign: TextAlign.right,
+                                              ),
+                                            ),
+                                            ListTile(
+                                              onTap: () {
+                                                Clipboard.setData(ClipboardData(
+                                                    text: chat.text!));
+                                                Navigator.of(context).pop();
+                                              },
+                                              title: Subhead(
+                                                color: Colors.black,
+                                                text: "کپی",
+                                                textAlign: TextAlign.right,
+                                              ),
+                                            ),
+                                            ListTile(
+                                              onTap: () {
+                                                chatPageController
+                                                    .addToReply(chat);
+                                                Navigator.of(context).pop();
+                                              },
+                                              title: Subhead(
+                                                color: Colors.black,
+                                                text: AppLocalizations.of(
+                                                        context)!
+                                                    .translate(
+                                                  'Report',
+                                                )!,
+                                                textAlign: TextAlign.right,
+                                              ),
+                                            ),
+                                            if (fromMe)
+                                              ListTile(
+                                                onTap: () {
+                                                  chatPageController
+                                                      .DeleteMessage(chat);
+                                                  Navigator.of(context).pop();
+                                                },
+                                                title: Subhead(
+                                                  color: Colors.black,
+                                                  text: AppLocalizations.of(
+                                                          context)!
+                                                      .translate(
+                                                    'delete',
+                                                  )!,
+                                                  textAlign: TextAlign.right,
+                                                ),
+                                              ),
+                                            if (nazer2 ==
+                                                chatPageController.myUserId)
+                                              ListTile(
+                                                onTap: () {
+                                                  chatPageController
+                                                      .DeleteMessage(chat);
+                                                  Navigator.of(context).pop();
+                                                },
+                                                title: Subhead(
+                                                  color: Colors.black,
+                                                  text: AppLocalizations.of(
+                                                          context)!
+                                                      .translate(
+                                                    'delete',
+                                                  )!,
+                                                  textAlign: TextAlign.right,
+                                                ),
+                                              ),
+                                            if (nazer1 ==
+                                                chatPageController.myUserId)
+                                              ListTile(
+                                                onTap: () {
+                                                  chatPageController
+                                                      .DeleteMessage(chat);
+                                                  Navigator.of(context).pop();
+                                                },
+                                                title: Subhead(
+                                                  color: Colors.black,
+                                                  text: AppLocalizations.of(
+                                                          context)!
+                                                      .translate(
+                                                    'delete',
+                                                  )!,
+                                                  textAlign: TextAlign.right,
+                                                ),
+                                              ),
+                                            if (adminid ==
+                                                chatPageController.myUserId)
+                                              ListTile(
+                                                onTap: () {
+                                                  chatPageController
+                                                      .DeleteMessage(chat);
+                                                  Navigator.of(context).pop();
+                                                },
+                                                title: Subhead(
+                                                  color: Colors.black,
+                                                  text: AppLocalizations.of(
+                                                          context)!
+                                                      .translate(
+                                                    'delete',
+                                                  )!,
+                                                  textAlign: TextAlign.right,
+                                                ),
+                                              ),
+                                          ],
+                                        ),
+                                      ));
+                            },
+                            child: Container(
+                              constraints: BoxConstraints(
+                                  maxWidth:
+                                      MediaQuery.of(context).size.width - 90),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  if (chat.parentMessageUserNameAlias != null)
+                                    if (chat.parentMessageText != null)
+                                      InkWell(
+                                        onTap: () {
+                                          chatPageController.scrollToChat(chat);
+                                        },
+                                        child: Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Container(
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          7.0),
+                                                  shape: BoxShape.rectangle,
+                                                  color: Colors.black12,
+                                                ),
+                                                child: Row(
+                                                  children: [
+                                                    Container(
+                                                      width: 5,
+                                                      height: 50,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius.only(
+                                                                bottomRight:
+                                                                    Radius
+                                                                        .circular(
+                                                                            5),
+                                                                topRight: Radius
+                                                                    .circular(
+                                                                        5)),
+                                                        shape:
+                                                            BoxShape.rectangle,
+                                                        color:
+                                                            Colors.greenAccent,
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 7,
+                                                    ),
+                                                    Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Footnate(
+                                                          text: chat
+                                                              .parentMessageUserNameAlias!,
+                                                        ),
+                                                        Caption1(
+                                                            text: chat.parentMessageText!
+                                                                        .length >
+                                                                    30
+                                                                ? '${chat.parentMessageText!.substring(0, 30)}...'
+                                                                : chat
+                                                                    .parentMessageText),
+                                                        /*Caption1(
+                                                            text: chat
+                                                                .parentMessageText!),*/
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ]),
+                                      ),
+                                  Subhead(
+                                    color: Colors.black,
+                                    text: chat.text!,
+                                    textAlign: TextAlign.right,
+                                  ),
+                                  Footnate(
+                                    color: Colors.black,
+                                    text: chat.insertTime
+                                            .toString()
+                                            .split("   ")[1]
+                                            .split(":")[0] +
+                                        ":" +
+                                        chat.insertTime
+                                            .toString()
+                                            .split("   ")[1]
+                                            .split(":")[1],
+                                    textAlign: TextAlign.left,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                ),
-              ),
+          ],
+        ),
       ],
     );
   }

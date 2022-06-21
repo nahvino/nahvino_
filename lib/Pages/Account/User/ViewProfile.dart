@@ -1,33 +1,37 @@
+import 'package:Nahvino/Pages/Account/User/EditProfile.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:lottie/lottie.dart';
-import 'package:Nahvino/Pages/Account/User/EditProfile.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../../App_localizations.dart';
+import '../../../Data/Local/profiledb.dart';
 import '../../../Model/user/user/viewprofile_response_model.dart';
 import '../../../Services/Login/ApiService.dart';
 import '../../../Services/config.dart';
 import '../../../Utils/Button/Button.dart';
 import '../../../Utils/Text/Text.dart';
-import '../../../App_localizations.dart';
+import '../../../controllers/getx/aboutgroupcontroller.dart';
 import '../Login/SignUp.dart';
 import 'Notifications.dart';
 import 'UserSecuritySttingMenus.dart';
 import 'ViewProfileUesrArshed.dart';
 
 class ViewProfile extends StatefulWidget {
-  const ViewProfile({Key? key}) : super(key: key);
-
+  const ViewProfile({Key? key , this.tabIndex}) : super(key: key);
+  final int? tabIndex;
   @override
   State<ViewProfile> createState() => _ViewProfileState();
 }
 
 class _ViewProfileState extends State<ViewProfile> {
   bool isApiCallProgress = true;
-
   GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
+  AboutGroupController noti = Get.put(AboutGroupController());
   GetProfileUserResponseModel? resultResponse;
   late Map<String, dynamic> resultResponsee;
   var resultResponseGetUserAbandon;
@@ -36,7 +40,8 @@ class _ViewProfileState extends State<ViewProfile> {
   late int day;
   late int month;
   late int year;
-
+  GetStorage box = GetStorage();
+  Profiledb prodb = new Profiledb();
   List<String> ranks = <String>[
     "مبتدی",
     "رهجو",
@@ -48,7 +53,6 @@ class _ViewProfileState extends State<ViewProfile> {
     "ناجی",
     "نحوینو"
   ];
-
   List<String> ranksadad = <String>[
     "1",
     "2",
@@ -60,7 +64,6 @@ class _ViewProfileState extends State<ViewProfile> {
     "8",
     "9"
   ];
-
   List<Widget> ranksadadA = <Widget>[
     Lottie.asset('assets/anim/phonix/level1.json'),
     Lottie.asset('assets/anim/phonix/level2.json'),
@@ -79,7 +82,6 @@ class _ViewProfileState extends State<ViewProfile> {
     late double a = range;
     for (double i = 0.00; i <= dotabdel / 29.00; i += 0.037) {
       range = i;
-      print("=====================>$range");
     }
     return a;
   }
@@ -90,7 +92,6 @@ class _ViewProfileState extends State<ViewProfile> {
     late double a = range;
     for (double i = 0.00; i <= dotabdel / 12.00; i += 0.11) {
       range = i;
-      print("Month=====================>$range");
     }
     return a;
   }
@@ -101,23 +102,35 @@ class _ViewProfileState extends State<ViewProfile> {
     late double a = range;
     for (double i = 0.00; i <= dotabdel / 100.0; i += 2.0) {
       range = i;
-      print("Year=====================>$range");
     }
     return a;
   }
 
   @override
   void initState() {
+    GetStorage.init();
     super.initState();
     apiService = APIService(context);
     Future.microtask(() {
       APIService.getprofileuser().then((response) {
         print("getprofileuser-------------------------- => $response");
         resultResponse = response;
+        box.write('a', resultResponse!.userName);
+        print("=======================");
+        print(box.read('a'));
+        print("=======================");
         APIService.GetLastVisit().then((response) {
           resultResponsee = response;
           print(" قوقوی---------------------------- => $response");
-          APIService.getuserabandon().then((response) {
+          APIService.getuserabandon().then((response) async {
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+            if (prefs.getBool("switchState") == false || prefs.getBool("switchState") == null ) {
+              APIService.notificationaApi().then((response) {
+                print(
+                    "Notfiiiiiiiiiiiiiiiii---------------------------- => $response");
+              });
+            }
+
             print("تاریخ ترک ------------- => $response");
             setState(() {
               isApiCallProgress = false;
@@ -417,7 +430,7 @@ class _ViewProfileState extends State<ViewProfile> {
                         children: [
                           textbold(
                             text: resultResponse!.nameAlias ?? "",
-                            color: Colors.green,
+                            color: Colors.teal,
                             textAlign: TextAlign.start,
                           ),
                           SizedBox(
@@ -507,59 +520,74 @@ class _ViewProfileState extends State<ViewProfile> {
                             ),*/
 
                           InkWell(
-                            onTap: () {
-                              /*showDialog<void>(
+                              onTap: () {
+                                /*showDialog<void>(
                                     context: context,
                                     builder: (context) => /*ArshadDialog()*/ ViewProfileUesr(userid: resultResponse!.parentId,));*/
-                              /*    showDialog<void>(
+                                /*    showDialog<void>(
                                     context: context,
                                     builder: (context) => ViewProfileUesrArshed(
                                           userid: resultResponse!.parentId,
                                         ));*/
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          ViewProfileUesrArshed(
-                                            userid: resultResponse!.parentId,
-                                          )));
-                            },
-                            child: (resultResponse!.parentImageUrl != null &&
-                                    resultResponse!.parentImageUrl != "")
-                                ? Card(
-                                    shape: CircleBorder(),
-                                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                                    child: CachedNetworkImage(
-                                      height: 45,
-                                      width: 45,
-                                      cacheManager: CacheManager(Config(
-                                          'customCacheKey',
-                                          stalePeriod: Duration(days: 7),
-                                          maxNrOfCacheObjects: 100)),
-                                      imageUrl: configss.fileurl +
-                                          resultResponse!.parentImageUrl!,
-                                      imageBuilder: (context, imageProvider) =>
-                                          Container(
-                                        decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                            image: imageProvider,
-                                            fit: BoxFit.cover,
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            ViewProfileUesrArshed(
+                                              userid: resultResponse!.parentId,
+                                            )));
+                              },
+                              child: Column(
+                                children: [
+                                  (resultResponse!.parentImageUrl != null &&
+                                          resultResponse!.parentImageUrl != "")
+                                      ? Card(
+                                          shape: CircleBorder(),
+                                          clipBehavior:
+                                              Clip.antiAliasWithSaveLayer,
+                                          child: CachedNetworkImage(
+                                            height: 45,
+                                            width: 45,
+                                            cacheManager: CacheManager(Config(
+                                                'customCacheKey',
+                                                stalePeriod: Duration(days: 7),
+                                                maxNrOfCacheObjects: 100)),
+                                            imageUrl: configss.fileurl +
+                                                resultResponse!.parentImageUrl!,
+                                            imageBuilder:
+                                                (context, imageProvider) =>
+                                                    Container(
+                                              decoration: BoxDecoration(
+                                                image: DecorationImage(
+                                                  image: imageProvider,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ),
+                                            ),
+                                            placeholder: (context, url) =>
+                                                CircularProgressIndicator(),
+                                            errorWidget:
+                                                (context, url, error) =>
+                                                    Icon(Icons.error),
                                           ),
+                                        )
+                                      : Image.asset(
+                                          'assets/images/home/user.png',
+                                          fit: BoxFit.cover,
+                                          height: 45,
+                                          width: 45,
                                         ),
-                                      ),
-                                      placeholder: (context, url) =>
-                                          CircularProgressIndicator(),
-                                      errorWidget: (context, url, error) =>
-                                          Icon(Icons.error),
-                                    ),
-                                  )
-                                : Image.asset(
-                                    'assets/images/home/user.png',
-                                    fit: BoxFit.cover,
-                                    height: 45,
-                                    width: 45,
+                                  SizedBox(
+                                    height: 4,
                                   ),
-                            /*Card(
+                                  textspan(
+                                    text: resultResponse!.parentName!,
+                                    color: Colors.teal,
+                                    textAlign: TextAlign.left,
+                                  ),
+                                ],
+                              )
+                              /*Card(
                               shape: CircleBorder(),
                               clipBehavior: Clip.antiAliasWithSaveLayer,
                               child: Image.network(
@@ -599,15 +627,7 @@ class _ViewProfileState extends State<ViewProfile> {
                               height: 30,
                               width: 30,
                             ),*/
-                          ),
-                          SizedBox(
-                            height: 4,
-                          ),
-                          textspan(
-                            text: resultResponse!.parentName!,
-                            color: Colors.black,
-                            textAlign: TextAlign.left,
-                          ),
+                              ),
                         ],
                       ),
                     ],

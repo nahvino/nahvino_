@@ -1,12 +1,11 @@
 class configss {
   static const String appName = "Nahvino";
 
-  //static const String baseURL = "https://api.nahvino.ir";
   static const String baseURL = "https://api.faradeiazoapi.xyz";
+  //static const String baseURL = "https://tset.faradeiazoapi.xyz";
 
- // static const String fileurl = "https://static.nahvino.ir";
   //static const String fileurl = "https://static.faradeiazoapi.xyz";
-  static const String fileurl = "http://static.faradeiazoapi.xyz";
+  static const String fileurl = "https://static.faradeiazoapi.xyz";
 
   static const String login = "/api/v1/Account/SignIn";
   static const String register = "/api/v1/Account/SignUp";
@@ -36,4 +35,8 @@ class configss {
   static const String GetProfileOtherUser =
       "/api/v1/Account/GetProfileOtherUser";
   static const String GetLastOtherVisit = "/api/v1/Account/GetLastOtherVisit";
+
+  //Notification
+  static const String notification = "/api/NotificationTokens";
+  static const String deletetokenapi = "/api/NotificationTokens/DeleteToken";
 }

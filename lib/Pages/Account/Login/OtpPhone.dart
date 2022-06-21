@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 import '../../../App_localizations.dart';
 import '../../../Services/Login/ApiService.dart';
@@ -20,6 +21,10 @@ class OtpPhoneNew extends StatefulWidget {
 class _OtpPhoneNewState extends State<OtpPhoneNew> {
   bool isApiCallProcess = false;
   TextEditingController OtpPhoneController = TextEditingController();
+  var maskFormatter = new MaskTextInputFormatter(
+      mask: '# ###-###-###',
+      filter: {"#": RegExp(r'[0-9]')},
+      type: MaskAutoCompletionType.lazy);
   final formKey = GlobalKey<FormState>();
   GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
   late APIService apiService;
@@ -29,6 +34,7 @@ class _OtpPhoneNewState extends State<OtpPhoneNew> {
     super.initState();
     apiService = APIService(context);
     OtpPhoneController = TextEditingController(text: widget.phone ?? "");
+    OtpPhoneController.value = maskFormatter.updateMask(mask: '# ###-###-###');
   }
 
   @override
@@ -69,6 +75,7 @@ class _OtpPhoneNewState extends State<OtpPhoneNew> {
                       )!,
                       controller: OtpPhoneController,
                     ),
+
                     /*
                     Row(
                       mainAxisSize: MainAxisSize.max,
@@ -151,7 +158,8 @@ class _OtpPhoneNewState extends State<OtpPhoneNew> {
                             'IAccept',
                           )!,
                         ),
-                      ],),
+                      ],
+                    ),
                     Buttontest(
                         text: AppLocalizations.of(context)!.translate(
                           'OK',

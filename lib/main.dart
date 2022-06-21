@@ -1,16 +1,26 @@
+import 'package:Nahvino/tabs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'App_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'LanguageConstants.dart';
+import 'Pages/Account/Caht/ChatPage.dart';
+import 'Pages/Account/Caht/ChatPageController.dart';
+import 'Services/Login/ApiService.dart';
+import 'controllers/getx/aboutgroupcontroller.dart';
 import 'splash.dart';
 import 'dart:async';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'firebase_options.dart';
 
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   print("Handling a background message: ${message.messageId}");
+  AboutGroupController notiController = Get.put(AboutGroupController());
+  notiController.notfi.value = true;
 }
 
 /*
@@ -113,7 +123,11 @@ late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
   runApp(MyApp());
 }*/
-void main() => runApp(MyApp());
+void main() async {
+  // await GetStorage.init();
+
+  runApp(MyApp());
+}
 
 /*
 class MyApp extends StatelessWidget {
@@ -151,8 +165,9 @@ class MyApp extends StatelessWidget {
 }
 */
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
-
+  const MyApp({
+    Key? key,
+  }) : super(key: key);
   static void setLocale(BuildContext context, Locale newLocale) {
     _MyAppState? state = context.findAncestorStateOfType<_MyAppState>();
     state!.setLocale(newLocale);
@@ -163,11 +178,17 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  late final FirebaseMessaging messaging;
   late int totalNotifications;
-
-  String messgaeTitle = 'Empty';
+  late APIService apiService;
+  String? tolll;
+  String? messgaeTitle;
   String notificationAlert = 'Alert';
+  late SharedPreferences tak;
+  final navigatorKey = GlobalKey<NavigatorState>();
+  bool test = false;
+  bool nots = false;
+  ChatPageController chatPageController = Get.put(ChatPageController());
+  AboutGroupController notiController = Get.put(AboutGroupController());
 
   Future<void> registerNotfition() async {
     //await Firebase.initializeApp();
@@ -175,41 +196,81 @@ class _MyAppState extends State<MyApp> {
       options: DefaultFirebaseOptions.currentPlatform,
     );
     String? fcntoken = await FirebaseMessaging.instance.getToken();
+    tolll = fcntoken;
+    final firebasetoken = await SharedPreferences.getInstance();
+    await firebasetoken
+      ..setString('firebasetoken', tolll.toString());
     print("-----------token------------->$fcntoken");
-    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+    FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
     NotificationSettings setings = await messaging.requestPermission(
       alert: true,
       badge: true,
       provisional: false,
       sound: true,
+      carPlay: true,
+      criticalAlert: false,
+      announcement: false,
     );
     if (setings.authorizationStatus == AuthorizationStatus.authorized) {
       FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+        notiController.notfi.value = true;
         setState(() {
           messgaeTitle = message.data["title"];
           notificationAlert = message.data["body"];
         });
       });
     }
+
+    // FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+    //   // if (message.data["notification"] == "screenA") {
+    //   //   Navigator.pushAndRemoveUntil(
+    //   //     context,
+    //   //     MaterialPageRoute(builder: (context) => Chatpage()),
+    //   //     (route) => false,
+    //   //   );
+    //   // }
+    //   if (message.data['type'] == 'chat') {
+    //     Navigator.pushAndRemoveUntil(
+    //       context,
+    //       MaterialPageRoute(builder: (context) => Chatpage()),
+    //       (route) => false,
+    //     );
+    //   }
+    //   setState(() {
+    //     messgaeTitle = message.data["title"];
+    //     notificationAlert = message.data['body'];
+    //   });
+    // });
   }
 
   @override
   void initState() {
     totalNotifications = 0;
     registerNotfition();
-
+    chatPageController.openSignalRConnection();
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      print("====================>$message");
+      // Navigator.pushNamed(context, '/chat');
+      // navigatorKey.currentState?.pushNamed('/tab', arguments: {'tabIndex': 1});
+      notiController.notfi.value = true;
+      navigatorKey.currentState?.push(MaterialPageRoute(
+          builder: (context) => MyTabs(
+                tabIndex: 1,
+              )));
+      // printnavigatorKey.currentState?.pushNamed('/chat');
       setState(() {
         messgaeTitle = message.data["title"];
         notificationAlert = message.data['body'];
       });
     });
-
     super.initState();
+    if (messgaeTitle != null) {
+      notiController.notfi.value = true;
+    }
   }
 
   Locale? _locale;
-
   setLocale(Locale locale) {
     setState(() {
       _locale = locale;
@@ -262,6 +323,12 @@ class _MyAppState extends State<MyApp> {
           return supportedLocales.first;
         },
         home: Splash(),
+        initialRoute: '/',
+        navigatorKey: navigatorKey,
+        routes: {
+          '/chat': (context) => Chatpage(),
+          '/tab': (context) => MyTabs(),
+        },
         // initialRoute:Splash() ,
       );
     }

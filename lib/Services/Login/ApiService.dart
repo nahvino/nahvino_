@@ -79,6 +79,7 @@ class APIService {
       }),
     );
     if (validateResponse(response)) {
+      print(response.body);
       return json.decode(response.body);
     } else {
       return false;
@@ -382,6 +383,8 @@ class APIService {
   Future OtpPhone(String OtpPhoneController) async {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
+      'accept': '*/*',
+      'Access-Control_Allow_Origin': '*'
     };
     var url = Uri.parse(configss.baseURL + configss.otpphone);
     var response = await client.post(
@@ -571,7 +574,7 @@ class APIService {
   static Future GetLastOtherVisit(
     String GetLastOtherVisit,
   ) async {
-   // SharedPreferences preferences = await SharedPreferences.getInstance();
+    // SharedPreferences preferences = await SharedPreferences.getInstance();
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
       //'Authorization': "Bearer ${await preferences.getString("token")}"
@@ -605,6 +608,49 @@ class APIService {
       body: jsonEncode({"userId": getuserabandonViewProfileUesr}),
     );
     debugPrint(response.body.toString());
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    } else {
+      return false;
+    }
+  }
+
+  static Future notificationaApi() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+      //'Authorization': "Bearer ${await preferences.getString("token")}"
+    };
+    var url = Uri.parse(configss.baseURL + configss.notification);
+    var response = await client.post(
+      url,
+      headers: requestHeaders,
+      body: jsonEncode({
+        "userId": await preferences.getString("userId"),
+        "token": await preferences.getString("firebasetoken")
+      }),
+    );
+    //  debugPrint(response.body.toString());
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    } else {
+      return false;
+    }
+  }
+
+  static Future deletetokenapi() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+      //'Authorization': "Bearer ${await preferences.getString("token")}"
+    };
+    var url = Uri.parse(configss.baseURL + configss.deletetokenapi);
+    var response = await client.post(
+      url,
+      headers: requestHeaders,
+      body: jsonEncode({"userId": await preferences.getString("userId")}),
+    );
+    //  debugPrint(response.body.toString());
     if (response.statusCode == 200) {
       return json.decode(response.body);
     } else {
