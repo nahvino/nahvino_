@@ -12,6 +12,7 @@ import 'Pages/Account/Caht/ChatPage.dart';
 import 'Pages/Account/Caht/ChatPageController.dart';
 import 'Services/Login/ApiService.dart';
 import 'controllers/getx/aboutgroupcontroller.dart';
+import 'controllers/getx/user/viewprofial_controller.dart';
 import 'splash.dart';
 import 'dart:async';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -182,7 +183,7 @@ class _MyAppState extends State<MyApp> {
   late APIService apiService;
   String? tolll;
   String? messgaeTitle;
-  String notificationAlert = 'Alert';
+  String? notificationAlert = 'Alert';
   late SharedPreferences tak;
   final navigatorKey = GlobalKey<NavigatorState>();
   bool test = false;
@@ -258,6 +259,7 @@ class _MyAppState extends State<MyApp> {
           builder: (context) => MyTabs(
                 tabIndex: 1,
               )));
+
       // printnavigatorKey.currentState?.pushNamed('/chat');
       setState(() {
         messgaeTitle = message.data["title"];

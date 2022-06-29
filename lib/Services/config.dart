@@ -1,9 +1,6 @@
-class configss {
-  static const String appName = "Nahvino";
-
-  static const String baseURL = "https://api.faradeiazoapi.xyz";
-  //static const String baseURL = "https://tset.faradeiazoapi.xyz";
-
+class Configss {
+  //static const String baseURL = "https://api.faradeiazoapi.xyz";
+  static const String baseURL = "https://tset.faradeiazoapi.xyz";
   //static const String fileurl = "https://static.faradeiazoapi.xyz";
   static const String fileurl = "https://static.faradeiazoapi.xyz";
 
@@ -35,6 +32,7 @@ class configss {
   static const String GetProfileOtherUser =
       "/api/v1/Account/GetProfileOtherUser";
   static const String GetLastOtherVisit = "/api/v1/Account/GetLastOtherVisit";
+  static const String userreport = "/api/v1/Account/UserReport";
 
   //Notification
   static const String notification = "/api/NotificationTokens";

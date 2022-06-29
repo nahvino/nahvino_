@@ -12,6 +12,7 @@ import 'package:Nahvino/Pages/Account/Caht/AboutGroup.dart';
 import 'package:lottie/lottie.dart';
 import '../../../App_localizations.dart';
 import '../../../Model/User/SignalR/ReceiveMessageModel.dart';
+import '../../../Services/Login/ApiService.dart';
 import '../../../Utils/Text/Text.dart';
 import '../User/ViewProfileUesr.dart';
 
@@ -28,10 +29,12 @@ class _ChatpageState extends State<Chatpage> {
   String? adminid;
   String? nazer1;
   String? nazer2;
+  late APIService apiService;
 
   @override
   void initState() {
     super.initState();
+    apiService = APIService(context);
     Future.delayed(Duration(seconds: 1),
         () => chatPageController.isApiCallProgress.value = false);
     adminid = chatPageController.model?.adminId.toString();
@@ -554,8 +557,23 @@ class _ChatpageState extends State<Chatpage> {
                                             ),
                                             ListTile(
                                               onTap: () {
-                                                chatPageController
-                                                    .addToReply(chat);
+                                                APIService.userreport(
+                                                        chat.userId.toString(),
+                                                        chat.id)
+                                                    .then((response) async {
+                                                  if (response != false) {
+                                                    print(
+                                                        "userreport---------------------------- => $response");
+                                                    /* apiService.showSnackBar(
+                                                        text: response[
+                                                            'message']);*/
+
+                                                  } else {
+                                                    /* apiService.showSnackBar(
+                                                        text: response[
+                                                            'message']);*/
+                                                  }
+                                                });
                                                 Navigator.of(context).pop();
                                               },
                                               title: Subhead(

@@ -175,7 +175,7 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                                           'customCacheKey',
                                           stalePeriod: Duration(days: 7),
                                           maxNrOfCacheObjects: 100)),
-                                      imageUrl: configss.fileurl +
+                                      imageUrl: Configss.fileurl +
                                           resultResponseViewProfileUesr[
                                               'imageUrl']!,
                                       imageBuilder: (context, imageProvider) =>
@@ -203,7 +203,7 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                                     shape: CircleBorder(),
                                     clipBehavior: Clip.antiAliasWithSaveLayer,
                                     child: Image.network(
-                                      configss.fileurl +
+                                      Configss.fileurl +
                                           resultResponseViewProfileUesr[
                                               'imageUrl']!,
                                       fit: BoxFit.cover,
@@ -347,7 +347,7 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                                           'customCacheKey',
                                           stalePeriod: Duration(days: 7),
                                           maxNrOfCacheObjects: 100)),
-                                      imageUrl: configss.fileurl +
+                                      imageUrl: Configss.fileurl +
                                           resultResponseViewProfileUesr[
                                               'parentImageUrl']!,
                                       imageBuilder: (context, imageProvider) =>
@@ -376,7 +376,7 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                                     shape: CircleBorder(),
                                     clipBehavior: Clip.antiAliasWithSaveLayer,
                                     child: Image.network(
-                                      configss.fileurl +
+                                      Configss.fileurl +
                                           resultResponseViewProfileUesr[
                                               'parentImageUrl']!,
                                       fit: BoxFit.cover,

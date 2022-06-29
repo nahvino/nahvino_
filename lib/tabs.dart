@@ -74,7 +74,7 @@ class _MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
 
   List<PersistentBottomNavBarItem> _navBarsItems() {
     return [
-      /*  PersistentBottomNavBarItem(
+      PersistentBottomNavBarItem(
         title: AppLocalizations.of(context)!.translate(
           'Home',
         ),
@@ -83,7 +83,7 @@ class _MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
         textStyle: TextStyle(fontSize: 12, fontFamily: 'Vazirmatn_Light'),
         activeColorPrimary: CupertinoColors.white,
         inactiveColorPrimary: CupertinoColors.white,
-      ),*/
+      ),
       /*  PersistentBottomNavBarItem(
         title: AppLocalizations.of(context)!.translate(
           'Blog',
@@ -119,7 +119,7 @@ class _MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
 
   List<Widget> _buildScreens() {
     return [
-      //  HomeScren(),
+      HomeScren(),
       // SettingScreen(),
       ViewProfile(),
       Chatpage(),

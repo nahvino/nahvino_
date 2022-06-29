@@ -1,4 +1,5 @@
 import 'package:Nahvino/Pages/Account/User/EditProfile.dart';
+import 'package:Nahvino/Pages/Account/User/editprofilescreen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
@@ -9,20 +10,20 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../App_localizations.dart';
-import '../../../Data/Local/profiledb.dart';
 import '../../../Model/user/user/viewprofile_response_model.dart';
 import '../../../Services/Login/ApiService.dart';
 import '../../../Services/config.dart';
 import '../../../Utils/Button/Button.dart';
 import '../../../Utils/Text/Text.dart';
 import '../../../controllers/getx/aboutgroupcontroller.dart';
+import '../../../controllers/getx/user/viewprofial_controller.dart';
 import '../Login/SignUp.dart';
 import 'Notifications.dart';
 import 'UserSecuritySttingMenus.dart';
 import 'ViewProfileUesrArshed.dart';
 
 class ViewProfile extends StatefulWidget {
-  const ViewProfile({Key? key , this.tabIndex}) : super(key: key);
+  const ViewProfile({Key? key, this.tabIndex}) : super(key: key);
   final int? tabIndex;
   @override
   State<ViewProfile> createState() => _ViewProfileState();
@@ -30,8 +31,8 @@ class ViewProfile extends StatefulWidget {
 
 class _ViewProfileState extends State<ViewProfile> {
   bool isApiCallProgress = true;
-  GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
   AboutGroupController noti = Get.put(AboutGroupController());
+  ViewProfileController databox = Get.put(ViewProfileController());
   GetProfileUserResponseModel? resultResponse;
   late Map<String, dynamic> resultResponsee;
   var resultResponseGetUserAbandon;
@@ -40,8 +41,7 @@ class _ViewProfileState extends State<ViewProfile> {
   late int day;
   late int month;
   late int year;
-  GetStorage box = GetStorage();
-  Profiledb prodb = new Profiledb();
+  // GetStorage box = GetStorage();
   List<String> ranks = <String>[
     "مبتدی",
     "رهجو",
@@ -108,29 +108,25 @@ class _ViewProfileState extends State<ViewProfile> {
 
   @override
   void initState() {
-    GetStorage.init();
     super.initState();
     apiService = APIService(context);
-    Future.microtask(() {
+    /*Future.microtask(() {
+      databox.checkdata();
       APIService.getprofileuser().then((response) {
-        print("getprofileuser-------------------------- => $response");
+        // print("getprofileuser-------------------------- => $response");
         resultResponse = response;
-        box.write('a', resultResponse!.userName);
-        print("=======================");
-        print(box.read('a'));
-        print("=======================");
         APIService.GetLastVisit().then((response) {
           resultResponsee = response;
           print(" قوقوی---------------------------- => $response");
           APIService.getuserabandon().then((response) async {
             SharedPreferences prefs = await SharedPreferences.getInstance();
-            if (prefs.getBool("switchState") == false || prefs.getBool("switchState") == null ) {
+            if (prefs.getBool("switchState") == false ||
+                prefs.getBool("switchState") == null) {
               APIService.notificationaApi().then((response) {
                 print(
                     "Notfiiiiiiiiiiiiiiiii---------------------------- => $response");
               });
             }
-
             print("تاریخ ترک ------------- => $response");
             setState(() {
               isApiCallProgress = false;
@@ -141,6 +137,30 @@ class _ViewProfileState extends State<ViewProfile> {
       }).onError((error, stackTrace) {
         print(error);
       });
+    });*/
+    Future.microtask(() {
+      databox.checkdata();
+      APIService.GetLastVisit().then((response) {
+        resultResponsee = response;
+        print(" قوقوی---------------------------- => $response");
+        APIService.getuserabandon().then((response) async {
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          if (prefs.getBool("switchState") == false ||
+              prefs.getBool("switchState") == null) {
+            APIService.notificationaApi().then((response) {
+              print(
+                  "Notfiiiiiiiiiiiiiiiii---------------------------- => $response");
+            });
+          }
+          print("تاریخ ترک ------------- => $response");
+          setState(() {
+            isApiCallProgress = false;
+            resultResponseGetUserAbandon = response;
+          });
+        });
+      });
+    }).onError((error, stackTrace) {
+      print(error);
     });
   }
 
@@ -197,7 +217,8 @@ class _ViewProfileState extends State<ViewProfile> {
                                     MediaQuery.of(context).size.height * 0.02),
                             child: textbold(
                               textAlign: TextAlign.right,
-                              text: resultResponse?.userName ?? "مهمان",
+                              text: databox.username
+                                  .value /*resultResponse?.userName ?? "مهمان"*/,
                               color: Colors.black,
                             ),
                           ),
@@ -290,8 +311,11 @@ class _ViewProfileState extends State<ViewProfile> {
                                       ),
                                       textspan(
                                         textAlign: TextAlign.center,
-                                        text: resultResponse!.identifierCode
-                                            .toString(),
+                                        text: databox.identifierCode.value
+                                            .toString()
+                                        /*resultResponse!.identifierCode
+                                            .toString()*/
+                                        ,
                                         color: Colors.black,
                                       ),
                                       const SizedBox(
@@ -343,9 +367,7 @@ class _ViewProfileState extends State<ViewProfile> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      (resultResponse!.imageUrl != null &&
-                              resultResponse!.imageUrl != "")
-                          ? /*Card(
+                      /*Card(
                         shape: CircleBorder(),
                         clipBehavior: Clip.antiAliasWithSaveLayer,
                         child: Image.network(
@@ -392,8 +414,11 @@ class _ViewProfileState extends State<ViewProfile> {
                         height: 75,
                         width: 75,
                       ),*/
-
-                          Card(
+                      /*  (resultResponse!.imageUrl != null &&
+                              resultResponse!.imageUrl != "")*/
+                      (databox.imageUrl.value != null &&
+                              databox.imageUrl.value != "")
+                          ? Card(
                               shape: CircleBorder(),
                               clipBehavior: Clip.antiAliasWithSaveLayer,
                               child: CachedNetworkImage(
@@ -403,8 +428,9 @@ class _ViewProfileState extends State<ViewProfile> {
                                     'customCacheKey',
                                     stalePeriod: Duration(days: 7),
                                     maxNrOfCacheObjects: 100)),
-                                imageUrl: configss.fileurl +
-                                    resultResponse!.imageUrl!,
+                                imageUrl: Configss.fileurl +
+                                    databox.imageUrl
+                                        .value /*resultResponse!.imageUrl!*/,
                                 imageBuilder: (context, imageProvider) =>
                                     Container(
                                   decoration: BoxDecoration(
@@ -429,7 +455,8 @@ class _ViewProfileState extends State<ViewProfile> {
                       Column(
                         children: [
                           textbold(
-                            text: resultResponse!.nameAlias ?? "",
+                            text: databox.namealias
+                                .value /*resultResponse!.nameAlias ?? ""*/,
                             color: Colors.teal,
                             textAlign: TextAlign.start,
                           ),
@@ -459,7 +486,8 @@ class _ViewProfileState extends State<ViewProfile> {
                                       border: Border.all(
                                           color: Colors.black26, width: 1)),
                                   child: textspan(
-                                    text: ranksadad[resultResponse!.rank ?? 0],
+                                    text: ranksadad[databox.rank
+                                        .value] /*ranksadad[resultResponse!.rank ?? 0]*/,
                                     color: Colors.purpleAccent,
                                     textAlign: TextAlign.left,
                                   ),
@@ -468,7 +496,8 @@ class _ViewProfileState extends State<ViewProfile> {
                                   width: 5,
                                 ),
                                 textspan(
-                                  text: ranks[resultResponse!.rank!],
+                                  text: ranks[databox.rank
+                                      .value] /*ranks[resultResponse!.rank!]*/,
                                   color: Colors.black,
                                   textAlign: TextAlign.left,
                                 ),
@@ -502,7 +531,8 @@ class _ViewProfileState extends State<ViewProfile> {
                             height: 4,
                           ),
                           textspan(
-                            text: resultResponse!.score.toString(),
+                            text: databox.score.value
+                                .toString() /*resultResponse!.score.toString()*/,
                             color: Colors.black,
                             textAlign: TextAlign.left,
                           ),
@@ -534,13 +564,17 @@ class _ViewProfileState extends State<ViewProfile> {
                                     MaterialPageRoute(
                                         builder: (context) =>
                                             ViewProfileUesrArshed(
-                                              userid: resultResponse!.parentId,
+                                              userid: databox.parentId
+                                                  .value /*resultResponse!.parentId*/,
                                             )));
                               },
                               child: Column(
                                 children: [
-                                  (resultResponse!.parentImageUrl != null &&
-                                          resultResponse!.parentImageUrl != "")
+                                  /* (resultResponse!.parentImageUrl != null &&
+                                          resultResponse!.parentImageUrl != "")*/
+                                  (databox.parentimageurl.value != null.obs &&
+                                          databox.parentimageurl.value !=
+                                              "".obs)
                                       ? Card(
                                           shape: CircleBorder(),
                                           clipBehavior:
@@ -552,8 +586,9 @@ class _ViewProfileState extends State<ViewProfile> {
                                                 'customCacheKey',
                                                 stalePeriod: Duration(days: 7),
                                                 maxNrOfCacheObjects: 100)),
-                                            imageUrl: configss.fileurl +
-                                                resultResponse!.parentImageUrl!,
+                                            imageUrl: Configss.fileurl +
+                                                databox.parentimageurl
+                                                    .value /*resultResponse!.parentImageUrl!*/,
                                             imageBuilder:
                                                 (context, imageProvider) =>
                                                     Container(
@@ -581,7 +616,8 @@ class _ViewProfileState extends State<ViewProfile> {
                                     height: 4,
                                   ),
                                   textspan(
-                                    text: resultResponse!.parentName!,
+                                    text: databox.parentname
+                                        .value /*resultResponse!.parentName!*/,
                                     color: Colors.teal,
                                     textAlign: TextAlign.left,
                                   ),
@@ -591,7 +627,7 @@ class _ViewProfileState extends State<ViewProfile> {
                               shape: CircleBorder(),
                               clipBehavior: Clip.antiAliasWithSaveLayer,
                               child: Image.network(
-                                configss.fileurl +
+                                Configss.fileurl +
                                     resultResponse!.parentImageUrl!,
                                 fit: BoxFit.cover,
                                 errorBuilder: (BuildContext context,
@@ -641,18 +677,20 @@ class _ViewProfileState extends State<ViewProfile> {
                         bottom: MediaQuery.of(context).size.height * 0.02,
                         top: MediaQuery.of(context).size.height * 0.01,
                       ),
-                      child: resultResponse!.bio == null ||
-                              resultResponse!.bio == ""
-                          ? textspan(
-                              text: "بیو گرافی شما",
-                              color: Colors.black38,
-                              textAlign: TextAlign.start,
-                            )
-                          : textspan(
-                              text: resultResponse!.bio.toString(),
-                              color: Colors.black,
-                              textAlign: TextAlign.start,
-                            )),
+                      child: /*resultResponse!.bio == null ||
+                              resultResponse!.bio == ""*/
+                          databox.bio.value == null || databox.bio.value == ""
+                              ? textspan(
+                                  text: "بیو گرافی شما",
+                                  color: Colors.black38,
+                                  textAlign: TextAlign.start,
+                                )
+                              : textspan(
+                                  text: databox.bio
+                                      .value /*esultResponse!.bio.toString()*/,
+                                  color: Colors.black,
+                                  textAlign: TextAlign.start,
+                                )),
                   SizedBox(
                     height: 1,
                   ),
@@ -661,12 +699,13 @@ class _ViewProfileState extends State<ViewProfile> {
                       'Edit Profile',
                     )!,
                     onPressed: () {
-                      Navigator.push(
+                      Get.to(EditProfileScreen());
+                      /*Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => EditProfile(
                                     model: resultResponse!,
-                                  )));
+                                  )));*/
                     },
                     color: Colors.white,
                   )

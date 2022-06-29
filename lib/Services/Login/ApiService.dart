@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:Nahvino/Model/user/user/viewprofile_response_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../Pages/Account/Login/SignUp.dart';
 import '../config.dart';
 
 class APIService {
@@ -18,11 +19,14 @@ class APIService {
     switch (data['statusCode']) {
       case 200:
         return true;
+      // {
+      //   showSnackBar(text: data['message']);
+      //   break;
+      // }
       //  {
       //    showSnackBar(text: data['message'] ?? "Token not send or expired!");
       //     break;
       //  }
-
       case 401:
         {
           showSnackBar(text: data['message'] ?? "Token not send or expired!");
@@ -66,7 +70,7 @@ class APIService {
       'Content-Type': 'application/json',
       'Authorization': "Bearer ${await preferences.getString("token")}"
     };
-    var url = Uri.parse(configss.baseURL + configss.editprofileuser);
+    var url = Uri.parse(Configss.baseURL + Configss.editprofileuser);
     var response = await client.post(
       url,
       headers: requestHeaders,
@@ -92,7 +96,7 @@ class APIService {
       'Content-Type': 'application/json',
       'Authorization': "Bearer ${await preferences.getString("token")}"
     };
-    var url = Uri.parse(configss.baseURL + configss.getprofileuser);
+    var url = Uri.parse(Configss.baseURL + Configss.getprofileuser);
     var response = await client.post(
       url,
       headers: requestHeaders,
@@ -113,7 +117,7 @@ class APIService {
       'Content-Type': 'application/json',
       'Authorization': "Bearer ${await preferences.getString("token")}"
     };
-    var url = Uri.parse(configss.baseURL + configss.GetUserAbandon);
+    var url = Uri.parse(Configss.baseURL + Configss.GetUserAbandon);
     var response = await client.post(
       url,
       headers: requestHeaders,
@@ -131,9 +135,9 @@ class APIService {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
-      //'Authorization' : "Bearer ${ await preferences.getString("token")}"
+      'Authorization': "Bearer ${await preferences.getString("token")}"
     };
-    var url = Uri.parse(configss.baseURL + configss.GetLastVisit);
+    var url = Uri.parse(Configss.baseURL + Configss.GetLastVisit);
     var response = await client.post(
       url,
       headers: requestHeaders,
@@ -145,6 +149,16 @@ class APIService {
     } else {
       return false;
     }
+    /*   if (response.statusCode == 200) {
+      return json.decode(response.body);
+    } else if (response.statusCode == 401) {
+      await preferences.clear();
+      Future.delayed(const Duration(milliseconds: 1000), () {
+        Get.offAll(SignUp());
+      });
+    } else {
+      return false;
+    }*/
   }
 
   static Future UserSecuritySttingMenus() async {
@@ -153,7 +167,7 @@ class APIService {
       'Content-Type': 'application/json',
       'Authorization': "Bearer ${await preferences.getString("token")}"
     };
-    var url = Uri.parse(configss.baseURL + configss.UserSecuritySttingMenus);
+    var url = Uri.parse(Configss.baseURL + Configss.UserSecuritySttingMenus);
 
     var response = await client.post(
       url,
@@ -174,7 +188,7 @@ class APIService {
       'Content-Type': 'application/json',
       'Authorization': "Bearer ${await preferences.getString("token")}"
     };
-    var url = Uri.parse(configss.baseURL + configss.getprofileuser);
+    var url = Uri.parse(Configss.baseURL + Configss.getprofileuser);
 
     var response = await client.post(
       url,
@@ -194,7 +208,7 @@ class APIService {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
     };
-    var url = Uri.parse(configss.baseURL + configss.AddIntroduced);
+    var url = Uri.parse(Configss.baseURL + Configss.AddIntroduced);
     var response = await client.post(
       url,
       headers: requestHeaders,
@@ -217,7 +231,7 @@ class APIService {
       'Content-Type': 'application/json',
       'Authorization': "Bearer ${await preferences.getString("token")}"
     };
-    var url = Uri.parse(configss.baseURL + configss.ChangePasswrod);
+    var url = Uri.parse(Configss.baseURL + Configss.ChangePasswrod);
     var response = await client.post(
       url,
       headers: requestHeaders,
@@ -246,7 +260,7 @@ class APIService {
       'Content-Type': 'application/json',
       'Authorization': "Bearer ${await preferences.getString("token")}"
     };
-    var url = Uri.parse(configss.baseURL + configss.NotIntroduced);
+    var url = Uri.parse(Configss.baseURL + Configss.NotIntroduced);
     var response = await client.post(
       url,
       headers: requestHeaders,
@@ -264,7 +278,7 @@ class APIService {
   Future uploadProfileImage(String imagePath) async {
     var request = http.MultipartRequest(
       'POST',
-      Uri.parse(configss.baseURL + configss.uploadProfileImage),
+      Uri.parse(Configss.baseURL + Configss.uploadProfileImage),
     );
 
     var multipartFile =
@@ -287,7 +301,7 @@ class APIService {
       'Content-Type': 'application/json',
       'Authorization': "Bearer ${await preferences.getString("token")}"
     };
-    var url = Uri.parse(configss.baseURL + configss.SetPhoneNumber);
+    var url = Uri.parse(Configss.baseURL + Configss.SetPhoneNumber);
     var response = await client.post(
       url,
       headers: requestHeaders,
@@ -311,7 +325,7 @@ class APIService {
       'Content-Type': 'application/json',
       'Authorization': "Bearer ${await preferences.getString("token")}"
     };
-    var url = Uri.parse(configss.baseURL + configss.CheckCodeSetPhoneNumber);
+    var url = Uri.parse(Configss.baseURL + Configss.CheckCodeSetPhoneNumber);
     var response = await client.post(
       url,
       headers: requestHeaders,
@@ -336,7 +350,7 @@ class APIService {
       'Content-Type': 'application/json',
       'Authorization': "Bearer ${await preferences.getString("token")}"
     };
-    var url = Uri.parse(configss.baseURL + configss.ChangePhoneNumber);
+    var url = Uri.parse(Configss.baseURL + Configss.ChangePhoneNumber);
     var response = await client.post(
       url,
       headers: requestHeaders,
@@ -361,7 +375,7 @@ class APIService {
       'Content-Type': 'application/json',
       'Authorization': "Bearer ${await preferences.getString("token")}"
     };
-    var url = Uri.parse(configss.baseURL + configss.CheckCodeChangePhoneNumber);
+    var url = Uri.parse(Configss.baseURL + Configss.CheckCodeChangePhoneNumber);
     var response = await client.post(
       url,
       headers: requestHeaders,
@@ -386,7 +400,7 @@ class APIService {
       'accept': '*/*',
       'Access-Control_Allow_Origin': '*'
     };
-    var url = Uri.parse(configss.baseURL + configss.otpphone);
+    var url = Uri.parse(Configss.baseURL + Configss.otpphone);
     var response = await client.post(
       url,
       headers: requestHeaders,
@@ -405,7 +419,7 @@ class APIService {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
     };
-    var url = Uri.parse(configss.baseURL + configss.otpvrifay);
+    var url = Uri.parse(Configss.baseURL + Configss.otpvrifay);
     var response = await client.post(
       url,
       headers: requestHeaders,
@@ -428,7 +442,7 @@ class APIService {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
     };
-    var url = Uri.parse(configss.baseURL + configss.register);
+    var url = Uri.parse(Configss.baseURL + Configss.register);
     var response = await client.post(
       url,
       headers: requestHeaders,
@@ -450,7 +464,7 @@ class APIService {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
     };
-    var url = Uri.parse(configss.baseURL + configss.login);
+    var url = Uri.parse(Configss.baseURL + Configss.login);
     var response = await client.post(
       url,
       headers: requestHeaders,
@@ -472,7 +486,7 @@ class APIService {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
     };
-    var url = Uri.parse(configss.baseURL + configss.checkquestionanswer);
+    var url = Uri.parse(Configss.baseURL + Configss.checkquestionanswer);
     var response = await client.post(
       url,
       headers: requestHeaders,
@@ -493,7 +507,7 @@ class APIService {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
     };
-    var url = Uri.parse(configss.baseURL + configss.repassword);
+    var url = Uri.parse(Configss.baseURL + Configss.repassword);
     var response = await client.post(
       url,
       headers: requestHeaders,
@@ -512,7 +526,7 @@ class APIService {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
     };
-    var url = Uri.parse(configss.baseURL + configss.resendcode);
+    var url = Uri.parse(Configss.baseURL + Configss.resendcode);
     var response = await client.post(
       url,
       headers: requestHeaders,
@@ -533,7 +547,7 @@ class APIService {
       'Content-Type': 'application/json',
       'Authorization': "Bearer ${await preferences.getString("token")}"
     };
-    var url = Uri.parse(configss.baseURL + configss.EditUserAbandon);
+    var url = Uri.parse(Configss.baseURL + Configss.EditUserAbandon);
     var response = await client.post(
       url,
       headers: requestHeaders,
@@ -557,7 +571,7 @@ class APIService {
       'Content-Type': 'application/json',
       'Authorization': "Bearer ${await preferences.getString("token")}"
     };
-    var url = Uri.parse(configss.baseURL + configss.GetProfileOtherUser);
+    var url = Uri.parse(Configss.baseURL + Configss.GetProfileOtherUser);
     var response = await client.post(
       url,
       headers: requestHeaders,
@@ -579,7 +593,7 @@ class APIService {
       'Content-Type': 'application/json',
       //'Authorization': "Bearer ${await preferences.getString("token")}"
     };
-    var url = Uri.parse(configss.baseURL + configss.GetLastOtherVisit);
+    var url = Uri.parse(Configss.baseURL + Configss.GetLastOtherVisit);
     var response = await client.post(
       url,
       headers: requestHeaders,
@@ -601,7 +615,7 @@ class APIService {
       'Content-Type': 'application/json',
       'Authorization': "Bearer ${await preferences.getString("token")}"
     };
-    var url = Uri.parse(configss.baseURL + configss.GetUserAbandon);
+    var url = Uri.parse(Configss.baseURL + Configss.GetUserAbandon);
     var response = await client.post(
       url,
       headers: requestHeaders,
@@ -621,7 +635,7 @@ class APIService {
       'Content-Type': 'application/json',
       //'Authorization': "Bearer ${await preferences.getString("token")}"
     };
-    var url = Uri.parse(configss.baseURL + configss.notification);
+    var url = Uri.parse(Configss.baseURL + Configss.notification);
     var response = await client.post(
       url,
       headers: requestHeaders,
@@ -644,11 +658,35 @@ class APIService {
       'Content-Type': 'application/json',
       //'Authorization': "Bearer ${await preferences.getString("token")}"
     };
-    var url = Uri.parse(configss.baseURL + configss.deletetokenapi);
+    var url = Uri.parse(Configss.baseURL + Configss.deletetokenapi);
     var response = await client.post(
       url,
       headers: requestHeaders,
       body: jsonEncode({"userId": await preferences.getString("userId")}),
+    );
+    //  debugPrint(response.body.toString());
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    } else {
+      return false;
+    }
+  }
+
+  static Future userreport(String idusersnder, int messageid) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+      //'Authorization': "Bearer ${await preferences.getString("token")}"
+    };
+    var url = Uri.parse(Configss.baseURL + Configss.userreport);
+    var response = await client.post(
+      url,
+      headers: requestHeaders,
+      body: jsonEncode({
+        "userReporterId": await preferences.getString("userId"),
+        "userAreReportedId": idusersnder,
+        "messageId": messageid
+      }),
     );
     //  debugPrint(response.body.toString());
     if (response.statusCode == 200) {

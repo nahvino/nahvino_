@@ -27,7 +27,7 @@ class _WelcomeUserState extends State<WelcomeUser> {
     APIService.getprofileuser().then((response) {
       setState(() {
         isApiCallProgress = false;
-        if(response != false){
+        if (response != false) {
           resultResponse = response;
         }
       });
@@ -46,7 +46,7 @@ class _WelcomeUserState extends State<WelcomeUser> {
         body: SafeArea(
             child: isApiCallProgress
                 ? Center(
-                    child: Lottie.asset('assets/anim/data.json',
+                    child: Lottie.asset('assets/anim/loading/loading.json',
                         height: 300, width: 300),
                   )
                 : body(context)),
@@ -55,7 +55,7 @@ class _WelcomeUserState extends State<WelcomeUser> {
   }
 
   Widget body(BuildContext context) => SingleChildScrollView(
-    child: Column(
+        child: Column(
           children: [
             Card(
               margin: EdgeInsets.only(bottom: 6),
@@ -72,17 +72,21 @@ class _WelcomeUserState extends State<WelcomeUser> {
                         children: [
                           Padding(
                             padding: const EdgeInsets.only(bottom: 5),
-                            child: Callout(color: Colors.green, textAlign: TextAlign.center, text:  resultResponse!.userName!
-                            ),
+                            child: Callout(
+                                color: Colors.green,
+                                textAlign: TextAlign.center,
+                                text: resultResponse!.userName!),
                           ),
-
                           SizedBox(
                             width: 02,
                           ),
-                          Footnate(color: Colors.black, textAlign: TextAlign.center, text:  AppLocalizations.of(context)!.translate(
-                        'nahvinoismaslk',
-                      )!,
-                      ),
+                          Footnate(
+                            color: Colors.black,
+                            textAlign: TextAlign.center,
+                            text: AppLocalizations.of(context)!.translate(
+                              'nahvinoismaslk',
+                            )!,
+                          ),
                         ],
                       ),
                     ),
@@ -99,45 +103,45 @@ class _WelcomeUserState extends State<WelcomeUser> {
                     Row(
                       children: [
                         (resultResponse!.parentImageUrl != null &&
-                            resultResponse!.parentImageUrl != "")
-                            ?   Card(
-                          shape: CircleBorder(),
-                          clipBehavior: Clip.antiAliasWithSaveLayer,
-                          child: CachedNetworkImage(
-                            height: 75,
-                            width: 75,
-                            cacheManager: CacheManager(Config(
-                                'customCacheKey',
-                                stalePeriod: Duration(days: 7),
-                                maxNrOfCacheObjects: 100)),
-                            imageUrl: configss.fileurl +
-                                resultResponse!.parentImageUrl!,
-                            imageBuilder: (context, imageProvider) =>
-                                Container(
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      image: imageProvider,
-                                      fit: BoxFit.cover,
+                                resultResponse!.parentImageUrl != "")
+                            ? Card(
+                                shape: CircleBorder(),
+                                clipBehavior: Clip.antiAliasWithSaveLayer,
+                                child: CachedNetworkImage(
+                                  height: 75,
+                                  width: 75,
+                                  cacheManager: CacheManager(Config(
+                                      'customCacheKey',
+                                      stalePeriod: Duration(days: 7),
+                                      maxNrOfCacheObjects: 100)),
+                                  imageUrl: Configss.fileurl +
+                                      resultResponse!.parentImageUrl!,
+                                  imageBuilder: (context, imageProvider) =>
+                                      Container(
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: imageProvider,
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
                                   ),
+                                  placeholder: (context, url) =>
+                                      CircularProgressIndicator(),
+                                  errorWidget: (context, url, error) =>
+                                      Icon(Icons.error),
                                 ),
-                            placeholder: (context, url) =>
-                                CircularProgressIndicator(),
-                            errorWidget: (context, url, error) =>
-                                Icon(Icons.error),
-                          ),
-                        )
+                              )
                             : Image.asset(
-                          'assets/images/home/user.png',
-                          fit: BoxFit.cover,
-                          height: 75,
-                          width: 75,
-                        ),
+                                'assets/images/home/user.png',
+                                fit: BoxFit.cover,
+                                height: 75,
+                                width: 75,
+                              ),
                         /*Card(
                           shape: CircleBorder(),
                           clipBehavior: Clip.antiAliasWithSaveLayer,
                           child: Image.network(
-                            configss.fileurl + resultResponse!.parentImageUrl!,
+                            Configss.fileurl + resultResponse!.parentImageUrl!,
                             fit: BoxFit.cover,
                             errorBuilder: (BuildContext context,
                                 Object exception,
@@ -191,13 +195,19 @@ class _WelcomeUserState extends State<WelcomeUser> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Subhead(
-                              color: Colors.green, text:resultResponse!.parentName ?? "Guest", textAlign: TextAlign.start,),
+                            color: Colors.green,
+                            text: resultResponse!.parentName ?? "Guest",
+                            textAlign: TextAlign.start,
+                          ),
                           SizedBox(
                             width: 02,
                           ),
-                          Footnate(color: Colors.black, textAlign: TextAlign.center, text:  AppLocalizations.of(context)!.translate(
-                            'valad',
-                          )!,
+                          Footnate(
+                            color: Colors.black,
+                            textAlign: TextAlign.center,
+                            text: AppLocalizations.of(context)!.translate(
+                              'valad',
+                            )!,
                           ),
                         ],
                       ),
@@ -211,9 +221,12 @@ class _WelcomeUserState extends State<WelcomeUser> {
                           SizedBox(
                             height: 02,
                           ),
-                          Footnate(color: Colors.black, textAlign: TextAlign.center, text:  AppLocalizations.of(context)!.translate(
-                            'rankwellcomemani',
-                          )!,
+                          Footnate(
+                            color: Colors.black,
+                            textAlign: TextAlign.center,
+                            text: AppLocalizations.of(context)!.translate(
+                              'rankwellcomemani',
+                            )!,
                           ),
                         ],
                       ),
@@ -222,38 +235,45 @@ class _WelcomeUserState extends State<WelcomeUser> {
                       height: 4,
                     ),
                     SingleChildScrollView(
-                      child:
-                     Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Subhead(
-                              color: Colors.green, text:resultResponse!.parentName ?? "Guest", textAlign: TextAlign.start,),
-                            SizedBox(
-                              width: 02,
-                            ),
-                            Footnate(color: Colors.black, textAlign: TextAlign.right, text:  AppLocalizations.of(context)!.translate(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Subhead(
+                            color: Colors.green,
+                            text: resultResponse!.parentName ?? "Guest",
+                            textAlign: TextAlign.start,
+                          ),
+                          SizedBox(
+                            width: 02,
+                          ),
+                          Footnate(
+                            color: Colors.black,
+                            textAlign: TextAlign.right,
+                            text: AppLocalizations.of(context)!.translate(
                               'maslkamtiz',
                             )!,
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
+                      ),
                     ),
-                    SizedBox(height: 10,),
+                    SizedBox(
+                      height: 10,
+                    ),
                     Buttonfull(
-                        text: AppLocalizations.of(context)!.translate(
-                          'next',
-                        )!,
-
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => Pandect()));
-                        }, color: Colors.white,),
+                      text: AppLocalizations.of(context)!.translate(
+                        'next',
+                      )!,
+                      onPressed: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => Pandect()));
+                      },
+                      color: Colors.white,
+                    ),
                   ],
                 ),
               ),
             ),
           ],
         ),
-  );
+      );
 }

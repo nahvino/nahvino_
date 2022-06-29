@@ -1,21 +1,26 @@
 import 'dart:io';
-import 'package:Nahvino/Services/config.dart';
+
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:lottie/lottie.dart';
+
 import 'package:Nahvino/Model/user/user/viewprofile_response_model.dart';
 import 'package:Nahvino/Pages/Account/User/ViewProfile.dart';
+import 'package:Nahvino/Services/config.dart';
 import 'package:Nahvino/Services/login/ApiService.dart';
 import 'package:Nahvino/tabs.dart';
+import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:lottie/lottie.dart';
 import 'package:persian_datetime_picker/persian_datetime_picker.dart';
+
+import '../../../App_localizations.dart';
 import '../../../Utils/Button/Button.dart';
 import '../../../Utils/Text/Text.dart';
 import '../../../Utils/Text/TextField.dart';
-import '../../../App_localizations.dart';
 import '../../../Utils/TextField/englishtextfilde.dart';
 import '../../../Utils/TextField/publictextfilde.dart';
 import '../../../Utils/Validator/validator.dart';
+import '../../../controllers/getx/user/viewprofial_controller.dart';
 
 class EditProfile extends StatefulWidget {
   final GetProfileUserResponseModel model;
@@ -34,6 +39,7 @@ class _EditProfileState extends State<EditProfile> {
   TextEditingController nameAliasController = TextEditingController();
   TextEditingController bioController = TextEditingController();
   TextEditingController tarikhController = TextEditingController();
+  ViewProfileController databox = Get.put(ViewProfileController());
   Validator vlid = Get.put(Validator()); // controller
   String? imagePath;
   final ImagePicker _picker = ImagePicker();
@@ -154,7 +160,7 @@ class _EditProfileState extends State<EditProfile> {
                                               widget.model.imageUrl == "")
                                           ? Icon(Icons.person)
                                           : Image.network(
-                                              configss.fileurl +
+                                              Configss.fileurl +
                                                   widget.model.imageUrl!,
                                               fit: BoxFit.cover)
                                       : Image.file(File(imagePath!),
@@ -212,7 +218,7 @@ class _EditProfileState extends State<EditProfile> {
                           print("thvsd");
                           return;
                         }
-                        
+
                         setState(() {
                           isApiCallProcess = true;
                         });
@@ -239,9 +245,9 @@ class _EditProfileState extends State<EditProfile> {
                         apiService!.editprofileuser(widget.model).then((value) {
                           setState(() {
                             isApiCallProcess = false;
+                            databox.profilerequest();
                             Get.offAll(MyTabs());
                           });
-                          
                         });
                         apiService?.AddOrEditUserAbandon(berlinWallFell)
                             .then((response) async {
