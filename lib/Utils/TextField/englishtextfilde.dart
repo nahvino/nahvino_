@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
-class EnglishTextFilde extends StatefulWidget {
-  const EnglishTextFilde(
+class EnglishTextFilde extends StatelessWidget {
+   EnglishTextFilde(
       {Key? key,
       this.hint,
       this.controller,
@@ -19,11 +18,6 @@ class EnglishTextFilde extends StatefulWidget {
   final Widget? suffixIcon;
   final String? errorttext;
 
-  @override
-  State<EnglishTextFilde> createState() => _EnglishTextFildeState();
-}
-
-class _EnglishTextFildeState extends State<EnglishTextFilde> {
   String? error;
   final alphanumeric = RegExp("[A-Z a-z 0-9]");
 
@@ -33,13 +27,13 @@ class _EnglishTextFildeState extends State<EnglishTextFilde> {
       padding: const EdgeInsets.only(right: 35, left: 39),
       child: TextFormField(
         textAlign: TextAlign.right,
-        controller: widget.controller,
+        controller: controller,
         keyboardType: TextInputType.text,
-        inputFormatters: [
+        /*     inputFormatters: [
           FilteringTextInputFormatter.deny(
               RegExp(r'[آابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهیئ]')),
-        ],
-        onChanged: (input) {
+        ],*/
+ /*       onChanged: (input) {
           if (alphanumeric.hasMatch(input) == false) {
             error = "نام کاربری نمی تواند فارسی باشد.";
           } else {
@@ -48,15 +42,23 @@ class _EnglishTextFildeState extends State<EnglishTextFilde> {
           if ((input).isEmpty) {
             error = "نام کاربری نمی تواند خالی باشد.";
           }
-          setState(() {});
+        },*/
+         validator: (value) {
+          if (value!.isEmpty) {
+            return 'مقدار نمی تواند خالی باشد';
+          }
+          if (alphanumeric.hasMatch(value) == false) {
+            return "نام کاربری نمی تواند فارسی باشد.";
+          }
+          return null;
         },
         style: TextStyle(fontSize: 16, fontFamily: 'Vazirmatn_Medium'),
         decoration: InputDecoration(
-          hintText: widget.hint,
+          hintText: hint,
           errorText: error,
-          icon: widget.icon,
-          prefixIcon: widget.prefixIcon,
-          suffixIcon: widget.suffixIcon,
+          icon: icon,
+          prefixIcon: prefixIcon,
+          suffixIcon: suffixIcon,
         ),
       ),
     );

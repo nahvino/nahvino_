@@ -49,7 +49,7 @@ class ChatPageController extends GetxController {
       .build();
   Future<void> openSignalRConnection() async {
     await connection.start();
-
+  
     connection.on('ReceiveMessage', (message) {
       print(message.toString());
       var res = message![0];

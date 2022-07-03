@@ -73,6 +73,7 @@ class _ViewProfileState extends State<ViewProfile> {
     Lottie.asset('assets/anim/phonix/level6.json'),
     Lottie.asset('assets/anim/phonix/level7.json'),
     Lottie.asset('assets/anim/phonix/level8.json'),
+    Lottie.asset('assets/anim/phonix/level8.json'),
   ];
 
   Day() {
@@ -195,64 +196,65 @@ class _ViewProfileState extends State<ViewProfile> {
       day = 0;
     }
 
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          Card(
-            margin: EdgeInsets.only(bottom: 6),
-            child: Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Column(
+    return Obx(() => SingleChildScrollView(
+          child: Column(
+            children: [
+              Card(
+                margin: EdgeInsets.only(bottom: 6),
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                      Column(
                         children: [
-                          Container(
-                            padding: EdgeInsets.only(
-                                right:
-                                    MediaQuery.of(context).size.height * 0.02),
-                            child: textbold(
-                              textAlign: TextAlign.right,
-                              text: databox.username
-                                  .value /*resultResponse?.userName ?? "مهمان"*/,
-                              color: Colors.black,
-                            ),
-                          ),
-                          Container(
-                            alignment: Alignment.topLeft,
-                            height: 30,
-                            child: PopupMenuButton<int>(
-                              icon: Icon(Icons.menu),
-                              itemBuilder: (context) => [
-                                PopupMenuItem(
-                                  value: 0,
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Icon(
-                                        Icons.security,
-                                        color: Colors.cyan,
-                                      ),
-                                      const SizedBox(
-                                        width: 7,
-                                      ),
-                                      textspan(
-                                        textAlign: TextAlign.end,
-                                        text: AppLocalizations.of(context)!
-                                            .translate(
-                                          'Security_settings',
-                                        )!,
-                                        color: Colors.black,
-                                      ),
-                                    ],
-                                  ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                padding: EdgeInsets.only(
+                                    right: MediaQuery.of(context).size.height *
+                                        0.02),
+                                child: textbold(
+                                  textAlign: TextAlign.right,
+                                  text: databox.username
+                                      .value /*resultResponse?.userName ?? "مهمان"*/,
+                                  color: Colors.black,
                                 ),
-                                /*    PopupMenuDivider(height: 4),
+                              ),
+                              Container(
+                                alignment: Alignment.topLeft,
+                                height: 30,
+                                child: PopupMenuButton<int>(
+                                  icon: Icon(Icons.menu),
+                                  itemBuilder: (context) => [
+                                    PopupMenuItem(
+                                      value: 0,
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          Icon(
+                                            Icons.security,
+                                            color: Colors.cyan,
+                                          ),
+                                          const SizedBox(
+                                            width: 7,
+                                          ),
+                                          textspan(
+                                            textAlign: TextAlign.end,
+                                            text: AppLocalizations.of(context)!
+                                                .translate(
+                                              'Security_settings',
+                                            )!,
+                                            color: Colors.black,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    /*    PopupMenuDivider(height: 4),
                                   PopupMenuItem(
                                     value: 1,
                                     child: Row(
@@ -277,97 +279,101 @@ class _ViewProfileState extends State<ViewProfile> {
                                       ],
                                     ),
                                   ),*/
-                                PopupMenuDivider(height: 1),
-                                PopupMenuItem(
-                                  value: 4,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Caption1(
-                                        textAlign: TextAlign.center,
-                                        color: Colors.black,
-                                        text: AppLocalizations.of(context)!
-                                            .translate(
-                                          'YCTIANM',
-                                        )!,
+                                    PopupMenuDivider(height: 1),
+                                    PopupMenuItem(
+                                      value: 4,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Caption1(
+                                            textAlign: TextAlign.center,
+                                            color: Colors.black,
+                                            text: AppLocalizations.of(context)!
+                                                .translate(
+                                              'YCTIANM',
+                                            )!,
+                                          ),
+                                          const SizedBox(
+                                            width: 2,
+                                          ),
+                                        ],
                                       ),
-                                      const SizedBox(
-                                        width: 2,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                PopupMenuItem(
-                                  value: 2,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.share,
-                                        color: Colors.cyan,
-                                      ),
-                                      SizedBox(
-                                        width: 8,
-                                      ),
-                                      textspan(
-                                        textAlign: TextAlign.center,
-                                        text: databox.identifierCode.value
-                                            .toString()
-                                        /*resultResponse!.identifierCode
+                                    ),
+                                    PopupMenuItem(
+                                      value: 2,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Icon(
+                                            Icons.share,
+                                            color: Colors.cyan,
+                                          ),
+                                          SizedBox(
+                                            width: 8,
+                                          ),
+                                          textspan(
+                                            textAlign: TextAlign.center,
+                                            text: databox.identifierCode.value
+                                                .toString()
+                                            /*resultResponse!.identifierCode
                                             .toString()*/
-                                        ,
-                                        color: Colors.black,
+                                            ,
+                                            color: Colors.black,
+                                          ),
+                                          const SizedBox(
+                                            width: 7,
+                                          ),
+                                        ],
                                       ),
-                                      const SizedBox(
-                                        width: 7,
+                                    ),
+                                    PopupMenuDivider(),
+                                    PopupMenuItem(
+                                      value: 3,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Image.asset(
+                                              'assets/images/icon/pngwing.com.png',
+                                              height: 24,
+                                              width: 24,
+                                              color: Colors.cyan),
+                                          SizedBox(
+                                            width: 8,
+                                          ),
+                                          textspan(
+                                            textAlign: TextAlign.center,
+                                            color: Colors.black,
+                                            text: AppLocalizations.of(context)!
+                                                .translate(
+                                              'Eixt',
+                                            )!,
+                                          ),
+                                          const SizedBox(
+                                            width: 7,
+                                          ),
+                                        ],
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
+                                  onSelected: (item) =>
+                                      onSelected(context, item),
                                 ),
-                                PopupMenuDivider(),
-                                PopupMenuItem(
-                                  value: 3,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Image.asset(
-                                          'assets/images/icon/pngwing.com.png',
-                                          height: 24,
-                                          width: 24,
-                                          color: Colors.cyan),
-                                      SizedBox(
-                                        width: 8,
-                                      ),
-                                      textspan(
-                                        textAlign: TextAlign.center,
-                                        color: Colors.black,
-                                        text: AppLocalizations.of(context)!
-                                            .translate(
-                                          'Eixt',
-                                        )!,
-                                      ),
-                                      const SizedBox(
-                                        width: 7,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                              onSelected: (item) => onSelected(context, item),
-                            ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      /*Card(
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          /*Card(
                         shape: CircleBorder(),
                         clipBehavior: Clip.antiAliasWithSaveLayer,
                         child: Image.network(
@@ -414,105 +420,108 @@ class _ViewProfileState extends State<ViewProfile> {
                         height: 75,
                         width: 75,
                       ),*/
-                      /*  (resultResponse!.imageUrl != null &&
+                          /*  (resultResponse!.imageUrl != null &&
                               resultResponse!.imageUrl != "")*/
-                      (databox.imageUrl.value != null &&
-                              databox.imageUrl.value != "")
-                          ? Card(
-                              shape: CircleBorder(),
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              child: CachedNetworkImage(
-                                height: 75,
-                                width: 75,
-                                cacheManager: CacheManager(Config(
-                                    'customCacheKey',
-                                    stalePeriod: Duration(days: 7),
-                                    maxNrOfCacheObjects: 100)),
-                                imageUrl: Configss.fileurl +
-                                    databox.imageUrl
-                                        .value /*resultResponse!.imageUrl!*/,
-                                imageBuilder: (context, imageProvider) =>
-                                    Container(
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      image: imageProvider,
-                                      fit: BoxFit.cover,
+                          (databox.imageUrl.value != null &&
+                                  databox.imageUrl.value != "")
+                              ? Card(
+                                  shape: CircleBorder(),
+                                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                                  child: CachedNetworkImage(
+                                    height: 75,
+                                    width: 75,
+                                    cacheManager: CacheManager(Config(
+                                        'customCacheKey',
+                                        stalePeriod: Duration(days: 7),
+                                        maxNrOfCacheObjects: 100)),
+                                    imageUrl: Configss.fileurl +
+                                        databox.imageUrl
+                                            .value /*resultResponse!.imageUrl!*/,
+                                    imageBuilder: (context, imageProvider) =>
+                                        Container(
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          image: imageProvider,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
                                     ),
+                                    placeholder: (context, url) =>
+                                        CircularProgressIndicator(),
+                                    errorWidget: (context, url, error) =>
+                                        Icon(Icons.error),
                                   ),
+                                )
+                              : Image.asset(
+                                  'assets/images/home/user.png',
+                                  fit: BoxFit.cover,
+                                  height: 75,
+                                  width: 75,
                                 ),
-                                placeholder: (context, url) =>
-                                    CircularProgressIndicator(),
-                                errorWidget: (context, url, error) =>
-                                    Icon(Icons.error),
+                          Column(
+                            children: [
+                              textbold(
+                                text: databox.namealias
+                                    .value /*resultResponse!.nameAlias ?? ""*/,
+                                color: Colors.teal,
+                                textAlign: TextAlign.start,
                               ),
-                            )
-                          : Image.asset(
-                              'assets/images/home/user.png',
-                              fit: BoxFit.cover,
-                              height: 75,
-                              width: 75,
-                            ),
-                      Column(
-                        children: [
-                          textbold(
-                            text: databox.namealias
-                                .value /*resultResponse!.nameAlias ?? ""*/,
-                            color: Colors.teal,
-                            textAlign: TextAlign.start,
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Container(
-                            width: 80,
-                            height: 30,
-                            decoration: new BoxDecoration(
-                                borderRadius: new BorderRadius.circular(8.0),
-                                border: Border.all(
-                                    color: Colors.black26, width: 1)),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  height: 20,
-                                  width: 20,
-                                  padding: EdgeInsets.only(
-                                    right: 6,
-                                    left: 1,
-                                    bottom: 2,
-                                  ),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(50),
-                                      border: Border.all(
-                                          color: Colors.black26, width: 1)),
-                                  child: textspan(
-                                    text: ranksadad[databox.rank
-                                        .value] /*ranksadad[resultResponse!.rank ?? 0]*/,
-                                    color: Colors.purpleAccent,
-                                    textAlign: TextAlign.left,
-                                  ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Container(
+                                width: 80,
+                                height: 30,
+                                decoration: new BoxDecoration(
+                                    borderRadius:
+                                        new BorderRadius.circular(8.0),
+                                    border: Border.all(
+                                        color: Colors.black26, width: 1)),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      height: 20,
+                                      width: 20,
+                                      padding: EdgeInsets.only(
+                                        right: 6,
+                                        left: 1,
+                                        bottom: 2,
+                                      ),
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(50),
+                                          border: Border.all(
+                                              color: Colors.black26, width: 1)),
+                                      child: textspan(
+                                        text: ranksadad[databox.rank
+                                            .value] /*ranksadad[resultResponse!.rank ?? 0]*/,
+                                        color: Colors.purpleAccent,
+                                        textAlign: TextAlign.left,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    textspan(
+                                      text: ranks[databox.rank
+                                          .value] /*ranks[resultResponse!.rank!]*/,
+                                      color: Colors.black,
+                                      textAlign: TextAlign.left,
+                                    ),
+                                  ],
                                 ),
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                textspan(
-                                  text: ranks[databox.rank
-                                      .value] /*ranks[resultResponse!.rank!]*/,
-                                  color: Colors.black,
-                                  textAlign: TextAlign.left,
-                                ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          Image(
-                            height: 30,
-                            image: AssetImage("assets/images/home/bbarg.png"),
-                          ),
-                          /*
+                          Column(
+                            children: [
+                              Image(
+                                height: 30,
+                                image:
+                                    AssetImage("assets/images/home/bbarg.png"),
+                              ),
+                              /*
                             InkWell(
                                 child: Image(
                                   height: 30,
@@ -527,20 +536,20 @@ class _ViewProfileState extends State<ViewProfile> {
                                                 .toString(),
                                           ));
                                 }),*/
-                          SizedBox(
-                            height: 4,
+                              SizedBox(
+                                height: 4,
+                              ),
+                              textspan(
+                                text: databox.score.value
+                                    .toString() /*resultResponse!.score.toString()*/,
+                                color: Colors.black,
+                                textAlign: TextAlign.left,
+                              ),
+                            ],
                           ),
-                          textspan(
-                            text: databox.score.value
-                                .toString() /*resultResponse!.score.toString()*/,
-                            color: Colors.black,
-                            textAlign: TextAlign.left,
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          /*Padding(
+                          Column(
+                            children: [
+                              /*Padding(
                               padding: EdgeInsets.only(
                                 bottom: MediaQuery
                                     .of(context)
@@ -549,81 +558,84 @@ class _ViewProfileState extends State<ViewProfile> {
                               ),
                             ),*/
 
-                          InkWell(
-                              onTap: () {
-                                /*showDialog<void>(
+                              InkWell(
+                                  onTap: () {
+                                    /*showDialog<void>(
                                     context: context,
                                     builder: (context) => /*ArshadDialog()*/ ViewProfileUesr(userid: resultResponse!.parentId,));*/
-                                /*    showDialog<void>(
+                                    /*    showDialog<void>(
                                     context: context,
                                     builder: (context) => ViewProfileUesrArshed(
                                           userid: resultResponse!.parentId,
                                         ));*/
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            ViewProfileUesrArshed(
-                                              userid: databox.parentId
-                                                  .value /*resultResponse!.parentId*/,
-                                            )));
-                              },
-                              child: Column(
-                                children: [
-                                  /* (resultResponse!.parentImageUrl != null &&
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ViewProfileUesrArshed(
+                                                  userid: databox.parentId
+                                                      .value /*resultResponse!.parentId*/,
+                                                )));
+                                  },
+                                  child: Column(
+                                    children: [
+                                      /* (resultResponse!.parentImageUrl != null &&
                                           resultResponse!.parentImageUrl != "")*/
-                                  (databox.parentimageurl.value != null.obs &&
-                                          databox.parentimageurl.value !=
-                                              "".obs)
-                                      ? Card(
-                                          shape: CircleBorder(),
-                                          clipBehavior:
-                                              Clip.antiAliasWithSaveLayer,
-                                          child: CachedNetworkImage(
-                                            height: 45,
-                                            width: 45,
-                                            cacheManager: CacheManager(Config(
-                                                'customCacheKey',
-                                                stalePeriod: Duration(days: 7),
-                                                maxNrOfCacheObjects: 100)),
-                                            imageUrl: Configss.fileurl +
-                                                databox.parentimageurl
-                                                    .value /*resultResponse!.parentImageUrl!*/,
-                                            imageBuilder:
-                                                (context, imageProvider) =>
-                                                    Container(
-                                              decoration: BoxDecoration(
-                                                image: DecorationImage(
-                                                  image: imageProvider,
-                                                  fit: BoxFit.cover,
+                                      (databox.parentimageurl.value !=
+                                                  null.obs &&
+                                              databox.parentimageurl.value !=
+                                                  "".obs)
+                                          ? Card(
+                                              shape: CircleBorder(),
+                                              clipBehavior:
+                                                  Clip.antiAliasWithSaveLayer,
+                                              child: CachedNetworkImage(
+                                                height: 45,
+                                                width: 45,
+                                                cacheManager: CacheManager(
+                                                    Config('customCacheKey',
+                                                        stalePeriod:
+                                                            Duration(days: 7),
+                                                        maxNrOfCacheObjects:
+                                                            100)),
+                                                imageUrl: Configss.fileurl +
+                                                    databox.parentimageurl
+                                                        .value /*resultResponse!.parentImageUrl!*/,
+                                                imageBuilder:
+                                                    (context, imageProvider) =>
+                                                        Container(
+                                                  decoration: BoxDecoration(
+                                                    image: DecorationImage(
+                                                      image: imageProvider,
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ),
                                                 ),
+                                                placeholder: (context, url) =>
+                                                    CircularProgressIndicator(),
+                                                errorWidget:
+                                                    (context, url, error) =>
+                                                        Icon(Icons.error),
                                               ),
+                                            )
+                                          : Image.asset(
+                                              'assets/images/home/user.png',
+                                              fit: BoxFit.cover,
+                                              height: 45,
+                                              width: 45,
                                             ),
-                                            placeholder: (context, url) =>
-                                                CircularProgressIndicator(),
-                                            errorWidget:
-                                                (context, url, error) =>
-                                                    Icon(Icons.error),
-                                          ),
-                                        )
-                                      : Image.asset(
-                                          'assets/images/home/user.png',
-                                          fit: BoxFit.cover,
-                                          height: 45,
-                                          width: 45,
-                                        ),
-                                  SizedBox(
-                                    height: 4,
-                                  ),
-                                  textspan(
-                                    text: databox.parentname
-                                        .value /*resultResponse!.parentName!*/,
-                                    color: Colors.teal,
-                                    textAlign: TextAlign.left,
-                                  ),
-                                ],
-                              )
-                              /*Card(
+                                      SizedBox(
+                                        height: 4,
+                                      ),
+                                      textspan(
+                                        text: databox.parentname
+                                            .value /*resultResponse!.parentName!*/,
+                                        color: Colors.teal,
+                                        textAlign: TextAlign.left,
+                                      ),
+                                    ],
+                                  )
+                                  /*Card(
                               shape: CircleBorder(),
                               clipBehavior: Clip.antiAliasWithSaveLayer,
                               child: Image.network(
@@ -663,183 +675,184 @@ class _ViewProfileState extends State<ViewProfile> {
                               height: 30,
                               width: 30,
                             ),*/
-                              ),
+                                  ),
+                            ],
+                          ),
                         ],
+                      ),
+                      SizedBox(
+                        height: 0.5,
+                      ),
+                      Padding(
+                          padding: EdgeInsets.only(
+                            right: MediaQuery.of(context).size.height * 0.03,
+                            bottom: MediaQuery.of(context).size.height * 0.02,
+                            top: MediaQuery.of(context).size.height * 0.01,
+                          ),
+                          child: /*resultResponse!.bio == null ||
+                              resultResponse!.bio == ""*/
+                              databox.bio.value == null ||
+                                      databox.bio.value == ""
+                                  ? textspan(
+                                      text: "بیو گرافی شما",
+                                      color: Colors.black38,
+                                      textAlign: TextAlign.start,
+                                    )
+                                  : textspan(
+                                      text: databox.bio
+                                          .value /*esultResponse!.bio.toString()*/,
+                                      color: Colors.black,
+                                      textAlign: TextAlign.start,
+                                    )),
+                      SizedBox(
+                        height: 1,
+                      ),
+                      Buttonfull(
+                        text: AppLocalizations.of(context)!.translate(
+                          'Edit Profile',
+                        )!,
+                        onPressed: () {
+                          //  Get.to(EditProfileScreen());
+                          // GetPage(name: name, page: EditProfileScreen());
+                          // Get.off(EditProfileScreen());
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => EditProfileScreen()));
+                        },
+                        color: Colors.white,
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              Card(
+                margin: EdgeInsets.symmetric(horizontal: 0, vertical: 6),
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Column(
+                    children: [
+                      Container(
+                        alignment: Alignment.center,
+                        child: ranksadadA[resultResponsee['data']],
                       ),
                     ],
                   ),
-                  SizedBox(
-                    height: 0.5,
-                  ),
-                  Padding(
-                      padding: EdgeInsets.only(
-                        right: MediaQuery.of(context).size.height * 0.03,
-                        bottom: MediaQuery.of(context).size.height * 0.02,
-                        top: MediaQuery.of(context).size.height * 0.01,
-                      ),
-                      child: /*resultResponse!.bio == null ||
-                              resultResponse!.bio == ""*/
-                          databox.bio.value == null || databox.bio.value == ""
-                              ? textspan(
-                                  text: "بیو گرافی شما",
-                                  color: Colors.black38,
-                                  textAlign: TextAlign.start,
-                                )
-                              : textspan(
-                                  text: databox.bio
-                                      .value /*esultResponse!.bio.toString()*/,
-                                  color: Colors.black,
-                                  textAlign: TextAlign.start,
-                                )),
-                  SizedBox(
-                    height: 1,
-                  ),
-                  Buttonfull(
-                    text: AppLocalizations.of(context)!.translate(
-                      'Edit Profile',
-                    )!,
-                    onPressed: () {
-                      Get.to(EditProfileScreen());
-                      /*Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => EditProfile(
-                                    model: resultResponse!,
-                                  )));*/
-                    },
-                    color: Colors.white,
-                  )
-                ],
+                ),
               ),
-            ),
-          ),
-          Card(
-            margin: EdgeInsets.symmetric(horizontal: 0, vertical: 6),
-            child: Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Column(
-                children: [
-                  Container(
-                    alignment: Alignment.center,
-                    child: ranksadadA[resultResponsee['data']],
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Card(
-            margin: EdgeInsets.symmetric(horizontal: 0, vertical: 6),
-            child: Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Column(
-                children: [
-                  Body(
-                    textAlign: TextAlign.center,
-                    color: Colors.black87,
-                    text: "پاکی شما تا این لحظه",
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
+              Card(
+                margin: EdgeInsets.symmetric(horizontal: 0, vertical: 6),
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Column(
                     children: [
-                      Container(
-                        child: CircularPercentIndicator(
-                          radius: 35.0,
-                          lineWidth: 5.0,
-                          percent: Year(),
-                          animation: true,
-                          center: Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: Column(
-                              children: [
-                                Footnate(
-                                  textAlign: TextAlign.center,
-                                  color: Colors.cyan,
-                                  text: yaer.toString(),
-
-                                  /*resultResponseGetUserAbandon['data']
-                                      .split(" ")[0]
-                                      .toString(),*/
-                                ),
-                                Caption2(
-                                    textAlign: TextAlign.center,
-                                    color: Colors.cyan,
-                                    text: "سال"),
-                              ],
-                            ),
-                          ),
-                          progressColor: Colors.cyanAccent,
-                        ),
+                      Body(
+                        textAlign: TextAlign.center,
+                        color: Colors.black87,
+                        text: "پاکی شما تا این لحظه",
                       ),
                       SizedBox(
-                        width: 10,
+                        height: 10,
                       ),
-                      Container(
-                        child: CircularPercentIndicator(
-                          radius: 35.0,
-                          lineWidth: 5.0,
-                          percent: Month(),
-                          animation: true,
-                          center: Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: Column(
-                              children: [
-                                Footnate(
-                                    textAlign: TextAlign.center,
-                                    color: Colors.cyan,
-                                    text: month.toString()),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            child: CircularPercentIndicator(
+                              radius: 35.0,
+                              lineWidth: 5.0,
+                              percent: Year(),
+                              animation: true,
+                              center: Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: Column(
+                                  children: [
+                                    Footnate(
+                                      textAlign: TextAlign.center,
+                                      color: Colors.cyan,
+                                      text: yaer.toString(),
 
-                                /*resultResponseGetUserAbandon['data']
+                                      /*resultResponseGetUserAbandon['data']
+                                      .split(" ")[0]
+                                      .toString(),*/
+                                    ),
+                                    Caption2(
+                                        textAlign: TextAlign.center,
+                                        color: Colors.cyan,
+                                        text: "سال"),
+                                  ],
+                                ),
+                              ),
+                              progressColor: Colors.cyanAccent,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Container(
+                            child: CircularPercentIndicator(
+                              radius: 35.0,
+                              lineWidth: 5.0,
+                              percent: Month(),
+                              animation: true,
+                              center: Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: Column(
+                                  children: [
+                                    Footnate(
+                                        textAlign: TextAlign.center,
+                                        color: Colors.cyan,
+                                        text: month.toString()),
+
+                                    /*resultResponseGetUserAbandon['data']
                                         .toString()
                                         .split(" ")[1]
                                         .toString())*/
-                                Caption2(
-                                    textAlign: TextAlign.center,
-                                    color: Colors.cyan,
-                                    text: "ماه"),
-                              ],
+                                    Caption2(
+                                        textAlign: TextAlign.center,
+                                        color: Colors.cyan,
+                                        text: "ماه"),
+                                  ],
+                                ),
+                              ),
+                              progressColor: Colors.cyanAccent,
                             ),
                           ),
-                          progressColor: Colors.cyanAccent,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 15,
-                      ),
-                      Container(
-                        child: CircularPercentIndicator(
-                          radius: 35.0,
-                          lineWidth: 5.0,
-                          percent: Day(),
-                          animation: true,
-                          center: Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: Column(
-                              children: [
-                                Footnate(
-                                    textAlign: TextAlign.center,
-                                    color: Colors.cyan,
-                                    text: day.toString()
-                                    /*resultResponseGetUserAbandon['data']
+                          SizedBox(
+                            width: 15,
+                          ),
+                          Container(
+                            child: CircularPercentIndicator(
+                              radius: 35.0,
+                              lineWidth: 5.0,
+                              percent: Day(),
+                              animation: true,
+                              center: Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: Column(
+                                  children: [
+                                    Footnate(
+                                        textAlign: TextAlign.center,
+                                        color: Colors.cyan,
+                                        text: day.toString()
+                                        /*resultResponseGetUserAbandon['data']
                                           .toString()
                                           .split(" ")[2]
                                           .toString()*/
-                                    ),
-                                Caption2(
-                                    textAlign: TextAlign.center,
-                                    color: Colors.cyan,
-                                    text: "روز"),
-                              ],
+                                        ),
+                                    Caption2(
+                                        textAlign: TextAlign.center,
+                                        color: Colors.cyan,
+                                        text: "روز"),
+                                  ],
+                                ),
+                              ),
+                              progressColor: Colors.cyanAccent,
                             ),
                           ),
-                          progressColor: Colors.cyanAccent,
-                        ),
-                      ),
 
-                      /*Body(
+                          /*Body(
                       textAlign: TextAlign.center,
                       color: Colors.cyan,
                       text: resultResponseGetUserAbandon['data'].toString().split(" ")[1]  ,
@@ -849,20 +862,20 @@ class _ViewProfileState extends State<ViewProfile> {
                       color: Colors.cyan,
                       text: resultResponseGetUserAbandon['data'].toString().split(" ")[2]  ,
                     ),*/
-                    ],
-                  ),
+                        ],
+                      ),
 
-                  /* Body(
+                      /* Body(
                       textAlign: TextAlign.center,
                       color: Colors.black87,
                       text: "هدف بعدی شما پر کردن سه ماه است",
                     ),*/
-                  /*  Buttonfull(text: 'تستی', color: Colors.white, onPressed: () {  Navigator.push(
+                      /*  Buttonfull(text: 'تستی', color: Colors.white, onPressed: () {  Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
                                 ViewProfileUesr())); },),*/
-                  /*   Buttonfull(
+                      /*   Buttonfull(
                       text: AppLocalizations.of(context)!
                           .translate('Date_of_departure')!,
                       onPressed: () async {
@@ -913,13 +926,13 @@ class _ViewProfileState extends State<ViewProfile> {
                       },
                       color: Colors.white,
                     ),*/
-                ],
+                    ],
+                  ),
+                ),
               ),
-            ),
+            ],
           ),
-        ],
-      ),
-    );
+        ));
   }
 
   void onSelected(BuildContext context, int item) {

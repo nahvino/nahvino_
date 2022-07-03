@@ -1,6 +1,10 @@
 import 'package:Nahvino/Pages/Account/User/editprofilescreen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../App_localizations.dart';
+import '../Utils/TextField/englishtextfilde.dart';
+import '../Utils/TextField/phonefextfilde.dart';
+import '../Utils/TextField/publictextfilde.dart';
 import '../controllers/getx/user/viewprofial_controller.dart';
 
 class HomeScren extends StatefulWidget {
@@ -12,35 +16,47 @@ class HomeScren extends StatefulWidget {
 }
 
 class _HomeScrenState extends State<HomeScren> {
-  ViewProfileController databox = Get.put(ViewProfileController());
-
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   void initState() {
     super.initState();
-    databox.checkdata();
-    print(databox.box.read('imageUrl'));
-    print(databox.box.read('bio'));
-    print(databox.box.read('rank'));
-    print(databox.box.read('score'));
-    print(databox.box.read('identifierCode'));
-    print(databox.box.read('parentId'));
-    print(databox.box.read('parentname'));
-    print(databox.box.read('parentimageurl'));
-  
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        ElevatedButton(
-          child: Text("پروفایل"),
-          onPressed: () {
-            Get.to(EditProfileScreen());
-          },
-        )
-      ],
+    return Container(
+      child: Form(
+        key: _formKey,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            PublicTextFilde(
+              hint: "نام کاربری",
+              /*   validator: (value) {
+                /* if (value.isEmpty) {
+                  return 'نام کاربری نیم تواند خالی باشد';
+                }*/
+                Validator.empty(value);
+              //  Validator.em(value);
+              },*/
+            ),
+            TextOtpPhone(
+              icon: Icon(Icons.phone_android, size: 32),
+              suffixIcon: null,
+              prefixIcon: null,
+              hint: AppLocalizations.of(context)!.translate(
+                'phoneNumber',
+              )!,
+            ),
+            ElevatedButton(
+              child: Text("ثبت"),
+              onPressed: () {
+                if (!_formKey.currentState!.validate()) ;
+              },
+            )
+          ],
+        ),
+      ),
     );
   }
 }

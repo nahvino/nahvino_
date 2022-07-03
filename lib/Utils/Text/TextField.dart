@@ -1,7 +1,5 @@
-import 'package:Nahvino/Utils/Validator/validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../Validator/validator.dart';
 
 class TextProfile extends StatelessWidget {
   const TextProfile({
@@ -69,7 +67,6 @@ class TextProfileEn extends StatefulWidget {
 class _TextProfileEnState extends State<TextProfileEn> {
   String? error;
   final alphanumeric = RegExp("[A-Z a-z 0-9]");
-  late Validator validators = Validator();
   @override
   Widget build(BuildContext context) {
     return Padding(

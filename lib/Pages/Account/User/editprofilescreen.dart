@@ -8,42 +8,20 @@ import 'package:persian_datetime_picker/persian_datetime_picker.dart';
 import 'package:Nahvino/Services/config.dart';
 
 import '../../../App_localizations.dart';
-import '../../../Services/Login/ApiService.dart';
-import '../../../Services/Login/User/service_profile.dart';
 import '../../../Utils/Button/Button.dart';
 import '../../../Utils/Text/Text.dart';
 import '../../../Utils/Text/TextField.dart';
 import '../../../Utils/TextField/englishtextfilde.dart';
+import '../../../Utils/TextField/notvlide_textfilde.dart';
 import '../../../Utils/TextField/publictextfilde.dart';
 import '../../../controllers/getx/user/editprofile_controller.dart';
 import '../../../tabs.dart';
-import 'ViewProfile.dart';
 
-class EditProfileScreen extends StatefulWidget {
-  const EditProfileScreen({
-    Key? key,
-  }) : super(key: key);
+class EditProfileScreen extends StatelessWidget {
+  EditProfileScreen({Key? key}) : super(key: key);
 
-  @override
-  State<EditProfileScreen> createState() => _EditProfileScreenState();
-}
-
-class _EditProfileScreenState extends State<EditProfileScreen> {
   EditProfileController editcontroller = Get.put(EditProfileController());
-  final ImagePicker _picker = ImagePicker();
-  late APIService? apiService;
-  late ServiceProfile? serpro;
-  String? imagePath;
-  String? imageuri;
-  String berlinWallFell = "تاریخ ترک";
-
-  @override
-  void initState() {
-    super.initState();
-    apiService = APIService(context);
-    serpro = ServiceProfile();
-    imageuri = editcontroller.databox.imageUrl.value;
-  }
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -75,12 +53,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         ),
         leading: BackButton(
           onPressed: (() {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => MyTabs()));
+            /* Navigator.pushReplacement(
+                context, MaterialPageRoute(builder: (context) => MyTabs()));*/
+            Get.offAll(MyTabs());
           }),
         ),
       ),
       body: SafeArea(
+          child: Form(
+        key: _formKey,
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -111,17 +92,17 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                             ),
                                             onTap: () async {
                                               final XFile? photo =
-                                                  await _picker.pickImage(
-                                                      source:
-                                                          ImageSource.camera,
-                                                      maxHeight: 512,
-                                                      maxWidth: 512,
-                                                      imageQuality: 25);
+                                                  await editcontroller.picker
+                                                      .pickImage(
+                                                          source: ImageSource
+                                                              .camera,
+                                                          maxHeight: 512,
+                                                          maxWidth: 512,
+                                                          imageQuality: 25);
                                               if (photo != null) {
-                                                setState(() {
-                                                  imagePath = photo.path;
-                                                  Navigator.pop(c);
-                                                });
+                                                editcontroller.imagePath =
+                                                    photo.path;
+                                                Navigator.pop(c);
                                               }
                                             },
                                           ),
@@ -134,17 +115,17 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                             ),
                                             onTap: () async {
                                               final XFile? photo =
-                                                  await _picker.pickImage(
-                                                      source:
-                                                          ImageSource.gallery,
-                                                      maxHeight: 512,
-                                                      maxWidth: 512,
-                                                      imageQuality: 25);
+                                                  await editcontroller.picker
+                                                      .pickImage(
+                                                          source: ImageSource
+                                                              .gallery,
+                                                          maxHeight: 512,
+                                                          maxWidth: 512,
+                                                          imageQuality: 25);
                                               if (photo != null) {
-                                                setState(() {
-                                                  imagePath = photo.path;
-                                                  Navigator.pop(c);
-                                                });
+                                                editcontroller.imagePath =
+                                                    photo.path;
+                                                Navigator.pop(c);
                                               }
                                             },
                                           ),
@@ -155,7 +136,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           child: Container(
                             height: 100,
                             width: 100,
-                            child: imagePath == null
+                            child: editcontroller.imagePath == null
                                 ? (editcontroller.databox.imageUrl.value ==
                                             null ||
                                         editcontroller.databox.imageUrl.value ==
@@ -166,13 +147,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                             editcontroller
                                                 .databox.imageUrl.value,
                                         fit: BoxFit.cover)
-                                : Image.file(File(imagePath!),
+                                : Image.file(File(editcontroller.imagePath!),
                                     fit: BoxFit.cover),
                           ),
                         )),
-                    if (imagePath != null)
+                    if (editcontroller.imagePath != null)
                       IconButton(
-                          onPressed: () => setState(() => imagePath = null),
+                          onPressed: () => editcontroller.imagePath = null,
                           icon: Icon(Icons.close))
                   ],
                 ),
@@ -182,7 +163,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 hint: AppLocalizations.of(context)!.translate(
                   'username',
                 )!,
-                errorttext: editcontroller.vlid.errorText.value,
               ),
               PublicTextFilde(
                 controller: editcontroller.nameAliasController,
@@ -190,8 +170,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   'name',
                 )!,
               ),
-              PublicTextFilde(
-                  hint: berlinWallFell,
+              NotValidFilde(
+                  hint: editcontroller.berlinWallFell.value,
                   ontap: () async {
                     Jalali? picked = await showPersianDatePicker(
                       context: context,
@@ -200,7 +180,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       lastDate: Jalali.now(),
                     );
                     print(picked!.formatCompactDate());
-                    berlinWallFell = picked.formatCompactDate();
+                    editcontroller.berlinWallFell.value =
+                        picked.formatCompactDate();
                   }),
               TextProfileBio(
                 controller: editcontroller.bioController,
@@ -216,57 +197,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   'OK',
                 )!,
                 onPressed: () async {
-                  /*    if (editcontroller.userNameController.text.isEmpty) {
-                    return;
-                  }*/
-
-                  setState(() {
-                    editcontroller.isApiCallProcess = true.obs;
-                  });
-
-                  if (imagePath != null) {
-                    var response =
-                        await apiService!.uploadProfileImage(imagePath!);
-                    if (response != false) {
-                      // editcontroller.databox.imageUrl.value = response;
-                      imageuri = response;
-                      //   Get.offAll(MyTabs());
-                    } else {
-                      apiService!.showSnackBar(
-                        text: AppLocalizations.of(context)!.translate(
-                          'UploadFaildImage',
-                        )!,
-                      );
-                      return;
-                    }
+                  if (!_formKey.currentState!.validate()) {
+                  } else {
+                    editcontroller.validatoreditprofile();
+                    editcontroller.upimg();
+                    editcontroller.profilerequest();
+                    editcontroller.date();
+                    editcontroller.isApiCallProcess.value = false;
+                    Get.offAll(MyTabs());
                   }
-
-                  serpro!
-                      .editprofileuser(
-                    editcontroller.userNameController.text,
-                    editcontroller.nameAliasController.text,
-                    editcontroller.bioController.text,
-                    imageuri.toString(),
-                  )
-                      .then((value) {
-                    setState(() {
-                      editcontroller.isApiCallProcess = false.obs;
-                      editcontroller.databox.profilerequest();
-                      Get.offAll(MyTabs());
-                    });
-                  });
-                  apiService!
-                      .AddOrEditUserAbandon(berlinWallFell)
-                      .then((response) async {
-                    if (response != false) {
-                      apiService!.showSnackBar(text: response['message']);
-                    } else {
-                      apiService!.showSnackBar(text: response['message']);
-                      setState(() {
-                        editcontroller.isApiCallProcess = true.obs;
-                      });
-                    }
-                  });
                 },
                 color: Colors.white,
               ),
@@ -276,7 +215,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             ],
           ),
         ),
-      ),
+      )),
     );
   }
 }

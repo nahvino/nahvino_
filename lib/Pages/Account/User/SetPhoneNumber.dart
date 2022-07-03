@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import '../../../Services/login/ApiService.dart';
 import '../../../Utils/Button/Button.dart';
-import '../../../Utils/Text/TextField.dart';
 import '../../../Utils/Text/Text.dart';
 import '../../../App_localizations.dart';
+import '../../../Utils/TextField/phonefextfilde.dart';
 import 'CheckCodeSetPhoneNumber.dart';
 import 'UserSecuritySttingMenus.dart';
 
@@ -19,12 +19,14 @@ class _SetPhoneNumberState extends State<SetPhoneNumber> {
   bool value = false;
   TextEditingController setPhoneNumber = TextEditingController();
   late APIService apiService;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
     super.initState();
     apiService = APIService(context);
   }
+
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -44,8 +46,10 @@ class _SetPhoneNumberState extends State<SetPhoneNumber> {
               alignment: Alignment.topLeft,
               child: BackButton(
                 onPressed: (() {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => UserSecuritySttingMenus()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => UserSecuritySttingMenus()));
                 }),
               ),
             ),
@@ -73,28 +77,31 @@ class _SetPhoneNumberState extends State<SetPhoneNumber> {
             ),
           ],
         ),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            /*TextProfile(
+        Form(
+          key: _formKey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              /*TextProfile(
               controller: setPhoneNumber,
               hint: AppLocalizations.of(context)!.translate(
                 'phone_text_filed',
               )!,
             ),*/
-            TextOtpPhone(
-              controller: setPhoneNumber,
-              hint: AppLocalizations.of(context)!.translate(
-                'phone_text_new',
-              )!,
-            ),
-            Buttonfull(
-              color: Colors.white,
-              text: AppLocalizations.of(context)!.translate(
-                'OK',
-              )!,
-              onPressed: () {
-                if (setPhoneNumber.text.isEmpty) {
+              TextOtpPhone(
+                controller: setPhoneNumber,
+                icon: Icon(Icons.phone_android, size: 32),
+                hint: AppLocalizations.of(context)!.translate(
+                  'phone_text_new',
+                )!,
+              ),
+              Buttonfull(
+                color: Colors.white,
+                text: AppLocalizations.of(context)!.translate(
+                  'OK',
+                )!,
+                onPressed: () {
+                  /*    if (setPhoneNumber.text.isEmpty) {
                   apiService.showSnackBar(text: AppLocalizations.of(context)!.translate(
                     'ValidphoneNumber',
                   )!);
@@ -113,26 +120,32 @@ class _SetPhoneNumberState extends State<SetPhoneNumber> {
                     )!,
                   );
                   return;
-                }
-                apiService.SetPhoneNumber(setPhoneNumber.text).then((response) async {
-                  setState(() {
-                    isApiCallProgress = false;
-                  });
-                  //idficode = identifierCode;
-                  //if (response.data != null) {
-                  if (response != false) {
-                    apiService.showSnackBar(text:response['message']);
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => CheckCodeSetPhoneNumber(setPhoneNumber: setPhoneNumber.text)));
-                  }else{
-                    apiService.showSnackBar(text: response['message']);
+                }*/
+                  if (!_formKey.currentState!.validate()) {
+                  } else {
+                    apiService.SetPhoneNumber(setPhoneNumber.text)
+                        .then((response) async {
+                      setState(() {
+                        isApiCallProgress = false;
+                      });
+                      //idficode = identifierCode;
+                      //if (response.data != null) {
+                      if (response != false) {
+                        apiService.showSnackBar(text: response['message']);
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CheckCodeSetPhoneNumber(
+                                    setPhoneNumber: setPhoneNumber.text)));
+                      } else {
+                        apiService.showSnackBar(text: response['message']);
+                      }
+                    });
                   }
-                });
-              },
-            )
-          ],
-        ),
+                },
+              )
+            ],
+          ),
+        )
       ]);
 }

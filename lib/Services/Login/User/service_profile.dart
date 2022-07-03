@@ -49,7 +49,8 @@ class ServiceProfile {
     );
   }
 
-  Future editprofileuser(String username, String nameAlias, String bio , String imageUrl) async {
+  Future editprofileuser(
+      String username, String nameAlias, String bio, String imageUrl) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
@@ -67,10 +68,62 @@ class ServiceProfile {
         "imageUrl": imageUrl
       }),
     );
-    if (validateResponse(response)) {
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    } else {
+      return false;
+    }
+    /*if (validateResponse(response)) {
       print(response.body);
       return json.decode(response.body);
     } else {
+      return false;
+    }*/
+  }
+
+  Future AddOrEditUserAbandon(String date) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer ${await preferences.getString("token")}"
+    };
+    var url = Uri.parse(Configss.baseURL + Configss.EditUserAbandon);
+    var response = await client.post(
+      url,
+      headers: requestHeaders,
+      body: jsonEncode(
+          {"userId": await preferences.getString("userId"), "dateTime": date}),
+    );
+
+    debugPrint(response.body.toString());
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    } else {
+      return false;
+    }
+    /* if (validateResponse(response)) {
+      return json.decode(response.body);
+    } else {
+      return false;
+    }*/
+  }
+
+  Future uploadProfileImage(String imagePath) async {
+    var request = http.MultipartRequest(
+      'POST',
+      Uri.parse(Configss.baseURL + Configss.uploadProfileImage),
+    );
+
+    var multipartFile =
+        await http.MultipartFile.fromPath('ImageFile', imagePath);
+    request.files.add(multipartFile);
+    http.StreamedResponse response = await request.send();
+    final respStr = await response.stream.bytesToString();
+    print(respStr);
+    if (response.statusCode == 200) {
+      return respStr;
+    } else {
+      // error
       return false;
     }
   }

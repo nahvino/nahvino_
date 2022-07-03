@@ -6,12 +6,14 @@ import '../../../Services/Login/ApiService.dart';
 import '../../../Utils/Button/Button.dart';
 import '../../../Utils/Text/TextField.dart';
 import '../../../Utils/Text/Text.dart';
+import '../../../Utils/TextField/englishtextfilde.dart';
 import 'Password.dart';
 import 'SignUp.dart';
 
 class NewCheckQuestionAnswer extends StatefulWidget {
-  const NewCheckQuestionAnswer({Key? key, }) : super(key: key);
-
+  const NewCheckQuestionAnswer({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<NewCheckQuestionAnswer> createState() => _NewCheckQuestionAnswerState();
@@ -41,7 +43,7 @@ class _NewCheckQuestionAnswerState extends State<NewCheckQuestionAnswer> {
   late APIService apiService;
   String? securityQuestionselected = null;
   late SharedPreferences logindata;
-
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -55,9 +57,12 @@ class _NewCheckQuestionAnswerState extends State<NewCheckQuestionAnswer> {
 
     return Scaffold(
       appBar: AppBar(
-        title:Title3(color: Colors.black, textAlign: TextAlign.start, text: AppLocalizations.of(context)!.translate(
-          'SignUp_top_text',
-        )!),
+        title: Title3(
+            color: Colors.black,
+            textAlign: TextAlign.start,
+            text: AppLocalizations.of(context)!.translate(
+              'SignUp_top_text',
+            )!),
         elevation: 0,
         backgroundColor: Colors.grey[50],
         leading: BackButton(
@@ -70,103 +75,114 @@ class _NewCheckQuestionAnswerState extends State<NewCheckQuestionAnswer> {
       ),
       body: isApiCallProcess
           ? Center(
-        child: Lottie.asset('assets/anim/login/submit-check.json',
-            height: 300, width: 300),
-      )
+              child: Lottie.asset('assets/anim/login/submit-check.json',
+                  height: 300, width: 300),
+            )
           : SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Center(
-                child: Lottie.asset('assets/anim/login/contract.json',
-                    height: 150, width: 150),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 20, left: 25),
+              child: Form(
+              key: _formKey,
+              child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    TextAll(
-                      icon: Icon(Icons.person),
-                      suffixIcon: null,
-                      prefixIcon: null,
-                      hint: AppLocalizations.of(context)!.translate(
-                        'username',
-                      )!,
-                      controller: usernameController,
+                    Center(
+                      child: Lottie.asset('assets/anim/login/contract.json',
+                          height: 150, width: 150),
                     ),
-                    SizedBox(height: 20,),
-                    DropdownButton(
-                        hint: Text(
-                          AppLocalizations.of(context)!.translate(
-                            'sAnswer',
-                          )!,
-                        ),
-                        value: securityQuestionselected,
-                        items: listDrap,
-                        onChanged: (value) {
-                          setState(() {
-                            securityQuestionselected = value as String;
-                          });
+                    Padding(
+                      padding: const EdgeInsets.only(right: 20, left: 25),
+                      child: Column(
+                        children: [
+                          EnglishTextFilde(
+                            icon: Icon(Icons.person),
+                            suffixIcon: null,
+                            prefixIcon: null,
+                            hint: AppLocalizations.of(context)!.translate(
+                              'username',
+                            )!,
+                            controller: usernameController,
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          DropdownButton(
+                              hint: Text(
+                                AppLocalizations.of(context)!.translate(
+                                  'sAnswer',
+                                )!,
+                              ),
+                              value: securityQuestionselected,
+                              items: listDrap,
+                              onChanged: (value) {
+                                setState(() {
+                                  securityQuestionselected = value as String;
+                                });
+                              }),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          EnglishTextFilde(
+                            icon: Icon(Icons.security),
+                            suffixIcon: null,
+                            prefixIcon: null,
+                            hint: AppLocalizations.of(context)!.translate(
+                              'sqAnswer',
+                            )!,
+                            controller: sqAnswerController,
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                        ],
+                      ),
+                    ),
+                    Buttontest(
+                        text: AppLocalizations.of(context)!.translate(
+                          'OK',
+                        )!,
+                        onPressed: () {
+                          /*   if (usernameController.text.isEmpty) {
+                            apiService.showSnackBar(
+                              text: AppLocalizations.of(context)!.translate(
+                                'Validusername',
+                              )!,
+                            );
+                            return;
+                          }*/
+                          if (!_formKey.currentState!.validate()) {
+                          } else {
+                            setState(() {
+                              isApiCallProcess = true;
+                            });
+                            apiService.NewCheckQuestionAnswer(
+                                    usernameController.text,
+                                    securityQuestionselected as String,
+                                    sqAnswerController.text)
+                                .then((response) async {
+                              if (response != false) {
+                                apiService.showSnackBar(
+                                    text: response['message'] ??
+                                        "جواب سوال درست بود");
+                                Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          NewPassword(data: response['data'])),
+                                  (route) => false,
+                                );
+                              } else {
+                                setState(() {
+                                  isApiCallProcess = false;
+                                });
+                                apiService.showSnackBar(
+                                    text: response['message'] ?? "sdd");
+                              }
+                            });
+                          }
                         }),
-                    SizedBox(height: 10,),
-                    TextAll(
-                      icon: Icon(Icons.security),
-                      suffixIcon: null,
-                      prefixIcon: null,
-                      hint: AppLocalizations.of(context)!.translate(
-                        'sqAnswer',
-                      )!,
-                      controller: sqAnswerController,
-                    ),
-                    SizedBox(height: 20,),
                   ],
                 ),
               ),
-
-              Buttontest(
-                  text: AppLocalizations.of(context)!.translate(
-                    'OK',
-                  )!,
-                  onPressed: () {
-                    if (usernameController.text.isEmpty) {
-                      apiService.showSnackBar(text:AppLocalizations.of(context)!.translate(
-                        'Validusername',
-                      )!,);
-                      return;
-                    }
-                    setState(() {
-                      isApiCallProcess = true;
-                    });
-                    apiService
-                        .NewCheckQuestionAnswer(
-                        usernameController.text,securityQuestionselected as String,sqAnswerController.text)
-                        .then((response) async {
-
-                      if (response != false) {
-                        apiService.showSnackBar(
-                            text: response['message'] ??
-                                "جواب سوال درست بود");
-                        Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>NewPassword(data: response['data'])),
-                              (route) => false,
-                        );
-                      } else {
-                        setState(() {
-                          isApiCallProcess = false;
-                        });
-                        apiService.showSnackBar(
-                            text: response['message'] ?? "sdd");
-                      }
-                    });
-
-
-                  }),
-            ],
-          ),
-        ),
-      ),
+            )),
     );
   }
 }
