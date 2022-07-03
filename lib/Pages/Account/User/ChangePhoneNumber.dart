@@ -20,6 +20,7 @@ class _ChangePhoneNumberState extends State<ChangePhoneNumber> {
   TextEditingController currentPhoneNumber = TextEditingController();
   TextEditingController newPhoneNumber = TextEditingController();
   late APIService apiService;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -39,7 +40,7 @@ class _ChangePhoneNumberState extends State<ChangePhoneNumber> {
   }
 
   Widget body(BuildContext context) => SingleChildScrollView(
-    child: Column(children: [
+        child: Column(children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -47,8 +48,10 @@ class _ChangePhoneNumberState extends State<ChangePhoneNumber> {
                 alignment: Alignment.topLeft,
                 child: BackButton(
                   onPressed: (() {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => UserSecuritySttingMenus()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => UserSecuritySttingMenus()));
                   }),
                 ),
               ),
@@ -57,7 +60,7 @@ class _ChangePhoneNumberState extends State<ChangePhoneNumber> {
                 child: IconButton(
                   icon: Icon(Icons.task_alt),
                   onPressed: (() {
-                    if (currentPhoneNumber.text.isEmpty) {
+                    /*   if (currentPhoneNumber.text.isEmpty) {
                       apiService.showSnackBar(text: AppLocalizations.of(context)!.translate(
                         'ValidphoneNumber',
                       )!);
@@ -95,39 +98,45 @@ class _ChangePhoneNumberState extends State<ChangePhoneNumber> {
                         )!,
                       );
                       return;
-                    }
-                    apiService.ChangePhoneNumber(
-                            currentPhoneNumber.text, newPhoneNumber.text)
-                        .then((response) async {
-                      setState(() {
-                        isApiCallProgress = false;
+                    }*/
+                    if (!_formKey.currentState!.validate()) {
+                    } else {
+                      apiService.ChangePhoneNumber(
+                              currentPhoneNumber.text, newPhoneNumber.text)
+                          .then((response) async {
+                        setState(() {
+                          isApiCallProgress = false;
+                        });
+                        if (response != false) {
+                          //apiService.showSnackBar(text:response['message'] ?? "کد تایید ارسال شد");
+                          Get.snackbar(
+                            "اعلان",
+                            response['message'] ?? "کد تایید ارسال شد",
+                            icon: Icon(Icons.person, color: Colors.white),
+                            snackPosition: SnackPosition.TOP,
+                          );
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      CheckCodeChangePhoneNumber(
+                                          currentPhoneNumber:
+                                              currentPhoneNumber.text,
+                                          newPhoneNumber:
+                                              newPhoneNumber.text)));
+                        } else {
+                          //apiService.showSnackBar(text: response['message'] ?? "sdd");
+                          apiService.showSnackBar(
+                              text: response['message'] ?? "کد تایید ارسال شد");
+                          // Get.snackbar(
+                          //   "اعلان",
+                          //   response['message'],
+                          //   icon: Icon(Icons.person, color: Colors.white),
+                          //   snackPosition: SnackPosition.TOP,
+                          // );
+                        }
                       });
-                      if (response != false) {
-                        //apiService.showSnackBar(text:response['message'] ?? "کد تایید ارسال شد");
-                        Get.snackbar(
-                          "اعلان",
-                          response['message'] ?? "کد تایید ارسال شد",
-                          icon: Icon(Icons.person, color: Colors.white),
-                          snackPosition: SnackPosition.TOP,
-                        );
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => CheckCodeChangePhoneNumber(
-                                    currentPhoneNumber: currentPhoneNumber.text,
-                                    newPhoneNumber: newPhoneNumber.text)));
-                      } else {
-                        //apiService.showSnackBar(text: response['message'] ?? "sdd");
-                        apiService.showSnackBar(
-                            text: response['message'] ?? "کد تایید ارسال شد");
-                        // Get.snackbar(
-                        //   "اعلان",
-                        //   response['message'],
-                        //   icon: Icon(Icons.person, color: Colors.white),
-                        //   snackPosition: SnackPosition.TOP,
-                        // );
-                      }
-                    });
+                    }
                   }),
                 ),
               ),
@@ -145,25 +154,34 @@ class _ChangePhoneNumberState extends State<ChangePhoneNumber> {
               ),
             ],
           ),
-          SizedBox(height: 20,),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextOtpPhone(
-                controller: currentPhoneNumber,
-                hint: AppLocalizations.of(context)!.translate(
-                  'phone_text_old',
-                )!,
-              ),
-              SizedBox(height: 10,),
-              TextOtpPhone(
-                controller: newPhoneNumber,
-                hint: AppLocalizations.of(context)!.translate(
-                  'phone_text_new',
-                )!,
-              ),
-            ],
+          SizedBox(
+            height: 20,
           ),
+          Form(
+            key: _formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextOtpPhone(
+                  controller: currentPhoneNumber,
+                  icon: Icon(Icons.phone_android, size: 32),
+                  hint: AppLocalizations.of(context)!.translate(
+                    'phone_text_old',
+                  )!,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                TextOtpPhone(
+                  controller: newPhoneNumber,
+                  icon: Icon(Icons.phone_android, size: 32),
+                  hint: AppLocalizations.of(context)!.translate(
+                    'phone_text_new',
+                  )!,
+                ),
+              ],
+            ),
+          )
         ]),
-  );
+      );
 }

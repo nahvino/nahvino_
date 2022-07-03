@@ -6,8 +6,9 @@ import '../../../App_localizations.dart';
 import '../../../Services/Login/ApiService.dart';
 import '../../../Utils/Button/Button.dart';
 import '../../../Utils/Other/PrivacyDialog.dart';
-import '../../../Utils/Text/TextField.dart';
 import '../../../Utils/Text/Text.dart';
+import '../../../Utils/TextField/englishtextfilde.dart';
+import '../../../Utils/TextField/passwordtextfilde.dart';
 import '../../../controllers/getx/NewRegisterController.dart';
 import 'AddIntroduced.dart';
 import 'SignUp.dart';
@@ -50,6 +51,7 @@ class _NewRegisterState extends State<NewRegister> {
   late APIService apiService;
   String? securityQuestionselected = null;
   late SharedPreferences logindata;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -89,6 +91,8 @@ class _NewRegisterState extends State<NewRegister> {
                     width: 300),
               )
             : SafeArea(
+                child: Form(
+                key: _formKey,
                 child: SingleChildScrollView(
                   child: Padding(
                     padding: const EdgeInsets.only(right: 20),
@@ -98,7 +102,7 @@ class _NewRegisterState extends State<NewRegister> {
                           child: Lottie.asset('assets/anim/login/contract.json',
                               height: 150, width: 150),
                         ),
-                        TextProfileEn(
+                        EnglishTextFilde(
                           icon: Icon(Icons.person),
                           suffixIcon: null,
                           prefixIcon: null,
@@ -147,10 +151,10 @@ class _NewRegisterState extends State<NewRegister> {
                                 });
                               }),
                         ),
-                                               SizedBox(
+                        SizedBox(
                           height: 20,
                         ),
-                        TextAll(
+                        EnglishTextFilde(
                           icon: Icon(Icons.security),
                           suffixIcon: null,
                           prefixIcon: null,
@@ -163,43 +167,43 @@ class _NewRegisterState extends State<NewRegister> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                          TextButton(
-                            onPressed: () {
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder:
-                                          (context) => /*RegisterPage()*/ NewRegister()));
-                            },
-                            child: Caption1(
-                              color: Colors.cyan,
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder:
+                                            (context) => /*RegisterPage()*/ NewRegister()));
+                              },
+                              child: Caption1(
+                                color: Colors.cyan,
+                                textAlign: TextAlign.center,
+                                text: AppLocalizations.of(context)!.translate(
+                                  'Termsandservices',
+                                )!,
+                              ),
+                            ),
+                            Caption1(
+                              color: Colors.black,
                               textAlign: TextAlign.center,
                               text: AppLocalizations.of(context)!.translate(
-                                'Termsandservices',
+                                'And',
                               )!,
                             ),
-                          ),
-                          Caption1(
-                            color: Colors.black,
-                            textAlign: TextAlign.center,
-                            text: AppLocalizations.of(context)!.translate(
-                              'And',
-                            )!,
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              showDialog<void>(
-                                  context: context,
-                                  builder: (context) => PrivacyDialog());
-                            },
-                            child: Caption1(
-                              color: Colors.cyan,
-                              textAlign: TextAlign.center,
-                              text: AppLocalizations.of(context)!.translate(
-                                'Privacy',
-                              )!,
+                            TextButton(
+                              onPressed: () {
+                                showDialog<void>(
+                                    context: context,
+                                    builder: (context) => PrivacyDialog());
+                              },
+                              child: Caption1(
+                                color: Colors.cyan,
+                                textAlign: TextAlign.center,
+                                text: AppLocalizations.of(context)!.translate(
+                                  'Privacy',
+                                )!,
+                              ),
                             ),
-                          ),
                             Caption1(
                               color: Colors.black,
                               textAlign: TextAlign.center,
@@ -207,7 +211,8 @@ class _NewRegisterState extends State<NewRegister> {
                                 'IAccept',
                               )!,
                             ),
-                        ],),
+                          ],
+                        ),
                         SizedBox(
                           height: 15,
                         ),
@@ -216,7 +221,7 @@ class _NewRegisterState extends State<NewRegister> {
                               'OK',
                             )!,
                             onPressed: () {
-                              if (usernameController.text.isEmpty) {
+                              /*           if (usernameController.text.isEmpty) {
                                 apiService.showSnackBar(
                                   text: AppLocalizations.of(context)!.translate(
                                     'Validusername',
@@ -239,53 +244,56 @@ class _NewRegisterState extends State<NewRegister> {
                                   )!,
                                 );
                                 return;
+                              }*/
+                              if (!_formKey.currentState!.validate()) {
+                              } else {
+                                setState(() {
+                                  isApiCallProcess = true;
+                                });
+
+                                apiService.NewRegister(
+                                        usernameController.text,
+                                        passwordController.text,
+                                        securityQuestionselected as String,
+                                        sqAnswerController.text)
+                                    .then((response) async {
+                                  if (response != false) {
+                                    logindata =
+                                        await SharedPreferences.getInstance();
+                                    await logindata.setString("token",
+                                        response['data']['userToken']['token']);
+                                    await logindata.setString(
+                                        "userId", response['data']['id']);
+
+                                    apiService.showSnackBar(
+                                        text: AppLocalizations.of(context)!
+                                            .translate(
+                                      'Welcome',
+                                    )!);
+
+                                    Navigator.pushAndRemoveUntil(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              AddIntroduced()),
+                                      (route) => false,
+                                    );
+                                  } else {
+                                    setState(() {
+                                      isApiCallProcess = false;
+                                    });
+                                    apiService.showSnackBar(
+                                        text: response['message']);
+                                  }
+                                });
+                                cleartext();
                               }
-
-                              setState(() {
-                                isApiCallProcess = true;
-                              });
-
-                              apiService.NewRegister(
-                                      usernameController.text,
-                                      passwordController.text,
-                                      securityQuestionselected as String,
-                                      sqAnswerController.text)
-                                  .then((response) async {
-                                if (response != false) {
-                                  logindata =
-                                      await SharedPreferences.getInstance();
-                                  await logindata.setString("token",
-                                      response['data']['userToken']['token']);
-                                  await logindata.setString(
-                                      "userId", response['data']['id']);
-
-                                  apiService.showSnackBar(
-                                      text: AppLocalizations.of(context)!
-                                          .translate(
-                                    'Welcome',
-                                  )!);
-
-                                  Navigator.pushAndRemoveUntil(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => AddIntroduced()),
-                                    (route) => false,
-                                  );
-                                } else {
-                                  setState(() {
-                                    isApiCallProcess = false;
-                                  });
-                                  apiService.showSnackBar(
-                                      text: response['message']);
-                                }
-                              });
-                              cleartext();
                             }),
                       ],
                     ),
                   ),
                 ),
-              ),
+              )),
       ),
     );
   }

@@ -169,7 +169,7 @@ class _AboutGroupState extends State<AboutGroup> {
                                                               Duration(days: 7),
                                                           maxNrOfCacheObjects:
                                                               100)),
-                                                  imageUrl: configss.fileurl +
+                                                  imageUrl: Configss.fileurl +
                                                       widget
                                                           .model.adminImageurl!,
                                                   imageBuilder: (context,
@@ -200,7 +200,7 @@ class _AboutGroupState extends State<AboutGroup> {
                                         shape: CircleBorder(),
                                         clipBehavior: Clip.antiAliasWithSaveLayer,
                                         child: Image.network(
-                                          configss.fileurl + widget.model.adminImageurl!,
+                                          Configss.fileurl + widget.model.adminImageurl!,
                                           fit: BoxFit.cover,
                                           errorBuilder: (BuildContext context,
                                               Object exception,
@@ -280,7 +280,7 @@ class _AboutGroupState extends State<AboutGroup> {
                                                             Duration(days: 7),
                                                         maxNrOfCacheObjects:
                                                             100)),
-                                                imageUrl: configss.fileurl +
+                                                imageUrl: Configss.fileurl +
                                                     widget.model
                                                         .supervisor1Imageurl!,
                                                 imageBuilder:
@@ -310,7 +310,7 @@ class _AboutGroupState extends State<AboutGroup> {
                                       shape: CircleBorder(),
                                       clipBehavior: Clip.antiAliasWithSaveLayer,
                                       child: Image.network(
-                                        configss.fileurl + widget.model.supervisor1Imageurl!,
+                                        Configss.fileurl + widget.model.supervisor1Imageurl!,
                                         fit: BoxFit.cover,
                                         errorBuilder: (BuildContext context,
                                             Object exception,
@@ -391,7 +391,7 @@ class _AboutGroupState extends State<AboutGroup> {
                                                               Duration(days: 7),
                                                           maxNrOfCacheObjects:
                                                               100)),
-                                                  imageUrl: configss.fileurl +
+                                                  imageUrl: Configss.fileurl +
                                                       widget.model
                                                           .supervisor2Imageurl!,
                                                   imageBuilder: (context,
@@ -421,7 +421,7 @@ class _AboutGroupState extends State<AboutGroup> {
                                         shape: CircleBorder(),
                                         clipBehavior: Clip.antiAliasWithSaveLayer,
                                         child: Image.network(
-                                          configss.fileurl + widget.model.supervisor2Imageurl!,
+                                          Configss.fileurl + widget.model.supervisor2Imageurl!,
                                           fit: BoxFit.cover,
                                           errorBuilder: (BuildContext context,
                                               Object exception,

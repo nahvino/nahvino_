@@ -1,21 +1,24 @@
 import 'dart:io';
-import 'package:Nahvino/Services/config.dart';
+
 import 'package:flutter/material.dart';
+
+import 'package:Nahvino/Model/user/user/viewprofile_response_model.dart';
+import 'package:Nahvino/Pages/Account/User/ViewProfile.dart';
+import 'package:Nahvino/Services/config.dart';
+import 'package:Nahvino/Services/login/ApiService.dart';
+import 'package:Nahvino/tabs.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
-import 'package:Nahvino/Model/user/user/viewprofile_response_model.dart';
-import 'package:Nahvino/Pages/Account/User/ViewProfile.dart';
-import 'package:Nahvino/Services/login/ApiService.dart';
-import 'package:Nahvino/tabs.dart';
 import 'package:persian_datetime_picker/persian_datetime_picker.dart';
+
+import '../../../App_localizations.dart';
 import '../../../Utils/Button/Button.dart';
 import '../../../Utils/Text/Text.dart';
-import '../../../Utils/Text/TextField.dart';
-import '../../../App_localizations.dart';
 import '../../../Utils/TextField/englishtextfilde.dart';
+import '../../../Utils/TextField/multitextfilde.dart';
 import '../../../Utils/TextField/publictextfilde.dart';
-import '../../../Utils/Validator/validator.dart';
+import '../../../controllers/getx/user/viewprofial_controller.dart';
 
 class EditProfile extends StatefulWidget {
   final GetProfileUserResponseModel model;
@@ -34,7 +37,9 @@ class _EditProfileState extends State<EditProfile> {
   TextEditingController nameAliasController = TextEditingController();
   TextEditingController bioController = TextEditingController();
   TextEditingController tarikhController = TextEditingController();
-  Validator vlid = Get.put(Validator()); // controller
+  ViewProfileController databox = Get.put(ViewProfileController());
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   String? imagePath;
   final ImagePicker _picker = ImagePicker();
   APIService? apiService;
@@ -73,6 +78,8 @@ class _EditProfileState extends State<EditProfile> {
                   height: 300, width: 300),
             )
           : SafeArea(
+              child: Form(
+              key: _formKey,
               child: SingleChildScrollView(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -154,7 +161,7 @@ class _EditProfileState extends State<EditProfile> {
                                               widget.model.imageUrl == "")
                                           ? Icon(Icons.person)
                                           : Image.network(
-                                              configss.fileurl +
+                                              Configss.fileurl +
                                                   widget.model.imageUrl!,
                                               fit: BoxFit.cover)
                                       : Image.file(File(imagePath!),
@@ -174,7 +181,6 @@ class _EditProfileState extends State<EditProfile> {
                       hint: AppLocalizations.of(context)!.translate(
                         'username',
                       )!,
-                      errorttext: vlid.errorText.value,
                     ),
                     PublicTextFilde(
                       controller: nameAliasController,
@@ -208,52 +214,59 @@ class _EditProfileState extends State<EditProfile> {
                         'OK',
                       )!,
                       onPressed: () async {
-                        if (userNameController.text.isEmpty) {
+                        /*if (userNameController.text.isEmpty) {
                           print("thvsd");
                           return;
-                        }
-                        
-                        setState(() {
-                          isApiCallProcess = true;
-                        });
+                        }*/
 
-                        if (imagePath != null) {
-                          var response =
-                              await apiService?.uploadProfileImage(imagePath!);
-                          if (response != false) {
-                            widget.model.imageUrl = response;
-                          } else {
-                            apiService!.showSnackBar(
-                              text: AppLocalizations.of(context)!.translate(
-                                'UploadFaildImage',
-                              )!,
-                            );
-                            return;
-                          }
-                        }
-                        widget.model.imageUrl ??= "";
-                        widget.model.userName = userNameController.text;
-                        widget.model.nameAlias = nameAliasController.text;
-                        widget.model.bio = bioController.text;
-
-                        apiService!.editprofileuser(widget.model).then((value) {
+                        if (!_formKey.currentState!.validate()) {
+                        } else {
                           setState(() {
-                            isApiCallProcess = false;
-                            Get.offAll(MyTabs());
+                            isApiCallProcess = true;
                           });
-                          
-                        });
-                        apiService?.AddOrEditUserAbandon(berlinWallFell)
-                            .then((response) async {
-                          if (response != false) {
-                            apiService?.showSnackBar(text: response['message']);
-                          } else {
-                            apiService?.showSnackBar(text: response['message']);
-                            setState(() {
-                              isApiCallProcess = true;
-                            });
+
+                          if (imagePath != null) {
+                            var response = await apiService
+                                ?.uploadProfileImage(imagePath!);
+                            if (response != false) {
+                              widget.model.imageUrl = response;
+                            } else {
+                              apiService!.showSnackBar(
+                                text: AppLocalizations.of(context)!.translate(
+                                  'UploadFaildImage',
+                                )!,
+                              );
+                              return;
+                            }
                           }
-                        });
+                          widget.model.imageUrl ??= "";
+                          widget.model.userName = userNameController.text;
+                          widget.model.nameAlias = nameAliasController.text;
+                          widget.model.bio = bioController.text;
+
+                          apiService!
+                              .editprofileuser(widget.model)
+                              .then((value) {
+                            setState(() {
+                              isApiCallProcess = false;
+                              databox.profilerequest();
+                              Get.offAll(MyTabs());
+                            });
+                          });
+                          apiService?.AddOrEditUserAbandon(berlinWallFell)
+                              .then((response) async {
+                            if (response != false) {
+                              apiService?.showSnackBar(
+                                  text: response['message']);
+                            } else {
+                              apiService?.showSnackBar(
+                                  text: response['message']);
+                              setState(() {
+                                isApiCallProcess = true;
+                              });
+                            }
+                          });
+                        }
                       },
                       color: Colors.white,
                     ),
@@ -317,7 +330,7 @@ class _EditProfileState extends State<EditProfile> {
                   ],
                 ),
               ),
-            ),
+            )),
     );
   }
 }

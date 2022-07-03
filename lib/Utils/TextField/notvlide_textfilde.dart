@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class PublicTextFilde extends StatelessWidget {
-  const PublicTextFilde({
+class NotValidFilde extends StatelessWidget {
+  const NotValidFilde({
     Key? key,
     this.hint,
     this.controller,
@@ -22,21 +22,13 @@ class PublicTextFilde extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final alphanumeric = RegExp("[A-Z a-z 0-9]");
 
     return Padding(
       padding: const EdgeInsets.only(right: 35, left: 39),
       child: TextFormField(
         textAlign: TextAlign.right,
         controller: controller,
-        validator: (value) {
-          if (value!.isEmpty) {
-            return 'مقدار نمی تواند خالی باشد';
-          }
 
-          return null;
-          // Validator().empty(value!);
-        },
         onTap: ontap,
         keyboardType: TextInputType.text,
         style: TextStyle(fontSize: 16, fontFamily: 'Vazirmatn_Medium'),

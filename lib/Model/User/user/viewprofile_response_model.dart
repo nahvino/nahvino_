@@ -2,16 +2,17 @@ import 'dart:convert';
 
 GetProfileUserResponseModel getprofileuserresponseJson(String str) =>
     GetProfileUserResponseModel.fromJson(json.decode(str));
+
 class GetProfileUserResponseModel {
   GetProfileUserResponseModel({
-     this.userName,
-     this.nameAlias,
-     this.bio,
-     this.rank,
-     this.score,
+    this.userName,
+    this.nameAlias,
+    this.bio,
+    this.rank,
+    this.score,
     this.imageUrl,
-     this.identifierCode,
-     this.parentId,
+    this.identifierCode,
+    this.parentId,
     this.parentName,
     this.parentImageUrl,
   });
@@ -26,9 +27,9 @@ class GetProfileUserResponseModel {
   String? parentName;
   String? parentImageUrl;
 
-  GetProfileUserResponseModel.fromJson(Map<String, dynamic> json){
+  GetProfileUserResponseModel.fromJson(Map<String, dynamic> json) {
     userName = json['userName'];
-    nameAlias = json['nameAlias'] ;
+    nameAlias = json['nameAlias'];
     bio = json['bio'];
     rank = json['rank'];
     score = json['score'];
@@ -38,6 +39,8 @@ class GetProfileUserResponseModel {
     parentName = json['parentName'];
     parentImageUrl = json['parentImageUrl'];
   }
+
+  get value => null;
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};

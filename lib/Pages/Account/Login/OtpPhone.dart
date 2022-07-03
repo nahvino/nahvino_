@@ -6,7 +6,7 @@ import '../../../App_localizations.dart';
 import '../../../Services/Login/ApiService.dart';
 import '../../../Utils/Button/Button.dart';
 import '../../../Utils/Text/Text.dart';
-import '../../../Utils/Text/TextField.dart';
+import '../../../Utils/TextField/phonefextfilde.dart';
 import 'CodeOtpPhoneNew.dart';
 import 'SignUp.dart';
 
@@ -26,7 +26,7 @@ class _OtpPhoneNewState extends State<OtpPhoneNew> {
       filter: {"#": RegExp(r'[0-9]')},
       type: MaskAutoCompletionType.lazy);
   final formKey = GlobalKey<FormState>();
-  GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   late APIService apiService;
 
   @override
@@ -58,114 +58,120 @@ class _OtpPhoneNewState extends State<OtpPhoneNew> {
                   height: 300, width: 300),
             )
           : SafeArea(
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Center(
-                      child: Lottie.asset('assets/anim/login/send.json',
-                          height: 150, width: 150),
-                    ),
-                    TextOtpPhone(
-                      icon: Icon(Icons.phone_android, size: 32),
-                      suffixIcon: null,
-                      prefixIcon: null,
-                      hint: AppLocalizations.of(context)!.translate(
-                        'phoneNumber',
-                      )!,
-                      controller: OtpPhoneController,
-                    ),
+              child: Form(
+                key: _formKey,
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Center(
+                        child: Lottie.asset('assets/anim/login/send.json',
+                            height: 150, width: 150),
+                      ),
+                      TextOtpPhone(
+                        icon: Icon(Icons.phone_android, size: 32),
+                        suffixIcon: null,
+                        prefixIcon: null,
+                        hint: AppLocalizations.of(context)!.translate(
+                          'phoneNumber',
+                        )!,
+                        controller: OtpPhoneController,
+                      ),
 
-                    /*
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          width: 320,
-                          child: TextOtpPhone(
-                            icon: Icon(Icons.phone_android, size: 32),
-                            suffixIcon: null,
-                            prefixIcon: null,
-                            hint: AppLocalizations.of(context)!.translate(
-                              'phoneNumber',
-                            )!,
-                            controller: OtpPhoneController,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 23),
-                          child: Card(
-                            shape: RoundedRectangleBorder(
-                              side: BorderSide(color: Colors.black38, width: 0.9),
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(20.0),
-                              child: Text("09"),
-                            ),
-                          ),
-                        ),
+                      /*
+                                                  Row(
+                                                    mainAxisSize: MainAxisSize.max,
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: [
+                                                      Container(
+                                                        width: 320,
+                                                        child: TextOtpPhone(
+                                                          icon: Icon(Icons.phone_android, size: 32),
+                                                          suffixIcon: null,
+                                                          prefixIcon: null,
+                                                          hint: AppLocalizations.of(context)!.translate(
+                                                            'phoneNumber',
+                                                          )!,
+                                                          controller: OtpPhoneController,
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding: const EdgeInsets.only(bottom: 23),
+                                                        child: Card(
+                                                          shape: Ro,
+              )
+              undedRectangleBorder(
+                                              side: BorderSide(color: Colors.black38, width: 0.9),
+                                              borderRadius: BorderRadius.circular(15),
+                                            ),
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(20.0),
+                                              child: Text("09"),
+                                            ),
+                                          ),
+                             ,
+                )
+                           ),
                       ],
                     ),*/
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder:
-                                        (context) => /*RegisterPage()*/ OtpPhoneNew()));
-                          },
-                          child: Caption1(
-                            color: Colors.cyan,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder:
+                                          (context) => /*RegisterPage()*/ OtpPhoneNew()));
+                            },
+                            child: Caption1(
+                              color: Colors.cyan,
+                              textAlign: TextAlign.center,
+                              text: AppLocalizations.of(context)!.translate(
+                                'Termsandservices',
+                              )!,
+                            ),
+                          ),
+                          Caption1(
+                            color: Colors.black,
                             textAlign: TextAlign.center,
                             text: AppLocalizations.of(context)!.translate(
-                              'Termsandservices',
+                              'And',
                             )!,
                           ),
-                        ),
-                        Caption1(
-                          color: Colors.black,
-                          textAlign: TextAlign.center,
-                          text: AppLocalizations.of(context)!.translate(
-                            'And',
-                          )!,
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder:
-                                        (context) => /*RegisterPage()*/ OtpPhoneNew()));
-                          },
-                          child: Caption1(
-                            color: Colors.cyan,
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder:
+                                          (context) => /*RegisterPage()*/ OtpPhoneNew()));
+                            },
+                            child: Caption1(
+                              color: Colors.cyan,
+                              textAlign: TextAlign.center,
+                              text: AppLocalizations.of(context)!.translate(
+                                'Privacy',
+                              )!,
+                            ),
+                          ),
+                          Caption1(
+                            color: Colors.black,
                             textAlign: TextAlign.center,
                             text: AppLocalizations.of(context)!.translate(
-                              'Privacy',
+                              'IAccept',
                             )!,
                           ),
-                        ),
-                        Caption1(
-                          color: Colors.black,
-                          textAlign: TextAlign.center,
+                        ],
+                      ),
+                      Buttontest(
                           text: AppLocalizations.of(context)!.translate(
-                            'IAccept',
+                            'OK',
                           )!,
-                        ),
-                      ],
-                    ),
-                    Buttontest(
-                        text: AppLocalizations.of(context)!.translate(
-                          'OK',
-                        )!,
-                        onPressed: () {
-                          if (OtpPhoneController.text.isEmpty) {
+                          onPressed: () {
+                            /*   if (OtpPhoneController.text.isEmpty) {
                             apiService.showSnackBar(
                               text: AppLocalizations.of(context)!.translate(
                                 'ValidphoneNumber',
@@ -188,33 +194,36 @@ class _OtpPhoneNewState extends State<OtpPhoneNew> {
                               )!,
                             );
                             return;
-                          }
+                          } */
 
-                          //ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("number is incorrect")));
-
-                          setState(() {
-                            isApiCallProcess = true;
-                          });
-                          apiService.OtpPhone(OtpPhoneController.text)
-                              .then((response) async {
-                            if (response != false) {
-                              apiService.showSnackBar(
-                                  text: response['message']);
-                              Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => CodeOtpPhoneNew(
-                                          OtpCode: OtpPhoneController.text,
-                                        )),
-                                (route) => false,
-                              );
+                            //ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("number is incorrect")));
+                            if (!_formKey.currentState!.validate()) {
                             } else {
-                              apiService.showSnackBar(
-                                  text: response['message'] ?? "sdd");
+                              setState(() {
+                                isApiCallProcess = true;
+                              });
+                              apiService.OtpPhone(OtpPhoneController.text)
+                                  .then((response) async {
+                                if (response != false) {
+                                  apiService.showSnackBar(
+                                      text: response['message']);
+                                  Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => CodeOtpPhoneNew(
+                                              OtpCode: OtpPhoneController.text,
+                                            )),
+                                    (route) => false,
+                                  );
+                                } else {
+                                  apiService.showSnackBar(
+                                      text: response['message'] ?? "sdd");
+                                }
+                              });
                             }
-                          });
-                        }),
-                  ],
+                          }),
+                    ],
+                  ),
                 ),
               ),
             ),
