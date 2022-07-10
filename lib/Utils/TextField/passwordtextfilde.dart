@@ -21,8 +21,10 @@ class TextPassReAndLog extends StatelessWidget {
   final Widget? suffix;
   @override
   Widget build(BuildContext context) {
+    final alphanumeric = RegExp("[A-Z a-z 0-9]");
+
     return Padding(
-      padding: const EdgeInsets.only(right: 20, left: 40),
+      padding: const EdgeInsets.only(right: 35, left: 39),
       child: TextFormField(
         textDirection: TextDirection.ltr,
         controller: controller,
@@ -30,8 +32,12 @@ class TextPassReAndLog extends StatelessWidget {
         keyboardType: TextInputType.visiblePassword,
         validator: (value) {
           if (value!.isEmpty) {
-            return 'مقدار نمی تواند خالی باشد';
+            return 'رمز عبور نمی تواند خالی باشد';
           }
+          if (alphanumeric.hasMatch(value) == false) {
+            return "رمز عبور نمی تواند فارسی باشد.";
+          }
+          return null;
         },
         style: TextStyle(fontSize: 14, fontFamily: 'Vazirmatn_Medium'),
         decoration: InputDecoration(

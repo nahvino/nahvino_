@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 
 class EnglishTextFilde extends StatelessWidget {
-   EnglishTextFilde(
+  EnglishTextFilde(
       {Key? key,
       this.hint,
       this.controller,
       this.icon,
       this.prefixIcon,
       this.suffixIcon,
-      this.errorttext})
+      this.errorttext,
+      this.suffix})
       : super(key: key);
 
   final String? hint;
@@ -17,9 +18,11 @@ class EnglishTextFilde extends StatelessWidget {
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final String? errorttext;
+  final Widget? suffix;
 
   String? error;
-  final alphanumeric = RegExp("[A-Z a-z 0-9]");
+  String? s;
+  final alphanumeric = RegExp("[a-z 0-9]");
 
   @override
   Widget build(BuildContext context) {
@@ -28,12 +31,14 @@ class EnglishTextFilde extends StatelessWidget {
       child: TextFormField(
         textAlign: TextAlign.right,
         controller: controller,
-        keyboardType: TextInputType.text,
+        keyboardType: TextInputType.name,
+        textCapitalization: TextCapitalization.none,
+        // autofocus: true,
         /*     inputFormatters: [
           FilteringTextInputFormatter.deny(
               RegExp(r'[آابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهیئ]')),
         ],*/
- /*       onChanged: (input) {
+        /*       onChanged: (input) {
           if (alphanumeric.hasMatch(input) == false) {
             error = "نام کاربری نمی تواند فارسی باشد.";
           } else {
@@ -43,23 +48,28 @@ class EnglishTextFilde extends StatelessWidget {
             error = "نام کاربری نمی تواند خالی باشد.";
           }
         },*/
-         validator: (value) {
+        validator: (value) {
           if (value!.isEmpty) {
-            return 'مقدار نمی تواند خالی باشد';
+            return 'نام کاربری نمی تواند خالی باشد';
+          } else if (value.length < 5) {
+            return 'نام کاربری نمی تواند از 5 رقم کمتر باشد';
+          } else if (alphanumeric.hasMatch(value) == false) {
+            return "نام کاربری نمی تواند فارسی و حرف بزرگ باشد.";
           }
-          if (alphanumeric.hasMatch(value) == false) {
-            return "نام کاربری نمی تواند فارسی باشد.";
-          }
+
           return null;
         },
-        style: TextStyle(fontSize: 16, fontFamily: 'Vazirmatn_Medium'),
+        style: TextStyle(fontSize: 14, fontFamily: 'Vazirmatn_Medium'),
         decoration: InputDecoration(
-          hintText: hint,
-          errorText: error,
-          icon: icon,
-          prefixIcon: prefixIcon,
-          suffixIcon: suffixIcon,
-        ),
+            hintText: hint,
+            suffix: suffix,
+            errorText: error,
+            icon: icon,
+            prefixIcon: prefixIcon,
+            suffixIcon: suffixIcon,
+            border: UnderlineInputBorder(
+              borderRadius: BorderRadius.circular(0),
+            )),
       ),
     );
   }

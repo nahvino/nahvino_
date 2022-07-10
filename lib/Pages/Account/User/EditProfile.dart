@@ -18,7 +18,7 @@ import '../../../Utils/Text/Text.dart';
 import '../../../Utils/TextField/englishtextfilde.dart';
 import '../../../Utils/TextField/multitextfilde.dart';
 import '../../../Utils/TextField/publictextfilde.dart';
-import '../../../controllers/getx/user/viewprofial_controller.dart';
+import '../../../Data/Local/viewprofial_data.dart';
 
 class EditProfile extends StatefulWidget {
   final GetProfileUserResponseModel model;

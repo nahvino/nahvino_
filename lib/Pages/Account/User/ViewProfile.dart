@@ -1,10 +1,10 @@
-import 'package:Nahvino/Pages/Account/User/EditProfile.dart';
 import 'package:Nahvino/Pages/Account/User/editprofilescreen.dart';
+import 'package:Nahvino/Services/Login/Google/notification_service.dart';
+import 'package:Nahvino/Services/Users/User/service_profile.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:lottie/lottie.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:share_plus/share_plus.dart';
@@ -14,9 +14,10 @@ import '../../../Model/user/user/viewprofile_response_model.dart';
 import '../../../Services/Login/ApiService.dart';
 import '../../../Services/config.dart';
 import '../../../Utils/Button/Button.dart';
+import '../../../Utils/Other/imagedialog.dart';
 import '../../../Utils/Text/Text.dart';
 import '../../../controllers/getx/aboutgroupcontroller.dart';
-import '../../../controllers/getx/user/viewprofial_controller.dart';
+import '../../../Data/Local/viewprofial_data.dart';
 import '../Login/SignUp.dart';
 import 'Notifications.dart';
 import 'UserSecuritySttingMenus.dart';
@@ -35,8 +36,10 @@ class _ViewProfileState extends State<ViewProfile> {
   ViewProfileController databox = Get.put(ViewProfileController());
   GetProfileUserResponseModel? resultResponse;
   late Map<String, dynamic> resultResponsee;
+  // late int resultResponsee;
   var resultResponseGetUserAbandon;
   late APIService apiService;
+  late ServiceProfile testtarkh;
   String? imagePath;
   late int day;
   late int month;
@@ -145,20 +148,23 @@ class _ViewProfileState extends State<ViewProfile> {
         resultResponsee = response;
         print(" قوقوی---------------------------- => $response");
         APIService.getuserabandon().then((response) async {
-          SharedPreferences prefs = await SharedPreferences.getInstance();
-          if (prefs.getBool("switchState") == false ||
-              prefs.getBool("switchState") == null) {
-            APIService.notificationaApi().then((response) {
-              print(
-                  "Notfiiiiiiiiiiiiiiiii---------------------------- => $response");
-            });
-          }
           print("تاریخ ترک ------------- => $response");
           setState(() {
             isApiCallProgress = false;
             resultResponseGetUserAbandon = response;
           });
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          if (prefs.getBool("switchState") == false ||
+              prefs.getBool("switchState") == null) {
+            ServiceNotification.notificationaApi().then((response) {
+              print(
+                  "Notfiiiiiiiiiiiiiiiii---------------------------- => $response");
+            });
+          }
         });
+      });
+      ServiceProfile.getuserotherabandon().then((response) async {
+        print("برگشتی تاریخ ترک ------------- => $response");
       });
     }).onError((error, stackTrace) {
       print(error);
@@ -227,7 +233,7 @@ class _ViewProfileState extends State<ViewProfile> {
                                 alignment: Alignment.topLeft,
                                 height: 30,
                                 child: PopupMenuButton<int>(
-                                  icon: Icon(Icons.menu),
+                                  icon: Icon(Icons.more_vert_rounded),
                                   itemBuilder: (context) => [
                                     PopupMenuItem(
                                       value: 0,
@@ -422,36 +428,42 @@ class _ViewProfileState extends State<ViewProfile> {
                       ),*/
                           /*  (resultResponse!.imageUrl != null &&
                               resultResponse!.imageUrl != "")*/
-                          (databox.imageUrl.value != null &&
-                                  databox.imageUrl.value != "")
-                              ? Card(
-                                  shape: CircleBorder(),
-                                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                                  child: CachedNetworkImage(
-                                    height: 75,
-                                    width: 75,
-                                    cacheManager: CacheManager(Config(
-                                        'customCacheKey',
-                                        stalePeriod: Duration(days: 7),
-                                        maxNrOfCacheObjects: 100)),
-                                    imageUrl: Configss.fileurl +
-                                        databox.imageUrl
-                                            .value /*resultResponse!.imageUrl!*/,
-                                    imageBuilder: (context, imageProvider) =>
-                                        Container(
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                          image: imageProvider,
-                                          fit: BoxFit.cover,
+                          (databox.imageUrl.value != null.obs &&
+                                  databox.imageUrl.value != "".obs)
+                              ? InkWell(
+                                  child: Card(
+                                    shape: CircleBorder(),
+                                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                                    child: CachedNetworkImage(
+                                      height: 75,
+                                      width: 75,
+                                      cacheManager: CacheManager(Config(
+                                          'customCacheKey',
+                                          stalePeriod: Duration(days: 7),
+                                          maxNrOfCacheObjects: 100)),
+                                      imageUrl: Configss.fileurl +
+                                          databox.imageUrl
+                                              .value /*resultResponse!.imageUrl!*/,
+                                      imageBuilder: (context, imageProvider) =>
+                                          Container(
+                                        decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                            image: imageProvider,
+                                            fit: BoxFit.cover,
+                                          ),
                                         ),
                                       ),
+                                      placeholder: (context, url) =>
+                                          CircularProgressIndicator(),
+                                      errorWidget: (context, url, error) =>
+                                          Icon(Icons.error),
                                     ),
-                                    placeholder: (context, url) =>
-                                        CircularProgressIndicator(),
-                                    errorWidget: (context, url, error) =>
-                                        Icon(Icons.error),
                                   ),
-                                )
+                                  onTap: () {
+                                    showDialog<void>(
+                                        context: context,
+                                        builder: (context) => ImageDialog());
+                                  })
                               : Image.asset(
                                   'assets/images/home/user.png',
                                   fit: BoxFit.cover,
@@ -584,7 +596,7 @@ class _ViewProfileState extends State<ViewProfile> {
                                       (databox.parentimageurl.value !=
                                                   null.obs &&
                                               databox.parentimageurl.value !=
-                                                  "".obs)
+                                                  "")
                                           ? Card(
                                               shape: CircleBorder(),
                                               clipBehavior:
@@ -691,8 +703,8 @@ class _ViewProfileState extends State<ViewProfile> {
                           ),
                           child: /*resultResponse!.bio == null ||
                               resultResponse!.bio == ""*/
-                              databox.bio.value == null ||
-                                      databox.bio.value == ""
+                              databox.bio.value == null.obs ||
+                                      databox.bio.value == "".obs
                                   ? textspan(
                                       text: "بیو گرافی شما",
                                       color: Colors.black38,
@@ -712,13 +724,19 @@ class _ViewProfileState extends State<ViewProfile> {
                           'Edit Profile',
                         )!,
                         onPressed: () {
-                          //  Get.to(EditProfileScreen());
+                          //Get.to(EditProfileScreen());
                           // GetPage(name: name, page: EditProfileScreen());
-                          // Get.off(EditProfileScreen());
+                          // // Get.off(EditProfileScreen());
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => EditProfileScreen()));
+                          //             Navigator.push(
+                          // context,
+                          // MaterialPageRoute(
+                          //     builder: (context) => EditProfile(
+                          //           model: resultResponse!,
+                          //         )));
                         },
                         color: Colors.white,
                       )
@@ -946,12 +964,12 @@ class _ViewProfileState extends State<ViewProfile> {
             context, MaterialPageRoute(builder: (context) => Notifications()));
         break;
       case 2:
-        Share.share(resultResponse!.identifierCode.toString() +
+        Share.share(databox.identifierCode.toString() +
             " \n این عدد کد معرف من در نحوینو می باشد. اگر هنگام ثبت نام از این کد استفاده کنید ده شاهپر به شما اهدا میکنم و راهنمای شما در این مسلک زیبا خواهم بود");
 
         break;
       case 4:
-        Share.share(resultResponse!.identifierCode.toString() +
+        Share.share(databox.identifierCode.toString() +
             " \n این عدد کد معرف من در نحوینو می باشد. اگر هنگام ثبت نام از این کد استفاده کنید ده شاهپر به شما اهدا میکنم و راهنمای شما در این مسلک زیبا خواهم بود");
 
         break;

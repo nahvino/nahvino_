@@ -55,6 +55,7 @@ class _ChatpageState extends State<Chatpage> {
               )
             : Scaffold(
                 appBar: AppBar(
+                    backgroundColor: Colors.cyan.shade800,
                     title: chatPageController.isInSearchMode.value
                         ? TextField(
                             onChanged: (value) {
@@ -141,6 +142,41 @@ class _ChatpageState extends State<Chatpage> {
                               },
                               icon: Icon(Icons.arrow_downward))
                           : SizedBox(),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 4),
+                        child: SizedBox(
+                          child: Container(
+                            alignment: Alignment.topLeft,
+                            child: PopupMenuButton<int>(
+                              icon: Icon(Icons.more_vert_rounded),
+                              itemBuilder: (context) => [
+                                PopupMenuItem(
+                                  value: 0,
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Icon(
+                                        Icons.info_outline_rounded,
+                                        color: Colors.cyan,
+                                      ),
+                                      const SizedBox(
+                                        width: 7,
+                                      ),
+                                      textspan(
+                                        textAlign: TextAlign.end,
+                                        text: "اطلاعات گروه",
+                                        color: Colors.black,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                              onSelected: (item) => onSelected(context, item),
+                            ),
+                          ),
+                        ),
+                      ),
                     ]),
                 backgroundColor: Colors.grey[200],
                 body: SafeArea(child: body(context)));
@@ -243,6 +279,7 @@ class _ChatpageState extends State<Chatpage> {
                   style: TextStyle(fontSize: 16, fontFamily: 'Vazirmatn_Light'),
                   controller: chatPageController.chatEditController,
                 )),
+                //  if (chatPageController.chatEditController.text.isNotEmpty)
                 IconButton(
                     icon: Icon(
                       Icons.send,
@@ -797,6 +834,18 @@ class _ChatpageState extends State<Chatpage> {
         ),
       ),
     );
+  }
+
+  void onSelected(BuildContext context, int item) {
+    switch (item) {
+      case 0:
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    AboutGroup(model: chatPageController.model!)));
+        break;
+    }
   }
 
   void _checkKEyboardAndEmojiVisibility() {

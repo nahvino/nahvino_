@@ -1,11 +1,11 @@
-import 'package:Nahvino/controllers/getx/user/viewprofial_controller.dart';
+import 'package:Nahvino/Services/Users/User/service_profile.dart';
+import 'package:Nahvino/Data/Local/viewprofial_data.dart';
 import 'package:Nahvino/tabs.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../Services/Login/ApiService.dart';
-import '../../../Services/Login/User/service_profile.dart';
 
 class EditProfileController extends GetxController {
   //import
@@ -21,11 +21,13 @@ class EditProfileController extends GetxController {
   TextEditingController tarikhController = TextEditingController();
   String? error;
   RxString berlinWallFell = "تاریخ ترک".obs;
-  //RxString imagePath = "".obs;
+
+  // RxString imagePath = "".obs;
   String? imagePath;
 
   late ServiceProfile? serpro;
   String? imageuri;
+  String? imageuris;
   late APIService apiService;
 
   // controller
@@ -37,7 +39,7 @@ class EditProfileController extends GetxController {
     nameAliasController = TextEditingController(text: databox.namealias.value);
     bioController = TextEditingController(text: databox.bio.value);
     serpro = ServiceProfile();
-    imageuri = databox.imageUrl.value;
+    imageuris = databox.imageUrl.value;
   }
 
   @override
@@ -55,20 +57,11 @@ class EditProfileController extends GetxController {
     super.onClose();
   }
 
-  validatoreditprofile() {
-    GetUtils.isUsername(userNameController.text)
-        ? print("صحبح نیست")
-        : print("صحبح ");
-    GetUtils.isLengthGreaterThan(userNameController.text, 6);
-  }
-
   upimg() async {
     if (imagePath != null) {
       var response = await serpro!.uploadProfileImage(imagePath!);
       if (response != false) {
-        // editcontroller.databox.imageUrl.value = response;
-        imageuri = response;
-        //   Get.offAll(MyTabs());
+        imageuris = response;
       } else {
         Get.snackbar(
           'آپلود عکس با خطا مواجه شد',
@@ -88,16 +81,17 @@ class EditProfileController extends GetxController {
       userNameController.text,
       nameAliasController.text,
       bioController.text,
-      imageuri.toString(),
+      imageuris.toString(),
     )
         .then((value) {
+      databox.profilerequest();
+
       Get.snackbar(
         value['message'],
         '',
         icon: Icon(Icons.notifications, color: Colors.white),
         snackPosition: SnackPosition.TOP,
       );
-      databox.profilerequest();
     });
   }
 
@@ -105,6 +99,8 @@ class EditProfileController extends GetxController {
     serpro!.AddOrEditUserAbandon(berlinWallFell.value).then((response) async {
       if (response != false) {
         //apiService.showSnackBar(text: response['message']);
+        databox.profilerequest();
+
         Get.snackbar(
           response['message'],
           '',
@@ -112,12 +108,12 @@ class EditProfileController extends GetxController {
           snackPosition: SnackPosition.TOP,
         );
       } else {
-        Get.snackbar(
-          response['message'].toString(),
-          '',
-          icon: Icon(Icons.notifications, color: Colors.white),
-          snackPosition: SnackPosition.TOP,
-        );
+        // Get.snackbar(
+        //   response['message'].toString(),
+        //   '',
+        //   icon: Icon(Icons.notifications, color: Colors.white),
+        //   snackPosition: SnackPosition.TOP,
+        // );
       }
     });
   }

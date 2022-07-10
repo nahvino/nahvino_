@@ -2,6 +2,7 @@ import 'package:Nahvino/Services/config.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import '../../../Services/Login/ApiService.dart';
+import '../../../Utils/Other/imagedialoguser.dart';
 import '../../../Utils/Text/Text.dart';
 import '../Caht/ChatPage.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -165,34 +166,44 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                                         null &&
                                     resultResponseViewProfileUesr['imageUrl'] !=
                                         "")
-                                ? Card(
-                                    shape: CircleBorder(),
-                                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                                    child: CachedNetworkImage(
-                                      height: 75,
-                                      width: 75,
-                                      cacheManager: CacheManager(Config(
-                                          'customCacheKey',
-                                          stalePeriod: Duration(days: 7),
-                                          maxNrOfCacheObjects: 100)),
-                                      imageUrl: Configss.fileurl +
-                                          resultResponseViewProfileUesr[
-                                              'imageUrl']!,
-                                      imageBuilder: (context, imageProvider) =>
-                                          Container(
-                                        decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                            image: imageProvider,
-                                            fit: BoxFit.cover,
+                                ? InkWell(
+                                    child: Card(
+                                      shape: CircleBorder(),
+                                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                                      child: CachedNetworkImage(
+                                        height: 75,
+                                        width: 75,
+                                        cacheManager: CacheManager(Config(
+                                            'customCacheKey',
+                                            stalePeriod: Duration(days: 7),
+                                            maxNrOfCacheObjects: 100)),
+                                        imageUrl: Configss.fileurl +
+                                            resultResponseViewProfileUesr[
+                                                'imageUrl']!,
+                                        imageBuilder:
+                                            (context, imageProvider) =>
+                                                Container(
+                                          decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                              image: imageProvider,
+                                              fit: BoxFit.cover,
+                                            ),
                                           ),
                                         ),
+                                        placeholder: (context, url) =>
+                                            CircularProgressIndicator(),
+                                        errorWidget: (context, url, error) =>
+                                            Icon(Icons.error),
                                       ),
-                                      placeholder: (context, url) =>
-                                          CircularProgressIndicator(),
-                                      errorWidget: (context, url, error) =>
-                                          Icon(Icons.error),
                                     ),
-                                  )
+                                    onTap: () {
+                                      showDialog<void>(
+                                          context: context,
+                                          builder: (context) => ImageDialogUser(
+                                              imageUrl:
+                                                  resultResponseViewProfileUesr[
+                                                      'imageUrl']!));
+                                    })
                                 : Image.asset(
                                     'assets/images/home/user.png',
                                     fit: BoxFit.cover,

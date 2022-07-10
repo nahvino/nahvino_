@@ -31,7 +31,7 @@ class NotValidFilde extends StatelessWidget {
 
         onTap: ontap,
         keyboardType: TextInputType.text,
-        style: TextStyle(fontSize: 16, fontFamily: 'Vazirmatn_Medium'),
+        style: TextStyle(fontSize: 14, fontFamily: 'Vazirmatn_Medium'),
         decoration: InputDecoration(
           hintText: hint,
         ),

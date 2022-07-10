@@ -1,5 +1,6 @@
 import 'package:Nahvino/main.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -8,6 +9,7 @@ import '../../../LanguageConstants.dart';
 import '../../../Services/login/ApiService.dart';
 import '../../../Utils/Button/SttingMenusButton.dart';
 import '../../../Utils/Text/Text.dart';
+import '../../../Data/Local/viewprofial_data.dart';
 import '../../../language.dart';
 import '../Login/SignUp.dart';
 import 'ChangePhoneNumber.dart';
@@ -25,6 +27,8 @@ class UserSecuritySttingMenus extends StatefulWidget {
 }
 
 class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
+  ViewProfileController databox = Get.put(ViewProfileController());
+
   bool isApiCallProgress = true;
   GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
   var resultResponse;
@@ -64,6 +68,94 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
+        appBar: AppBar(
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+            title: textbold(
+              textAlign: TextAlign.right,
+              text: databox.username.value,
+              color: Colors.black,
+            ),
+            actions: [
+              Container(
+                height: 40,
+                child: PopupMenuButton<int>(
+                  icon: Icon(
+                    Icons.more_vert_rounded,
+                  ),
+                  itemBuilder: (context) => [
+                    PopupMenuItem(
+                      value: 4,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Caption1(
+                            textAlign: TextAlign.center,
+                            color: Colors.black,
+                            text: AppLocalizations.of(context)!.translate(
+                              'YCTIANM',
+                            )!,
+                          ),
+                          const SizedBox(
+                            width: 2,
+                          ),
+                        ],
+                      ),
+                    ),
+                    PopupMenuItem(
+                      value: 2,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.share,
+                            color: Colors.cyan,
+                          ),
+                          SizedBox(
+                            width: 8,
+                          ),
+                          textspan(
+                            textAlign: TextAlign.center,
+                            text:
+                                resultResponsepro['identifierCode'].toString(),
+                            color: Colors.black,
+                          ),
+                          const SizedBox(
+                            width: 7,
+                          ),
+                        ],
+                      ),
+                    ),
+                    PopupMenuDivider(),
+                    PopupMenuItem(
+                      value: 3,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset('assets/images/icon/pngwing.com.png',
+                              height: 24, width: 24, color: Colors.cyan),
+                          //Image(image: AssetImage('graphics/background.png')),
+                          SizedBox(
+                            width: 8,
+                          ),
+                          textspan(
+                            textAlign: TextAlign.center,
+                            color: Colors.black,
+                            text: AppLocalizations.of(context)!.translate(
+                              'Eixt',
+                            )!,
+                          ),
+                          const SizedBox(
+                            width: 7,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                  onSelected: (item) => onSelected(context, item),
+                ),
+              ),
+            ]),
         backgroundColor: Colors.grey[200],
         body: SafeArea(
             child: isApiCallProgress
@@ -80,167 +172,6 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
         children: [
           Column(
             children: [
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          child: BackButton(
-                            onPressed: (() {
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => ViewProfile()));
-                            }),
-                          ),
-                        ),
-                        Container(
-                          alignment: Alignment.topRight,
-                          padding: EdgeInsets.only(bottom: 4),
-                          child: textbold(
-                            textAlign: TextAlign.right,
-                            text: resultResponsepro['userName'] ?? "",
-                            color: Colors.black,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Container(
-                      height: 30,
-                      child: PopupMenuButton<int>(
-                        icon: Icon(
-                          Icons.menu,
-                        ),
-                        itemBuilder: (context) => [
-                          /*   PopupMenuItem(
-                            value: 0,
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment:
-                              MainAxisAlignment.start,
-                              children: [
-                                Icon(
-                                  Icons.security,
-                                  color: Colors.cyan,
-                                ),
-                                const SizedBox(
-                                  width: 7,
-                                ),
-                                textspan(
-                                  textAlign: TextAlign.start,
-                                  text: AppLocalizations.of(context)!
-                                      .translate(
-                                    'Security_settings',
-                                  )!,
-                                  color: Colors.black,
-                                ),
-                              ],
-                            ),
-                          ),*/
-                          /* PopupMenuDivider(height: 4),
-                          PopupMenuItem(
-                            value: 1,
-                            child: Row(
-                              mainAxisAlignment:
-                              MainAxisAlignment.start,
-                              children: [
-                                Icon(
-                                  Icons.notifications,
-                                  color: Colors.cyan,
-                                ),
-                                const SizedBox(
-                                  width: 7,
-                                ),
-                                textspan(
-                                  textAlign: TextAlign.end,
-                                  color: Colors.black,
-                                  text: AppLocalizations.of(context)!
-                                      .translate(
-                                    'Notifications',
-                                  )!,
-                                ),
-                              ],
-                            ),
-                          ),*/
-                          //   PopupMenuDivider(height: 1),
-                          PopupMenuItem(
-                            value: 4,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Caption1(
-                                  textAlign: TextAlign.center,
-                                  color: Colors.black,
-                                  text: AppLocalizations.of(context)!.translate(
-                                    'YCTIANM',
-                                  )!,
-                                ),
-                                const SizedBox(
-                                  width: 2,
-                                ),
-                              ],
-                            ),
-                          ),
-                          PopupMenuItem(
-                            value: 2,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.share,
-                                  color: Colors.cyan,
-                                ),
-                                SizedBox(
-                                  width: 8,
-                                ),
-                                textspan(
-                                  textAlign: TextAlign.center,
-                                  text: resultResponsepro['identifierCode']
-                                      .toString(),
-                                  color: Colors.black,
-                                ),
-                                const SizedBox(
-                                  width: 7,
-                                ),
-                              ],
-                            ),
-                          ),
-                          PopupMenuDivider(),
-                          PopupMenuItem(
-                            value: 3,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image.asset(
-                                    'assets/images/icon/pngwing.com.png',
-                                    height: 24,
-                                    width: 24,
-                                    color: Colors.cyan),
-                                //Image(image: AssetImage('graphics/background.png')),
-                                SizedBox(
-                                  width: 8,
-                                ),
-                                textspan(
-                                  textAlign: TextAlign.center,
-                                  color: Colors.black,
-                                  text: AppLocalizations.of(context)!.translate(
-                                    'Eixt',
-                                  )!,
-                                ),
-                                const SizedBox(
-                                  width: 7,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                        onSelected: (item) => onSelected(context, item),
-                      ),
-                    ),
-                  ]),
               Container(
                 alignment: Alignment.topCenter,
                 child: Column(
@@ -375,7 +306,7 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
                     color: Colors.white,
                   ),
                   text: 'تغییر زبان'),*/
-              DropdownButton<Language>(
+              /*   DropdownButton<Language>(
                 underline: SizedBox(),
                 icon: Icon(
                   Icons.language,
@@ -401,7 +332,7 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
                       ),
                     )
                     .toList(),
-              ),
+              ),*/
             ],
           )
         ],
@@ -416,7 +347,7 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
             context, MaterialPageRoute(builder: (context) => Notifications()));
         break;
       case 2:
-        Share.share(resultResponsepro['identifierCode'].toString() +
+        Share.share(databox.identifierCode.toString() +
             " \n این عدد کد معرف من در نحوینو می باشد. اگر هنگام ثبت نام از این کد استفاده کنید ده شاهپر به شما اهدا میکنم و راهنمای شما در این مسلک زیبا خواهم بود");
 
         break;
@@ -464,7 +395,7 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
         );
         break;
       case 4:
-        Share.share(resultResponsepro['identifierCode'].toString() +
+        Share.share(databox.identifierCode.toString() +
             " \n این عدد کد معرف من در نحوینو می باشد. اگر هنگام ثبت نام از این کد استفاده کنید ده شاهپر به شما اهدا میکنم و راهنمای شما در این مسلک زیبا خواهم بود");
 
         break;

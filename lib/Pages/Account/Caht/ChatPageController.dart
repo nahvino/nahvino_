@@ -1,25 +1,25 @@
-import 'dart:async';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:Nahvino/Model/User/SignalR/GroupModel.dart';
+import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:signalr_core/signalr_core.dart';
 import '../../../Model/User/SignalR/ReceiveMessageModel.dart';
-import '../../../Services/config.dart';
+import '../../../config/chat/chat_config.dart';
 
 class ChatPageController extends GetxController {
   RxBool emojiShowing = false.obs;
   TextEditingController chatEditController = TextEditingController();
   GroupModel? model;
-  String myUserId = "";
+  String? myUserId;
+  String? token;
   RxBool iconcaht = false.obs;
   FocusNode focusNode = FocusNode();
   RxBool canSend = true.obs;
   RxBool isInSearchMode = false.obs;
   RxBool isApiCallProgress = true.obs;
   RxString searchText = "".obs;
-
   @override
   void onInit() {
     super.onInit();
@@ -34,22 +34,20 @@ class ChatPageController extends GetxController {
 
   Future _getMyData() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    myUserId = await preferences.getString("userId") ?? "";
-    //myUserId="01d772d7-4a35-498e-9f24-5a27e5ef1438";
+    myUserId = await preferences.getString("userId");
   }
 
-  var url = Uri.parse(Configss.baseURL + Configss.repassword);
   final connection = HubConnectionBuilder()
       .withUrl(
-           'https://api.faradeiazoapi.xyz/HubChatPartnership',
-          //'https://tset.faradeiazoapi.xyz/HubChatPartnership',
-          HttpConnectionOptions(
-            logging: (level, message) => print(message),
-          ))
+        ChatConfig.testurl,
+        HttpConnectionOptions(
+          logging: (level, message) => print(message),
+        ),
+      )
+      .withAutomaticReconnect()
       .build();
   Future<void> openSignalRConnection() async {
     await connection.start();
-  
     connection.on('ReceiveMessage', (message) {
       print(message.toString());
       var res = message![0];
@@ -126,8 +124,13 @@ class ChatPageController extends GetxController {
     if (chatEditController.text.isEmpty) {
       return;
     }
+    String chatext;
     String text = chatEditController.text;
+    //text.replaceAll(RegExp(r'[آ]'), 'g');
+    chatext = text.replaceAll(RegExp(r'[\n]'), '');
+    print("/******/$chatext");
     chatEditController.clear();
+
     var replay = MyRepledMessage == null ? null : MyRepledMessage!.id;
     MyRepledMessage = null;
     await connection.invoke(
@@ -135,7 +138,7 @@ class ChatPageController extends GetxController {
       args: [
         myUserId,
         replay,
-        text,
+        chatext,
       ],
     );
     /* chatScrollController.animateTo(

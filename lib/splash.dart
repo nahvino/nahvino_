@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'package:Nahvino/Data/Local/version_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -8,6 +8,7 @@ import 'package:Nahvino/tabs.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../App_localizations.dart';
 import 'Pages/Account/login/SignUp.dart';
+import 'Services/Login/ApiService.dart';
 import 'Utils/Button/Button.dart';
 import 'Utils/Text/Text.dart';
 import 'controllers/getx/aboutgroupcontroller.dart';
@@ -22,38 +23,26 @@ class Splash extends StatefulWidget {
 
 class _Splash extends State<Splash> {
   AboutGroupController notfiController = Get.put(AboutGroupController());
+  VersionData checkversion = Get.put(VersionData());
   MyApp mapp = MyApp();
   SharedPreferences? preferences;
+  late APIService apiService;
+
   Future checkLogin() async {
     await Future.delayed(Duration(seconds: 3));
     preferences = await SharedPreferences.getInstance();
     String? token = preferences!.getString("token");
     if (token != null) {
-      print("<===================>");
-      print(notfiController.notfi.value);
-      print("<===================>");
       bool result = await InternetConnectionChecker().hasConnection;
       if (result == true) {
-        print('YAY! Free cute dog pics!');
-        // Get.snackbar("اتصال اینترنت", "خوبه");
-        //Get.snackbar("مقایسه", notfiController.notfi.value.toString());
-        if (notfiController.notfi.value == true) {
-          Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => MyTabs(
-                        tabIndex: 1,
-                      )));
-        } else {
-          Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => MyTabs(
-                        tabIndex: 0,
-                      )));
-        }
+        checkversion.checkVersion();
+        /* Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => MyTabs(
+                      tabIndex: 0,
+                    )));*/
       } else {
-        print('No internet :( Reason:');
         Get.defaultDialog(
             title: "مشکل در اتصال به اینترنت",
             titleStyle: TextStyle(
@@ -170,6 +159,14 @@ class _Splash extends State<Splash> {
   void initState() {
     super.initState();
     checkLogin();
+    apiService = APIService(context);
+    Future.microtask(() {
+      APIService.GetLastVisit().then((response) {
+        print(" قوقوی---------------------------- => $response");
+      });
+    }).onError((error, stackTrace) {
+      print(error);
+    });
   }
 
   @override

@@ -61,6 +61,11 @@ class _CodeOtpPhoneNewState extends State<CodeOtpPhoneNew> {
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
+          title: Caption1(
+            color: Colors.cyan,
+            textAlign: TextAlign.center,
+            text: "کد تایید",
+          ),
           backgroundColor: Colors.grey[50],
           leading: BackButton(
             color: Colors.black,

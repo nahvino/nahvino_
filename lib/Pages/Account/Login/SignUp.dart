@@ -26,6 +26,9 @@ class _SignUpState extends State<SignUp> {
         backgroundColor: Colors.transparent,
         body: Stack(
           children: [
+            Image.asset(
+                alignment: Alignment.center,
+                'assets/images/login/logo_top.png'),
             Container(
               alignment: Alignment.topCenter,
               padding: EdgeInsets.only(
@@ -100,7 +103,8 @@ class _SignUpState extends State<SignUp> {
                       },
                       icon: Icon(
                         Icons.phone_android_rounded,
-                        color: Colors.white,size: 30,
+                        color: Colors.white,
+                        size: 30,
                       ),
                     ),
                     SizedBox(

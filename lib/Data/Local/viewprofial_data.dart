@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
-import '../../../Model/User/user/viewprofile_response_model.dart';
-import '../../../Services/Login/ApiService.dart';
+import '../../Model/User/user/viewprofile_response_model.dart';
+import '../../Services/Login/ApiService.dart';
 
 class ViewProfileController extends GetxController {
   var resultResponse;
@@ -19,6 +19,7 @@ class ViewProfileController extends GetxController {
   RxString parentId = "".obs;
   RxString parentname = "".obs;
   RxString parentimageurl = "".obs;
+  RxString dateTimeAbandon = "".obs;
   @override
   void onInit() {
     super.onInit();
@@ -50,11 +51,16 @@ class ViewProfileController extends GetxController {
       bio.value = box.read('bio') ?? "";
       rank.value = box.read('rank');
       score.value = box.read('score');
-      imageUrl.value = box.read('imageUrl') ?? "";
+      imageUrl.value = box.read('imageUrl');
+      if (imageUrl.value == "null") {
+        imageUrl.value = "/Images/UserProfile/user.png";
+      }
       identifierCode.value = box.read('identifierCode');
       parentId.value = box.read('parentId');
       parentname.value = box.read('parentname');
-      parentimageurl.value = box.read('parentimageurl');
+      parentimageurl.value =
+          box.read('parentimageurl') ?? "/Images/UserProfile/user.png";
+      dateTimeAbandon.value = box.read('dateTimeAbandon') ?? "تاریخ ترک";
     }
     update();
   }
@@ -75,6 +81,7 @@ class ViewProfileController extends GetxController {
         box.write('parentId', resultResponse!.parentId);
         box.write('parentname', resultResponse!.parentName);
         box.write('parentimageurl', resultResponse!.parentImageUrl);
+        box.write('dateTimeAbandon', resultResponse!.dateTimeAbandon);
         username.value = box.read('username');
         namealias.value = box.read('namealias');
         bio.value = box.read('bio');
@@ -85,6 +92,7 @@ class ViewProfileController extends GetxController {
         parentId.value = box.read('parentId');
         parentname.value = box.read('parentname');
         parentimageurl.value = box.read('parentimageurl');
+        dateTimeAbandon.value = box.read('dateTimeAbandon');
         print(box.read('username'));
       });
     }).onError((error, stackTrace) {

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:Nahvino/tabs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -11,8 +13,9 @@ import 'LanguageConstants.dart';
 import 'Pages/Account/Caht/ChatPage.dart';
 import 'Pages/Account/Caht/ChatPageController.dart';
 import 'Services/Login/ApiService.dart';
+import 'Services/ho.dart';
 import 'controllers/getx/aboutgroupcontroller.dart';
-import 'controllers/getx/user/viewprofial_controller.dart';
+import 'Data/Local/viewprofial_data.dart';
 import 'splash.dart';
 import 'dart:async';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -20,8 +23,6 @@ import 'firebase_options.dart';
 
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   print("Handling a background message: ${message.messageId}");
-  AboutGroupController notiController = Get.put(AboutGroupController());
-  notiController.notfi.value = true;
 }
 
 /*
@@ -188,8 +189,6 @@ class _MyAppState extends State<MyApp> {
   final navigatorKey = GlobalKey<NavigatorState>();
   bool test = false;
   bool nots = false;
-  ChatPageController chatPageController = Get.put(ChatPageController());
-  AboutGroupController notiController = Get.put(AboutGroupController());
 
   Future<void> registerNotfition() async {
     //await Firebase.initializeApp();
@@ -215,7 +214,6 @@ class _MyAppState extends State<MyApp> {
     );
     if (setings.authorizationStatus == AuthorizationStatus.authorized) {
       FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-        notiController.notfi.value = true;
         setState(() {
           messgaeTitle = message.data["title"];
           notificationAlert = message.data["body"];
@@ -248,13 +246,13 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     totalNotifications = 0;
+    HttpOverrides.global = new MyHttpOverrides();
+
     registerNotfition();
-    chatPageController.openSignalRConnection();
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       print("====================>$message");
       // Navigator.pushNamed(context, '/chat');
       // navigatorKey.currentState?.pushNamed('/tab', arguments: {'tabIndex': 1});
-      notiController.notfi.value = true;
       navigatorKey.currentState?.push(MaterialPageRoute(
           builder: (context) => MyTabs(
                 tabIndex: 1,
@@ -267,9 +265,7 @@ class _MyAppState extends State<MyApp> {
       });
     });
     super.initState();
-    if (messgaeTitle != null) {
-      notiController.notfi.value = true;
-    }
+    if (messgaeTitle != null) {}
   }
 
   Locale? _locale;
@@ -300,7 +296,7 @@ class _MyAppState extends State<MyApp> {
       );
     } else {
       return GetMaterialApp(
-        debugShowCheckedModeBanner: false,
+        debugShowCheckedModeBanner: true,
         theme: ThemeData(
           primarySwatch: Colors.blueGrey,
         ),

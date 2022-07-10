@@ -89,7 +89,9 @@ class _NewCheckQuestionAnswerState extends State<NewCheckQuestionAnswer> {
                           height: 150, width: 150),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(right: 20, left: 25),
+                      padding: const EdgeInsets.only(
+                        right: 8,
+                      ),
                       child: Column(
                         children: [
                           EnglishTextFilde(
@@ -104,19 +106,35 @@ class _NewCheckQuestionAnswerState extends State<NewCheckQuestionAnswer> {
                           SizedBox(
                             height: 20,
                           ),
-                          DropdownButton(
-                              hint: Text(
-                                AppLocalizations.of(context)!.translate(
-                                  'sAnswer',
-                                )!,
-                              ),
-                              value: securityQuestionselected,
-                              items: listDrap,
-                              onChanged: (value) {
-                                setState(() {
-                                  securityQuestionselected = value as String;
-                                });
-                              }),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 35),
+                            child: Row(
+                              children: [
+                                Icon(Icons.question_answer,
+                                    size: 28, color: Colors.black45),
+                                SizedBox(
+                                  width: 14,
+                                ),
+                                DropdownButton(
+                                    hint: Text(
+                                      AppLocalizations.of(context)!.translate(
+                                        'sAnswer',
+                                      )!,
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontFamily: 'Vazirmatn_Medium'),
+                                    ),
+                                    value: securityQuestionselected,
+                                    items: listDrap,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        securityQuestionselected =
+                                            value as String;
+                                      });
+                                    }),
+                              ],
+                            ),
+                          ),
                           SizedBox(
                             height: 10,
                           ),

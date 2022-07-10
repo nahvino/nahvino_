@@ -5,7 +5,7 @@ import '../App_localizations.dart';
 import '../Utils/TextField/englishtextfilde.dart';
 import '../Utils/TextField/phonefextfilde.dart';
 import '../Utils/TextField/publictextfilde.dart';
-import '../controllers/getx/user/viewprofial_controller.dart';
+import '../Data/Local/viewprofial_data.dart';
 
 class HomeScren extends StatefulWidget {
   const HomeScren({

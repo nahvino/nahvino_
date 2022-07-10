@@ -1,3 +1,4 @@
+import 'package:Nahvino/Services/Login/Google/notification_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -524,7 +525,7 @@ class _AboutGroupState extends State<AboutGroup> {
                                 setState(() {
                                   if (isSwitched = values) {
                                     isSwitched = values;
-                                    APIService.deletetokenapi()
+                                    ServiceNotification.deletetokennotificationapi()
                                         .then((response) {
                                       print(
                                           "deletetokenapi---------------------------- => $response");
@@ -532,7 +533,7 @@ class _AboutGroupState extends State<AboutGroup> {
                                     saveSwitchState(values);
                                   } else {
                                     values = false;
-                                    APIService.notificationaApi()
+                                    ServiceNotification.notificationaApi()
                                         .then((response) {
                                       print(
                                           "Notfiiiiiiiiiiiiiiiii---------------------------- => $response");

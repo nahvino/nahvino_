@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:Nahvino/config/main_config.dart';
+import 'package:Nahvino/config/user/profile_config.dart';
 import 'package:http/http.dart' as http;
 import 'package:Nahvino/Services/config.dart';
 import 'package:flutter/material.dart';
@@ -7,39 +9,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class ServiceProfile {
   static var client = http.Client();
-
-  bool validateResponse(http.Response response) {
-    var data = json.decode(response.body);
-    switch (data['statusCode']) {
-      case 200:
-        return true;
-      case 401:
-        {
-          showSnackBar(text: data['message'] ?? "Token not send or expired!");
-          break;
-        }
-      case 400:
-        {
-          showSnackBar(text: data['message'] ?? "Bad request!");
-          break;
-        }
-      case 403:
-        {
-          showSnackBar(text: data['message'] ?? "Access forbidden");
-          break;
-        }
-      case 500:
-        {
-          showSnackBar(text: data['message'] ?? "Server error");
-          break;
-        }
-    }
-    return false;
-  }
-
-  /*AppLocalizations.of(_context)!.translate(
-        'Pandect_snackbar_TiTle',
-      )! */
   void showSnackBar({required String text}) {
     Get.snackbar(
       text,
@@ -73,12 +42,6 @@ class ServiceProfile {
     } else {
       return false;
     }
-    /*if (validateResponse(response)) {
-      print(response.body);
-      return json.decode(response.body);
-    } else {
-      return false;
-    }*/
   }
 
   Future AddOrEditUserAbandon(String date) async {
@@ -101,11 +64,6 @@ class ServiceProfile {
     } else {
       return false;
     }
-    /* if (validateResponse(response)) {
-      return json.decode(response.body);
-    } else {
-      return false;
-    }*/
   }
 
   Future uploadProfileImage(String imagePath) async {
@@ -124,6 +82,27 @@ class ServiceProfile {
       return respStr;
     } else {
       // error
+      return false;
+    }
+  }
+
+  static Future getuserotherabandon() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer ${await preferences.getString("token")}"
+    };
+    var url = Uri.parse(MainConfig.baseURL + ProfileConfig.GetUserOtherAbandon);
+    var response = await client.post(
+      url,
+      headers: requestHeaders,
+      body: jsonEncode({"userId": await preferences.getString("userId")}),
+    );
+
+    debugPrint(response.body.toString());
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    } else {
       return false;
     }
   }
