@@ -1,11 +1,7 @@
-import 'package:Nahvino/Pages/Account/User/editprofilescreen.dart';
+import 'package:Nahvino/Pages/Account/Login/registration.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../App_localizations.dart';
-import '../Utils/TextField/englishtextfilde.dart';
-import '../Utils/TextField/phonefextfilde.dart';
-import '../Utils/TextField/publictextfilde.dart';
-import '../Data/Local/viewprofial_data.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScren extends StatefulWidget {
   const HomeScren({
@@ -30,28 +26,21 @@ class _HomeScrenState extends State<HomeScren> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            PublicTextFilde(
-              hint: "نام کاربری",
-              /*   validator: (value) {
-                /* if (value.isEmpty) {
-                  return 'نام کاربری نیم تواند خالی باشد';
-                }*/
-                Validator.empty(value);
-              //  Validator.em(value);
-              },*/
-            ),
-            TextOtpPhone(
-              icon: Icon(Icons.phone_android, size: 32),
-              suffixIcon: null,
-              prefixIcon: null,
-              hint: AppLocalizations.of(context)!.translate(
-                'phoneNumber',
-              )!,
-            ),
             ElevatedButton(
               child: Text("ثبت"),
-              onPressed: () {
-                if (!_formKey.currentState!.validate()) ;
+              onPressed: () async {
+                final preferences = await SharedPreferences.getInstance();
+                await preferences.clear();
+
+                Future.delayed(const Duration(milliseconds: 1000), () {
+                  // exit(0);
+                  // Navigator.pushAndRemoveUntil(
+                  //   context,
+                  //   MaterialPageRoute(builder: (context) => Registration()),
+                  //   (route) => false,
+                  // );
+                  Get.offAll(Registration());
+                });
               },
             )
           ],

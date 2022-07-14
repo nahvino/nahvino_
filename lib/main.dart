@@ -1,21 +1,16 @@
 import 'dart:io';
-
 import 'package:Nahvino/tabs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'App_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'LanguageConstants.dart';
-import 'Pages/Account/Caht/ChatPage.dart';
-import 'Pages/Account/Caht/ChatPageController.dart';
+import 'Pages/Account/Caht/chat_page.dart';
 import 'Services/Login/ApiService.dart';
-import 'Services/ho.dart';
-import 'controllers/getx/aboutgroupcontroller.dart';
-import 'Data/Local/viewprofial_data.dart';
+import 'Services/http.dart';
 import 'splash.dart';
 import 'dart:async';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -126,8 +121,7 @@ late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
   runApp(MyApp());
 }*/
 void main() async {
-  // await GetStorage.init();
-
+  await GetStorage.init();
   runApp(MyApp());
 }
 
@@ -265,7 +259,6 @@ class _MyAppState extends State<MyApp> {
       });
     });
     super.initState();
-    if (messgaeTitle != null) {}
   }
 
   Locale? _locale;
@@ -296,7 +289,7 @@ class _MyAppState extends State<MyApp> {
       );
     } else {
       return GetMaterialApp(
-        debugShowCheckedModeBanner: true,
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.blueGrey,
         ),
@@ -321,12 +314,7 @@ class _MyAppState extends State<MyApp> {
           return supportedLocales.first;
         },
         home: Splash(),
-        initialRoute: '/',
         navigatorKey: navigatorKey,
-        routes: {
-          '/chat': (context) => Chatpage(),
-          '/tab': (context) => MyTabs(),
-        },
         // initialRoute:Splash() ,
       );
     }

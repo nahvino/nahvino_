@@ -1,10 +1,10 @@
 import 'dart:convert';
+import 'package:Nahvino/Pages/Account/Login/registration.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:Nahvino/Model/user/user/viewprofile_response_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../Pages/Account/Login/SignUp.dart';
 import '../config.dart';
 
 class APIService {
@@ -154,7 +154,7 @@ class APIService {
     } else if (response.statusCode == 401) {
       await preferences.clear();
       Future.delayed(const Duration(milliseconds: 1000), () {
-        Get.offAll(SignUp());
+        Get.offAll(Registration());
       });
     } else {
       return false;

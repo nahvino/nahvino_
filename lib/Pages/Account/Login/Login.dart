@@ -1,15 +1,15 @@
-import 'package:Nahvino/Pages/Account/Login/Register.dart';
+import 'package:Nahvino/Pages/Account/Login/register.dart';
+import 'package:Nahvino/controllers/getx/registration/login_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import '../../../App_localizations.dart';
 import '../../../Utils/Button/Button.dart';
 import '../../../Utils/Text/Text.dart';
-import '../../../Utils/TextField/englishtextfilde.dart';
-import '../../../Utils/TextField/passwordtextfilde.dart';
-import '../../../controllers/getx/login_controller.dart';
-import 'CheckQuestionAnswer.dart';
-import 'SignUp.dart';
+import '../../../Utils/TextField/english_text_filde.dart';
+import '../../../Utils/TextField/password_text_filde.dart';
+import 'check_question_answer.dart';
+import 'registration.dart';
 
 // ignore: must_be_immutable
 class NewLogin extends StatelessWidget {
@@ -36,8 +36,8 @@ class NewLogin extends StatelessWidget {
             color: Colors.black,
             onPressed: (() {
               loginController.cleartext();
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => SignUp()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => Registration()));
             }),
           ),
         ),
@@ -91,49 +91,43 @@ class NewLogin extends StatelessWidget {
                             )!,
                             controller: loginController.passwordController,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                right: 40, left: 40, top: 10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder:
-                                                (context) => /*RegisterPage()*/ NewCheckQuestionAnswer()));
-                                  },
-                                  child: Caption1(
-                                    color: Colors.cyan,
-                                    textAlign: TextAlign.center,
-                                    text:
-                                        AppLocalizations.of(context)!.translate(
-                                      'SignIn_fpass_text',
-                                    )!,
-                                  ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder:
+                                              (context) => /*RegisterPage()*/ NewCheckQuestionAnswer()));
+                                },
+                                child: Caption1(
+                                  color: Colors.cyan,
+                                  textAlign: TextAlign.center,
+                                  text: AppLocalizations.of(context)!.translate(
+                                    'SignIn_fpass_text',
+                                  )!,
                                 ),
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder:
-                                                (context) => /*RegisterPage()*/ NewRegister()));
-                                  },
-                                  child: Caption1(
-                                    color: Colors.cyan,
-                                    textAlign: TextAlign.center,
-                                    text:
-                                        AppLocalizations.of(context)!.translate(
-                                      'SignIn_btn_text',
-                                    )!,
-                                  ),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder:
+                                              (context) => /*RegisterPage()*/ NewRegister()));
+                                },
+                                child: Caption1(
+                                  color: Colors.cyan,
+                                  textAlign: TextAlign.center,
+                                  text: AppLocalizations.of(context)!.translate(
+                                    'SignIn_btn_text',
+                                  )!,
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                           Buttontest(
                               text: AppLocalizations.of(context)!.translate(

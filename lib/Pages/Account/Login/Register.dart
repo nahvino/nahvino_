@@ -1,17 +1,19 @@
+import 'package:Nahvino/Pages/Account/Login/login.dart';
+import 'package:Nahvino/Utils/Button/Button.dart';
+import 'package:Nahvino/Utils/Other/PrivacyDialog.dart';
+import 'package:Nahvino/Utils/Text/Text.dart';
+import 'package:Nahvino/Utils/TextField/question_text_filde.dart';
+import 'package:Nahvino/controllers/getx/registration/register_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../App_localizations.dart';
 import '../../../Services/Login/ApiService.dart';
-import '../../../Utils/Button/Button.dart';
-import '../../../Utils/Other/PrivacyDialog.dart';
-import '../../../Utils/Text/Text.dart';
-import '../../../Utils/TextField/englishtextfilde.dart';
-import '../../../Utils/TextField/passwordtextfilde.dart';
-import '../../../controllers/getx/NewRegisterController.dart';
-import 'AddIntroduced.dart';
-import 'SignUp.dart';
+import '../../../Utils/TextField/english_text_filde.dart';
+import '../../../Utils/TextField/password_text_filde.dart';
+import 'add_introduced.dart';
+import 'registration.dart';
 
 class NewRegister extends StatefulWidget {
   const NewRegister({
@@ -77,8 +79,8 @@ class _NewRegisterState extends State<NewRegister> {
           color: Colors.black,
           onPressed: (() {
             cleartext();
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => SignUp()));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => Registration()));
           }),
         ),
       ),
@@ -166,7 +168,7 @@ class _NewRegisterState extends State<NewRegister> {
                             ],
                           ),
                         ),
-                        EnglishTextFilde(
+                        QuestionTextFilde(
                           icon: Icon(Icons.security),
                           suffixIcon: null,
                           prefixIcon: null,
@@ -195,7 +197,7 @@ class _NewRegisterState extends State<NewRegister> {
                                       context,
                                       MaterialPageRoute(
                                           builder:
-                                              (context) => /*RegisterPage()*/ NewRegister()));
+                                              (context) => /*RegisterPage()*/ NewLogin()));
                                 },
                                 child: Caption1(
                                   color: Colors.cyan,

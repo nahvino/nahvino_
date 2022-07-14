@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:Nahvino/Pages/Account/Caht/ChatPageController.dart';
+import 'package:Nahvino/Pages/Account/Caht/chat_page_controller.dart';
 import 'package:Nahvino/Pages/Settings.dart';
 import 'package:Nahvino/App_localizations.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
-import 'Pages/Account/Caht/ChatPage.dart';
-import 'Pages/Account/User/ViewProfile.dart';
+import 'Pages/Account/Caht/chat_page.dart';
+import 'Pages/Account/User/view_profile.dart';
 import 'App_localizations.dart';
 import 'Pages/Home.dart';
 
@@ -76,16 +76,17 @@ class _MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
 
   List<PersistentBottomNavBarItem> _navBarsItems() {
     return [
-      /* PersistentBottomNavBarItem(
-        title: AppLocalizations.of(context)!.translate(
-          'Home',
-        ),
-        iconSize: 20,
-        icon: Icon(CupertinoIcons.home),
-        textStyle: TextStyle(fontSize: 12, fontFamily: 'Vazirmatn_Light'),
-        activeColorPrimary: CupertinoColors.white,
-        inactiveColorPrimary: CupertinoColors.white,
-      ),*/
+      // PersistentBottomNavBarItem(
+      //   title: AppLocalizations.of(context)!.translate(
+      //     'Home',
+      //   ),
+      //   iconSize: 20,
+      //   icon: Icon(CupertinoIcons.home),
+      //   textStyle: TextStyle(fontSize: 12, fontFamily: 'Vazirmatn_Light'),
+      //   activeColorPrimary: CupertinoColors.white,
+      //   inactiveColorPrimary: CupertinoColors.white,
+      // ),
+
       /*  PersistentBottomNavBarItem(
         title: AppLocalizations.of(context)!.translate(
           'Blog',
@@ -121,7 +122,7 @@ class _MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
 
   List<Widget> _buildScreens() {
     return [
-      // HomeScren(),
+      //HomeScren(),
       // SettingScreen(),
       ViewProfile(),
       Chatpage(),

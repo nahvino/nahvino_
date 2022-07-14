@@ -62,7 +62,9 @@ dependencies:
   #phonenumber
   mask_text_input_formatter: ^2.3.0
   internet_connection_checker: ^0.0.1+4
-  
+  #open link
+  url_launcher: ^6.1.4
+  path_provider: ^2.0.11
 dev_dependencies:
   flutter_test:
     sdk: flutter

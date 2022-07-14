@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:get/get.dart';
 import '../../Services/config.dart';
-import '../../Data/Local/viewprofial_data.dart';
+import '../../Data/Local/view_profial_data.dart';
 import '../Text/TextField.dart';
 import '../Text/Text.dart';
 

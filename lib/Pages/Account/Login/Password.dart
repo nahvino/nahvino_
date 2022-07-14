@@ -1,3 +1,4 @@
+import 'package:Nahvino/Utils/TextField/password_text_filde.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
@@ -5,10 +6,9 @@ import '../../../App_localizations.dart';
 import '../../../Services/Login/ApiService.dart';
 import '../../../Utils/Button/Button.dart';
 import '../../../Utils/Text/Text.dart';
-import '../../../Utils/TextField/passwordtextfilde.dart';
-import '../../../controllers/getx/PasswordController.dart';
-import 'Login.dart';
-import 'SignUp.dart';
+import '../../../controllers/getx/Utils/password_controller.dart';
+import 'login.dart';
+import 'registration.dart';
 
 class NewPassword extends StatefulWidget {
   const NewPassword({
@@ -51,7 +51,7 @@ class _NewPasswordState extends State<NewPassword> {
             color: Colors.black,
             onPressed: (() {
               Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => SignUp()));
+                  context, MaterialPageRoute(builder: (context) => Registration()));
             }),
           ),
         ),

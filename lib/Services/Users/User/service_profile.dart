@@ -18,6 +18,25 @@ class ServiceProfile {
     );
   }
 
+  static Future profileuser() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer ${await preferences.getString("token")}"
+    };
+    var url = Uri.parse(MainConfig.baseURL + ProfileConfig.getprofileuser);
+    var response = await client.post(
+      url,
+      headers: requestHeaders,
+      body: jsonEncode({"userId": await preferences.getString("userId")}),
+    );
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    } else {
+      return false;
+    }
+  }
+
   Future editprofileuser(
       String username, String nameAlias, String bio, String imageUrl) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -25,7 +44,7 @@ class ServiceProfile {
       'Content-Type': 'application/json',
       'Authorization': "Bearer ${await preferences.getString("token")}"
     };
-    var url = Uri.parse(Configss.baseURL + Configss.editprofileuser);
+    var url = Uri.parse(MainConfig.baseURL + ProfileConfig.editprofileuser);
     var response = await client.post(
       url,
       headers: requestHeaders,
@@ -50,7 +69,7 @@ class ServiceProfile {
       'Content-Type': 'application/json',
       'Authorization': "Bearer ${await preferences.getString("token")}"
     };
-    var url = Uri.parse(Configss.baseURL + Configss.EditUserAbandon);
+    var url = Uri.parse(MainConfig.baseURL + ProfileConfig.EditUserAbandon);
     var response = await client.post(
       url,
       headers: requestHeaders,
@@ -69,7 +88,7 @@ class ServiceProfile {
   Future uploadProfileImage(String imagePath) async {
     var request = http.MultipartRequest(
       'POST',
-      Uri.parse(Configss.baseURL + Configss.uploadProfileImage),
+      Uri.parse(MainConfig.baseURL + ProfileConfig.uploadProfileImage),
     );
 
     var multipartFile =
