@@ -52,7 +52,7 @@ android {
 
     defaultConfig {
         applicationId "com.app.nahvino"
-        minSdkVersion 20
+        minSdkVersion 19
         multiDexEnabled true
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()

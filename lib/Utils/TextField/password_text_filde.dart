@@ -9,7 +9,8 @@ class TextPassReAndLog extends StatelessWidget {
       this.prefixIcon,
       this.suffixIcon,
       this.passwordInVisible = true,
-      this.suffix})
+      this.suffix,
+      this.error})
       : super(key: key);
 
   final String hint;
@@ -19,6 +20,7 @@ class TextPassReAndLog extends StatelessWidget {
   final Widget? suffixIcon;
   final bool passwordInVisible;
   final Widget? suffix;
+  final String? error;
   @override
   Widget build(BuildContext context) {
     final alphanumeric = RegExp("[A-Z a-z 0-9]");
@@ -43,6 +45,7 @@ class TextPassReAndLog extends StatelessWidget {
         decoration: InputDecoration(
             hintText: hint,
             suffix: suffix,
+            errorText: error,
             icon: icon,
             prefixIcon: prefixIcon,
             suffixIcon: suffixIcon,

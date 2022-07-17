@@ -1,7 +1,10 @@
 import 'package:Nahvino/main.dart';
+import 'package:Nahvino/tabs.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../App_localizations.dart';
@@ -70,6 +73,10 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
       child: Scaffold(
         appBar: AppBar(
             elevation: 0,
+            leading: IconButton(
+                icon: Icon(Icons.arrow_back_rounded),
+                onPressed: () => Get.offAll(MyTabs())),
+            automaticallyImplyLeading: false,
             backgroundColor: Colors.transparent,
             title: textbold(
               textAlign: TextAlign.right,
@@ -378,6 +385,11 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
                   onPressed: () async {
                     final preferences = await SharedPreferences.getInstance();
                     await preferences.clear();
+                    databox.clerdata();
+                    await DefaultCacheManager().emptyCache();
+                    databox.clerdata();
+                    _deleteCacheDir();
+                    _deleteAppDir();
                     Future.delayed(const Duration(milliseconds: 1000), () {
                       //exit(0);
                       Navigator.pushAndRemoveUntil(
@@ -399,6 +411,22 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
             " \n این عدد کد معرف من در نحوینو می باشد. اگر هنگام ثبت نام از این کد استفاده کنید ده شاهپر به شما اهدا میکنم و راهنمای شما در این مسلک زیبا خواهم بود");
 
         break;
+    }
+  }
+
+  Future<void> _deleteCacheDir() async {
+    final cacheDir = await getTemporaryDirectory();
+
+    if (cacheDir.existsSync()) {
+      cacheDir.deleteSync(recursive: true);
+    }
+  }
+
+  Future<void> _deleteAppDir() async {
+    final appDir = await getApplicationDocumentsDirectory();
+
+    if (appDir.existsSync()) {
+      appDir.deleteSync(recursive: true);
     }
   }
 }

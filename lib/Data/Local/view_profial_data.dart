@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 import '../../Model/User/user/viewprofile_response_model.dart';
-import '../../Services/Login/ApiService.dart';
 
 class ViewProfileController extends GetxController {
   ServiceProfile? proser;
@@ -26,7 +25,7 @@ class ViewProfileController extends GetxController {
   void onInit() {
     super.onInit();
     GetStorage.init();
-    // checkdata();
+    //checkdata();
   }
 
   @override
@@ -49,6 +48,7 @@ class ViewProfileController extends GetxController {
       profilerequest();
     } else {
       readDatas();
+      update();
     }
   }
 
@@ -103,6 +103,7 @@ class ViewProfileController extends GetxController {
       box.write('parentimageurl', resultResponse['parentImageUrl']);
       box.write('dateTimeAbandon', resultResponse['dateTimeAbandon']);
       readDatas();
+      update();
     });
     update();
   }
@@ -134,5 +135,6 @@ class ViewProfileController extends GetxController {
     box.remove('parentname');
     box.remove('parentimageurl');
     box.remove('dateTimeAbandon');
+    update();
   }
 }

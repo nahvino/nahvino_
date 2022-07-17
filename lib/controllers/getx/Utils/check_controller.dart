@@ -1,7 +1,11 @@
+import 'dart:async';
+
 import 'package:Nahvino/Data/Local/version_data.dart';
 import 'package:Nahvino/Pages/Account/Login/registration.dart';
 import 'package:Nahvino/Utils/Button/Button.dart';
+import 'package:Nahvino/splash.dart';
 import 'package:Nahvino/tabs.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -11,13 +15,13 @@ import 'package:signalr_core/signalr_core.dart';
 
 class CheckController extends GetxController {
   VersionData checkversion = Get.put(VersionData());
-
   SharedPreferences? preferences;
-
+  late StreamSubscription interfaceSubscription;
+  late StreamSubscription subscription;
   @override
   void onInit() {
     super.onInit();
-    // checkInternetConnection();
+    intwoek();
   }
 
   @override
@@ -33,6 +37,8 @@ class CheckController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+    subscription.cancel();
+    interfaceSubscription.cancel();
   }
 
   // checklogin() async {
@@ -45,16 +51,32 @@ class CheckController extends GetxController {
   //     Get.offAll(Registration());
   //   }
   // }
+  intwoek() {
+    subscription = Connectivity()
+        .onConnectivityChanged
+        .listen((ConnectivityResult result) {
+      //result = result;
+    });
+    interfaceSubscription =
+        InternetConnectionChecker().onStatusChange.listen((status) {
+      if (status == InternetConnectionStatus.disconnected) {
+        inter();
+      } else if (status == InternetConnectionStatus.connected) {
+        Get.offAll(Splash());
+      }
+    });
+  }
 
   checkInternetConnection() async {
-    print("checkInternetConnection");
+    print(
+        " ************************------checkInternetConnection--------------********");
     bool result = await InternetConnectionChecker().hasConnection;
     //check if the connection
     if (result == true) {
-      // checkversion.checkVersion();
+      //checkversion.checkVersion();
       //  Get.offAll(MyTabs());
       // check token
-      checkversion.checklogin();
+      checkversion.versionrequest();
     } else {
       Get.defaultDialog(
           barrierDismissible: false,
@@ -78,6 +100,7 @@ class CheckController extends GetxController {
                         //     context,
                         //     MaterialPageRoute(
                         //         builder: (context) => Splash()));
+                        Get.offAll(Splash());
                       },
                     ),
 
@@ -110,5 +133,179 @@ class CheckController extends GetxController {
             ],
           ));
     }
+  }
+
+  checkchatInternetConnection() async {
+    print(
+        " ************************------checkchatInternetConnection--------------********");
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile) {
+      Get.defaultDialog(
+          barrierDismissible: false,
+          title: "مشکل در اتصال به اینترنت",
+          titleStyle: TextStyle(
+              color: Colors.black, fontSize: 16, fontFamily: 'Vazirmatn_Light'),
+          content: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 120,
+                    child: Buttontest(
+                      text: "تلاش مجدد",
+                      onPressed: () {
+                        // Navigator.pushReplacement(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) => Splash()));
+                        Get.offAll(Splash());
+                      },
+                    ),
+
+                    /*TextButton(
+                        onPressed: () {
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Splash()));
+                        },
+                        child: Caption1(
+                          color: Colors.cyan,
+                          textAlign: TextAlign.center,
+                          text: "تلاش مجدد",
+                        ),
+                      ),*/
+                  ),
+                  SizedBox(width: 10),
+                  Container(
+                    width: 120,
+                    child: Buttontest(
+                      text: "خروج",
+                      onPressed: () {
+                        SystemNavigator.pop();
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ));
+    } else if (connectivityResult == ConnectivityResult.wifi) {
+      Get.defaultDialog(
+          barrierDismissible: false,
+          title: "مشکل در اتصال به اینترنت",
+          titleStyle: TextStyle(
+              color: Colors.black, fontSize: 16, fontFamily: 'Vazirmatn_Light'),
+          content: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 120,
+                    child: Buttontest(
+                      text: "تلاش مجدد",
+                      onPressed: () {
+                        // Navigator.pushReplacement(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) => Splash()));
+                        Get.offAll(Splash());
+                      },
+                    ),
+
+                    /*TextButton(
+                        onPressed: () {
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Splash()));
+                        },
+                        child: Caption1(
+                          color: Colors.cyan,
+                          textAlign: TextAlign.center,
+                          text: "تلاش مجدد",
+                        ),
+                      ),*/
+                  ),
+                  SizedBox(width: 10),
+                  Container(
+                    width: 120,
+                    child: Buttontest(
+                      text: "خروج",
+                      onPressed: () {
+                        SystemNavigator.pop();
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ));
+    }
+  }
+
+  inter() {
+    Get.defaultDialog(
+        barrierDismissible: false,
+        title: "مشکل در اتصال به اینترنت",
+        titleStyle: TextStyle(
+            color: Colors.black, fontSize: 16, fontFamily: 'Vazirmatn_Light'),
+        content: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  width: 120,
+                  child: Buttontest(
+                    text: "تلاش مجدد",
+                    onPressed: () {
+                      // Navigator.pushReplacement(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //         builder: (context) => Splash()));
+                      Get.offAll(Splash());
+                    },
+                  ),
+
+                  /*TextButton(
+                        onPressed: () {
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Splash()));
+                        },
+                        child: Caption1(
+                          color: Colors.cyan,
+                          textAlign: TextAlign.center,
+                          text: "تلاش مجدد",
+                        ),
+                      ),*/
+                ),
+                SizedBox(width: 10),
+                Container(
+                  width: 120,
+                  child: Buttontest(
+                    text: "خروج",
+                    onPressed: () {
+                      SystemNavigator.pop();
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ));
   }
 }

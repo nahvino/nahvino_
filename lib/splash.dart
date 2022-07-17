@@ -135,19 +135,14 @@ class _Splash extends State<Splash> {
     super.initState();
     //checkLogin();
     checkcontroller.checkInternetConnection();
-    apiService = APIService(context);
-    Future.microtask(() {
-      APIService.GetLastVisit().then((response) {
-        print(" قوقوی---------------------------- => $response");
-      });
-    }).onError((error, stackTrace) {
-      print(error);
-    });
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
+    // apiService = APIService(context);
+    // Future.microtask(() {
+    //   APIService.GetLastVisit().then((response) {
+    //     print(" قوقوی---------------------------- => $response");
+    //   });
+    // }).onError((error, stackTrace) {
+    //   print(error);
+    // });
   }
 
   @override

@@ -1,5 +1,5 @@
 class Configss {
- // static const String baseURL = "https://api.faradeiazoapi.xyz";
+  //  static const String baseURL = "https://api.faradeiazoapi.xyz";
   static const String baseURL = "https://tset.faradeiazoapi.xyz";
   //static const String fileurl = "https://static.faradeiazoapi.xyz";
   static const String fileurl = "https://static.faradeiazoapi.xyz";
@@ -32,16 +32,15 @@ class Configss {
 
   //api asli
   //UserAbandons
-// static const String GetUserAbandon = "/api/v1/Account/GetUserAbandon";
- static const String EditUserAbandon = "/api/v1/Account/AddOrEditUserAbandon";
+  //static const String GetUserAbandon = "/api/v1/Account/GetUserAbandon";
+  static const String EditUserAbandon = "/api/v1/Account/AddOrEditUserAbandon";
 
   //UserVisits
- // static const String GetLastOtherVisit = "/api/v1/Account/GetLastOtherVisit";
- // static const String GetLastVisit = "/api/v1/Account/GetLastVisit";
+  // static const String GetLastOtherVisit = "/api/v1/Account/GetLastOtherVisit";
+  //static const String GetLastVisit = "/api/v1/Account/GetLastVisit";
 
 //UserVisits
   static const String GetLastOtherVisit = "/api/UserVisits/GetLastOtherVisit";
   static const String GetLastVisit = "/api/UserVisits/GetLastVisit";
   static const String GetUserAbandon = "/api/UserAbandons/GetUserAbandon";
-
 }

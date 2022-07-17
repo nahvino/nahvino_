@@ -77,6 +77,9 @@ class _SetPhoneNumberState extends State<SetPhoneNumber> {
             ),
           ],
         ),
+        SizedBox(
+          height: 20,
+        ),
         Form(
           key: _formKey,
           child: Column(
@@ -94,6 +97,9 @@ class _SetPhoneNumberState extends State<SetPhoneNumber> {
                 hint: AppLocalizations.of(context)!.translate(
                   'phone_text_new',
                 )!,
+              ),
+              SizedBox(
+                height: 20,
               ),
               Buttonfull(
                 color: Colors.white,

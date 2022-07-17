@@ -1,7 +1,8 @@
+import 'package:Nahvino/Services/Login/ApiService.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:lottie/lottie.dart';
 import '../../../Model/user/user/viewprofile_response_model.dart';
-import '../../../Services/login/ApiService.dart';
 import '../../../Utils/Button/Button.dart';
 import '../../../Utils/Text/TextField.dart';
 import '../../../Utils/Text/Text.dart';
@@ -9,16 +10,19 @@ import '../../../App_localizations.dart';
 import 'welcome_user.dart';
 
 class AddIntroduced extends StatefulWidget {
-  const AddIntroduced({Key? key,}) : super(key: key);
+  const AddIntroduced({
+    Key? key,
+  }) : super(key: key);
   @override
   State<AddIntroduced> createState() => _AddIntroducedState();
 }
 
 class _AddIntroducedState extends State<AddIntroduced> {
   TextEditingController identifierCode = TextEditingController();
+  TextEditingController code = TextEditingController();
   bool isApiCallProgress = true;
   GetProfileUserResponseModel? resultResponse;
-  late int idficode;
+  int? idficode;
 
   late APIService apiService;
 
@@ -107,7 +111,9 @@ class _AddIntroducedState extends State<AddIntroduced> {
                           'AddIntroducedhint',
                         )!,
                       ),
-                      SizedBox(height: 10,),
+                      SizedBox(
+                        height: 10,
+                      ),
                       Container(
                         height: 50,
                         child: Buttonfull(
@@ -116,21 +122,23 @@ class _AddIntroducedState extends State<AddIntroduced> {
                           )!,
                           onPressed: () {
                             if (identifierCode.text.isEmpty) {
-                              apiService.showSnackBar(text: AppLocalizations.of(context)!.translate(
-                                'NotEmptyAddIntroduced',
-                              )!,);
+                              apiService.showSnackBar(
+                                text: AppLocalizations.of(context)!.translate(
+                                  'NotEmptyAddIntroduced',
+                                )!,
+                              );
                               return;
                             }
-
-                            apiService.AddIntroduced(identifierCode.text)
+                            // idficode = int.parse(identifierCode.text);
+                            apiService
+                                .addIntroduced(int.parse(identifierCode.text))
                                 .then((response) async {
                               setState(() {
                                 isApiCallProgress = false;
                               });
-                              //idficode = identifierCode;
-                              //if (response.data != null) {
-                              if (response !=false) {
-                                apiService.showSnackBar(text:response['message'] ?? "");
+                              if (response != false) {
+                                apiService.showSnackBar(
+                                    text: response['message'] ?? "");
                                 Navigator.pushAndRemoveUntil(
                                   context,
                                   MaterialPageRoute(
@@ -138,7 +146,8 @@ class _AddIntroducedState extends State<AddIntroduced> {
                                   (route) => false,
                                 );
                               } else {
-                                apiService.showSnackBar(text:response['message'] ?? "");
+                                apiService.showSnackBar(
+                                    text: response['message'] ?? "");
                               }
                             });
                           },
@@ -156,22 +165,24 @@ class _AddIntroducedState extends State<AddIntroduced> {
                             'NotIntroduced',
                           )!,
                           onPressed: () {
-                            apiService.NotIntroduced()
-                                .then((response) async {
+                            apiService.NotIntroduced().then((response) async {
                               setState(() {
                                 isApiCallProgress = false;
                               });
-                              if (response !=false) {
-                                apiService.showSnackBar(text:response['message'] ?? "");
+                              if (response != false) {
+                                apiService.showSnackBar(
+                                    text: response['message'] ??
+                                        "هیچ معرفی یافت نشد");
 
                                 Navigator.pushAndRemoveUntil(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => WelcomeUser()),
-                                      (route) => false,
+                                  (route) => false,
                                 );
                               } else {
-                                apiService.showSnackBar(text:response['message'] ?? "sdd");
+                                apiService.showSnackBar(
+                                    text: /*response['message'] ?? "sdd")*/ "هیچ معرفی یافت نشد");
                               }
                             });
                             print(Text("-----------"));
@@ -198,7 +209,6 @@ class _AddIntroducedState extends State<AddIntroduced> {
                                 },
                               );
                             }*/
-
                           },
                           color: Colors.white,
                         ),

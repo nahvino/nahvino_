@@ -50,8 +50,8 @@ class _NewPasswordState extends State<NewPassword> {
           leading: BackButton(
             color: Colors.black,
             onPressed: (() {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Registration()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => Registration()));
             }),
           ),
         ),
@@ -140,8 +140,11 @@ class _NewPasswordState extends State<NewPassword> {
                                     (route) => false,
                                   );
                                 } else {
+                                  setState(() {
+                                    isApiCallProcess = false;
+                                  });
                                   apiService.showSnackBar(
-                                      text: response['message'] ?? "sdd");
+                                      text: response['message']);
                                 }
                               });
                             }

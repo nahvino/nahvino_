@@ -1,8 +1,8 @@
 import 'package:Nahvino/Services/config.dart';
+import 'package:Nahvino/Utils/OtherUtils/imagedialoguser.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import '../../../Services/Login/ApiService.dart';
-import '../../../Utils/Other/imagedialoguser.dart';
 import '../../../Utils/Text/Text.dart';
 import '../Caht/chat_page.dart';
 import 'package:cached_network_image/cached_network_image.dart';

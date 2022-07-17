@@ -90,7 +90,6 @@ class ServiceProfile {
       'POST',
       Uri.parse(MainConfig.baseURL + ProfileConfig.uploadProfileImage),
     );
-
     var multipartFile =
         await http.MultipartFile.fromPath('ImageFile', imagePath);
     request.files.add(multipartFile);
@@ -98,9 +97,10 @@ class ServiceProfile {
     final respStr = await response.stream.bytesToString();
     print(respStr);
     if (response.statusCode == 200) {
+      print(response);
       return respStr;
     } else {
-      // error
+      print("==================> $response");
       return false;
     }
   }

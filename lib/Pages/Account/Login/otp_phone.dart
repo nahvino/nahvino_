@@ -1,5 +1,8 @@
+import 'package:Nahvino/Pages/Other/privacy_screen.dart';
+import 'package:Nahvino/Pages/Other/terms_services_screen.dart';
 import 'package:Nahvino/Utils/TextField/phone_text_filde.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
@@ -51,8 +54,8 @@ class _OtpPhoneNewState extends State<OtpPhoneNew> {
           color: Colors.black,
           onPressed: (() {
             OtpPhoneController.clear();
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => Registration()));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => Registration()));
           }),
         ),
       ),
@@ -124,11 +127,7 @@ class _OtpPhoneNewState extends State<OtpPhoneNew> {
                         children: [
                           TextButton(
                             onPressed: () {
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder:
-                                          (context) => /*RegisterPage()*/ OtpPhoneNew()));
+                              Get.to(TermsservicesScreen());
                             },
                             child: Caption1(
                               color: Colors.cyan,
@@ -147,11 +146,7 @@ class _OtpPhoneNewState extends State<OtpPhoneNew> {
                           ),
                           TextButton(
                             onPressed: () {
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder:
-                                          (context) => /*RegisterPage()*/ OtpPhoneNew()));
+                              Get.to(PrivacyScreen());
                             },
                             child: Caption1(
                               color: Colors.cyan,

@@ -116,8 +116,7 @@ class NewLogin extends StatelessWidget {
                                   Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
-                                          builder:
-                                              (context) => /*RegisterPage()*/ NewRegister()));
+                                          builder: (context) => NewRegister()));
                                 },
                                 child: Caption1(
                                   color: Colors.cyan,

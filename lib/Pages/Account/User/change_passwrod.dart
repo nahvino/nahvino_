@@ -23,7 +23,7 @@ class _ChangePasswrodState extends State<ChangePasswrod> {
   ChangePasswrodController changepasswrodcontroller =
       Get.put(ChangePasswrodController());
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
+  String? errortext;
   @override
   void initState() {
     super.initState();
@@ -91,16 +91,23 @@ class _ChangePasswrodState extends State<ChangePasswrod> {
                           setState(() {
                             isApiCallProgress = false;
                           });
-                          if (response != false) {
-                            apiService.showSnackBar(text: response['message']);
-                            Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ViewProfile()),
-                              (route) => false,
-                            );
+                          if (currentPassword.text == newPassword.text) {
+                            errortext =
+                                "رمز فعلی نمی تواند با رمز جدید یکی باشد";
                           } else {
-                            apiService.showSnackBar(text: response['message']);
+                            if (response != false) {
+                              apiService.showSnackBar(
+                                  text: response['message']);
+                              Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ViewProfile()),
+                                (route) => false,
+                              );
+                            } else {
+                              apiService.showSnackBar(
+                                  text: response['message']);
+                            }
                           }
                         });
                       }
@@ -179,6 +186,7 @@ class _ChangePasswrodState extends State<ChangePasswrod> {
                       icon: Icon(Icons.lock),
                       passwordInVisible: changepasswrodcontroller
                           .obscurenewPasswordVisibility.value,
+                      error: errortext,
                       suffix: IconButton(
                           onPressed: () {
                             changepasswrodcontroller

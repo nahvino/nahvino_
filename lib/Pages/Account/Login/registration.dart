@@ -1,8 +1,4 @@
-import 'package:Nahvino/Data/Local/version_data.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:get/get.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
 import '../../../Utils/Button/Button.dart';
 import '../../../Utils/Text/Text.dart';
 import 'login.dart';
@@ -18,18 +14,9 @@ class Registration extends StatefulWidget {
 }
 
 class _Registration extends State<Registration> {
-  // VersionData checkversion = Get.put(VersionData());
-  // chaklogin() async {
-  //   bool result = await InternetConnectionChecker().hasConnection;
-  //   if (result == true) {
-  //     checkversion.checkVersioEixt();
-  //   }
-  // }
-
   @override
   void initState() {
     super.initState();
-   // chaklogin();
   }
 
   @override
@@ -161,7 +148,7 @@ class _Registration extends State<Registration> {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => /*SignIn()*/ NewLogin()));
+                                builder: (context) => NewLogin()));
                       },
                       icon: Image.asset('assets/images/login/logo.png',
                           width: 30, height: 30),
@@ -184,8 +171,7 @@ class _Registration extends State<Registration> {
                               Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
-                                      builder:
-                                          (context) => /*RegisterPage()*/ NewRegister()));
+                                      builder: (context) => NewRegister()));
                             },
                             child: Caption1(
                               color: Colors.cyan,

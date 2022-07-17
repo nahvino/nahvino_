@@ -18,7 +18,7 @@ import '../../../controllers/getx/user/edit_profile_controller.dart';
 import '../../../tabs.dart';
 
 class EditProfileScreen extends StatefulWidget {
-  const EditProfileScreen({Key? key}) : super(key: key);
+  EditProfileScreen({Key? key}) : super(key: key);
 
   @override
   State<EditProfileScreen> createState() => _EditProfileScreenState();
@@ -26,8 +26,13 @@ class EditProfileScreen extends StatefulWidget {
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
   EditProfileController editcontroller = Get.put(EditProfileController());
-
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  bool isApiCallProcess = false;
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +46,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             Footnate(text: editcontroller.databox.username.value),
           ],
         ),
-        leading: BackButton(
+        leading: IconButton(
+          icon: Icon(Icons.close),
           onPressed: (() {
             /* Navigator.pushReplacement(
                 context, MaterialPageRoute(builder: (context) => MyTabs()));*/
@@ -49,184 +55,231 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           }),
         ),
       ),
-      body: Obx(() {
-        return SafeArea(
-          child: Form(
-            key: _formKey,
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 30, top: 12),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
+      body: editcontroller.isApiCallProcess.value
+          ? Center(
+              child: Lottie.asset('assets/anim/user/submit-smile.json',
+                  height: 300, width: 300),
+            )
+          : Obx((() => SafeArea(
+                child: Form(
+                  key: _formKey,
+                  child: SingleChildScrollView(
+                    child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Card(
-                            shape: CircleBorder(),
-                            clipBehavior: Clip.antiAliasWithSaveLayer,
-                            child: InkWell(
-                              onTap: () async {
-                                await showDialog(
-                                    context: context,
-                                    builder: (c) => Dialog(
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              ListTile(
-                                                title: Text(
-                                                  AppLocalizations.of(context)!
-                                                      .translate(
-                                                    'Camera',
-                                                  )!,
+                        Padding(
+                          padding: const EdgeInsets.only(right: 30, top: 12),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Card(
+                                  shape: CircleBorder(),
+                                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                                  child: InkWell(
+                                    onTap: () async {
+                                      await showDialog(
+                                          context: context,
+                                          builder: (c) => Dialog(
+                                                child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  children: [
+                                                    ListTile(
+                                                      title: Text(
+                                                        AppLocalizations.of(
+                                                                context)!
+                                                            .translate(
+                                                          'Camera',
+                                                        )!,
+                                                      ),
+                                                      onTap: () async {
+                                                        final XFile? photo =
+                                                            await editcontroller
+                                                                .picker
+                                                                .pickImage(
+                                                                    source: ImageSource
+                                                                        .camera,
+                                                                    maxHeight:
+                                                                        512,
+                                                                    maxWidth:
+                                                                        512,
+                                                                    imageQuality:
+                                                                        25);
+                                                        if (photo != null) {
+                                                          editcontroller
+                                                                  .imagePath
+                                                                  .value =
+                                                              photo.path;
+                                                          Navigator.pop(c);
+                                                          // setState(() {
+                                                          //   editcontroller.imagePath
+                                                          //       .value = photo.path;
+                                                          //   Navigator.pop(c);
+                                                          // });
+                                                        }
+                                                      },
+                                                    ),
+                                                    ListTile(
+                                                      title: Text(
+                                                        AppLocalizations.of(
+                                                                context)!
+                                                            .translate(
+                                                          'Gallery',
+                                                        )!,
+                                                      ),
+                                                      onTap: () async {
+                                                        final XFile? photo =
+                                                            await editcontroller
+                                                                .picker
+                                                                .pickImage(
+                                                                    source: ImageSource
+                                                                        .gallery,
+                                                                    maxHeight:
+                                                                        512,
+                                                                    maxWidth:
+                                                                        512,
+                                                                    imageQuality:
+                                                                        25);
+                                                        if (photo != null) {
+                                                          editcontroller
+                                                                  .imagePath
+                                                                  .value =
+                                                              photo.path;
+                                                          Navigator.pop(c);
+                                                          // setState(() {
+                                                          //   editcontroller.imagePath
+                                                          //       .value = photo.path;
+                                                          //   Navigator.pop(c);
+                                                          // });
+                                                        }
+                                                      },
+                                                    ),
+                                                  ],
                                                 ),
-                                                onTap: () async {
-                                                  final XFile? photo =
-                                                      await editcontroller
-                                                          .picker
-                                                          .pickImage(
-                                                              source:
-                                                                  ImageSource
-                                                                      .camera,
-                                                              maxHeight: 512,
-                                                              maxWidth: 512,
-                                                              imageQuality: 25);
-                                                  if (photo != null) {
-                                                    editcontroller.imagePath
-                                                        .value = photo.path;
-                                                    Navigator.pop(c);
-                                                    // setState(() {
-                                                    //   editcontroller.imagePath
-                                                    //       .value = photo.path;
-                                                    //   Navigator.pop(c);
-                                                    // });
-                                                  }
-                                                },
-                                              ),
-                                              ListTile(
-                                                title: Text(
-                                                  AppLocalizations.of(context)!
-                                                      .translate(
-                                                    'Gallery',
-                                                  )!,
-                                                ),
-                                                onTap: () async {
-                                                  final XFile? photo =
-                                                      await editcontroller
-                                                          .picker
-                                                          .pickImage(
-                                                              source:
-                                                                  ImageSource
-                                                                      .gallery,
-                                                              maxHeight: 512,
-                                                              maxWidth: 512,
-                                                              imageQuality: 25);
-                                                  if (photo != null) {
-                                                    editcontroller.imagePath
-                                                        .value = photo.path;
-                                                    Navigator.pop(c);
-                                                    // setState(() {
-                                                    //   editcontroller.imagePath
-                                                    //       .value = photo.path;
-                                                    //   Navigator.pop(c);
-                                                    // });
-                                                  }
-                                                },
-                                              ),
-                                            ],
-                                          ),
-                                        ));
-                              },
-                              child: Container(
-                                height: 100,
-                                width: 100,
-                                child: editcontroller.imagePath.value ==
-                                        null.obs
-                                    ? (editcontroller.databox.imageUrl.value ==
-                                                null.obs ||
-                                            editcontroller
-                                                    .databox.imageUrl.value ==
-                                                "")
-                                        ? Icon(Icons.person)
-                                        : Image.network(
-                                            Configss.fileurl +
-                                                editcontroller
-                                                    .databox.imageUrl.value,
-                                            fit: BoxFit.cover)
-                                    : Image.file(
-                                        File(editcontroller.imagePath.value),
-                                        fit: BoxFit.cover),
-                              ),
-                            )),
-                        if (editcontroller.imagePath.value != "")
-                          IconButton(
-                              onPressed: () =>
-                                  editcontroller.imagePath.value != "",
-                              icon: Icon(Icons.close))
+                                              ));
+                                    },
+                                    child: Container(
+                                      height: 100,
+                                      width: 100,
+                                      child:
+                                          editcontroller.imagePath.value == ""
+                                              ? (editcontroller.databox.imageUrl
+                                                              .value ==
+                                                          "" ||
+                                                      editcontroller.databox
+                                                              .imageUrl.value ==
+                                                          "null")
+                                                  ? Icon(Icons.person)
+                                                  : Image.network(
+                                                      Configss.fileurl +
+                                                          editcontroller.databox
+                                                              .imageUrl.value,
+                                                      fit: BoxFit.cover)
+                                              : Image.file(
+                                                  File(editcontroller
+                                                      .imagePath.value),
+                                                  fit: BoxFit.cover),
+                                    ),
+                                  )),
+                              Column(
+                                children: [
+                                  if (editcontroller.databox.imageUrl.value !=
+                                      "")
+                                    Row(
+                                      children: [
+                                        IconButton(
+                                            onPressed: () {
+                                              editcontroller
+                                                  .databox.imageUrl.value = "";
+                                              editcontroller.imageuris.value =
+                                                  "";
+                                            },
+                                            icon: Icon(Icons.remove)),
+                                        Caption2(
+                                          text: 'حذف عکس',
+                                        ),
+                                      ],
+                                    ),
+                                  if (editcontroller.imagePath.value != "")
+                                    Row(
+                                      children: [
+                                        IconButton(
+                                            onPressed: () => editcontroller
+                                                .imagePath.value = "",
+                                            icon: Icon(Icons.close)),
+                                        Caption2(
+                                          text: 'انصراف',
+                                        ),
+                                      ],
+                                    ),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                        EnglishTextFilde(
+                          controller: editcontroller.userNameController,
+                          hint: AppLocalizations.of(context)!.translate(
+                            'username',
+                          )!,
+                        ),
+                        PublicTextFilde(
+                          controller: editcontroller.nameAliasController,
+                          hint: AppLocalizations.of(context)!.translate(
+                            'name',
+                          )!,
+                        ),
+                        NotValidFilde(
+                            hint: editcontroller.databox.dateTimeAbandon.value,
+                            ontap: () async {
+                              Jalali? picked = await showPersianDatePicker(
+                                context: context,
+                                initialDate: Jalali.now(),
+                                firstDate: Jalali(1320, 1),
+                                lastDate: Jalali.now(),
+                              );
+                              print(picked!.formatCompactDate());
+                              editcontroller.berlinWallFell.value =
+                                  picked.formatCompactDate();
+                            }),
+                        TextProfileBio(
+                          controller: editcontroller.bioController,
+                          hint: AppLocalizations.of(context)!.translate(
+                            'bio',
+                          )!,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Buttonfull(
+                          text: AppLocalizations.of(context)!.translate(
+                            'OK',
+                          )!,
+                          onPressed: () async {
+                            if (!_formKey.currentState!.validate()) {
+                            } else {
+                              editcontroller.upimg();
+                              editcontroller.date();
+                              editcontroller.profilerequest();
+                              // setState(() {
+                              //   isApiCallProcess = true;
+                              //   Get.offAll(MyTabs());
+                              // });
+                              //editcontroller.isApiCallProcess.value = false;
+
+                            }
+                          },
+                          color: Colors.white,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
                       ],
                     ),
                   ),
-                  EnglishTextFilde(
-                    controller: editcontroller.userNameController,
-                    hint: AppLocalizations.of(context)!.translate(
-                      'username',
-                    )!,
-                  ),
-                  PublicTextFilde(
-                    controller: editcontroller.nameAliasController,
-                    hint: AppLocalizations.of(context)!.translate(
-                      'name',
-                    )!,
-                  ),
-                  NotValidFilde(
-                      hint: editcontroller.databox.dateTimeAbandon.value,
-                      ontap: () async {
-                        Jalali? picked = await showPersianDatePicker(
-                          context: context,
-                          initialDate: Jalali.now(),
-                          firstDate: Jalali(1320, 1),
-                          lastDate: Jalali.now(),
-                        );
-                        print(picked!.formatCompactDate());
-                        editcontroller.berlinWallFell.value =
-                            picked.formatCompactDate();
-                      }),
-                  TextProfileBio(
-                    controller: editcontroller.bioController,
-                    hint: AppLocalizations.of(context)!.translate(
-                      'bio',
-                    )!,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Buttonfull(
-                    text: AppLocalizations.of(context)!.translate(
-                      'OK',
-                    )!,
-                    onPressed: () {
-                      if (!_formKey.currentState!.validate()) {
-                      } else {
-                        //editcontroller.validatoreditprofile();
-                        // editcontroller.isApiCallProcess.value == true.obs;
-                        editcontroller.upimg();
-                        editcontroller.profilerequest();
-                        editcontroller.date();
-                        Get.offAll(MyTabs());
-                      }
-                    },
-                    color: Colors.white,
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                ],
-              ),
-            ),
-          ),
-        );
-      }),
+                ),
+              ))),
     );
   }
 }

@@ -203,10 +203,11 @@ class APIService {
     }
   }
 
-  Future AddIntroduced(String identifierCode) async {
+  Future addIntroduced(int identifierCode) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
+      'Authorization': "Bearer ${await preferences.getString("token")}"
     };
     var url = Uri.parse(Configss.baseURL + Configss.AddIntroduced);
     var response = await client.post(

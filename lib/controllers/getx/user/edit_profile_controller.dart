@@ -27,7 +27,7 @@ class EditProfileController extends GetxController {
 
   late ServiceProfile? serpro;
   String? imageuri;
-  String? imageuris;
+  RxString imageuris = "".obs;
   late APIService apiService;
 
   // controller
@@ -39,7 +39,7 @@ class EditProfileController extends GetxController {
     nameAliasController = TextEditingController(text: databox.namealias.value);
     bioController = TextEditingController(text: databox.bio.value);
     serpro = ServiceProfile();
-    imageuris = databox.imageUrl.value;
+    imageuris.value = databox.imageUrl.value;
   }
 
   @override
@@ -58,13 +58,16 @@ class EditProfileController extends GetxController {
   }
 
   upimg() async {
-    if (imagePath.value != null.obs) {
+    if (imagePath.value != "") {
       var response = await serpro!.uploadProfileImage(imagePath.value);
       if (response != false) {
-        imageuris = response;
+        imageuris.value = response;
+        profilerequest();
+        print("-=-=-=-=-=-======== $response");
       } else {
         Get.snackbar(
           'آپلود عکس با خطا مواجه شد',
+          //response['message'],
           '',
           icon: Icon(Icons.notifications, color: Colors.white),
           snackPosition: SnackPosition.TOP,
@@ -81,11 +84,11 @@ class EditProfileController extends GetxController {
       userNameController.text,
       nameAliasController.text,
       bioController.text,
-      imageuris.toString(),
+      imageuris.value,
     )
         .then((value) {
       databox.profilerequest();
-
+      //isApiCallProcess.value = true;
       Get.snackbar(
         value['message'],
         '',
@@ -93,6 +96,7 @@ class EditProfileController extends GetxController {
         snackPosition: SnackPosition.TOP,
       );
     });
+    update();
   }
 
   date() {

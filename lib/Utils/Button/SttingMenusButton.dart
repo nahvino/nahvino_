@@ -62,6 +62,7 @@ class SttingMenusButton extends StatelessWidget {
     );
   }
 }
+
 // ignore: must_be_immutable
 class MenusSttingButton extends StatelessWidget {
   MenusSttingButton(
@@ -80,9 +81,14 @@ class MenusSttingButton extends StatelessWidget {
   Widget? color;
   Widget? prefixIcon;
   Widget? suffixIcon;
+
   @override
   Widget build(BuildContext context) {
+    double height, width;
+    height = MediaQuery.of(context).size.height;
+    width = MediaQuery.of(context).size.width;
     return Container(
+      width: width - 60,
       alignment: Alignment.topRight,
       child: TextButton(
         onPressed: onPressed,

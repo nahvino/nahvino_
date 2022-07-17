@@ -1,5 +1,9 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:ui' as ui;
+import 'package:Nahvino/controllers/getx/Utils/check_controller.dart';
+import 'package:Nahvino/tabs.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,6 +13,7 @@ import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_1.dart';
 import 'package:get/get.dart';
 import 'package:Nahvino/Pages/Account/Caht/chat_page_controller.dart';
 import 'package:Nahvino/Pages/Account/Caht/about_group.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:lottie/lottie.dart';
 import '../../../App_localizations.dart';
 import '../../../Model/User/SignalR/ReceiveMessageModel.dart';
@@ -26,20 +31,46 @@ class Chatpage extends StatefulWidget {
 class _ChatpageState extends State<Chatpage> {
   late String adminName;
   final ChatPageController chatPageController = Get.put(ChatPageController());
+  CheckController checkcontroller = Get.put(CheckController());
+  ConnectivityResult result = ConnectivityResult.none;
   String? adminid;
   String? nazer1;
   String? nazer2;
   late APIService apiService;
-
+  late StreamSubscription interfaceSubscription;
+  late StreamSubscription Subscription;
   @override
   void initState() {
     super.initState();
+    Subscription = Connectivity()
+        .onConnectivityChanged
+        .listen((ConnectivityResult result) {
+      setState(() => this.result = result);
+    });
+    interfaceSubscription =
+        InternetConnectionChecker().onStatusChange.listen((status) {
+      if (status == InternetConnectionStatus.disconnected) {
+        checkcontroller.inter();
+      } else if (status == InternetConnectionStatus.connected) {
+        Get.offAll(MyTabs(
+          tabIndex: 1,
+        ));
+      }
+    });
     apiService = APIService(context);
-    Future.delayed(Duration(seconds: 1),
+    Future.delayed(Duration(seconds: 3),
         () => chatPageController.isApiCallProgress.value = false);
     adminid = chatPageController.model?.adminId.toString();
     nazer1 = chatPageController.model?.supervisor1Id.toString();
     nazer2 = chatPageController.model?.supervisor2Id.toString();
+  }
+
+  @override
+  void dispose() {
+    Subscription.cancel();
+    interfaceSubscription.cancel();
+
+    super.dispose();
   }
 
   @override
@@ -55,6 +86,7 @@ class _ChatpageState extends State<Chatpage> {
               )
             : Scaffold(
                 appBar: AppBar(
+                  
                     backgroundColor: Colors.cyan.shade800,
                     title: chatPageController.isInSearchMode.value
                         ? TextField(

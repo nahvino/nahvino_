@@ -11,7 +11,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 class VersionData extends GetxController {
   late ServiceVersion serversion;
-  String lastVersion = "0";
+  String lastVersion = "1";
   bool? versionResponse;
   SharedPreferences? preferences;
 
@@ -19,7 +19,7 @@ class VersionData extends GetxController {
   void onInit() {
     super.onInit();
     GetStorage.init();
-    versionrequest();
+    // versionrequest();
     //checkVersion();
     //checkVersioEixt();
   }
@@ -57,9 +57,9 @@ class VersionData extends GetxController {
     preferences = await SharedPreferences.getInstance();
     String? token = preferences!.getString("token");
     if (token != null) {
-      //Get.offAll(MyTabs());
+      Get.offAll(MyTabs());
     } else {
-      //Get.offAll(Registration());
+      Get.offAll(Registration());
     }
   }
 
@@ -67,6 +67,7 @@ class VersionData extends GetxController {
     //versionrequest();
     if (versionResponse == false) {
       // Get.offAll(MyTabs());
+      checklogin();
     } else {
       Get.defaultDialog(
           barrierDismissible: false,

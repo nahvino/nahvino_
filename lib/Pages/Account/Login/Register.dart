@@ -1,6 +1,7 @@
 import 'package:Nahvino/Pages/Account/Login/login.dart';
+import 'package:Nahvino/Pages/Other/privacy_screen.dart';
+import 'package:Nahvino/Pages/Other/terms_services_screen.dart';
 import 'package:Nahvino/Utils/Button/Button.dart';
-import 'package:Nahvino/Utils/Other/PrivacyDialog.dart';
 import 'package:Nahvino/Utils/Text/Text.dart';
 import 'package:Nahvino/Utils/TextField/question_text_filde.dart';
 import 'package:Nahvino/controllers/getx/registration/register_controller.dart';
@@ -214,9 +215,7 @@ class _NewRegisterState extends State<NewRegister> {
                           children: [
                             TextButton(
                               onPressed: () {
-                                showDialog<void>(
-                                    context: context,
-                                    builder: (context) => PrivacyDialog());
+                                Get.to(TermsservicesScreen());
                               },
                               child: Caption1(
                                 color: Colors.cyan,
@@ -235,9 +234,7 @@ class _NewRegisterState extends State<NewRegister> {
                             ),
                             TextButton(
                               onPressed: () {
-                                showDialog<void>(
-                                    context: context,
-                                    builder: (context) => PrivacyDialog());
+                                Get.to(PrivacyScreen());
                               },
                               child: Caption1(
                                 color: Colors.cyan,
