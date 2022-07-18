@@ -1,3 +1,5 @@
+import 'package:Nahvino/Data/Local/view_profial_data.dart';
+import 'package:Nahvino/Pages/Account/Login/add_introduced.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -6,6 +8,8 @@ import '../../../../Services/Login/service_login.dart';
 import '../../../../tabs.dart';
 
 class LoginController extends GetxController {
+  ViewProfileController databox = Get.put(ViewProfileController());
+
   RxBool obscurePasswordVisibility = true.obs;
 
   RxBool isApiCallProcess = false.obs;
@@ -48,8 +52,7 @@ class LoginController extends GetxController {
           snackPosition: SnackPosition.TOP,
         );
         //  await Future.delayed(Duration(seconds: 2));
-
-        Get.offAll(MyTabs());
+        databox.check();
       } else {
         // serlogin!.showSnackBar(text: response['message']);
       }

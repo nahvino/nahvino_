@@ -19,9 +19,6 @@ class VersionData extends GetxController {
   void onInit() {
     super.onInit();
     GetStorage.init();
-    // versionrequest();
-    //checkVersion();
-    //checkVersioEixt();
   }
 
   @override

@@ -1,4 +1,6 @@
+import 'package:Nahvino/Pages/Account/Login/add_introduced.dart';
 import 'package:Nahvino/Services/Users/User/service_profile.dart';
+import 'package:Nahvino/tabs.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -136,5 +138,19 @@ class ViewProfileController extends GetxController {
     box.remove('parentimageurl');
     box.remove('dateTimeAbandon');
     update();
+  }
+
+  check() {
+    ServiceProfile.profileuser().then((response) {
+      resultResponse = response;
+      print(")))))))جهت تست))))))))==>$resultResponse");
+      if (resultResponse['parentId'] == "" ||
+          resultResponse['parentId'] == "null" ||
+          resultResponse['parentId'] == null) {
+        Get.offAll(AddIntroduced());
+      } else {
+        Get.offAll(MyTabs());
+      }
+    });
   }
 }

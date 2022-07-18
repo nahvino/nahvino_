@@ -37,9 +37,10 @@ class ChatPageController extends GetxController {
     myUserId = await preferences.getString("userId");
   }
 
+  //conntian
   final connection = HubConnectionBuilder()
       .withUrl(
-        ChatConfig.testurl,
+        ChatConfig.mainurl,
         HttpConnectionOptions(
           logging: (level, message) => print(message),
         ),
