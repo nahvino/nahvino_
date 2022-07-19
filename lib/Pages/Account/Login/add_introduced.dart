@@ -1,6 +1,5 @@
 import 'package:Nahvino/Services/Login/ApiService.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:lottie/lottie.dart';
 import '../../../Model/user/user/viewprofile_response_model.dart';
 import '../../../Utils/Button/Button.dart';

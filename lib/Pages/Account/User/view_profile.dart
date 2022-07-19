@@ -2,7 +2,6 @@ import 'package:Nahvino/Pages/Account/User/edit_profile_screen.dart';
 import 'package:Nahvino/Services/Login/Google/notification_service.dart';
 import 'package:Nahvino/Services/Users/User/service_profile.dart';
 import 'package:Nahvino/Utils/OtherUtils/imagedialog.dart';
-import 'package:Nahvino/controllers/getx/Utils/check_controller.dart';
 import 'package:Nahvino/controllers/getx/chat/about_group_controller.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';

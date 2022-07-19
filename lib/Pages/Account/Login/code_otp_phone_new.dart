@@ -69,8 +69,8 @@ class _CodeOtpPhoneNewState extends State<CodeOtpPhoneNew> {
           leading: BackButton(
             color: Colors.black,
             onPressed: (() {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Registration()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => Registration()));
             }),
           ),
         ),

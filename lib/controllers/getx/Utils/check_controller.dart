@@ -1,17 +1,14 @@
 import 'dart:async';
 
 import 'package:Nahvino/Data/Local/version_data.dart';
-import 'package:Nahvino/Pages/Account/Login/registration.dart';
 import 'package:Nahvino/Utils/Button/Button.dart';
 import 'package:Nahvino/splash.dart';
-import 'package:Nahvino/tabs.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:signalr_core/signalr_core.dart';
 
 class CheckController extends GetxController {
   VersionData checkversion = Get.put(VersionData());

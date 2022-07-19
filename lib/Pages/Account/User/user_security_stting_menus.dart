@@ -19,7 +19,6 @@ import 'change_phone_number.dart';
 import 'change_passwrod.dart';
 import 'notifications.dart';
 import 'set_phone_number.dart';
-import 'view_profile.dart';
 
 class UserSecuritySttingMenus extends StatefulWidget {
   const UserSecuritySttingMenus({Key? key}) : super(key: key);

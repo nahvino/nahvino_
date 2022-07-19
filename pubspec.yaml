@@ -66,6 +66,9 @@ dependencies:
   #open link
   url_launcher: ^6.1.4
   path_provider: ^2.0.11
+  double_back_to_close: ^2.0.0
+  awesome_snackbar_content: ^0.0.5
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

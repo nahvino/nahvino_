@@ -4,8 +4,7 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:get/get.dart';
 import '../../Services/config.dart';
 import '../../Data/Local/view_profial_data.dart';
-import '../Text/TextField.dart';
-import '../Text/Text.dart';
+
 
 class ImageDialog extends StatelessWidget {
   //const ArshadDialog({Key? key}) : super(key: key);
