@@ -4,22 +4,14 @@ import 'package:Nahvino/config/version_config.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
-
-
 class ServiceVersion {
   static var client = http.Client();
 
-  static Future getversion(String getversion) async {
-    Map<String, String> requestHeaders = {
-      'Content-Type': 'application/json',
-    };
+  static Future getversion() async {
     var url = Uri.parse(MainConfig.baseURL + VersionConfig.version);
-    var response = await client.post(
+    var response = await client.get(
       url,
-      headers: requestHeaders,
-      body: jsonEncode({"version": getversion}),
     );
-
     debugPrint(response.body.toString());
     if (response.statusCode == 200) {
       return json.decode(response.body);

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import '../App_localizations.dart';
-import 'Services/Login/ApiService.dart';
 import 'Utils/Text/Text.dart';
 
 class Splash extends StatefulWidget {
@@ -15,7 +14,6 @@ class Splash extends StatefulWidget {
 
 class _Splash extends State<Splash> {
   CheckController checkcontroller = Get.put(CheckController());
-  late APIService apiService;
 /*
   Future checkLogin() async {
     await Future.delayed(Duration(seconds: 3));

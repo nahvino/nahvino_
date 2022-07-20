@@ -1,24 +1,19 @@
 import 'dart:convert';
+import 'package:Nahvino/config/Registration/add_code_config.dart';
+import 'package:Nahvino/config/chat/chat_config.dart';
+import 'package:Nahvino/config/main_config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:Nahvino/Services/config.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class ServiceRegister {
+class ChatService {
   static var client = http.Client();
   bool validateResponse(http.Response response) {
     var data = json.decode(response.body);
     switch (data['statusCode']) {
       case 200:
         return true;
-      // {
-      //   showSnackBar(text: data['message']);
-      //   break;
-      // }
-      //  {
-      //    showSnackBar(text: data['message'] ?? "Token not send or expired!");
-      //     break;
-      //  }
       case 401:
         {
           showSnackBar(text: data['message'] ?? "Token not send or expired!");
@@ -44,7 +39,6 @@ class ServiceRegister {
   }
 
   void showSnackBar({required String text}) {
-    //ScaffoldMessenger.of(_context).showSnackBar(SnackBar(content: Text(text)));
     Get.snackbar(
       text,
       '',
@@ -53,26 +47,23 @@ class ServiceRegister {
     );
   }
 
-  Future Register(
-    String usernameController,
-    String passwordController,
-    String securityQuestionselected,
-    String sqAnswerController,
-  ) async {
+  static Future userreport(String idusersnder, int messageid) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
+      'Authorization': "Bearer ${await preferences.getString("token")}"
     };
-    var url = Uri.parse(Configss.baseURL + Configss.register);
+    var url = Uri.parse(MainConfig.baseURL + ChatConfig.userreport);
     var response = await client.post(
       url,
       headers: requestHeaders,
       body: jsonEncode({
-        "userName": usernameController,
-        "password": passwordController,
-        "securityQuestion": securityQuestionselected,
-        "sqAnswer": sqAnswerController,
+        "userReporterId": await preferences.getString("userId"),
+        "userAreReportedId": idusersnder,
+        "messageId": messageid
       }),
     );
+    //  debugPrint(response.body.toString());
     if (response.statusCode == 200) {
       return json.decode(response.body);
     } else {

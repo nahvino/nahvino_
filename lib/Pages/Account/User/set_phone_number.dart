@@ -1,5 +1,5 @@
+import 'package:Nahvino/Services/Users/User/menu_service.dart';
 import 'package:flutter/material.dart';
-import '../../../Services/login/ApiService.dart';
 import '../../../Utils/Button/Button.dart';
 import '../../../Utils/Text/Text.dart';
 import '../../../App_localizations.dart';
@@ -18,13 +18,14 @@ class _SetPhoneNumberState extends State<SetPhoneNumber> {
   bool isApiCallProgress = true;
   bool value = false;
   TextEditingController setPhoneNumber = TextEditingController();
-  late APIService apiService;
+  late MenuService menuservice;
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
     super.initState();
-    apiService = APIService(context);
+    menuservice = MenuService();
   }
 
   @override
@@ -129,7 +130,8 @@ class _SetPhoneNumberState extends State<SetPhoneNumber> {
                 }*/
                   if (!_formKey.currentState!.validate()) {
                   } else {
-                    apiService.SetPhoneNumber(setPhoneNumber.text)
+                    menuservice
+                        .setphonenumber(setPhoneNumber.text)
                         .then((response) async {
                       setState(() {
                         isApiCallProgress = false;
@@ -137,14 +139,14 @@ class _SetPhoneNumberState extends State<SetPhoneNumber> {
                       //idficode = identifierCode;
                       //if (response.data != null) {
                       if (response != false) {
-                        apiService.showSnackBar(text: response['message']);
+                        menuservice.showSnackBar(text: response['message']);
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => CheckCodeSetPhoneNumber(
                                     setPhoneNumber: setPhoneNumber.text)));
                       } else {
-                        apiService.showSnackBar(text: response['message']);
+                        menuservice.showSnackBar(text: response['message']);
                       }
                     });
                   }

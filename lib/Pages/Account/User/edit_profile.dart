@@ -1,10 +1,10 @@
 import 'dart:io';
 
+import 'package:Nahvino/config/main_config.dart';
 import 'package:flutter/material.dart';
 
 import 'package:Nahvino/Model/user/user/viewprofile_response_model.dart';
 import 'package:Nahvino/Pages/Account/User/view_profile.dart';
-import 'package:Nahvino/Services/config.dart';
 import 'package:Nahvino/Services/login/ApiService.dart';
 import 'package:Nahvino/tabs.dart';
 import 'package:get/get.dart';
@@ -161,7 +161,7 @@ class _EditProfileState extends State<EditProfile> {
                                               widget.model.imageUrl == "")
                                           ? Icon(Icons.person)
                                           : Image.network(
-                                              Configss.fileurl +
+                                              MainConfig.fileurl +
                                                   widget.model.imageUrl!,
                                               fit: BoxFit.cover)
                                       : Image.file(File(imagePath!),
@@ -218,7 +218,7 @@ class _EditProfileState extends State<EditProfile> {
                           print("thvsd");
                           return;
                         }*/
-
+/*
                         if (!_formKey.currentState!.validate()) {
                         } else {
                           setState(() {
@@ -266,7 +266,7 @@ class _EditProfileState extends State<EditProfile> {
                               });
                             }
                           });
-                        }
+                        }*/
                       },
                       color: Colors.white,
                     ),

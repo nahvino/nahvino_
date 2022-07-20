@@ -1,7 +1,7 @@
-import 'package:Nahvino/Services/config.dart';
+import 'package:Nahvino/Services/Users/visituser/visit_user_service.dart';
+import 'package:Nahvino/config/main_config.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import '../../../Services/Login/ApiService.dart';
 import '../../../Utils/Text/Text.dart';
 import 'view_profile.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -22,7 +22,6 @@ class _ViewProfileUesrArshedState extends State<ViewProfileUesrArshed> {
   late Map<String, dynamic> resultResponseGetLastOtherVisit;
   var resultResponseGetUserAbandon;
   var resultResponseViewProfileUesr;
-  late APIService apiService;
   String? imagePath;
   String tarikh = "تاریخ";
   String date = "1408/10/12 20:12:00";
@@ -65,15 +64,16 @@ class _ViewProfileUesrArshedState extends State<ViewProfileUesrArshed> {
   @override
   void initState() {
     super.initState();
-    apiService = APIService(context);
     Future.microtask(() {
-      APIService.GetProfileOtherUser(widget.userid.toString()).then((response) {
+      VisetUserService.GetProfileOtherUser(widget.userid.toString())
+          .then((response) {
         resultResponseViewProfileUesr = response;
         print("test-----------> $resultResponseViewProfileUesr");
-        APIService.GetLastOtherVisit(widget.userid.toString()).then((response) {
+        VisetUserService.GetLastOtherVisit(widget.userid.toString())
+            .then((response) {
           resultResponseGetLastOtherVisit = response;
           print(" قوقوی---------------------------- => $response");
-          APIService.getuserabandonViewProfileUesr(widget.userid.toString())
+          VisetUserService.getuserotherabandon(widget.userid.toString())
               .then((response) {
             print("تاریخ ترک ------------- => $response");
             setState(() {
@@ -171,7 +171,7 @@ class _ViewProfileUesrArshedState extends State<ViewProfileUesrArshed> {
                                           'customCacheKey',
                                           stalePeriod: Duration(days: 7),
                                           maxNrOfCacheObjects: 100)),
-                                      imageUrl: Configss.fileurl +
+                                      imageUrl: MainConfig.fileurl +
                                           resultResponseViewProfileUesr[
                                               'imageUrl']!,
                                       imageBuilder: (context, imageProvider) =>
@@ -345,7 +345,7 @@ class _ViewProfileUesrArshedState extends State<ViewProfileUesrArshed> {
                                           'customCacheKey',
                                           stalePeriod: Duration(days: 7),
                                           maxNrOfCacheObjects: 100)),
-                                      imageUrl: Configss.fileurl +
+                                      imageUrl: MainConfig.fileurl +
                                           resultResponseViewProfileUesr[
                                               'parentImageUrl']!,
                                       imageBuilder: (context, imageProvider) =>
@@ -453,7 +453,7 @@ class _ViewProfileUesrArshedState extends State<ViewProfileUesrArshed> {
                         top: MediaQuery.of(context).size.height * 0.01,
                       ),
                       child: textspan(
-                        text: resultResponseViewProfileUesr['bio'],
+                        text: resultResponseViewProfileUesr['bio'] ?? "",
                         color: Colors.black,
                         textAlign: TextAlign.start,
                       ),

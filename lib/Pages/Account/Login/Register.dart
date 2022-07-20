@@ -1,16 +1,15 @@
 import 'package:Nahvino/Pages/Account/Login/login.dart';
 import 'package:Nahvino/Pages/Other/privacy_screen.dart';
 import 'package:Nahvino/Pages/Other/terms_services_screen.dart';
+import 'package:Nahvino/Services/Login/register_service.dart';
 import 'package:Nahvino/Utils/Button/Button.dart';
 import 'package:Nahvino/Utils/Text/Text.dart';
 import 'package:Nahvino/Utils/TextField/question_text_filde.dart';
-import 'package:Nahvino/controllers/getx/registration/register_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../App_localizations.dart';
-import '../../../Services/Login/ApiService.dart';
 import '../../../Utils/TextField/english_text_filde.dart';
 import '../../../Utils/TextField/password_text_filde.dart';
 import 'add_introduced.dart';
@@ -26,8 +25,6 @@ class NewRegister extends StatefulWidget {
 }
 
 class _NewRegisterState extends State<NewRegister> {
-  NewRegisterController newRegisterController =
-      Get.put(NewRegisterController());
 
   List<DropdownMenuItem<String>> listDrap = [];
 
@@ -51,7 +48,8 @@ class _NewRegisterState extends State<NewRegister> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController usernameController = TextEditingController();
   TextEditingController sqAnswerController = TextEditingController();
-  late APIService apiService;
+  late ServiceRegister seregister;
+  bool obscurePasswordVisibility = true;
   String? securityQuestionselected = null;
   late SharedPreferences logindata;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -59,7 +57,7 @@ class _NewRegisterState extends State<NewRegister> {
   @override
   void initState() {
     super.initState();
-    apiService = APIService(context);
+    seregister = ServiceRegister();
   }
 
   @override
@@ -85,180 +83,175 @@ class _NewRegisterState extends State<NewRegister> {
           }),
         ),
       ),
-      body: Obx(
-        () => isApiCallProcess
-            ? Center(
-                child: Lottie.asset(
-                    'assets/anim/login/submit-application-successfully.json',
-                    height: 300,
-                    width: 300),
-              )
-            : SafeArea(
-                child: Form(
-                key: _formKey,
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 8),
-                    child: Column(
-                      children: [
-                        Center(
-                          child: Lottie.asset('assets/anim/login/contract.json',
-                              height: 150, width: 150),
+      body: isApiCallProcess
+          ? Center(
+              child: Lottie.asset(
+                  'assets/anim/login/submit-application-successfully.json',
+                  height: 300,
+                  width: 300),
+            )
+          : SafeArea(
+              child: Form(
+              key: _formKey,
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 8),
+                  child: Column(
+                    children: [
+                      Center(
+                        child: Lottie.asset('assets/anim/login/contract.json',
+                            height: 150, width: 150),
+                      ),
+                      EnglishTextFilde(
+                        icon: Icon(Icons.person),
+                        suffixIcon: null,
+                        prefixIcon: null,
+                        hint: AppLocalizations.of(context)!.translate(
+                          'username',
+                        )!,
+                        controller: usernameController,
+                      ),
+                      TextPassReAndLog(
+                        icon: Icon(
+                          Icons.lock,
                         ),
-                        EnglishTextFilde(
-                          icon: Icon(Icons.person),
-                          suffixIcon: null,
-                          prefixIcon: null,
-                          hint: AppLocalizations.of(context)!.translate(
-                            'username',
-                          )!,
-                          controller: usernameController,
-                        ),
-                        TextPassReAndLog(
-                          icon: Icon(
-                            Icons.lock,
-                          ),
-                          passwordInVisible: newRegisterController
-                              .obscurePasswordVisibility.value,
-                          suffixIcon: IconButton(
-                              onPressed: () {
-                                newRegisterController
-                                        .obscurePasswordVisibility.value =
-                                    !newRegisterController
-                                        .obscurePasswordVisibility.value;
-                              },
-                              icon: Icon(newRegisterController
-                                          .obscurePasswordVisibility ==
-                                      true
-                                  ? Icons.visibility_off
-                                  : Icons.visibility)),
-                          hint: AppLocalizations.of(context)!.translate(
-                            'Password',
-                          )!,
-                          controller: passwordController,
-                        ),
-                        SizedBox(
-                          height: 8,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 35),
-                          child: Row(
-                            children: [
-                              Icon(Icons.question_answer,
-                                  size: 28, color: Colors.black45),
-                              SizedBox(
-                                width: 14,
-                              ),
-                              DropdownButton(
-                                  hint: Text(
-                                    AppLocalizations.of(context)!.translate(
-                                      'sAnswer',
-                                    )!,
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        fontFamily: 'Vazirmatn_Medium'),
-                                  ),
-                                  value: securityQuestionselected,
-                                  items: listDrap,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      securityQuestionselected =
-                                          value as String;
-                                    });
-                                  }),
-                            ],
-                          ),
-                        ),
-                        QuestionTextFilde(
-                          icon: Icon(Icons.security),
-                          suffixIcon: null,
-                          prefixIcon: null,
-                          hint: AppLocalizations.of(context)!.translate(
-                            'sqAnswer',
-                          )!,
-                          controller: sqAnswerController,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            right: 35,
-                            left: 39,
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Caption1(
-                                color: Colors.black,
-                                textAlign: TextAlign.center,
-                                text: "قبلا ثبت نام کرده اید؟",
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder:
-                                              (context) => /*RegisterPage()*/ NewLogin()));
-                                },
-                                child: Caption1(
-                                  color: Colors.cyan,
-                                  textAlign: TextAlign.center,
-                                  text: "به صفحه ورود بروید",
+                        passwordInVisible: obscurePasswordVisibility,
+                        suffixIcon: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                obscurePasswordVisibility =
+                                    !obscurePasswordVisibility;
+                              });
+                            },
+                            icon: Icon(obscurePasswordVisibility == true
+                                ? Icons.visibility_off
+                                : Icons.visibility)),
+                        hint: AppLocalizations.of(context)!.translate(
+                          'Password',
+                        )!,
+                        controller: passwordController,
+                      ),
+                      SizedBox(
+                        height: 8,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 35),
+                        child: Row(
+                          children: [
+                            Icon(Icons.question_answer,
+                                size: 28, color: Colors.black45),
+                            SizedBox(
+                              width: 14,
+                            ),
+                            DropdownButton(
+                                hint: Text(
+                                  AppLocalizations.of(context)!.translate(
+                                    'sAnswer',
+                                  )!,
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontFamily: 'Vazirmatn_Medium'),
                                 ),
-                              ),
-                            ],
-                          ),
+                                value: securityQuestionselected,
+                                items: listDrap,
+                                onChanged: (value) {
+                                  setState(() {
+                                    securityQuestionselected = value as String;
+                                  });
+                                }),
+                          ],
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                      ),
+                      QuestionTextFilde(
+                        icon: Icon(Icons.security),
+                        suffixIcon: null,
+                        prefixIcon: null,
+                        hint: AppLocalizations.of(context)!.translate(
+                          'sqAnswer',
+                        )!,
+                        controller: sqAnswerController,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          right: 35,
+                          left: 39,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
+                            Caption1(
+                              color: Colors.black,
+                              textAlign: TextAlign.center,
+                              text: "قبلا ثبت نام کرده اید؟",
+                            ),
                             TextButton(
                               onPressed: () {
-                                Get.to(TermsservicesScreen());
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder:
+                                            (context) => /*RegisterPage()*/ NewLogin()));
                               },
                               child: Caption1(
                                 color: Colors.cyan,
                                 textAlign: TextAlign.center,
-                                text: AppLocalizations.of(context)!.translate(
-                                  'Termsandservices',
-                                )!,
+                                text: "به صفحه ورود بروید",
                               ),
-                            ),
-                            Caption1(
-                              color: Colors.black,
-                              textAlign: TextAlign.center,
-                              text: AppLocalizations.of(context)!.translate(
-                                'And',
-                              )!,
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                Get.to(PrivacyScreen());
-                              },
-                              child: Caption1(
-                                color: Colors.cyan,
-                                textAlign: TextAlign.center,
-                                text: AppLocalizations.of(context)!.translate(
-                                  'Privacy',
-                                )!,
-                              ),
-                            ),
-                            Caption1(
-                              color: Colors.black,
-                              textAlign: TextAlign.center,
-                              text: AppLocalizations.of(context)!.translate(
-                                'IAccept',
-                              )!,
                             ),
                           ],
                         ),
-                        Buttontest(
-                            text: AppLocalizations.of(context)!.translate(
-                              'OK',
-                            )!,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          TextButton(
                             onPressed: () {
-                              /*           if (usernameController.text.isEmpty) {
+                              Get.to(TermsservicesScreen());
+                            },
+                            child: Caption1(
+                              color: Colors.cyan,
+                              textAlign: TextAlign.center,
+                              text: AppLocalizations.of(context)!.translate(
+                                'Termsandservices',
+                              )!,
+                            ),
+                          ),
+                          Caption1(
+                            color: Colors.black,
+                            textAlign: TextAlign.center,
+                            text: AppLocalizations.of(context)!.translate(
+                              'And',
+                            )!,
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Get.to(PrivacyScreen());
+                            },
+                            child: Caption1(
+                              color: Colors.cyan,
+                              textAlign: TextAlign.center,
+                              text: AppLocalizations.of(context)!.translate(
+                                'Privacy',
+                              )!,
+                            ),
+                          ),
+                          Caption1(
+                            color: Colors.black,
+                            textAlign: TextAlign.center,
+                            text: AppLocalizations.of(context)!.translate(
+                              'IAccept',
+                            )!,
+                          ),
+                        ],
+                      ),
+                      Buttontest(
+                          text: AppLocalizations.of(context)!.translate(
+                            'OK',
+                          )!,
+                          onPressed: () {
+                            /*           if (usernameController.text.isEmpty) {
                                 apiService.showSnackBar(
                                   text: AppLocalizations.of(context)!.translate(
                                     'Validusername',
@@ -282,56 +275,53 @@ class _NewRegisterState extends State<NewRegister> {
                                 );
                                 return;
                               }*/
-                              if (!_formKey.currentState!.validate()) {
-                              } else {
-                                setState(() {
-                                  isApiCallProcess = true;
-                                });
+                            if (!_formKey.currentState!.validate()) {
+                            } else {
+                              setState(() {
+                                isApiCallProcess = true;
+                              });
+                              seregister.Register(
+                                      usernameController.text,
+                                      passwordController.text,
+                                      securityQuestionselected as String,
+                                      sqAnswerController.text)
+                                  .then((response) async {
+                                if (response != false) {
+                                  logindata =
+                                      await SharedPreferences.getInstance();
+                                  await logindata.setString("token",
+                                      response['data']['userToken']['token']);
+                                  await logindata.setString(
+                                      "userId", response['data']['id']);
 
-                                apiService.NewRegister(
-                                        usernameController.text,
-                                        passwordController.text,
-                                        securityQuestionselected as String,
-                                        sqAnswerController.text)
-                                    .then((response) async {
-                                  if (response != false) {
-                                    logindata =
-                                        await SharedPreferences.getInstance();
-                                    await logindata.setString("token",
-                                        response['data']['userToken']['token']);
-                                    await logindata.setString(
-                                        "userId", response['data']['id']);
+                                  seregister.showSnackBar(
+                                      text: AppLocalizations.of(context)!
+                                          .translate(
+                                    'Welcome',
+                                  )!);
 
-                                    apiService.showSnackBar(
-                                        text: AppLocalizations.of(context)!
-                                            .translate(
-                                      'Welcome',
-                                    )!);
-
-                                    Navigator.pushAndRemoveUntil(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              AddIntroduced()),
-                                      (route) => false,
-                                    );
-                                  } else {
-                                    setState(() {
-                                      isApiCallProcess = false;
-                                    });
-                                    apiService.showSnackBar(
-                                        text: response['message']);
-                                  }
-                                });
-                                cleartext();
-                              }
-                            }),
-                      ],
-                    ),
+                                  Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => AddIntroduced()),
+                                    (route) => false,
+                                  );
+                                } else {
+                                  setState(() {
+                                    isApiCallProcess = false;
+                                  });
+                                  seregister.showSnackBar(
+                                      text: response['message']);
+                                }
+                              });
+                              cleartext();
+                            }
+                          }),
+                    ],
                   ),
                 ),
-              )),
-      ),
+              ),
+            )),
     );
   }
 

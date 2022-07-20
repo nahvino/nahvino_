@@ -11,8 +11,8 @@ import 'package:url_launcher/url_launcher.dart';
 
 class VersionData extends GetxController {
   late ServiceVersion serversion;
-  String lastVersion = "1";
-  bool? versionResponse;
+  int lastVersion = 20;
+  int? versionResponse;
   SharedPreferences? preferences;
 
   @override
@@ -38,7 +38,7 @@ class VersionData extends GetxController {
 
   versionrequest() {
     Future.microtask(() {
-      ServiceVersion.getversion(lastVersion).then((response) {
+      ServiceVersion.getversion().then((response) {
         print("------------Version-------------- => $response");
         versionResponse = response;
         checkVersion();
@@ -62,50 +62,9 @@ class VersionData extends GetxController {
 
   checkVersion() {
     //versionrequest();
-    if (versionResponse == false) {
+    if (versionResponse! <= lastVersion) {
       // Get.offAll(MyTabs());
       checklogin();
-    } else {
-      Get.defaultDialog(
-          barrierDismissible: false,
-          title: "به روز رسانی نحوینو",
-          titleStyle: TextStyle(
-              color: Colors.black, fontSize: 16, fontFamily: 'Vazirmatn_Light'),
-          content: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    width: 120,
-                    child: Buttontest(
-                      text: "دانلود",
-                      onPressed: _launchUrl,
-                    ),
-                  ),
-                  SizedBox(width: 10),
-                  Container(
-                    width: 120,
-                    child: Buttontest(
-                      text: "خروج",
-                      onPressed: () {
-                        SystemNavigator.pop();
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ));
-    }
-  }
-
-  checkVersioEixt() {
-    if (versionResponse == false) {
-      Get.offAll(Registration());
     } else {
       Get.defaultDialog(
           barrierDismissible: false,

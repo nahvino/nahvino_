@@ -23,6 +23,7 @@ class ChatPageController extends GetxController {
   void onInit() {
     super.onInit();
     _getMyData();
+    openSignalRConnection();
   }
 
   @override
@@ -39,7 +40,7 @@ class ChatPageController extends GetxController {
   //conntian
   final connection = HubConnectionBuilder()
       .withUrl(
-        ChatConfig.mainurl,
+        ChatConfig.testurl,
         HttpConnectionOptions(
           logging: (level, message) => print(message),
         ),

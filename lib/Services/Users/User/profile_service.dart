@@ -1,8 +1,8 @@
 import 'dart:convert';
+import 'package:Nahvino/Pages/Account/Login/registration.dart';
 import 'package:Nahvino/config/main_config.dart';
 import 'package:Nahvino/config/user/profile_config.dart';
 import 'package:http/http.dart' as http;
-import 'package:Nahvino/Services/config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -105,22 +105,51 @@ class ServiceProfile {
     }
   }
 
-  static Future getuserotherabandon() async {
+  static Future getabandon() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
       'Authorization': "Bearer ${await preferences.getString("token")}"
     };
-    var url = Uri.parse(MainConfig.baseURL + ProfileConfig.GetUserOtherAbandon);
+    var url = Uri.parse(MainConfig.baseURL + ProfileConfig.GetUserAbandon);
     var response = await client.post(
       url,
       headers: requestHeaders,
       body: jsonEncode({"userId": await preferences.getString("userId")}),
     );
-
     debugPrint(response.body.toString());
     if (response.statusCode == 200) {
       return json.decode(response.body);
+    } else {
+      return false;
+    }
+  }
+
+  static Future GetLastVisit() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer ${await preferences.getString("token")}"
+    };
+    var url = Uri.parse(MainConfig.baseURL + ProfileConfig.GetLastVisit);
+    var response = await client.post(
+      url,
+      headers: requestHeaders,
+      body: jsonEncode({"userId": await preferences.getString("userId")}),
+    );
+    debugPrint(response.body.toString());
+    /* if (response.statusCode == 200) {
+      return json.decode(response.body);
+    } else {
+      return false;
+    }*/
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    } else if (response.statusCode == 401) {
+      await preferences.clear();
+      Future.delayed(const Duration(milliseconds: 1000), () {
+        Get.offAll(Registration());
+      });
     } else {
       return false;
     }

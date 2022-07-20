@@ -1,7 +1,7 @@
-import 'package:Nahvino/Services/Login/ApiService.dart';
+import 'package:Nahvino/Services/Login/add_code_service.dart';
+import 'package:Nahvino/Services/Users/User/profile_service.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import '../../../Model/user/user/viewprofile_response_model.dart';
 import '../../../Utils/Button/Button.dart';
 import '../../../Utils/Text/TextField.dart';
 import '../../../Utils/Text/Text.dart';
@@ -20,16 +20,25 @@ class _AddIntroducedState extends State<AddIntroduced> {
   TextEditingController identifierCode = TextEditingController();
   TextEditingController code = TextEditingController();
   bool isApiCallProgress = true;
-  GetProfileUserResponseModel? resultResponse;
+  //GetProfileUserResponseModel? resultResponse;
+  var resultResponse;
   int? idficode;
 
-  late APIService apiService;
+  late AddCodeService seraddcodeservice;
 
   @override
   void initState() {
     super.initState();
-    apiService = APIService(context);
-    APIService.getprofileuser().then((response) {
+    seraddcodeservice = AddCodeService();
+    ServiceProfile.profileuser().then((response) {
+      setState(() {
+        isApiCallProgress = false;
+        if (response != false) {
+          resultResponse = response;
+        }
+      });
+    });
+    /*   APIService.getprofileuser().then((response) {
       setState(() {
         isApiCallProgress = false;
         if (response != false) {
@@ -38,7 +47,7 @@ class _AddIntroducedState extends State<AddIntroduced> {
       });
     }).onError((error, stackTrace) {
       print(error);
-    });
+    });*/
   }
 
   bool lang = false; // en => true / fa => false
@@ -74,7 +83,7 @@ class _AddIntroducedState extends State<AddIntroduced> {
                     children: [
                       textbold(
                         textAlign: TextAlign.right,
-                        text: resultResponse!.userName ?? "Guest",
+                        text: resultResponse['userName'],
                         color: Colors.green,
                       ),
                       SizedBox(
@@ -121,7 +130,7 @@ class _AddIntroducedState extends State<AddIntroduced> {
                           )!,
                           onPressed: () {
                             if (identifierCode.text.isEmpty) {
-                              apiService.showSnackBar(
+                              seraddcodeservice.showSnackBar(
                                 text: AppLocalizations.of(context)!.translate(
                                   'NotEmptyAddIntroduced',
                                 )!,
@@ -129,14 +138,14 @@ class _AddIntroducedState extends State<AddIntroduced> {
                               return;
                             }
                             // idficode = int.parse(identifierCode.text);
-                            apiService
+                            seraddcodeservice
                                 .addIntroduced(int.parse(identifierCode.text))
                                 .then((response) async {
                               setState(() {
                                 isApiCallProgress = false;
                               });
                               if (response != false) {
-                                apiService.showSnackBar(
+                                seraddcodeservice.showSnackBar(
                                     text: response['message'] ?? "");
                                 Navigator.pushAndRemoveUntil(
                                   context,
@@ -145,7 +154,7 @@ class _AddIntroducedState extends State<AddIntroduced> {
                                   (route) => false,
                                 );
                               } else {
-                                apiService.showSnackBar(
+                                seraddcodeservice.showSnackBar(
                                     text: response['message'] ?? "");
                               }
                             });
@@ -164,12 +173,13 @@ class _AddIntroducedState extends State<AddIntroduced> {
                             'NotIntroduced',
                           )!,
                           onPressed: () {
-                            apiService.NotIntroduced().then((response) async {
+                            seraddcodeservice.NotIntroduced()
+                                .then((response) async {
                               setState(() {
                                 isApiCallProgress = false;
                               });
                               if (response != false) {
-                                apiService.showSnackBar(
+                                seraddcodeservice.showSnackBar(
                                     text: response['message'] ??
                                         "هیچ معرفی یافت نشد");
 
@@ -180,7 +190,7 @@ class _AddIntroducedState extends State<AddIntroduced> {
                                   (route) => false,
                                 );
                               } else {
-                                apiService.showSnackBar(
+                                seraddcodeservice.showSnackBar(
                                     text: /*response['message'] ?? "sdd")*/ "هیچ معرفی یافت نشد");
                               }
                             });

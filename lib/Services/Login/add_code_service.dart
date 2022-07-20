@@ -1,26 +1,18 @@
 import 'dart:convert';
+import 'package:Nahvino/config/Registration/add_code_config.dart';
+import 'package:Nahvino/config/main_config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:Nahvino/Services/config.dart';
-import 'package:http/io_client.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class ServiceLogin {
+class AddCodeService {
   static var client = http.Client();
-
   bool validateResponse(http.Response response) {
     var data = json.decode(response.body);
     switch (data['statusCode']) {
       case 200:
         return true;
-      // {
-      //   showSnackBar(text: data['message']);
-      //   break;
-      // }
-      //  {
-      //    showSnackBar(text: data['message'] ?? "Token not send or expired!");
-      //     break;
-      //  }
       case 401:
         {
           showSnackBar(text: data['message'] ?? "Token not send or expired!");
@@ -46,7 +38,6 @@ class ServiceLogin {
   }
 
   void showSnackBar({required String text}) {
-    //ScaffoldMessenger.of(_context).showSnackBar(SnackBar(content: Text(text)));
     Get.snackbar(
       text,
       '',
@@ -55,17 +46,44 @@ class ServiceLogin {
     );
   }
 
-  Future Login(String userNameController, String passwordController) async {
+  Future addIntroduced(int identifierCode) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
+      'Authorization': "Bearer ${await preferences.getString("token")}"
     };
-    var url = Uri.parse(Configss.baseURL + Configss.login);
+    var url = Uri.parse(MainConfig.baseURL + AddCodeConfig.AddIntroduced);
     var response = await client.post(
       url,
       headers: requestHeaders,
-      body: jsonEncode(
-          {"userName": userNameController, "password": passwordController}),
+      body: jsonEncode({
+        "userId": await preferences.getString("userId"),
+        "identifierCode": identifierCode
+      }),
     );
+    debugPrint(response.body.toString());
+    if (validateResponse(response)) {
+      return json.decode(response.body);
+    } else {
+      return false;
+    }
+  }
+
+  Future NotIntroduced() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer ${await preferences.getString("token")}"
+    };
+    var url = Uri.parse(MainConfig.baseURL + AddCodeConfig.NotIntroduced);
+    var response = await client.post(
+      url,
+      headers: requestHeaders,
+      body: jsonEncode({
+        "userId": await preferences.getString("userId"),
+      }),
+    );
+    debugPrint(response.body.toString());
     if (validateResponse(response)) {
       return json.decode(response.body);
     }

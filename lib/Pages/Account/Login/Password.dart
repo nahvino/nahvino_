@@ -1,9 +1,9 @@
+import 'package:Nahvino/Services/Login/reset_service.dart';
 import 'package:Nahvino/Utils/TextField/password_text_filde.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import '../../../App_localizations.dart';
-import '../../../Services/Login/ApiService.dart';
 import '../../../Utils/Button/Button.dart';
 import '../../../Utils/Text/Text.dart';
 import '../../../controllers/getx/Utils/password_controller.dart';
@@ -26,12 +26,12 @@ class _NewPasswordState extends State<NewPassword> {
   bool isApiCallProcess = false;
   TextEditingController passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  late APIService apiService;
+  late ResetService resetservice;
 
   @override
   void initState() {
     super.initState();
-    apiService = APIService(context);
+    resetservice = ResetService();
   }
 
   @override
@@ -125,12 +125,12 @@ class _NewPasswordState extends State<NewPassword> {
                               setState(() {
                                 isApiCallProcess = true;
                               });
-                              apiService.NewResetPassword(
+                              resetservice.resetpassword(
                                       widget.data.toString(),
                                       passwordController.text)
                                   .then((response) async {
                                 if (response != false) {
-                                  apiService.showSnackBar(
+                                  resetservice.showSnackBar(
                                       text: response['message'] ??
                                           "جواب سوال درست بود");
                                   Navigator.pushAndRemoveUntil(
@@ -143,7 +143,7 @@ class _NewPasswordState extends State<NewPassword> {
                                   setState(() {
                                     isApiCallProcess = false;
                                   });
-                                  apiService.showSnackBar(
+                                  resetservice.showSnackBar(
                                       text: response['message']);
                                 }
                               });

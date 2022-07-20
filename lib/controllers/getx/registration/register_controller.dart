@@ -3,9 +3,9 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../Pages/Account/Login/add_introduced.dart';
-import '../../../../Services/Login/service_register.dart';
+import '../../../Services/Login/register_service.dart';
 
-class NewRegisterController extends GetxController {
+class RegisterController extends GetxController {
   RxBool obscurePasswordVisibility = true.obs;
   late ServiceRegister? serregister;
   TextEditingController passwordController = TextEditingController();

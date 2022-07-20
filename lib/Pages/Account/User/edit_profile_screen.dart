@@ -1,11 +1,12 @@
 import 'dart:io';
 
+import 'package:Nahvino/config/main_config.dart';
+import 'package:Nahvino/controllers/getx/user/profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
 import 'package:persian_datetime_picker/persian_datetime_picker.dart';
-import 'package:Nahvino/Services/config.dart';
 
 import '../../../App_localizations.dart';
 import '../../../Utils/Button/Button.dart';
@@ -26,6 +27,8 @@ class EditProfileScreen extends StatefulWidget {
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
   EditProfileController editcontroller = Get.put(EditProfileController());
+  ProfileController abandon = Get.put(ProfileController());
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool isApiCallProcess = false;
 
@@ -55,7 +58,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           }),
         ),
       ),
-      body: editcontroller.isApiCallProcess.value
+      body: isApiCallProcess
           ? Center(
               child: Lottie.asset('assets/anim/user/submit-smile.json',
                   height: 300, width: 300),
@@ -172,7 +175,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                                           "null")
                                                   ? Icon(Icons.person)
                                                   : Image.network(
-                                                      Configss.fileurl +
+                                                      MainConfig.fileurl +
                                                           editcontroller.databox
                                                               .imageUrl.value,
                                                       fit: BoxFit.cover)
@@ -262,10 +265,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               editcontroller.upimg();
                               editcontroller.date();
                               editcontroller.profilerequest();
-                              // setState(() {
-                              //   isApiCallProcess = true;
-                              //   Get.offAll(MyTabs());
-                              // });
+                              setState(() {
+                                isApiCallProcess = true;
+                              });
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => MyTabs()),
+                              );
+                              // Get.offAll(MyTabs());
+                              //Navigator.pop(context);
                               //editcontroller.isApiCallProcess.value = false;
 
                             }

@@ -1,7 +1,7 @@
+import 'package:Nahvino/Services/Users/User/menu_service.dart';
 import 'package:flutter/material.dart';
 import 'package:Nahvino/Pages/Account/User/view_profile.dart';
 import 'package:get/get.dart';
-import '../../../Services/login/ApiService.dart';
 import '../../../Utils/Text/Text.dart';
 import '../../../App_localizations.dart';
 import '../../../Utils/TextField/password_text_filde.dart';
@@ -19,7 +19,7 @@ class ChangePasswrod extends StatefulWidget {
 class _ChangePasswrodState extends State<ChangePasswrod> {
   TextEditingController currentPassword = TextEditingController();
   TextEditingController newPassword = TextEditingController();
-  late APIService apiService;
+  late MenuService menuservice;
   ChangePasswrodController changepasswrodcontroller =
       Get.put(ChangePasswrodController());
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -27,7 +27,7 @@ class _ChangePasswrodState extends State<ChangePasswrod> {
   @override
   void initState() {
     super.initState();
-    apiService = APIService(context);
+    menuservice = MenuService();
   }
 
   bool isApiCallProgress = true;
@@ -85,7 +85,7 @@ class _ChangePasswrodState extends State<ChangePasswrod> {
 
                       if (!_formKey.currentState!.validate()) {
                       } else {
-                        apiService.ChangePasswrod(
+                        menuservice.ChangePasswrod(
                                 currentPassword.text, newPassword.text)
                             .then((response) async {
                           setState(() {
@@ -96,7 +96,7 @@ class _ChangePasswrodState extends State<ChangePasswrod> {
                                 "رمز فعلی نمی تواند با رمز جدید یکی باشد";
                           } else {
                             if (response != false) {
-                              apiService.showSnackBar(
+                              menuservice.showSnackBar(
                                   text: response['message']);
                               Navigator.pushAndRemoveUntil(
                                 context,
@@ -105,7 +105,7 @@ class _ChangePasswrodState extends State<ChangePasswrod> {
                                 (route) => false,
                               );
                             } else {
-                              apiService.showSnackBar(
+                              menuservice.showSnackBar(
                                   text: response['message']);
                             }
                           }

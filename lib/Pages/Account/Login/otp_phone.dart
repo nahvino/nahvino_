@@ -1,5 +1,6 @@
 import 'package:Nahvino/Pages/Other/privacy_screen.dart';
 import 'package:Nahvino/Pages/Other/terms_services_screen.dart';
+import 'package:Nahvino/Services/Login/otp_service.dart';
 import 'package:Nahvino/Utils/TextField/phone_text_filde.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,7 +8,6 @@ import 'package:lottie/lottie.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 import '../../../App_localizations.dart';
-import '../../../Services/Login/ApiService.dart';
 import '../../../Utils/Button/Button.dart';
 import '../../../Utils/Text/Text.dart';
 import 'code_otp_phone_new.dart';
@@ -30,12 +30,12 @@ class _OtpPhoneNewState extends State<OtpPhoneNew> {
       type: MaskAutoCompletionType.lazy);
   final formKey = GlobalKey<FormState>();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  late APIService apiService;
+  late OtpService otpService;
 
   @override
   void initState() {
     super.initState();
-    apiService = APIService(context);
+    otpService = OtpService();
     OtpPhoneController = TextEditingController(text: widget.phone ?? "");
     OtpPhoneController.value = maskFormatter.updateMask(mask: '# ###-###-###');
   }
@@ -201,10 +201,11 @@ class _OtpPhoneNewState extends State<OtpPhoneNew> {
                               setState(() {
                                 isApiCallProcess = true;
                               });
-                              apiService.OtpPhone(OtpPhoneController.text)
+                              otpService
+                                  .otpphone(OtpPhoneController.text)
                                   .then((response) async {
                                 if (response != false) {
-                                  apiService.showSnackBar(
+                                  otpService.showSnackBar(
                                       text: response['message']);
                                   Navigator.pushAndRemoveUntil(
                                     context,
@@ -215,7 +216,7 @@ class _OtpPhoneNewState extends State<OtpPhoneNew> {
                                     (route) => false,
                                   );
                                 } else {
-                                  apiService.showSnackBar(
+                                  otpService.showSnackBar(
                                       text: response['message'] ?? "sdd");
                                 }
                               });

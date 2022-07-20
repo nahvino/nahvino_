@@ -19,69 +19,52 @@ class MyTabs extends StatefulWidget {
 
 class _MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
   late PersistentTabController _controller;
-  ChatPageController chatPageController = Get.put(ChatPageController());
+  //ChatPageController chatPageController = Get.put(ChatPageController());
 
   @override
   void initState() {
     super.initState();
-    chatPageController.openSignalRConnection();
+    //chatPageController.openSignalRConnection();
     _controller = PersistentTabController(initialIndex: widget.tabIndex ?? 0);
   }
 
   @override
   Widget build(BuildContext context) {
-    return DoubleBack(
-      onFirstBackPress: (context) {
-        var snackBar = SnackBar(
-          elevation: 0,
-          padding: EdgeInsets.all(30),
-          behavior: SnackBarBehavior.floating,
-          backgroundColor: Colors.transparent,
-          content: AwesomeSnackbarContent(
-            title: 'در حال خروج',
-            message: 'برای خارج شدن دوبار کلیک کنید',
-            contentType: ContentType.help,
-          ),
-        );
-
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      },
-      child: PersistentTabView(
-        context,
-        controller: _controller,
-        screens: _buildScreens(),
-        items: _navBarsItems(),
-        confineInSafeArea: true,
-        backgroundColor: Colors.cyan.shade800,
-        // Default is Colors.white.
-        handleAndroidBackButtonPress: true,
-        // Default is true.
-        resizeToAvoidBottomInset: true,
-        // This needs to be true if you want to move up the screen when keyboard appears. Default is true.
-        stateManagement: true,
-        // Default is true.
-        hideNavigationBarWhenKeyboardShows: true,
-        // Recommended to set 'resizeToAvoidBottomInset' as true while using this argument. Default is true.
-        decoration: NavBarDecoration(
-          borderRadius: BorderRadius.circular(2.0),
-          colorBehindNavBar: Colors.black,
-        ),
-        popAllScreensOnTapOfSelectedTab: true,
-        popActionScreens: PopActionScreensType.all,
-        itemAnimationProperties: ItemAnimationProperties(
-          // Navigation Bar's items animation properties.
-          duration: Duration(milliseconds: 200),
-          curve: Curves.ease,
-        ),
-        screenTransitionAnimation: ScreenTransitionAnimation(
-          // Screen transition animation on change of selected tab.
-          animateTabTransition: true,
-          curve: Curves.ease,
-          duration: Duration(milliseconds: 200),
-        ),
-        navBarStyle:
-            NavBarStyle.style14, // Choose the nav bar style with this property.
+    return PersistentTabView(
+      context,
+      controller: _controller,
+      screens: _buildScreens(),
+      items: _navBarsItems(),
+      confineInSafeArea: true,
+      backgroundColor: Colors.cyan.shade800,
+      // Default is Colors.white.
+      handleAndroidBackButtonPress: true,
+      // Default is true.
+      resizeToAvoidBottomInset: true,
+      // This needs to be true if you want to move up the screen when keyboard appears. Default is true.
+      stateManagement: true,
+      // Default is true.
+      hideNavigationBarWhenKeyboardShows: true,
+      // Recommended to set 'resizeToAvoidBottomInset' as true while using this argument. Default is true.
+      decoration: NavBarDecoration(
+        borderRadius: BorderRadius.circular(2.0),
+        colorBehindNavBar: Colors.black,
       ),
+      popAllScreensOnTapOfSelectedTab: true,
+      popActionScreens: PopActionScreensType.all,
+      itemAnimationProperties: ItemAnimationProperties(
+        // Navigation Bar's items animation properties.
+        duration: Duration(milliseconds: 200),
+        curve: Curves.ease,
+      ),
+      screenTransitionAnimation: ScreenTransitionAnimation(
+        // Screen transition animation on change of selected tab.
+        animateTabTransition: true,
+        curve: Curves.ease,
+        duration: Duration(milliseconds: 200),
+      ),
+      navBarStyle:
+          NavBarStyle.style14, // Choose the nav bar style with this property.
     );
   }
 

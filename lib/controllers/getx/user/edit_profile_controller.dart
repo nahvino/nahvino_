@@ -1,10 +1,9 @@
-import 'package:Nahvino/Services/Users/User/service_profile.dart';
+import 'package:Nahvino/Services/Users/User/profile_service.dart';
 import 'package:Nahvino/Data/Local/view_profial_data.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../../Services/Login/ApiService.dart';
 
 class EditProfileController extends GetxController {
   //import
@@ -27,7 +26,6 @@ class EditProfileController extends GetxController {
   late ServiceProfile? serpro;
   String? imageuri;
   RxString imageuris = "".obs;
-  late APIService apiService;
 
   // controller
 

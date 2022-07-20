@@ -1,5 +1,5 @@
 import 'package:Nahvino/Pages/Account/Login/add_introduced.dart';
-import 'package:Nahvino/Services/Users/User/service_profile.dart';
+import 'package:Nahvino/Services/Users/User/profile_service.dart';
 import 'package:Nahvino/tabs.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -55,44 +55,9 @@ class ViewProfileController extends GetxController {
   }
 
   profilerequest() {
-    /*
-   Future.microtask(() {
-      APIService.getprofileuser().then((response) {
-        print("------------<GetProfileUser>--------------=> $response");
-        resultResponse = response;
-        box.write('username', resultResponse!.userName);
-        box.write('namealias', resultResponse!.nameAlias);
-        box.write('bio', resultResponse!.bio);
-        box.write('rank', resultResponse!.rank);
-        box.write('score', resultResponse!.score);
-        box.write('imageUrl', resultResponse!.imageUrl);
-        box.write('identifierCode', resultResponse!.identifierCode);
-        box.write('parentId', resultResponse!.parentId);
-        box.write('parentname', resultResponse!.parentName);
-        box.write('parentimageurl', resultResponse!.parentImageUrl);
-        box.write('dateTimeAbandon', resultResponse!.dateTimeAbandon);
-        // readDatas();
-        // username.value = box.read('username');
-        // namealias.value = box.read('namealias');
-        // bio.value = box.read('bio');
-        // rank.value = box.read('rank');
-        // score.value = box.read('score');
-        // imageUrl.value = box.read('imageUrl');
-        // identifierCode.value = box.read('identifierCode');
-        // parentId.value = box.read('parentId');
-        // parentname.value = box.read('parentname');
-        // parentimageurl.value = box.read('parentimageurl');
-        // dateTimeAbandon.value = box.read('dateTimeAbandon');
-        //print(box.read('username'));
-      });
-    }).onError((error, stackTrace) {
-      print(error);
-    });
-    update();
-    */
     ServiceProfile.profileuser().then((response) {
       resultResponse = response;
-      print(")))))))جهت تست))))))))==>$resultResponse");
+      print("<=------------<GetProfileUser>--------------=> $response");
       box.write('username', resultResponse['userName']);
       box.write('namealias', resultResponse['nameAlias']);
       box.write('bio', resultResponse['bio']);

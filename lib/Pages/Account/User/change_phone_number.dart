@@ -1,6 +1,6 @@
+import 'package:Nahvino/Services/Users/User/menu_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../Services/login/ApiService.dart';
 import '../../../Utils/Text/TextField.dart';
 import '../../../Utils/Text/Text.dart';
 import '../../../App_localizations.dart';
@@ -19,13 +19,14 @@ class _ChangePhoneNumberState extends State<ChangePhoneNumber> {
   bool value = false;
   TextEditingController currentPhoneNumber = TextEditingController();
   TextEditingController newPhoneNumber = TextEditingController();
-  late APIService apiService;
+  late MenuService menuservice;
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
     super.initState();
-    apiService = APIService(context);
+    menuservice = MenuService();
   }
 
   @override
@@ -101,7 +102,7 @@ class _ChangePhoneNumberState extends State<ChangePhoneNumber> {
                     }*/
                     if (!_formKey.currentState!.validate()) {
                     } else {
-                      apiService.ChangePhoneNumber(
+                      menuservice.ChangePhoneNumber(
                               currentPhoneNumber.text, newPhoneNumber.text)
                           .then((response) async {
                         setState(() {
@@ -126,7 +127,7 @@ class _ChangePhoneNumberState extends State<ChangePhoneNumber> {
                                               newPhoneNumber.text)));
                         } else {
                           //apiService.showSnackBar(text: response['message'] ?? "sdd");
-                          apiService.showSnackBar(
+                          menuservice.showSnackBar(
                               text: response['message'] ?? "کد تایید ارسال شد");
                           // Get.snackbar(
                           //   "اعلان",

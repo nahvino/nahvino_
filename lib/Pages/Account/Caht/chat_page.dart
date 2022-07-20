@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'dart:ui' as ui;
+import 'package:Nahvino/Services/chat/chat_service.dart';
 import 'package:Nahvino/controllers/getx/Utils/check_controller.dart';
 import 'package:Nahvino/tabs.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -17,7 +18,6 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:lottie/lottie.dart';
 import '../../../App_localizations.dart';
 import '../../../Model/User/SignalR/ReceiveMessageModel.dart';
-import '../../../Services/Login/ApiService.dart';
 import '../../../Utils/Text/Text.dart';
 import '../User/view_profile_uesr.dart';
 
@@ -36,7 +36,7 @@ class _ChatpageState extends State<Chatpage> {
   String? adminid;
   String? nazer1;
   String? nazer2;
-  late APIService apiService;
+  late ChatService chatService;
   late StreamSubscription interfaceSubscription;
   late StreamSubscription Subscription;
   @override
@@ -57,7 +57,6 @@ class _ChatpageState extends State<Chatpage> {
         ));
       }
     });
-    apiService = APIService(context);
     Future.delayed(Duration(seconds: 3),
         () => chatPageController.isApiCallProgress.value = false);
     adminid = chatPageController.model?.adminId.toString();
@@ -86,7 +85,6 @@ class _ChatpageState extends State<Chatpage> {
               )
             : Scaffold(
                 appBar: AppBar(
-                  
                     backgroundColor: Colors.cyan.shade800,
                     title: chatPageController.isInSearchMode.value
                         ? TextField(
@@ -626,7 +624,7 @@ class _ChatpageState extends State<Chatpage> {
                                             ),
                                             ListTile(
                                               onTap: () {
-                                                APIService.userreport(
+                                                ChatService.userreport(
                                                         chat.userId.toString(),
                                                         chat.id)
                                                     .then((response) async {

@@ -1,8 +1,8 @@
+import 'package:Nahvino/Services/Users/User/menu_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pinput/pinput.dart';
 import '../../../App_localizations.dart';
-import '../../../Services/Login/ApiService.dart';
 import '../../../Utils/Text/Text.dart';
 import 'user_security_stting_menus.dart';
 import 'view_profile.dart';
@@ -24,13 +24,14 @@ class CheckCodeChangePhoneNumber extends StatefulWidget {
 class _CheckCodeChangePhoneNumberState
     extends State<CheckCodeChangePhoneNumber> {
   TextEditingController code = TextEditingController();
-  late APIService apiService;
+  late MenuService menuservice;
+
   bool isApiCallProgress = true;
 
   @override
   void initState() {
     super.initState();
-    apiService = APIService(context);
+    menuservice = MenuService();
   }
 
   @override
@@ -45,7 +46,7 @@ class _CheckCodeChangePhoneNumberState
   }
 
   Widget body(BuildContext context) => SingleChildScrollView(
-    child: Column(children: [
+        child: Column(children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -53,8 +54,10 @@ class _CheckCodeChangePhoneNumberState
                 alignment: Alignment.topLeft,
                 child: BackButton(
                   onPressed: (() {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => UserSecuritySttingMenus()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => UserSecuritySttingMenus()));
                   }),
                 ),
               ),
@@ -71,11 +74,11 @@ class _CheckCodeChangePhoneNumberState
                     );*/
 
                     if (code.text.isEmpty) {
-                      apiService.showSnackBar(
+                      menuservice.showSnackBar(
                           text: "شماره تلفن نمی تواند خالی باشد");
                       return;
                     }
-                    apiService.CheckCodeChangePhoneNumber(
+                    menuservice.CheckCodeChangePhoneNumber(
                             widget.currentPhoneNumber.toString(),
                             widget.newPhoneNumber.toString(),
                             int.parse(code.text))
@@ -99,7 +102,7 @@ class _CheckCodeChangePhoneNumberState
                             MaterialPageRoute(
                                 builder: (context) => ViewProfile()));
                       } else {
-                        apiService.showSnackBar(
+                        menuservice.showSnackBar(
                             text: response['message'] ?? "sdd");
                       }
                     });
@@ -148,7 +151,7 @@ class _CheckCodeChangePhoneNumberState
             height: 20,
           ),
           Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-           /* TextProfile(
+            /* TextProfile(
               controller: code,
               hint: AppLocalizations.of(context)!.translate(
                 'phone_text_filed',
@@ -156,16 +159,18 @@ class _CheckCodeChangePhoneNumberState
             ),*/
             Directionality(
               textDirection: TextDirection.ltr,
-              child: Pinput(controller:code
-                ,autofocus: true,
+              child: Pinput(
+                controller: code,
+                autofocus: true,
                 enabled: true,
                 length: 5,
                 keyboardType: TextInputType.number,
                 mainAxisAlignment: MainAxisAlignment.center,
-                androidSmsAutofillMethod: AndroidSmsAutofillMethod.smsUserConsentApi,
+                androidSmsAutofillMethod:
+                    AndroidSmsAutofillMethod.smsUserConsentApi,
               ),
             ),
           ]),
         ]),
-  );
+      );
 }

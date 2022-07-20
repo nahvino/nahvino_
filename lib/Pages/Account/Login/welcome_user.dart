@@ -1,10 +1,10 @@
+import 'package:Nahvino/Services/Users/User/profile_service.dart';
+import 'package:Nahvino/config/main_config.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:lottie/lottie.dart';
-import 'package:Nahvino/Model/user/user/viewprofile_response_model.dart';
-import '../../../Services/config.dart';
-import '../../../Services/login/ApiService.dart';
+
 import '../../../Utils/Button/Button.dart';
 import '../../../Utils/Text/Text.dart';
 import '../../../App_localizations.dart';
@@ -19,12 +19,22 @@ class WelcomeUser extends StatefulWidget {
 
 class _WelcomeUserState extends State<WelcomeUser> {
   bool isApiCallProgress = true;
-  GetProfileUserResponseModel? resultResponse;
+  // GetProfileUserResponseModel? resultResponse;
+
+  var resultResponse;
 
   @override
   void initState() {
     super.initState();
-    APIService.getprofileuser().then((response) {
+    ServiceProfile.profileuser().then((response) {
+      setState(() {
+        isApiCallProgress = false;
+        if (response != false) {
+          resultResponse = response;
+        }
+      });
+    });
+    /* APIService.getprofileuser().then((response) {
       setState(() {
         isApiCallProgress = false;
         if (response != false) {
@@ -33,7 +43,7 @@ class _WelcomeUserState extends State<WelcomeUser> {
       });
     }).onError((error, stackTrace) {
       print(error);
-    });
+    });*/
   }
 
   bool lang = false; // en => true / fa => false
@@ -75,7 +85,7 @@ class _WelcomeUserState extends State<WelcomeUser> {
                             child: Callout(
                                 color: Colors.green,
                                 textAlign: TextAlign.center,
-                                text: resultResponse!.userName!),
+                                text: resultResponse['userName']),
                           ),
                           SizedBox(
                             width: 02,
@@ -102,8 +112,8 @@ class _WelcomeUserState extends State<WelcomeUser> {
                   children: [
                     Row(
                       children: [
-                        (resultResponse!.parentImageUrl != null &&
-                                resultResponse!.parentImageUrl != "")
+                        (resultResponse['parentImageUrl'] != null &&
+                                resultResponse['parentImageUrl'] != "")
                             ? Card(
                                 shape: CircleBorder(),
                                 clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -114,8 +124,8 @@ class _WelcomeUserState extends State<WelcomeUser> {
                                       'customCacheKey',
                                       stalePeriod: Duration(days: 7),
                                       maxNrOfCacheObjects: 100)),
-                                  imageUrl: Configss.fileurl +
-                                      resultResponse!.parentImageUrl!,
+                                  imageUrl: MainConfig.fileurl +
+                                      resultResponse['parentImageUrl'],
                                   imageBuilder: (context, imageProvider) =>
                                       Container(
                                     decoration: BoxDecoration(
@@ -179,7 +189,7 @@ class _WelcomeUserState extends State<WelcomeUser> {
                           width: 30,
                         ),
                         Text(
-                          resultResponse!.parentName ?? "Guest",
+                          resultResponse['parentName'] ?? "Guest",
                           textAlign: TextAlign.start,
                         ),
                       ],
@@ -196,7 +206,7 @@ class _WelcomeUserState extends State<WelcomeUser> {
                         children: [
                           Subhead(
                             color: Colors.green,
-                            text: resultResponse!.parentName ?? "Guest",
+                            text: resultResponse['parentName'] ?? "Guest",
                             textAlign: TextAlign.start,
                           ),
                           SizedBox(
@@ -240,7 +250,7 @@ class _WelcomeUserState extends State<WelcomeUser> {
                         children: [
                           Subhead(
                             color: Colors.green,
-                            text: resultResponse!.parentName ?? "Guest",
+                            text: resultResponse['parentName'] ?? "Guest",
                             textAlign: TextAlign.start,
                           ),
                           SizedBox(

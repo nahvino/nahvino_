@@ -1,3 +1,5 @@
+import 'package:Nahvino/Services/Users/User/security_menu_service.dart';
+import 'package:Nahvino/Services/Users/User/profile_service.dart';
 import 'package:Nahvino/main.dart';
 import 'package:Nahvino/tabs.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +11,6 @@ import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../App_localizations.dart';
 import '../../../LanguageConstants.dart';
-import '../../../Services/login/ApiService.dart';
 import '../../../Utils/Button/SttingMenusButton.dart';
 import '../../../Utils/Text/Text.dart';
 import '../../../Data/Local/view_profial_data.dart';
@@ -41,10 +42,10 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
   void initState() {
     super.initState();
     Future.microtask(() {
-      APIService.UserSecuritySttingMenus().then((response) {
+      MenuService.UserSecuritySttingMenus().then((response) {
         print("APIService.UserSecuritySttingMenus => $response");
         resultResponse = response;
-        APIService.profilleall().then((response) {
+        ServiceProfile.profileuser().then((response) {
           print("APIService.profilleall => $response");
           setState(() {
             isApiCallProgress = false;

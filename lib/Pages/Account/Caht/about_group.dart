@@ -1,4 +1,5 @@
 import 'package:Nahvino/Services/Login/Google/notification_service.dart';
+import 'package:Nahvino/config/main_config.dart';
 import 'package:Nahvino/controllers/getx/chat/about_group_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,8 +7,6 @@ import 'package:get_storage/get_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../App_localizations.dart';
 import '../../../Model/User/SignalR/GroupModel.dart';
-import '../../../Services/Login/ApiService.dart';
-import '../../../Services/config.dart';
 import '../../../Utils/Text/Text.dart';
 import '../User/view_profile_uesr.dart';
 import 'chat_page.dart';
@@ -26,7 +25,6 @@ class _AboutGroupState extends State<AboutGroup> {
   bool isApiCallProgress = true;
   bool lang = false; // en => true / fa => false
   bool? isSwitched = false;
-  late APIService apiService;
   AboutGroupController noti = Get.put(AboutGroupController());
   GetStorage reqtokenapi = GetStorage();
 
@@ -34,7 +32,6 @@ class _AboutGroupState extends State<AboutGroup> {
   void initState() {
     GetStorage.init();
     super.initState();
-    apiService = APIService(context);
     getSwitchValues();
   }
 
@@ -170,7 +167,7 @@ class _AboutGroupState extends State<AboutGroup> {
                                                               Duration(days: 7),
                                                           maxNrOfCacheObjects:
                                                               100)),
-                                                  imageUrl: Configss.fileurl +
+                                                  imageUrl: MainConfig.fileurl +
                                                       widget
                                                           .model.adminImageurl!,
                                                   imageBuilder: (context,
@@ -281,7 +278,7 @@ class _AboutGroupState extends State<AboutGroup> {
                                                             Duration(days: 7),
                                                         maxNrOfCacheObjects:
                                                             100)),
-                                                imageUrl: Configss.fileurl +
+                                                imageUrl: MainConfig.fileurl +
                                                     widget.model
                                                         .supervisor1Imageurl!,
                                                 imageBuilder:
@@ -392,7 +389,7 @@ class _AboutGroupState extends State<AboutGroup> {
                                                               Duration(days: 7),
                                                           maxNrOfCacheObjects:
                                                               100)),
-                                                  imageUrl: Configss.fileurl +
+                                                  imageUrl: MainConfig.fileurl +
                                                       widget.model
                                                           .supervisor2Imageurl!,
                                                   imageBuilder: (context,
@@ -525,7 +522,8 @@ class _AboutGroupState extends State<AboutGroup> {
                                 setState(() {
                                   if (isSwitched = values) {
                                     isSwitched = values;
-                                    ServiceNotification.deletetokennotificationapi()
+                                    ServiceNotification
+                                            .deletetokennotificationapi()
                                         .then((response) {
                                       print(
                                           "deletetokenapi---------------------------- => $response");

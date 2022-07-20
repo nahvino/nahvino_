@@ -1,6 +1,6 @@
+import 'package:Nahvino/Services/Users/User/menu_service.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
-import '../../../Services/login/ApiService.dart';
 import '../../../Utils/Button/Button.dart';
 import '../../../Utils/Text/Text.dart';
 import '../../../App_localizations.dart';
@@ -21,12 +21,13 @@ class _CheckCodeSetPhoneNumberState extends State<CheckCodeSetPhoneNumber> {
   bool isApiCallProgress = true;
   bool value = false;
   TextEditingController code = TextEditingController();
-  late APIService apiService;
+  late MenuService menuservice;
+
   @override
   void initState() {
     super.initState();
 
-    apiService = APIService(context);
+    menuservice = MenuService();
   }
 
   @override
@@ -124,12 +125,12 @@ class _CheckCodeSetPhoneNumberState extends State<CheckCodeSetPhoneNumber> {
                 )!,
                 onPressed: () {
                   if (code.text.isEmpty) {
-                    apiService.showSnackBar(
+                    menuservice.showSnackBar(
                         text: "شماره تلفن نمی تواند خالی باشد");
                     return;
                   }
-                  apiService
-                      .checkcodesetPhoneNumber(widget.setPhoneNumber.toString(),
+                  menuservice
+                      .checkcodesetphonenumber(widget.setPhoneNumber.toString(),
                           int.parse(code.text))
                       .then((response) async {
                     setState(() {
@@ -138,14 +139,14 @@ class _CheckCodeSetPhoneNumberState extends State<CheckCodeSetPhoneNumber> {
                     //idficode = identifierCode;
                     //if (response.data != null) {
                     if (response != false) {
-                      apiService.showSnackBar(
+                      menuservice.showSnackBar(
                           text: response['message'] ?? "کد تایید ارسال شد");
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                               builder: (context) => ViewProfile()));
                     } else {
-                      apiService.showSnackBar(
+                      menuservice.showSnackBar(
                           text: response['message'] ?? "sdd");
                     }
                   });

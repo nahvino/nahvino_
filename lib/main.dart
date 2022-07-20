@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:Nahvino/tabs.dart';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:double_back_to_close/double_back_to_close.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -10,7 +11,6 @@ import 'App_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'LanguageConstants.dart';
 import 'Pages/Account/Caht/chat_page.dart';
-import 'Services/Login/ApiService.dart';
 import 'Services/http.dart';
 import 'splash.dart';
 import 'dart:async';
@@ -175,8 +175,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  //ChatPageController chatPageController = Get.put(ChatPageController());
   late int totalNotifications;
-  late APIService apiService;
   String? tolll;
   String? messgaeTitle;
   String? notificationAlert = 'Alert';
@@ -314,7 +314,24 @@ class _MyAppState extends State<MyApp> {
           }
           return supportedLocales.first;
         },
-        home: Splash(),
+        home: DoubleBack(
+          onFirstBackPress: (context) {
+            var snackBar = SnackBar(
+              elevation: 0,
+              padding: EdgeInsets.all(30),
+              behavior: SnackBarBehavior.floating,
+              backgroundColor: Colors.transparent,
+              content: AwesomeSnackbarContent(
+                title: 'در حال خروج',
+                message: 'برای خارج شدن دوبار کلیک کنید',
+                contentType: ContentType.help,
+              ),
+            );
+
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          },
+          child: Splash(),
+        ),
         navigatorKey: navigatorKey,
         // initialRoute:Splash() ,
       );

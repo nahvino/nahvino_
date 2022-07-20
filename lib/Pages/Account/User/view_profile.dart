@@ -1,7 +1,8 @@
 import 'package:Nahvino/Pages/Account/User/edit_profile_screen.dart';
 import 'package:Nahvino/Services/Login/Google/notification_service.dart';
-import 'package:Nahvino/Services/Users/User/service_profile.dart';
+import 'package:Nahvino/Services/Users/User/profile_service.dart';
 import 'package:Nahvino/Utils/OtherUtils/imagedialog.dart';
+import 'package:Nahvino/config/main_config.dart';
 import 'package:Nahvino/controllers/getx/chat/about_group_controller.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -14,8 +15,6 @@ import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../App_localizations.dart';
 import '../../../Model/user/user/viewprofile_response_model.dart';
-import '../../../Services/Login/ApiService.dart';
-import '../../../Services/config.dart';
 import '../../../Utils/Button/Button.dart';
 import '../../../Utils/Text/Text.dart';
 import '../../../Data/Local/view_profial_data.dart';
@@ -40,7 +39,6 @@ class _ViewProfileState extends State<ViewProfile> {
   late Map<String, dynamic> resultResponsee;
   // late int resultResponsee;
   var resultResponseGetUserAbandon;
-  late APIService apiService;
   late ServiceProfile testtarkh;
   String? imagePath;
   late int day;
@@ -115,7 +113,6 @@ class _ViewProfileState extends State<ViewProfile> {
   @override
   void initState() {
     super.initState();
-    apiService = APIService(context);
     /*Future.microtask(() {
       databox.checkdata();
       APIService.getprofileuser().then((response) {
@@ -144,29 +141,26 @@ class _ViewProfileState extends State<ViewProfile> {
         print(error);
       });
     });*/
-    databox.checkdata();
     Future.microtask(() {
-      APIService.GetLastVisit().then((response) {
+      databox.checkdata();
+      ServiceProfile.GetLastVisit().then((response) {
         resultResponsee = response;
         print(" -------------<GetLastVisit>-------------- => $response");
-        APIService.getuserabandon().then((response) async {
+        ServiceProfile.getabandon().then((response) async {
           print("------<getuserabandon>------- => $response");
-          setState(() {
-            isApiCallProgress = false;
-            resultResponseGetUserAbandon = response;
-          });
+          resultResponseGetUserAbandon = response;
           SharedPreferences prefs = await SharedPreferences.getInstance();
           if (prefs.getBool("switchState") == false ||
               prefs.getBool("switchState") == null) {
             ServiceNotification.notificationaApi().then((response) {
               print(
                   "--------------<notificationaApi>-------------- => $response");
+              setState(() {
+                isApiCallProgress = false;
+              });
             });
           }
         });
-      });
-      ServiceProfile.getuserotherabandon().then((response) async {
-        print("برگشتی تاریخ ترک ------------- => $response");
       });
     }).onError((error, stackTrace) {
       print(error);
@@ -400,7 +394,7 @@ class _ViewProfileState extends State<ViewProfile> {
                                           'customCacheKey',
                                           stalePeriod: Duration(days: 7),
                                           maxNrOfCacheObjects: 100)),
-                                      imageUrl: Configss.fileurl +
+                                      imageUrl: MainConfig.fileurl +
                                           databox.imageUrl
                                               .value /*resultResponse!.imageUrl!*/,
                                       imageBuilder: (context, imageProvider) =>
@@ -569,7 +563,7 @@ class _ViewProfileState extends State<ViewProfile> {
                                                             Duration(days: 7),
                                                         maxNrOfCacheObjects:
                                                             100)),
-                                                imageUrl: Configss.fileurl +
+                                                imageUrl: MainConfig.fileurl +
                                                     databox.parentimageurl
                                                         .value /*resultResponse!.parentImageUrl!*/,
                                                 imageBuilder:
@@ -683,13 +677,13 @@ class _ViewProfileState extends State<ViewProfile> {
                           'Edit Profile',
                         )!,
                         onPressed: () {
-                          //Get.to(EditProfileScreen());
+                          Get.to(EditProfileScreen());
                           // GetPage(name: name, page: EditProfileScreen());
                           // // Get.off(EditProfileScreen());
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => EditProfileScreen()));
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //         builder: (context) => EditProfileScreen()));
                           //             Navigator.push(
                           // context,
                           // MaterialPageRoute(

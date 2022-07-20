@@ -1,10 +1,10 @@
+import 'package:Nahvino/Services/Login/reset_service.dart';
 import 'package:Nahvino/Utils/Text/Text.dart';
 import 'package:Nahvino/Utils/TextField/question_text_filde.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../App_localizations.dart';
-import '../../../Services/Login/ApiService.dart';
 import '../../../Utils/Button/Button.dart';
 import '../../../Utils/TextField/english_text_filde.dart';
 import 'password.dart';
@@ -40,7 +40,7 @@ class _NewCheckQuestionAnswerState extends State<NewCheckQuestionAnswer> {
   bool isApiCallProcess = false;
   TextEditingController usernameController = TextEditingController();
   TextEditingController sqAnswerController = TextEditingController();
-  late APIService apiService;
+  late ResetService resetservice;
   String? securityQuestionselected = null;
   late SharedPreferences logindata;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -48,7 +48,7 @@ class _NewCheckQuestionAnswerState extends State<NewCheckQuestionAnswer> {
   @override
   void initState() {
     super.initState();
-    apiService = APIService(context);
+    resetservice = ResetService();
   }
 
   @override
@@ -171,13 +171,14 @@ class _NewCheckQuestionAnswerState extends State<NewCheckQuestionAnswer> {
                             setState(() {
                               isApiCallProcess = true;
                             });
-                            apiService.NewCheckQuestionAnswer(
+                            resetservice
+                                .checkquestionanswer(
                                     usernameController.text,
                                     securityQuestionselected as String,
                                     sqAnswerController.text)
                                 .then((response) async {
                               if (response != false) {
-                                apiService.showSnackBar(
+                                resetservice.showSnackBar(
                                     text: response['message'] ??
                                         "جواب سوال درست بود");
                                 Navigator.pushAndRemoveUntil(
@@ -191,7 +192,7 @@ class _NewCheckQuestionAnswerState extends State<NewCheckQuestionAnswer> {
                                 setState(() {
                                   isApiCallProcess = false;
                                 });
-                                apiService.showSnackBar(
+                                resetservice.showSnackBar(
                                     text: response['message'] ?? "sdd");
                               }
                             });

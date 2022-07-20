@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:Nahvino/Services/Login/otp_service.dart';
+import 'package:Nahvino/Services/Users/User/profile_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lottie/lottie.dart';
@@ -8,7 +10,6 @@ import 'package:pinput/pinput.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 //import 'package:timer_button/timer_button.dart';
 import '../../../App_localizations.dart';
-import '../../../Services/Login/ApiService.dart';
 import '../../../Utils/Button/Button.dart';
 import '../../../Utils/Text/Text.dart';
 import '../../../tabs.dart';
@@ -32,7 +33,7 @@ class _CodeOtpPhoneNewState extends State<CodeOtpPhoneNew> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   late String otpcode = "";
-  late APIService apiService;
+  late OtpService otpService;
   late SharedPreferences logindata;
   bool hasError = false;
 
@@ -43,9 +44,9 @@ class _CodeOtpPhoneNewState extends State<CodeOtpPhoneNew> {
 
   @override
   void initState() {
-    apiService = APIService(context);
     errorController = StreamController<ErrorAnimationType>();
     super.initState();
+    otpService = OtpService();
   }
 
   @override
@@ -222,14 +223,14 @@ class _CodeOtpPhoneNewState extends State<CodeOtpPhoneNew> {
                             ),
                             loadingIndicatorColor: Colors.cyan,
                             onPressed: () {
-                              apiService.NewReSendCode(
+                              otpService.ReSendCode(
                                 widget.OtpCode.toString(),
                               ).then((response) async {
                                 setState(() {
                                   isApiCallProcess = false;
                                 });
                                 if (response != false) {
-                                  apiService.showSnackBar(
+                                  otpService.showSnackBar(
                                       text: AppLocalizations.of(context)!
                                           .translate(
                                     'Resendcode',
@@ -238,7 +239,7 @@ class _CodeOtpPhoneNewState extends State<CodeOtpPhoneNew> {
                                   setState(() {
                                     isApiCallProcess = true;
                                   });
-                                  apiService.showSnackBar(
+                                  otpService.showSnackBar(
                                       text: response['message']);
                                 }
                               });
@@ -293,7 +294,7 @@ class _CodeOtpPhoneNewState extends State<CodeOtpPhoneNew> {
                               setState(() {
                                 isApiCallProcess = true;
                               });
-                              apiService.OtpCodePhone(widget.OtpCode.toString(),
+                              otpService.OtpCodePhone(widget.OtpCode.toString(),
                                       int.parse(OtpCodeController.text))
                                   .then((response) async {
                                 if (response != false) {
@@ -303,7 +304,7 @@ class _CodeOtpPhoneNewState extends State<CodeOtpPhoneNew> {
                                       response['data']['userToken']['token']);
                                   await logindata.setString(
                                       "userId", response['data']['id']);
-                                  apiService.showSnackBar(
+                                  otpService.showSnackBar(
                                       text: AppLocalizations.of(context)!
                                           .translate(
                                     'Welcome',
@@ -316,7 +317,7 @@ class _CodeOtpPhoneNewState extends State<CodeOtpPhoneNew> {
                                     (route) => false,
                               );*/
 
-                                  APIService.profilleall().then((response) {
+                                  ServiceProfile.profileuser().then((response) {
                                     print(
                                         "APIService.profilleall => $response");
                                     setState(() {
@@ -382,7 +383,7 @@ class _CodeOtpPhoneNewState extends State<CodeOtpPhoneNew> {
                                   setState(() {
                                     isApiCallProcess = false;
                                   });
-                                  apiService.showSnackBar(
+                                  otpService.showSnackBar(
                                       text: response['message'] ?? "sdd");
                                 }
                               });
