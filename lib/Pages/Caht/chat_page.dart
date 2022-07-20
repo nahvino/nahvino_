@@ -1,6 +1,9 @@
 import 'dart:async';
 import 'dart:io';
 import 'dart:ui' as ui;
+import 'package:Nahvino/Pages/Account/User/view_profile_uesr.dart';
+import 'package:Nahvino/Pages/Caht/about_group.dart';
+import 'package:Nahvino/Pages/Caht/chat_page_controller.dart';
 import 'package:Nahvino/Services/chat/chat_service.dart';
 import 'package:Nahvino/controllers/getx/Utils/check_controller.dart';
 import 'package:Nahvino/tabs.dart';
@@ -12,14 +15,11 @@ import 'package:flutter_chat_bubble/bubble_type.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_1.dart';
 import 'package:get/get.dart';
-import 'package:Nahvino/Pages/Account/Caht/chat_page_controller.dart';
-import 'package:Nahvino/Pages/Account/Caht/about_group.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:lottie/lottie.dart';
 import '../../../App_localizations.dart';
 import '../../../Model/User/SignalR/ReceiveMessageModel.dart';
 import '../../../Utils/Text/Text.dart';
-import '../User/view_profile_uesr.dart';
 
 class Chatpage extends StatefulWidget {
   Chatpage({Key? key}) : super(key: key);

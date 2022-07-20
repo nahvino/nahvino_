@@ -1,10 +1,10 @@
+import 'package:Nahvino/Pages/Caht/chat_page.dart';
 import 'package:Nahvino/Services/Users/visituser/visit_user_service.dart';
 import 'package:Nahvino/Utils/OtherUtils/imagedialoguser.dart';
 import 'package:Nahvino/config/main_config.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import '../../../Utils/Text/Text.dart';
-import '../Caht/chat_page.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 

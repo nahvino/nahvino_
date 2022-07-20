@@ -1,3 +1,4 @@
+import 'package:Nahvino/Pages/Account/User/view_profile_uesr.dart';
 import 'package:Nahvino/Services/Login/Google/notification_service.dart';
 import 'package:Nahvino/config/main_config.dart';
 import 'package:Nahvino/controllers/getx/chat/about_group_controller.dart';
@@ -8,7 +9,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../App_localizations.dart';
 import '../../../Model/User/SignalR/GroupModel.dart';
 import '../../../Utils/Text/Text.dart';
-import '../User/view_profile_uesr.dart';
 import 'chat_page.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';

@@ -1,12 +1,11 @@
+import 'package:Nahvino/Pages/Caht/chat_page.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:double_back_to_close/double_back_to_close.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:Nahvino/Pages/Account/Caht/chat_page_controller.dart';
 import 'package:Nahvino/App_localizations.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
-import 'Pages/Account/Caht/chat_page.dart';
 import 'Pages/Account/User/view_profile.dart';
 import 'App_localizations.dart';
 
