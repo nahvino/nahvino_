@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:Nahvino/Pages/Account/User/notifications.dart';
 import 'package:Nahvino/config/main_config.dart';
 import 'package:Nahvino/controllers/getx/user/profile_controller.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,6 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
 import 'package:persian_datetime_picker/persian_datetime_picker.dart';
-
 import '../../../App_localizations.dart';
 import '../../../Utils/Button/Button.dart';
 import '../../../Utils/Text/Text.dart';
@@ -192,13 +192,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                     Row(
                                       children: [
                                         IconButton(
-                                            onPressed: () {
-                                              editcontroller
-                                                  .databox.imageUrl.value = "";
-                                              editcontroller.imageuris.value =
-                                                  "";
-                                            },
-                                            icon: Icon(Icons.remove)),
+                                          onPressed: () {
+                                            editcontroller
+                                                .databox.imageUrl.value = "";
+                                            editcontroller.imageuris.value = "";
+                                          },
+                                          icon: Image.asset(
+                                              alignment: Alignment.center,
+                                              'assets/images/icon/trash.png'),
+                                        ),
                                         Caption2(
                                           text: 'حذف عکس',
                                         ),

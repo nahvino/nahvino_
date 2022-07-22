@@ -188,9 +188,9 @@ class _ViewProfileState extends State<ViewProfile> {
   }
 
   Widget body(BuildContext context) {
-    String date = resultResponseGetUserAbandon['data'].split(" ")[2];
-    String mont = resultResponseGetUserAbandon['data'].split(" ")[1];
-    String yaer = resultResponseGetUserAbandon['data'].split(" ")[0];
+    String date = resultResponseGetUserAbandon['data'].split(" ")[2] ?? "0";
+    String mont = resultResponseGetUserAbandon['data'].split(" ")[1] ?? "0";
+    String yaer = resultResponseGetUserAbandon['data'].split(" ")[0] ?? "0";
     day = int.parse(date);
     month = int.parse(mont);
     year = int.parse(yaer);

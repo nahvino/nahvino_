@@ -70,10 +70,9 @@ class CheckController extends GetxController {
     bool result = await InternetConnectionChecker().hasConnection;
     //check if the connection
     if (result == true) {
-      //checkversion.checkVersion();
-      //  Get.offAll(MyTabs());
       // check token
-      checkversion.versionrequest();
+      // checkversion.versionrequest();
+      checkversion.checklogin();
     } else {
       Get.defaultDialog(
           barrierDismissible: false,

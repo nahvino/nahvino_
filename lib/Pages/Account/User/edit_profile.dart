@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 
 import 'package:Nahvino/Model/user/user/viewprofile_response_model.dart';
 import 'package:Nahvino/Pages/Account/User/view_profile.dart';
-import 'package:Nahvino/Services/login/ApiService.dart';
 import 'package:Nahvino/tabs.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -42,12 +41,12 @@ class _EditProfileState extends State<EditProfile> {
 
   String? imagePath;
   final ImagePicker _picker = ImagePicker();
-  APIService? apiService;
+  // APIService? apiService;
   late String berlinWallFell = "تاریخ ترک";
   String? error;
   void initState() {
     super.initState();
-    apiService = APIService(context);
+    //apiService = APIService(context);
     userNameController =
         TextEditingController(text: widget.model.userName ?? "");
     nameAliasController =

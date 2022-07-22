@@ -1,6 +1,4 @@
 import 'package:Nahvino/Pages/Caht/chat_page.dart';
-import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
-import 'package:double_back_to_close/double_back_to_close.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:Nahvino/Pages/Caht/chat_page_controller.dart';
 import 'package:Nahvino/tabs.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:double_back_to_close/double_back_to_close.dart';
@@ -121,6 +122,7 @@ late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
   runApp(MyApp());
 }*/
 void main() async {
+  HttpOverrides.global = new MyHttpOverrides();
   await GetStorage.init();
   runApp(MyApp());
 }
@@ -174,7 +176,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  //ChatPageController chatPageController = Get.put(ChatPageController());
+  ChatPageController chatPageController = Get.put(ChatPageController());
   late int totalNotifications;
   String? tolll;
   String? messgaeTitle;
@@ -240,8 +242,6 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     totalNotifications = 0;
-    HttpOverrides.global = new MyHttpOverrides();
-
     registerNotfition();
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       print("====================>$message");
@@ -259,6 +259,7 @@ class _MyAppState extends State<MyApp> {
       });
     });
     super.initState();
+    chatPageController.openSignalRConnection();
   }
 
   Locale? _locale;

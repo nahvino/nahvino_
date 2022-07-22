@@ -23,7 +23,7 @@ class ChatPageController extends GetxController {
   void onInit() {
     super.onInit();
     _getMyData();
-    openSignalRConnection();
+    //openSignalRConnection();
   }
 
   @override
@@ -45,7 +45,6 @@ class ChatPageController extends GetxController {
           logging: (level, message) => print(message),
         ),
       )
-      .withAutomaticReconnect()
       .build();
   Future<void> openSignalRConnection() async {
     await connection.start();
@@ -127,11 +126,9 @@ class ChatPageController extends GetxController {
     }
     String chatext;
     String text = chatEditController.text;
-    //text.replaceAll(RegExp(r'[آ]'), 'g');
     chatext = text.replaceAll(RegExp(r'[\n]'), '');
     print("/******/$chatext");
     chatEditController.clear();
-
     var replay = MyRepledMessage == null ? null : MyRepledMessage!.id;
     MyRepledMessage = null;
     await connection.invoke(
