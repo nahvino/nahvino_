@@ -1,12 +1,16 @@
 import 'dart:io';
-import 'package:Nahvino/Pages/Caht/chat_page_controller.dart';
+import 'dart:isolate';
+import 'dart:ui';
+import 'package:Nahvino/Pages/Chat/chat_page_controller.dart';
 import 'package:Nahvino/tabs.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:double_back_to_close/double_back_to_close.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:once/once.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'App_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -124,6 +128,8 @@ late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 void main() async {
   HttpOverrides.global = new MyHttpOverrides();
   await GetStorage.init();
+  WidgetsFlutterBinding.ensureInitialized();
+  await FlutterDownloader.initialize(debug: true, ignoreSsl: true);
   runApp(MyApp());
 }
 
@@ -176,7 +182,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  ChatPageController chatPageController = Get.put(ChatPageController());
   late int totalNotifications;
   String? tolll;
   String? messgaeTitle;
@@ -239,6 +244,8 @@ class _MyAppState extends State<MyApp> {
     // });
   }
 
+  ReceivePort _port = ReceivePort();
+
   @override
   void initState() {
     totalNotifications = 0;
@@ -259,7 +266,31 @@ class _MyAppState extends State<MyApp> {
       });
     });
     super.initState();
-    chatPageController.openSignalRConnection();
+
+    IsolateNameServer.registerPortWithName(
+        _port.sendPort, 'downloader_send_port');
+    _port.listen((dynamic data) {
+      String id = data[0];
+      DownloadTaskStatus status = data[1];
+      int progress = data[2];
+      setState(() {});
+    });
+
+    FlutterDownloader.registerCallback(downloadCallback);
+  }
+
+  @override
+  void dispose() {
+    IsolateNameServer.removePortNameMapping('downloader_send_port');
+    super.dispose();
+  }
+
+  @pragma('vm:entry-point')
+  static void downloadCallback(
+      String id, DownloadTaskStatus status, int progress) {
+    final SendPort? send =
+        IsolateNameServer.lookupPortByName('downloader_send_port');
+    send!.send([id, status, progress]);
   }
 
   Locale? _locale;
@@ -314,24 +345,8 @@ class _MyAppState extends State<MyApp> {
           }
           return supportedLocales.first;
         },
-        home: DoubleBack(
-          onFirstBackPress: (context) {
-            var snackBar = SnackBar(
-              elevation: 0,
-              padding: EdgeInsets.all(30),
-              behavior: SnackBarBehavior.floating,
-              backgroundColor: Colors.transparent,
-              content: AwesomeSnackbarContent(
-                title: 'در حال خروج',
-                message: 'برای خارج شدن دوبار کلیک کنید',
-                contentType: ContentType.help,
-              ),
-            );
+        home: Splash(),
 
-            ScaffoldMessenger.of(context).showSnackBar(snackBar);
-          },
-          child: Splash(),
-        ),
         navigatorKey: navigatorKey,
         // initialRoute:Splash() ,
       );

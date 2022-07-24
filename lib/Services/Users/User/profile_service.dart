@@ -1,10 +1,13 @@
 import 'dart:convert';
+import 'package:Nahvino/Data/Local/view_profial_data.dart';
 import 'package:Nahvino/Pages/Account/Login/registration.dart';
 import 'package:Nahvino/config/main_config.dart';
 import 'package:Nahvino/config/user/profile_config.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ServiceProfile {
@@ -126,6 +129,8 @@ class ServiceProfile {
   }
 
   static Future GetLastVisit() async {
+    ViewProfileController databox = Get.put(ViewProfileController());
+
     SharedPreferences preferences = await SharedPreferences.getInstance();
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
@@ -138,15 +143,24 @@ class ServiceProfile {
       body: jsonEncode({"userId": await preferences.getString("userId")}),
     );
     debugPrint(response.body.toString());
-    /* if (response.statusCode == 200) {
-      return json.decode(response.body);
-    } else {
-      return false;
-    }*/
+
     if (response.statusCode == 200) {
       return json.decode(response.body);
     } else if (response.statusCode == 401) {
       await preferences.clear();
+      await DefaultCacheManager().emptyCache();
+      databox.clerdata();
+      final cacheDir = await getTemporaryDirectory();
+
+      if (cacheDir.existsSync()) {
+        cacheDir.deleteSync(recursive: true);
+      }
+      final appDir = await getApplicationDocumentsDirectory();
+
+      if (appDir.existsSync()) {
+        appDir.deleteSync(recursive: true);
+      }
+
       Future.delayed(const Duration(milliseconds: 1000), () {
         Get.offAll(Registration());
       });

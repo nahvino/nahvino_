@@ -4,14 +4,16 @@ import 'package:Nahvino/Utils/Button/Button.dart';
 import 'package:Nahvino/tabs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class VersionData extends GetxController {
   late ServiceVersion serversion;
-  int lastVersion = 20;
+  int lastVersion = 19;
   int? versionResponse;
   SharedPreferences? preferences;
 
@@ -83,7 +85,18 @@ class VersionData extends GetxController {
                     width: 120,
                     child: Buttontest(
                       text: "دانلود",
-                      onPressed: _launchUrl,
+                      onPressed: () async {
+                        final baseStorage = await getExternalStorageDirectory();
+                        final taskId = await FlutterDownloader.enqueue(
+                          url:
+                              'https://dl.nahvino.com/app/v1/Nahvino.1.2.1.apk',
+                          savedDir: baseStorage!.path,
+                          showNotification:
+                              true, // show download progress in status bar (for Android)
+                          openFileFromNotification:
+                              true, // click on notification to open downloaded file (for Android)
+                        );
+                      },
                     ),
                   ),
                   SizedBox(width: 10),
@@ -101,11 +114,5 @@ class VersionData extends GetxController {
             ],
           ));
     }
-  }
-
-  final Uri _url = Uri.parse('https://dl.nahvino.com/app/v1/Nahvino.1.2.1.apk');
-
-  void _launchUrl() async {
-    if (!await launchUrl(_url)) throw 'Could not launch $_url';
   }
 }

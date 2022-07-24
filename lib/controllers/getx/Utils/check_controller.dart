@@ -71,8 +71,8 @@ class CheckController extends GetxController {
     //check if the connection
     if (result == true) {
       // check token
-      // checkversion.versionrequest();
-      checkversion.checklogin();
+      checkversion.versionrequest();
+      // checkversion.checklogin();
     } else {
       Get.defaultDialog(
           barrierDismissible: false,

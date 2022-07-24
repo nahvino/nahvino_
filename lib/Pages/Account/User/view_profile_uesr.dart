@@ -1,4 +1,4 @@
-import 'package:Nahvino/Pages/Caht/chat_page.dart';
+import 'package:Nahvino/Pages/Chat/chat_page.dart';
 import 'package:Nahvino/Services/Users/visituser/visit_user_service.dart';
 import 'package:Nahvino/Utils/OtherUtils/imagedialoguser.dart';
 import 'package:Nahvino/config/main_config.dart';

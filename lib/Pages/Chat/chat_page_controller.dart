@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,11 +21,13 @@ class ChatPageController extends GetxController {
   RxBool isInSearchMode = false.obs;
   RxBool isApiCallProgress = true.obs;
   RxString searchText = "".obs;
+  RxString disconnected = "".obs;
   @override
   void onInit() {
     super.onInit();
     _getMyData();
-    //openSignalRConnection();
+   // dicreconnection();
+    // openSignalRConnection();
   }
 
   @override
@@ -45,6 +49,7 @@ class ChatPageController extends GetxController {
           logging: (level, message) => print(message),
         ),
       )
+      .withAutomaticReconnect()
       .build();
   Future<void> openSignalRConnection() async {
     await connection.start();
@@ -188,5 +193,21 @@ class ChatPageController extends GetxController {
         element.userNameAlias == chat.parentMessageUserNameAlias);
 
     if (index != -1) {}
+  }
+
+  dicreconnection() {
+    Timer timer = Timer.periodic(Duration(seconds: 10), (timer) async {
+      if (connection.state == HubConnectionState.connected) {
+        print("I am Alive!");
+        disconnected = "".obs;
+         openSignalRConnection();
+        // openSignalRConnectionawait connection.stop();
+      } else {
+        print("I am dc!");
+        disconnected = "اتصال قطع است".obs;
+        await connection.start();
+        //openSignalRConnection();
+      }
+    });
   }
 }

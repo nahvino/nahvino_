@@ -32,12 +32,8 @@ class LoginController extends GetxController {
   }
 
   login() async {
-    isApiCallProcess.value = true;
-
     serlogin?.Login(usernameController.text, passwordController.text)
         .then((response) async {
-      isApiCallProcess.value = false;
-
       if (response != false) {
         logindata = await SharedPreferences.getInstance();
         await logindata.setString(
@@ -52,6 +48,8 @@ class LoginController extends GetxController {
         //  await Future.delayed(Duration(seconds: 2));
         databox.check();
       } else {
+        isApiCallProcess.value = false;
+
         // serlogin!.showSnackBar(text: response['message']);
       }
     });

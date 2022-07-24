@@ -187,8 +187,10 @@ class NewLogin extends StatelessWidget {
                                 if (!_formKey.currentState!.validate()) {
                                 } else {
                                   loginController.login();
+                                  //loginController.isApiCallProcess.value = true;
                                 }
                                 loginController.cleartext();
+                                // loginController.isApiCallProcess.value = false;
                               }),
                         ],
                       ),

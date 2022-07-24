@@ -909,8 +909,9 @@ class _ViewProfileState extends State<ViewProfile> {
   void onSelected(BuildContext context, int item) {
     switch (item) {
       case 0:
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => UserSecuritySttingMenus()));
+        /*  Navigator.push(context,
+            MaterialPageRoute(builder: (context) => UserSecuritySttingMenus()));*/
+        Get.to(UserSecuritySttingMenus());
         break;
       case 1:
         Navigator.push(
