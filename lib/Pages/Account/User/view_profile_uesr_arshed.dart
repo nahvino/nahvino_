@@ -449,6 +449,7 @@ class _ViewProfileUesrArshedState extends State<ViewProfileUesrArshed> {
                     Padding(
                       padding: EdgeInsets.only(
                         right: MediaQuery.of(context).size.height * 0.03,
+                        left: MediaQuery.of(context).size.height * 0.03,
                         bottom: MediaQuery.of(context).size.height * 0.02,
                         top: MediaQuery.of(context).size.height * 0.01,
                       ),

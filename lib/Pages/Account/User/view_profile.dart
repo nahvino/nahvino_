@@ -14,6 +14,7 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../App_localizations.dart';
+import '../../../Data/Local/version_data.dart';
 import '../../../Model/user/user/viewprofile_response_model.dart';
 import '../../../Utils/Button/Button.dart';
 import '../../../Utils/Text/Text.dart';
@@ -34,6 +35,8 @@ class _ViewProfileState extends State<ViewProfile> {
   bool isApiCallProgress = true;
   AboutGroupController noti = Get.put(AboutGroupController());
   ViewProfileController databox = Get.put(ViewProfileController());
+  VersionData version = Get.put(VersionData());
+
   //CheckController checkcontroller = Get.find<CheckController>();
   GetProfileUserResponseModel? resultResponse;
   late Map<String, dynamic> resultResponsee;
@@ -651,6 +654,7 @@ class _ViewProfileState extends State<ViewProfile> {
                       Padding(
                           padding: EdgeInsets.only(
                             right: MediaQuery.of(context).size.height * 0.03,
+                            left: MediaQuery.of(context).size.height * 0.03,
                             bottom: MediaQuery.of(context).size.height * 0.02,
                             top: MediaQuery.of(context).size.height * 0.01,
                           ),
@@ -822,81 +826,8 @@ class _ViewProfileState extends State<ViewProfile> {
                               progressColor: Colors.cyanAccent,
                             ),
                           ),
-
-                          /*Body(
-                      textAlign: TextAlign.center,
-                      color: Colors.cyan,
-                      text: resultResponseGetUserAbandon['data'].toString().split(" ")[1]  ,
-                    ),
-                    Body(
-                      textAlign: TextAlign.center,
-                      color: Colors.cyan,
-                      text: resultResponseGetUserAbandon['data'].toString().split(" ")[2]  ,
-                    ),*/
                         ],
                       ),
-
-                      /* Body(
-                      textAlign: TextAlign.center,
-                      color: Colors.black87,
-                      text: "هدف بعدی شما پر کردن سه ماه است",
-                    ),*/
-                      /*  Buttonfull(text: 'تستی', color: Colors.white, onPressed: () {  Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                ViewProfileUesr())); },),*/
-                      /*   Buttonfull(
-                      text: AppLocalizations.of(context)!
-                          .translate('Date_of_departure')!,
-                      onPressed: () async {
-                        Jalali? picked = await showPersianDatePicker(
-                          context: context,
-                          initialDate: Jalali.now(),
-                          firstDate: Jalali(1320, 1),
-                          lastDate: Jalali(1450, 1),
-
-                        );
-                        print(picked!.formatCompactDate());
-                        /*var time = await showPersianTimePicker(
-                          context: context,
-                          initialTime: TimeOfDay.now(),
-                        );*/
-                        final berlinWallFell = picked.formatCompactDate();
-                        //berlinWallFell.toUtc();
-                        //print(berlinWallFell.toString());
-                        //print(time.toString());
-                        //String formattedDate = time.toString()+berlinWallFell.toString();
-
-                        // final output = time.replaceAll(RegExp('[^0-9]'));
-                        // setState(() {
-                        //   time = output as TimeOfDay?;
-                        // });
-                        // print(output.toString());
-
-                        // String formattedDate =intl.DateFormat.yMMMd().format(time) as TimeOfDay; +berlinWallFell;
-                        //print(formattedDate);    // apiService.AddOrEditUserAbandon()
-                        apiService.AddOrEditUserAbandon(berlinWallFell)
-                            .then((response) async {
-                          setState(() {
-                            isApiCallProgress = false;
-                          });
-                          if (response != false) {
-                            apiService.showSnackBar(
-                                text: response['message']);
-                            setState(() {
-                              isApiCallProgress = false;
-                              Get.offAll(MyTabs());
-                            });
-                          } else {
-                            apiService.showSnackBar(
-                                text: response['message']);
-                          }
-                        });
-
-                      },
-                      color: Colors.white,
-                    ),*/
                     ],
                   ),
                 ),
@@ -954,8 +885,12 @@ class _ViewProfileState extends State<ViewProfile> {
                   onPressed: () async {
                     final preferences = await SharedPreferences.getInstance();
                     await preferences.clear();
+                    ServiceNotification.deletetokennotificationapi()
+                        .then((response) {
+                      print(
+                          "deletetokenapi---------------------------- => $response");
+                    });
                     await DefaultCacheManager().emptyCache();
-                    databox.clerdata();
                     databox.clerdata();
                     _deleteCacheDir();
                     _deleteAppDir();

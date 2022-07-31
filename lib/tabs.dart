@@ -1,11 +1,18 @@
+import 'dart:math';
+
 import 'package:Nahvino/Pages/Chat/chat_page.dart';
 import 'package:Nahvino/Pages/Chat/chat_page_controller.dart';
-import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import 'package:Nahvino/Pages/Home.dart';
+import 'package:Nahvino/Utils/Button/Button.dart';
+import 'package:Nahvino/Utils/Text/Text.dart';
+import 'package:Nahvino/Utils/Widget/double_back_content.dart';
 import 'package:double_back_to_close/double_back_to_close.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:Nahvino/App_localizations.dart';
+import 'package:once/once.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'Pages/Account/User/view_profile.dart';
 import 'App_localizations.dart';
@@ -20,12 +27,72 @@ class MyTabs extends StatefulWidget {
 class _MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
   late PersistentTabController _controller;
   ChatPageController chatPageController = Get.put(ChatPageController());
+  String currentValue = 'Hello World';
 
   @override
   void initState() {
     super.initState();
     chatPageController.openSignalRConnection();
     _controller = PersistentTabController(initialIndex: widget.tabIndex ?? 0);
+    Once.runOnce(
+      'my-app-widget',
+      callback: () => set('Once Started'),
+    );
+    Once.runOnEveryNewVersion(
+      callback: () {
+        /* What's new in 2.3.2 version? dialog */
+        Get.defaultDialog(
+          title: "قابلیت های جدید نحوینو",
+          titleStyle: TextStyle(
+              color: Colors.black, fontSize: 16, fontFamily: 'Vazirmatn_Light'),
+          content: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Caption1(
+                text: "- با کشیدن پیام به سمت چپ ریپلای زده میشه ",
+              ),
+              Caption1(
+                text: "- با کشیدن پیام به سمت راست ، متن پیام کپی میشه",
+              ),
+              Caption1(
+                text: "- بالا رفتن سرعت ارسال پیام ",
+              ),
+              Caption1(
+                text:
+                    "- اضافه شدن قابلیت ریپورت پیام ها جهت حفظ حرمت در گروه ها",
+              ),
+              Caption1(
+                text: "- اضافه شدن قابلیت اپدیت",
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Buttonfull(
+                text: "بزن بریم",
+                color: Colors.white,
+                onPressed: (() {
+                  Navigator.of(context, rootNavigator: true).pop();
+                }),
+              )
+            ],
+          ),
+        );
+      },
+      fallback: () {
+        /* Navigate to new screen */
+        //SystemNavigator.pop();
+      },
+    );
+    super.initState();
+  }
+
+  void set(String newOnce) {
+    setState(
+      () {
+        currentValue = newOnce + ' ${Random().nextInt(100)}';
+      },
+    );
   }
 
   @override
@@ -33,16 +100,11 @@ class _MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
     return DoubleBack(
       onFirstBackPress: (context) {
         var snackBar = SnackBar(
-          elevation: 0,
-          padding: EdgeInsets.all(30),
-          behavior: SnackBarBehavior.floating,
-          backgroundColor: Colors.transparent,
-          content: AwesomeSnackbarContent(
-            title: 'در حال خروج',
-            message: 'برای خارج شدن دوبار کلیک کنید',
-            contentType: ContentType.help,
-          ),
-        );
+            elevation: 0,
+            padding: EdgeInsets.all(10),
+            behavior: SnackBarBehavior.floating,
+            backgroundColor: Colors.transparent,
+            content: DoubleBackContent());
 
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
       },
@@ -133,7 +195,7 @@ class _MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
 
   List<Widget> _buildScreens() {
     return [
-      //HomeScren(),
+      //  HomeScren(),
       // SettingScreen(),
       ViewProfile(),
       Chatpage(),

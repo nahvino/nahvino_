@@ -2,6 +2,7 @@ import 'package:Nahvino/Pages/Account/User/view_profile_uesr.dart';
 import 'package:Nahvino/Services/Login/Google/notification_service.dart';
 import 'package:Nahvino/config/main_config.dart';
 import 'package:Nahvino/controllers/getx/chat/about_group_controller.dart';
+import 'package:Nahvino/tabs.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -116,10 +117,15 @@ class _AboutGroupState extends State<AboutGroup> {
                         textDirection: TextDirection.ltr,
                         child: BackButton(
                           onPressed: (() {
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Chatpage()));
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) => MyTabs(
+                            //               tabIndex: 1,
+                            //             )));
+                            Get.offAll(MyTabs(
+                              tabIndex: 1,
+                            ));
                           }),
                         ),
                       ),
@@ -577,34 +583,40 @@ class _AboutGroupState extends State<AboutGroup> {
                         color: Colors.black,
                       ),
                       SizedBox(height: 12),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Subhead(
-                            textAlign: TextAlign.end,
-                            color: Colors.purpleAccent,
-                            text: AppLocalizations.of(context)!.translate(
-                              'GroupRules',
-                            )!,
-                          ),
-                          SizedBox(width: 3),
-                          Caption1(
-                            textAlign: TextAlign.end,
-                            color: Colors.black,
-                            text: AppLocalizations.of(context)!.translate(
-                              'GroupRulesText',
-                            )!,
-                          ),
-                        ],
-                      ),
                     ],
                   ),
                 ),
               ),
-              Column(
-                children: [],
-              ),
+              Card(
+                  child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Subhead(
+                      textAlign: TextAlign.end,
+                      color: Colors.purpleAccent,
+                      text: AppLocalizations.of(context)!.translate(
+                        'GroupRules',
+                      )!,
+                    ),
+                    SizedBox(width: 3),
+                    Caption1(
+                      textAlign: TextAlign.end,
+                      color: Colors.black,
+                      text: AppLocalizations.of(context)!.translate(
+                        'GroupRulesText',
+                      )!,
+                    ),
+                    Divider(
+                      height: 0,
+                      thickness: 0,
+                      color: Colors.transparent,
+                    ),
+                  ],
+                ),
+              )),
             ],
           ),
         ],

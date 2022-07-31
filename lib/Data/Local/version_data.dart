@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:Nahvino/Pages/Account/Login/registration.dart';
 import 'package:Nahvino/Services/version/version_service.dart';
 import 'package:Nahvino/Utils/Button/Button.dart';
@@ -8,13 +10,14 @@ import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:url_launcher/url_launcher.dart';
+
 
 class VersionData extends GetxController {
   late ServiceVersion serversion;
-  int lastVersion = 19;
-  int? versionResponse;
+  double lastVersion = 1.4;
+  double? versionResponse;
   SharedPreferences? preferences;
 
   @override
@@ -86,10 +89,15 @@ class VersionData extends GetxController {
                     child: Buttontest(
                       text: "دانلود",
                       onPressed: () async {
+                        _deleteAppDir();
+                        var status = await Permission.storage.status;
+                        if (status.isDenied) {
+                          // We didn't ask for permission yet or the permission has been denied before but not permanently.
+                          await Permission.storage.request();
+                        }
                         final baseStorage = await getExternalStorageDirectory();
                         final taskId = await FlutterDownloader.enqueue(
-                          url:
-                              'https://dl.nahvino.com/app/v1/Nahvino.1.2.1.apk',
+                          url: 'https://dl.nahvino.com/app/Nahvino.apk',
                           savedDir: baseStorage!.path,
                           showNotification:
                               true, // show download progress in status bar (for Android)
@@ -113,6 +121,14 @@ class VersionData extends GetxController {
               ),
             ],
           ));
+    }
+  }
+
+  Future<void> _deleteAppDir() async {
+    final appDir = await getExternalStorageDirectory();
+
+    if (appDir!.existsSync()) {
+      appDir.deleteSync(recursive: true);
     }
   }
 }

@@ -58,10 +58,10 @@ class ServiceLogin {
       body: jsonEncode(
           {"userName": userNameController, "password": passwordController}),
     );
+    debugPrint(response.body.toString());
     if (validateResponse(response)) {
       return json.decode(response.body);
     }
     return false;
   }
-  
 }

@@ -1,3 +1,5 @@
+import 'package:Nahvino/Data/Local/version_data.dart';
+import 'package:Nahvino/Services/Login/Google/notification_service.dart';
 import 'package:Nahvino/Services/Users/User/security_menu_service.dart';
 import 'package:Nahvino/Services/Users/User/profile_service.dart';
 import 'package:Nahvino/main.dart';
@@ -31,6 +33,7 @@ class UserSecuritySttingMenus extends StatefulWidget {
 
 class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
   ViewProfileController databox = Get.put(ViewProfileController());
+  VersionData version = Get.put(VersionData());
 
   bool isApiCallProgress = true;
   GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
@@ -385,6 +388,11 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
                   onPressed: () async {
                     final preferences = await SharedPreferences.getInstance();
                     await preferences.clear();
+                    ServiceNotification.deletetokennotificationapi()
+                        .then((response) {
+                      print(
+                          "deletetokenapi---------------------------- => $response");
+                    });
                     databox.clerdata();
                     await DefaultCacheManager().emptyCache();
                     databox.clerdata();

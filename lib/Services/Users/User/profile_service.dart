@@ -121,11 +121,17 @@ class ServiceProfile {
       body: jsonEncode({"userId": await preferences.getString("userId")}),
     );
     debugPrint(response.body.toString());
+
     if (response.statusCode == 200) {
       return json.decode(response.body);
     } else {
       return false;
     }
+    // if (response.statusCode == 200) {
+    //   return json.decode(response.body);
+    // } else {
+    //   return false;
+    // }
   }
 
   static Future GetLastVisit() async {

@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:Nahvino/Data/Local/version_data.dart';
+import 'package:Nahvino/Data/Local/view_profial_data.dart';
 import 'package:Nahvino/Pages/Account/User/notifications.dart';
 import 'package:Nahvino/config/main_config.dart';
 import 'package:Nahvino/controllers/getx/user/profile_controller.dart';
@@ -28,6 +30,7 @@ class EditProfileScreen extends StatefulWidget {
 class _EditProfileScreenState extends State<EditProfileScreen> {
   EditProfileController editcontroller = Get.put(EditProfileController());
   ProfileController abandon = Get.put(ProfileController());
+  VersionData version = Get.put(VersionData());
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool isApiCallProcess = false;
@@ -264,19 +267,20 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           onPressed: () async {
                             if (!_formKey.currentState!.validate()) {
                             } else {
+                              version.versionrequest();
                               editcontroller.upimg();
                               editcontroller.date();
                               editcontroller.profilerequest();
                               setState(() {
                                 isApiCallProcess = true;
                               });
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => MyTabs()),
-                              );
-                              // Get.offAll(MyTabs());
-                              //Navigator.pop(context);
+                              // Navigator.pushReplacement(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //       builder: (context) => MyTabs()),
+                              // );
+                              //Get.offAll(MyTabs());
+                              // Navigator.pop(context);
                               //editcontroller.isApiCallProcess.value = false;
 
                             }

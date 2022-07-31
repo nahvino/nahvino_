@@ -61,6 +61,30 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
     Lottie.asset('assets/anim/phonix/level6.json', fit: BoxFit.cover),
     Lottie.asset('assets/anim/phonix/level7.json', fit: BoxFit.cover),
     Lottie.asset('assets/anim/phonix/level8.json', fit: BoxFit.cover),
+    Lottie.asset('assets/anim/phonix/level8.json', fit: BoxFit.cover),
+    Lottie.asset('assets/anim/phonix/level8.json', fit: BoxFit.cover),
+    Lottie.asset('assets/anim/phonix/level8.json', fit: BoxFit.cover),
+    Lottie.asset('assets/anim/phonix/level8.json', fit: BoxFit.cover),
+    Lottie.asset('assets/anim/phonix/level8.json', fit: BoxFit.cover),
+    Lottie.asset('assets/anim/phonix/level8.json', fit: BoxFit.cover),
+    Lottie.asset('assets/anim/phonix/level8.json', fit: BoxFit.cover),
+    Lottie.asset('assets/anim/phonix/level8.json', fit: BoxFit.cover),
+    Lottie.asset('assets/anim/phonix/level8.json', fit: BoxFit.cover),
+    Lottie.asset('assets/anim/phonix/level8.json', fit: BoxFit.cover),
+    Lottie.asset('assets/anim/phonix/level8.json', fit: BoxFit.cover),
+    Lottie.asset('assets/anim/phonix/level8.json', fit: BoxFit.cover),
+    Lottie.asset('assets/anim/phonix/level8.json', fit: BoxFit.cover),
+    Lottie.asset('assets/anim/phonix/level8.json', fit: BoxFit.cover),
+    Lottie.asset('assets/anim/phonix/level8.json', fit: BoxFit.cover),
+    Lottie.asset('assets/anim/phonix/level8.json', fit: BoxFit.cover),
+    Lottie.asset('assets/anim/phonix/level8.json', fit: BoxFit.cover),
+    Lottie.asset('assets/anim/phonix/level8.json', fit: BoxFit.cover),
+    Lottie.asset('assets/anim/phonix/level8.json', fit: BoxFit.cover),
+    Lottie.asset('assets/anim/phonix/level8.json', fit: BoxFit.cover),
+    Lottie.asset('assets/anim/phonix/level8.json', fit: BoxFit.cover),
+    Lottie.asset('assets/anim/phonix/level8.json', fit: BoxFit.cover),
+    Lottie.asset('assets/anim/phonix/level8.json', fit: BoxFit.cover),
+
   ];
 
   @override
@@ -126,7 +150,7 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                             children: [
                               textbold(
                                 textAlign: TextAlign.right,
-                                text: resultResponseViewProfileUesr['userName'],
+                                text: resultResponseViewProfileUesr['userName'] ?? "",
                                 color: Colors.black,
                               ),
                               Directionality(
@@ -462,6 +486,7 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                     Padding(
                       padding: EdgeInsets.only(
                         right: MediaQuery.of(context).size.height * 0.03,
+                        left: MediaQuery.of(context).size.height * 0.03,
                         bottom: MediaQuery.of(context).size.height * 0.02,
                         top: MediaQuery.of(context).size.height * 0.01,
                       ),

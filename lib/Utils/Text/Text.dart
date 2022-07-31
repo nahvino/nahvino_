@@ -175,7 +175,6 @@ class Footnate extends StatelessWidget {
   final Color? color;
   final TextAlign? textAlign;
   String? text;
-
   @override
   Widget build(BuildContext context) {
     return Text(

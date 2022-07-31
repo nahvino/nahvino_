@@ -26,7 +26,7 @@ class ChatPageController extends GetxController {
   void onInit() {
     super.onInit();
     _getMyData();
-   // dicreconnection();
+    dicreconnection();
     // openSignalRConnection();
   }
 
@@ -44,7 +44,7 @@ class ChatPageController extends GetxController {
   //conntian
   final connection = HubConnectionBuilder()
       .withUrl(
-        ChatConfig.testurl,
+        ChatConfig.mainurl,
         HttpConnectionOptions(
           logging: (level, message) => print(message),
         ),
@@ -163,7 +163,6 @@ class ChatPageController extends GetxController {
     );
     // chats.remove(chat.id);
     //chats.clear();
-
     update();
   }
 
@@ -196,17 +195,18 @@ class ChatPageController extends GetxController {
   }
 
   dicreconnection() {
-    Timer timer = Timer.periodic(Duration(seconds: 10), (timer) async {
+    Timer timer = Timer.periodic(Duration(seconds: 5), (timer) async {
       if (connection.state == HubConnectionState.connected) {
         print("I am Alive!");
+        // openSignalRConnection();
+
         disconnected = "".obs;
-         openSignalRConnection();
-        // openSignalRConnectionawait connection.stop();
+        //await connection.stop();
       } else {
         print("I am dc!");
         disconnected = "اتصال قطع است".obs;
-        await connection.start();
-        //openSignalRConnection();
+        //await connection.start();
+        openSignalRConnection();
       }
     });
   }

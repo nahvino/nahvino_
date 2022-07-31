@@ -26,36 +26,6 @@ class RulesDialog extends StatelessWidget {
         ),
         child: SingleChildScrollView(
           child: Column(children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: Text("قوانین نحوینو"),
-            ),
-            Container(
-              child: Accordion(
-                maxOpenSections: 1,
-                leftIcon: Icon(Icons.book, color: Colors.white),
-                children: [
-                  AccordionSection(
-                    isOpen: true,
-                    header: Text('مالکیت'),
-                    content: Text(
-                        'مالکیت شبکه جتماعی نحوینو انحصارا در اختیار شرکت آله می باشد .توهین به اشخاص حقیقی و حقوقی باعث حذف حساب کاربری می شود.'),
-                  ),
-                  AccordionSection(
-                    isOpen: true,
-                    header: Text('مالکیت'),
-                    content: Text(
-                        'مالکیت شبکه جتماعی نحوینو انحصارا در اختیار شرکت آله می باشد .توهین به اشخاص حقیقی و حقوقی باعث حذف حساب کاربری می شود.'),
-                  ),
-                  AccordionSection(
-                    isOpen: true,
-                    header: Text('مالکیت'),
-                    content: Text(
-                        'مالکیت شبکه جتماعی نحوینو انحصارا در اختیار شرکت آله می باشد .توهین به اشخاص حقیقی و حقوقی باعث حذف حساب کاربری می شود.'),
-                  ),
-                ],
-              ),
-            ),
             Text("سنت های نحوینو"),
             Padding(
               padding: const EdgeInsets.all(15),
@@ -79,14 +49,13 @@ class RulesDialog extends StatelessWidget {
             //   child: Text("مطالعه کردم"),
             // )
             Buttonfull(
-              text: AppLocalizations.of(context)!
-                  .translate('Date_of_departure')!,
-              onPressed: (){
+              text:
+                  AppLocalizations.of(context)!.translate('Date_of_departure')!,
+              onPressed: () {
                 Navigator.of(context, rootNavigator: true).pop();
-
-              }, color: Colors.white,
+              },
+              color: Colors.white,
             ),
-
           ]),
         ),
       );

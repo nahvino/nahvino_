@@ -101,8 +101,8 @@ class _ChatpageState extends State<Chatpage> {
                                 Row(
                                   children: [
                                     Subhead(
-                                      text:
-                                          chatPageController.model!.name ?? "",
+                                      text: chatPageController.model!.name ??
+                                          "گروه ترک اعتیاد",
                                       color: Colors.white,
                                       textAlign: TextAlign.start,
                                     ),
@@ -985,9 +985,14 @@ class _ChatpageState extends State<Chatpage> {
               Caption1(
                 text: chatPageController.MyRepledMessage!.userNameAlias!,
               ),
-              Footnate(
-                text: chatPageController.MyRepledMessage!.text!,
-              ),
+              Text(
+                chatPageController.MyRepledMessage!.text!,
+                maxLines: 2,
+                style: TextStyle(
+                    color: Colors.black54,
+                    fontSize: 13,
+                    fontFamily: 'Vazirmatn_Regular'),
+              )
             ],
           ),
         ),

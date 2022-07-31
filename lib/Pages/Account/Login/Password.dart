@@ -125,14 +125,13 @@ class _NewPasswordState extends State<NewPassword> {
                               setState(() {
                                 isApiCallProcess = true;
                               });
-                              resetservice.resetpassword(
-                                      widget.data.toString(),
+                              resetservice
+                                  .resetpassword(widget.data.toString(),
                                       passwordController.text)
                                   .then((response) async {
                                 if (response != false) {
                                   resetservice.showSnackBar(
-                                      text: response['message'] ??
-                                          "جواب سوال درست بود");
+                                      text: response['message']);
                                   Navigator.pushAndRemoveUntil(
                                     context,
                                     MaterialPageRoute(
