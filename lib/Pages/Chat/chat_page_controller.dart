@@ -27,7 +27,7 @@ class ChatPageController extends GetxController {
     super.onInit();
     _getMyData();
     dicreconnection();
-    // openSignalRConnection();
+    //openSignalRConnection();
   }
 
   @override
@@ -54,11 +54,15 @@ class ChatPageController extends GetxController {
   Future<void> openSignalRConnection() async {
     await connection.start();
     connection.on('ReceiveMessage', (message) {
+      print("===========>ReceiveMessage<==============");
       print(message.toString());
       var res = message![0];
       ReceiveMessageModel? chatmodel;
       chatmodel = ReceiveMessageModel.fromJson(res);
-      chats.add(chatmodel);
+      if (chats.where((element) => element.id == chatmodel!.id).length <= 0) {
+        chats.add(chatmodel);
+      }
+      //chats.add(chatmodel);
       update();
     });
     connection.on('GetInfoGroup', (GroupDto) {
@@ -72,7 +76,9 @@ class ChatPageController extends GetxController {
       chats.removeWhere((chat) => messageIds!.contains(chat.id));
       update();
     });
+
     connection.on('GetAllMessage', (messages) {
+      print("===========>GetAllMessage<==============");
       print(messages.toString());
       for (var item in messages![0]) {
         ReceiveMessageModel? chatmodel;
@@ -81,7 +87,6 @@ class ChatPageController extends GetxController {
           chats.add(chatmodel);
         }
       }
-      //chats = chats.reversed.toList();
       chats.sort((a, b) => a.id.compareTo(b.id));
       loadMoreLoading.value = false;
       //Future.delayed(Duration(seconds: 3), () => isApiCallProgress.value = false);
@@ -131,7 +136,7 @@ class ChatPageController extends GetxController {
     }
     String chatext;
     String text = chatEditController.text;
-    chatext = text.replaceAll(RegExp(r'[\n]'), '');
+    chatext = text.replaceAll(RegExp(r'[\n][\n]'), '\n');
     print("/******/$chatext");
     chatEditController.clear();
     var replay = MyRepledMessage == null ? null : MyRepledMessage!.id;
@@ -195,19 +200,22 @@ class ChatPageController extends GetxController {
   }
 
   dicreconnection() {
-    Timer timer = Timer.periodic(Duration(seconds: 5), (timer) async {
+    Timer.periodic(Duration(seconds: 5), (timer) async {
       if (connection.state == HubConnectionState.connected) {
         print("I am Alive!");
-        // openSignalRConnection();
-
+        //openSignalRConnection();
         disconnected = "".obs;
         //await connection.stop();
+        update();
       } else {
+        openSignalRConnection();
+
         print("I am dc!");
         disconnected = "اتصال قطع است".obs;
         //await connection.start();
-        openSignalRConnection();
+        update();
       }
     });
+    update();
   }
 }

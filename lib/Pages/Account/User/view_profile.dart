@@ -36,18 +36,19 @@ class _ViewProfileState extends State<ViewProfile> {
   AboutGroupController noti = Get.put(AboutGroupController());
   ViewProfileController databox = Get.put(ViewProfileController());
   VersionData version = Get.put(VersionData());
-
   //CheckController checkcontroller = Get.find<CheckController>();
   GetProfileUserResponseModel? resultResponse;
-  late Map<String, dynamic> resultResponsee;
-  // late int resultResponsee;
+  //late Map<String, dynamic> ghoghnosResponsee;
+  var ghoghnosResponsee;
   var resultResponseGetUserAbandon;
   late ServiceProfile testtarkh;
   String? imagePath;
   late int day;
   late int month;
   late int year;
-  // GetStorage box = GetStorage();
+  String date = "0";
+  String mont = "0";
+  String yaer = "0";
   List<String> ranks = <String>[
     "مبتدی",
     "رهجو",
@@ -70,7 +71,7 @@ class _ViewProfileState extends State<ViewProfile> {
     "8",
     "9"
   ];
-  List<Widget> ranksadadA = <Widget>[
+  List<Widget> ghoghnos = <Widget>[
     Lottie.asset('assets/anim/phonix/level1.json'),
     Lottie.asset('assets/anim/phonix/level2.json'),
     Lottie.asset('assets/anim/phonix/level3.json'),
@@ -79,8 +80,15 @@ class _ViewProfileState extends State<ViewProfile> {
     Lottie.asset('assets/anim/phonix/level6.json'),
     Lottie.asset('assets/anim/phonix/level7.json'),
     Lottie.asset('assets/anim/phonix/level8.json'),
-    Lottie.asset('assets/anim/phonix/level8.json'),
   ];
+
+  ghgoghnos() {
+    if (ghoghnosResponsee['data'] > 7) {
+      Lottie.asset('assets/anim/phonix/level8.json');
+    } else {
+      ghoghnos[ghoghnosResponsee['data']];
+    }
+  }
 
   Day() {
     double dotabdel = day.toDouble();
@@ -147,7 +155,7 @@ class _ViewProfileState extends State<ViewProfile> {
     Future.microtask(() {
       databox.checkdata();
       ServiceProfile.GetLastVisit().then((response) {
-        resultResponsee = response;
+        ghoghnosResponsee = response;
         print(" -------------<GetLastVisit>-------------- => $response");
         ServiceProfile.getabandon().then((response) async {
           print("------<getuserabandon>------- => $response");
@@ -191,9 +199,11 @@ class _ViewProfileState extends State<ViewProfile> {
   }
 
   Widget body(BuildContext context) {
-    String date = resultResponseGetUserAbandon['data'].split(" ")[2] ?? "0";
-    String mont = resultResponseGetUserAbandon['data'].split(" ")[1] ?? "0";
-    String yaer = resultResponseGetUserAbandon['data'].split(" ")[0] ?? "0";
+    if (resultResponseGetUserAbandon != false) {
+      date = resultResponseGetUserAbandon['data'].split(" ")[2];
+      mont = resultResponseGetUserAbandon['data'].split(" ")[1];
+      yaer = resultResponseGetUserAbandon['data'].split(" ")[0];
+    }
     day = int.parse(date);
     month = int.parse(mont);
     year = int.parse(yaer);
@@ -223,8 +233,7 @@ class _ViewProfileState extends State<ViewProfile> {
                                         0.02),
                                 child: textbold(
                                   textAlign: TextAlign.right,
-                                  text: databox.username
-                                      .value /*resultResponse?.userName ?? "مهمان"*/,
+                                  text: databox.username.value,
                                   color: Colors.black,
                                 ),
                               ),
@@ -321,10 +330,7 @@ class _ViewProfileState extends State<ViewProfile> {
                                           textspan(
                                             textAlign: TextAlign.center,
                                             text: databox.identifierCode.value
-                                                .toString()
-                                            /*resultResponse!.identifierCode
-                                            .toString()*/
-                                            ,
+                                                .toString(),
                                             color: Colors.black,
                                           ),
                                           const SizedBox(
@@ -430,8 +436,7 @@ class _ViewProfileState extends State<ViewProfile> {
                                       textAlign: TextAlign.start,
                                     )
                                   : textbold(
-                                      text: databox.namealias
-                                          .value /*resultResponse!.nameAlias ?? ""*/,
+                                      text: databox.namealias.value,
                                       color: Colors.teal,
                                       textAlign: TextAlign.start,
                                     ),
@@ -463,8 +468,7 @@ class _ViewProfileState extends State<ViewProfile> {
                                           border: Border.all(
                                               color: Colors.black26, width: 1)),
                                       child: textspan(
-                                        text: ranksadad[databox.rank
-                                            .value] /*ranksadad[resultResponse!.rank ?? 0]*/,
+                                        text: ranksadad[databox.rank.value],
                                         color: Colors.purpleAccent,
                                         textAlign: TextAlign.left,
                                       ),
@@ -473,8 +477,7 @@ class _ViewProfileState extends State<ViewProfile> {
                                       width: 5,
                                     ),
                                     textspan(
-                                      text: ranks[databox.rank
-                                          .value] /*ranks[resultResponse!.rank!]*/,
+                                      text: ranks[databox.rank.value],
                                       color: Colors.black,
                                       textAlign: TextAlign.left,
                                     ),
@@ -596,54 +599,12 @@ class _ViewProfileState extends State<ViewProfile> {
                                         height: 4,
                                       ),
                                       textspan(
-                                        text: databox.parentname
-                                            .value /*resultResponse!.parentName!*/,
+                                        text: databox.parentname.value,
                                         color: Colors.teal,
                                         textAlign: TextAlign.left,
                                       ),
                                     ],
-                                  )
-                                  /*Card(
-                              shape: CircleBorder(),
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              child: Image.network(
-                                Configss.fileurl +
-                                    resultResponse!.parentImageUrl!,
-                                fit: BoxFit.cover,
-                                errorBuilder: (BuildContext context,
-                                    Object exception,
-                                    StackTrace? stackTrace) {
-                                  return const Icon(Icons.person);
-                                },
-                                loadingBuilder: (BuildContext context,
-                                    Widget child,
-                                    ImageChunkEvent? loadingProgress) {
-                                  if (loadingProgress == null)
-                                    return child;
-                                  return Center(
-                                    child: CircularProgressIndicator(
-                                      value: loadingProgress
-                                          .expectedTotalBytes !=
-                                          null
-                                          ? loadingProgress
-                                          .cumulativeBytesLoaded /
-                                          loadingProgress
-                                              .expectedTotalBytes!
-                                          : null,
-                                    ),
-                                  );
-                                },
-                                height: 30,
-                                width: 30,
-                              ),
-                            )
-                                : Image.asset(
-                              'assets/images/home/user.png',
-                              fit: BoxFit.cover,
-                              height: 30,
-                              width: 30,
-                            ),*/
-                                  ),
+                                  )),
                             ],
                           ),
                         ],
@@ -658,21 +619,18 @@ class _ViewProfileState extends State<ViewProfile> {
                             bottom: MediaQuery.of(context).size.height * 0.02,
                             top: MediaQuery.of(context).size.height * 0.01,
                           ),
-                          child: /*resultResponse!.bio == null ||
-                              resultResponse!.bio == ""*/
-                              databox.bio.value == "null" ||
-                                      databox.bio.value == ""
-                                  ? textspan(
-                                      text: "بیو گرافی شما",
-                                      color: Colors.black38,
-                                      textAlign: TextAlign.start,
-                                    )
-                                  : textspan(
-                                      text: databox.bio
-                                          .value /*esultResponse!.bio.toString()*/,
-                                      color: Colors.black,
-                                      textAlign: TextAlign.start,
-                                    )),
+                          child: databox.bio.value == "null" ||
+                                  databox.bio.value == ""
+                              ? textspan(
+                                  text: "بیو گرافی شما",
+                                  color: Colors.black38,
+                                  textAlign: TextAlign.start,
+                                )
+                              : textspan(
+                                  text: databox.bio.value,
+                                  color: Colors.black,
+                                  textAlign: TextAlign.start,
+                                )),
                       SizedBox(
                         height: 1,
                       ),
@@ -680,21 +638,7 @@ class _ViewProfileState extends State<ViewProfile> {
                         text: AppLocalizations.of(context)!.translate(
                           'Edit Profile',
                         )!,
-                        onPressed: () {
-                          Get.to(EditProfileScreen());
-                          // GetPage(name: name, page: EditProfileScreen());
-                          // // Get.off(EditProfileScreen());
-                          // Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //         builder: (context) => EditProfileScreen()));
-                          //             Navigator.push(
-                          // context,
-                          // MaterialPageRoute(
-                          //     builder: (context) => EditProfile(
-                          //           model: resultResponse!,
-                          //         )));
-                        },
+                        onPressed: () => Get.to(EditProfileScreen()),
                         color: Colors.white,
                       )
                     ],
@@ -707,9 +651,14 @@ class _ViewProfileState extends State<ViewProfile> {
                   padding: const EdgeInsets.all(12.0),
                   child: Column(
                     children: [
+                      if (ghoghnosResponsee['data'] > 7)
+                        Container(
+                          alignment: Alignment.center,
+                          child: Lottie.asset('assets/anim/phonix/level8.json'),
+                        ),
                       Container(
                         alignment: Alignment.center,
-                        child: ranksadadA[resultResponsee['data']],
+                        child: ghoghnos[ghoghnosResponsee['data']],
                       ),
                     ],
                   ),
@@ -747,10 +696,6 @@ class _ViewProfileState extends State<ViewProfile> {
                                       textAlign: TextAlign.center,
                                       color: Colors.cyan,
                                       text: yaer.toString(),
-
-                                      /*resultResponseGetUserAbandon['data']
-                                      .split(" ")[0]
-                                      .toString(),*/
                                     ),
                                     Caption2(
                                         textAlign: TextAlign.center,
@@ -779,11 +724,6 @@ class _ViewProfileState extends State<ViewProfile> {
                                         textAlign: TextAlign.center,
                                         color: Colors.cyan,
                                         text: month.toString()),
-
-                                    /*resultResponseGetUserAbandon['data']
-                                        .toString()
-                                        .split(" ")[1]
-                                        .toString())*/
                                     Caption2(
                                         textAlign: TextAlign.center,
                                         color: Colors.cyan,
@@ -810,12 +750,7 @@ class _ViewProfileState extends State<ViewProfile> {
                                     Footnate(
                                         textAlign: TextAlign.center,
                                         color: Colors.cyan,
-                                        text: day.toString()
-                                        /*resultResponseGetUserAbandon['data']
-                                          .toString()
-                                          .split(" ")[2]
-                                          .toString()*/
-                                        ),
+                                        text: day.toString()),
                                     Caption2(
                                         textAlign: TextAlign.center,
                                         color: Colors.cyan,
@@ -840,8 +775,6 @@ class _ViewProfileState extends State<ViewProfile> {
   void onSelected(BuildContext context, int item) {
     switch (item) {
       case 0:
-        /*  Navigator.push(context,
-            MaterialPageRoute(builder: (context) => UserSecuritySttingMenus()));*/
         Get.to(UserSecuritySttingMenus());
         break;
       case 1:

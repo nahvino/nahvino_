@@ -13,10 +13,9 @@ import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 class VersionData extends GetxController {
   late ServiceVersion serversion;
-  double lastVersion = 1.4;
+  double lastVersion = 1.5;
   double? versionResponse;
   SharedPreferences? preferences;
 

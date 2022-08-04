@@ -1,8 +1,12 @@
+import 'dart:async';
+
 import 'package:Nahvino/Pages/Chat/chat_page.dart';
 import 'package:Nahvino/Services/Users/visituser/visit_user_service.dart';
 import 'package:Nahvino/Utils/OtherUtils/imagedialoguser.dart';
 import 'package:Nahvino/config/main_config.dart';
+import 'package:Nahvino/tabs.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import '../../../Utils/Text/Text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -22,7 +26,8 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
   GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
 
   var resultResponseViewProfileUesr;
-  late Map<String, dynamic> resultResponseGetLastOtherVisit;
+  //late Map<String, dynamic> resultResponseGetLastOtherVisit;
+  var resultResponseGetLastOtherVisit;
   var resultResponseGetUserAbandon;
   String? imagePath;
   String tarikh = "تاریخ";
@@ -52,7 +57,7 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
     "9"
   ];
 
-  List<Widget> ranksadadA = <Widget>[
+  List<Widget> ghoghnos = <Widget>[
     Lottie.asset('assets/anim/phonix/level1.json', fit: BoxFit.cover),
     Lottie.asset('assets/anim/phonix/level2.json', fit: BoxFit.cover),
     Lottie.asset('assets/anim/phonix/level3.json', fit: BoxFit.cover),
@@ -61,30 +66,6 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
     Lottie.asset('assets/anim/phonix/level6.json', fit: BoxFit.cover),
     Lottie.asset('assets/anim/phonix/level7.json', fit: BoxFit.cover),
     Lottie.asset('assets/anim/phonix/level8.json', fit: BoxFit.cover),
-    Lottie.asset('assets/anim/phonix/level8.json', fit: BoxFit.cover),
-    Lottie.asset('assets/anim/phonix/level8.json', fit: BoxFit.cover),
-    Lottie.asset('assets/anim/phonix/level8.json', fit: BoxFit.cover),
-    Lottie.asset('assets/anim/phonix/level8.json', fit: BoxFit.cover),
-    Lottie.asset('assets/anim/phonix/level8.json', fit: BoxFit.cover),
-    Lottie.asset('assets/anim/phonix/level8.json', fit: BoxFit.cover),
-    Lottie.asset('assets/anim/phonix/level8.json', fit: BoxFit.cover),
-    Lottie.asset('assets/anim/phonix/level8.json', fit: BoxFit.cover),
-    Lottie.asset('assets/anim/phonix/level8.json', fit: BoxFit.cover),
-    Lottie.asset('assets/anim/phonix/level8.json', fit: BoxFit.cover),
-    Lottie.asset('assets/anim/phonix/level8.json', fit: BoxFit.cover),
-    Lottie.asset('assets/anim/phonix/level8.json', fit: BoxFit.cover),
-    Lottie.asset('assets/anim/phonix/level8.json', fit: BoxFit.cover),
-    Lottie.asset('assets/anim/phonix/level8.json', fit: BoxFit.cover),
-    Lottie.asset('assets/anim/phonix/level8.json', fit: BoxFit.cover),
-    Lottie.asset('assets/anim/phonix/level8.json', fit: BoxFit.cover),
-    Lottie.asset('assets/anim/phonix/level8.json', fit: BoxFit.cover),
-    Lottie.asset('assets/anim/phonix/level8.json', fit: BoxFit.cover),
-    Lottie.asset('assets/anim/phonix/level8.json', fit: BoxFit.cover),
-    Lottie.asset('assets/anim/phonix/level8.json', fit: BoxFit.cover),
-    Lottie.asset('assets/anim/phonix/level8.json', fit: BoxFit.cover),
-    Lottie.asset('assets/anim/phonix/level8.json', fit: BoxFit.cover),
-    Lottie.asset('assets/anim/phonix/level8.json', fit: BoxFit.cover),
-
   ];
 
   @override
@@ -94,6 +75,13 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
       VisetUserService.GetProfileOtherUser(widget.userid.toString())
           .then((response) {
         resultResponseViewProfileUesr = response;
+        if (resultResponseViewProfileUesr == false) {
+          Future.delayed(Duration(seconds: 3), () {
+            Get.snackbar("خطا", "مشکل در بارگذاری پروفایل",
+                snackPosition: SnackPosition.TOP);
+            Navigator.pop(context);
+          });
+        }
         print("test-----------> $resultResponseViewProfileUesr");
         VisetUserService.GetLastOtherVisit(widget.userid.toString())
             .then((response) {
@@ -150,7 +138,9 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                             children: [
                               textbold(
                                 textAlign: TextAlign.right,
-                                text: resultResponseViewProfileUesr['userName'] ?? "",
+                                text:
+                                    resultResponseViewProfileUesr['userName'] ??
+                                        "",
                                 color: Colors.black,
                               ),
                               Directionality(
@@ -508,6 +498,24 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    if (resultResponseGetLastOtherVisit['data'] > 7)
+                      Expanded(
+                        child: Container(
+                          height: 150,
+                          width: 150,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            shape: BoxShape.rectangle,
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            boxShadow: const [
+                              BoxShadow(color: Colors.cyan, spreadRadius: 2),
+                            ],
+                          ),
+                          child: Lottie.asset('assets/anim/phonix/level8.json',
+                              fit: BoxFit.cover),
+                        ),
+                      ),
                     Expanded(
                       child: Container(
                         height: 150,
@@ -522,7 +530,7 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                           ],
                         ),
                         child:
-                            ranksadadA[resultResponseGetLastOtherVisit['data']],
+                            ghoghnos[resultResponseGetLastOtherVisit['data']],
                       ),
                     ),
                     SizedBox(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../Utils/Button/Button.dart';
 import '../../../Utils/Text/Text.dart';
 import 'login.dart';
@@ -17,6 +18,12 @@ class _Registration extends State<Registration> {
   @override
   void initState() {
     super.initState();
+  }
+
+  culercash() async {
+    final preferences = await SharedPreferences.getInstance();
+    await preferences.clear();
+    print(preferences.getString("userId"));
   }
 
   @override
@@ -43,63 +50,19 @@ class _Registration extends State<Registration> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    /*    textspan(color: Colors.black, textAlign: TextAlign.center, text:  AppLocalizations.of(context)!.translate(
-                      'Signup_top_text',
-                    )!,
-                    ),*/
-
                     const SizedBox(
                       height: 20,
                     ),
-                    /*    OutlinedButton.icon(
-                      onPressed: (() {
-                        //DialogHelper.rules(context);
-                      }),
-                      icon: Image.asset('assets/images/google.png'),
-                      label: textspan(color: Colors.black, textAlign: TextAlign.center, text:  AppLocalizations.of(context)!.translate(
-                        'Signup_google_btn',
-                      )!,
-                     ),
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.0),
-                        ),
-                        primary: Color.fromARGB(255, 255, 255, 255),
-                        fixedSize: const Size(308, 50),
-                      ),
-                    ),*/
+                 
                     SizedBox(
                       height: 20,
                     ),
-                    /*
-                    OutlinedButton.icon(
-                      onPressed: (() {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => /*PhoneNumberPage()*/ OtpPhoneNew()));
-                      }),
-                      icon: Image.asset('assets/images/phone.png'),
-                      label: textspan(color: Colors.black, textAlign: TextAlign.center, text:  AppLocalizations.of(context)!.translate(
-                        'Signup_phone_btn',
-                      )!,
-
-
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.0),
-                        ),
-                        primary: Color.fromARGB(255, 255, 255, 255),
-                        fixedSize: const Size(308, 50),
-                      ),
-                    ),
-*/
                     ButtonSignUP(
                       text: AppLocalizations.of(context)!.translate(
                         'Signup_phone_btn',
                       )!,
                       onPressed: () {
+                        culercash();
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -115,36 +78,13 @@ class _Registration extends State<Registration> {
                     SizedBox(
                       height: 20,
                     ),
-                    /*          OutlinedButton.icon(
-                      onPressed: (() {
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => /*SignIn()*/ NewLogin()));
-                      }),
-                      icon: Image.asset('assets/images/login/logo.png',
-                          height: 40, width: 40),
-                      label: textspan(
-                        color: Colors.black,
-                        textAlign: TextAlign.center,
-                        text: AppLocalizations.of(context)!.translate(
-                          'Signup_nahvino_btn',
-                        )!,
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.0),
-                        ),
-                        primary: Color.fromARGB(255, 255, 255, 255),
-                        fixedSize: const Size(308, 50),
-                      ),
-                    ),
-*/
+          
                     ButtonSignUP(
                       text: AppLocalizations.of(context)!.translate(
                         'Signup_nahvino_btn',
                       )!,
                       onPressed: () {
+                        culercash();
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
@@ -168,6 +108,7 @@ class _Registration extends State<Registration> {
                           ),
                           TextButton(
                             onPressed: () {
+                              culercash();
                               Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
@@ -188,10 +129,6 @@ class _Registration extends State<Registration> {
                 ),
               ),
             ),
-/*
-            Container(
-            ),
-            */
           ],
         ),
       ),

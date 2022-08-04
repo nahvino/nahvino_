@@ -123,9 +123,10 @@ class _AboutGroupState extends State<AboutGroup> {
                             //         builder: (context) => MyTabs(
                             //               tabIndex: 1,
                             //             )));
-                            Get.offAll(MyTabs(
-                              tabIndex: 1,
-                            ));
+                            // Get.offAll(MyTabs(
+                            //   tabIndex: 1,
+                            // ));
+                            Navigator.pop(context);
                           }),
                         ),
                       ),

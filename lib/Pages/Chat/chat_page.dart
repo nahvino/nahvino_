@@ -58,7 +58,7 @@ class _ChatpageState extends State<Chatpage> {
         ));
       }
     });
-    Future.delayed(Duration(seconds: 3),
+    Future.delayed(Duration(seconds: 2),
         () => chatPageController.isApiCallProgress.value = false);
     adminid = chatPageController.model?.adminId.toString();
     nazer1 = chatPageController.model?.supervisor1Id.toString();
