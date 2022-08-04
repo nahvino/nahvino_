@@ -15,6 +15,7 @@ class GetProfileUserResponseModel {
     this.parentId,
     this.parentName,
     this.parentImageUrl,
+    this.dateTimeAbandon,
   });
   String? userName;
   String? nameAlias;
@@ -26,6 +27,7 @@ class GetProfileUserResponseModel {
   String? parentId;
   String? parentName;
   String? parentImageUrl;
+  String? dateTimeAbandon;
 
   GetProfileUserResponseModel.fromJson(Map<String, dynamic> json) {
     userName = json['userName'];
@@ -38,6 +40,7 @@ class GetProfileUserResponseModel {
     parentId = json['parentId'];
     parentName = json['parentName'];
     parentImageUrl = json['parentImageUrl'];
+    dateTimeAbandon = json['dateTimeAbandon'];
   }
 
   get value => null;
@@ -54,6 +57,7 @@ class GetProfileUserResponseModel {
     _data['parentId'] = parentId;
     _data['parentName'] = parentName;
     _data['parentImageUrl'] = parentImageUrl;
+    _data['dateTimeAbandon'] = dateTimeAbandon;
     return _data;
   }
 }

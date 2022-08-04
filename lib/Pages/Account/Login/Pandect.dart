@@ -15,6 +15,7 @@ class Pandect extends StatefulWidget {
 class _PandectState extends State<Pandect> {
   final formKey = GlobalKey<FormState>();
   GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
+
   bool isApiCallProgress = true;
   bool value1 = false;
   bool value2 = false;
@@ -102,7 +103,6 @@ class _PandectState extends State<Pandect> {
                   ),
                   Row(
                     children: [
-
                       Footnate(
                         textAlign: TextAlign.right,
                         text: AppLocalizations.of(context)!.translate(
@@ -110,12 +110,13 @@ class _PandectState extends State<Pandect> {
                         )!,
                         color: Colors.black,
                       ),
-                      SizedBox(width: 3,),
+                      SizedBox(
+                        width: 3,
+                      ),
                       InkWell(
-                        onTap: (){
+                        onTap: () {
                           /*
                           showDialog<void>(context: context, builder: (context) => RulesDialog());*/
-
                         },
                         child: Footnate(
                           textAlign: TextAlign.right,
@@ -125,7 +126,9 @@ class _PandectState extends State<Pandect> {
                           color: Colors.blue,
                         ),
                       ),
-                      SizedBox(width: 1,),
+                      SizedBox(
+                        width: 1,
+                      ),
                       Footnate(
                         textAlign: TextAlign.right,
                         text: AppLocalizations.of(context)!.translate(

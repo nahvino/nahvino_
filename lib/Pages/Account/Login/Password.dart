@@ -1,14 +1,14 @@
+import 'package:Nahvino/Services/Login/reset_service.dart';
+import 'package:Nahvino/Utils/TextField/password_text_filde.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import '../../../App_localizations.dart';
-import '../../../Services/Login/ApiService.dart';
 import '../../../Utils/Button/Button.dart';
 import '../../../Utils/Text/Text.dart';
-import '../../../Utils/TextField/passwordtextfilde.dart';
-import '../../../controllers/getx/PasswordController.dart';
-import 'Login.dart';
-import 'SignUp.dart';
+import '../../../controllers/getx/Utils/password_controller.dart';
+import 'login.dart';
+import 'registration.dart';
 
 class NewPassword extends StatefulWidget {
   const NewPassword({
@@ -26,12 +26,12 @@ class _NewPasswordState extends State<NewPassword> {
   bool isApiCallProcess = false;
   TextEditingController passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  late APIService apiService;
+  late ResetService resetservice;
 
   @override
   void initState() {
     super.initState();
-    apiService = APIService(context);
+    resetservice = ResetService();
   }
 
   @override
@@ -50,8 +50,8 @@ class _NewPasswordState extends State<NewPassword> {
           leading: BackButton(
             color: Colors.black,
             onPressed: (() {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => SignUp()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => Registration()));
             }),
           ),
         ),
@@ -125,14 +125,13 @@ class _NewPasswordState extends State<NewPassword> {
                               setState(() {
                                 isApiCallProcess = true;
                               });
-                              apiService.NewResetPassword(
-                                      widget.data.toString(),
+                              resetservice
+                                  .resetpassword(widget.data.toString(),
                                       passwordController.text)
                                   .then((response) async {
                                 if (response != false) {
-                                  apiService.showSnackBar(
-                                      text: response['message'] ??
-                                          "جواب سوال درست بود");
+                                  resetservice.showSnackBar(
+                                      text: response['message']);
                                   Navigator.pushAndRemoveUntil(
                                     context,
                                     MaterialPageRoute(
@@ -140,8 +139,11 @@ class _NewPasswordState extends State<NewPassword> {
                                     (route) => false,
                                   );
                                 } else {
-                                  apiService.showSnackBar(
-                                      text: response['message'] ?? "sdd");
+                                  setState(() {
+                                    isApiCallProcess = false;
+                                  });
+                                  resetservice.showSnackBar(
+                                      text: response['message']);
                                 }
                               });
                             }
