@@ -1,101 +1,193 @@
-import 'package:Nahvino/Pages/Account/Login/registration.dart';
+import 'package:Nahvino/Pages/Chat/Widget/public_group_widget.dart';
+
+import 'package:Nahvino/Pages/Chat/group/create_group.dart';
+import 'package:Nahvino/Pages/Chat/group/edit_group.dart';
+import 'package:Nahvino/Pages/Chat/group/group.dart';
+import 'package:Nahvino/Pages/Chat/group/info_group.dart';
+import 'package:Nahvino/Pages/Chat/private/person.dart';
 import 'package:Nahvino/Utils/Button/Button.dart';
+import 'package:Nahvino/Utils/Menu/menu_pop.dart';
 import 'package:Nahvino/Utils/Text/Text.dart';
+import 'package:Nahvino/Utils/Widget/dialog_tow_btn.dart';
+import 'package:Nahvino/controllers/getx/chat/group/home_group_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:focused_menu/modals.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-class HomeScren extends StatefulWidget {
-  const HomeScren({
-    Key? key,
-  }) : super(key: key);
-  @override
-  State<HomeScren> createState() => _HomeScrenState();
-}
+class HomeScren extends StatelessWidget {
+  HomeScren({Key? key}) : super(key: key);
+  final HomeGroupController home_group_controller =
+      Get.put(HomeGroupController());
 
-class _HomeScrenState extends State<HomeScren> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  @override
-  void initState() {
-    super.initState();
-  }
-
+  PublicGroupWidget gowidget = PublicGroupWidget();
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Form(
-        key: _formKey,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              height: 50,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    bottomRight: Radius.circular(5),
-                    topRight: Radius.circular(5),
-                    bottomLeft: Radius.circular(5),
-                    topLeft: Radius.circular(5)),
-                shape: BoxShape.rectangle,
-                color: Colors.grey.shade300,
-              ),
-              child: Row(
-                children: [
-                  Icon(Icons.exit_to_app),
-                  Footnate(text: "برای خارج شدن دوبار بزنید")
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+          body: NestedScrollView(
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          return <Widget>[
+            Obx(
+              () => SliverAppBar(
+                backgroundColor: Colors.cyan.shade800,
+                actions: [
+                  Container(
+                    width: 20,
+                    height: 20,
+                    child: IconButton(
+                        onPressed: () {
+                          home_group_controller.isInSearchMode.value =
+                              !home_group_controller.isInSearchMode.value;
+                          home_group_controller.update();
+                        },
+                        icon: Icon(home_group_controller.isInSearchMode.value
+                            ? Icons.search
+                            : Icons.close)),
+                  ),
+                  if (home_group_controller.isInSearchMode.value != false)
+                    gowidget.btnappbarhome(),
                 ],
+                title: home_group_controller.isInSearchMode.value
+                    ? Subhead(
+                        text: "چت نحوینو",
+                      )
+                    : gowidget.searchmood(),
+                leadingWidth: 25,
+                leading: MenuPopUp(
+                  menuItems: <FocusedMenuItem>[
+                    FocusedMenuItem(
+                        title: Footnate(
+                          text: "تنظیمات",
+                        ),
+                        trailingIcon: Icon(Icons.settings),
+                        onPressed: () {}),
+                    FocusedMenuItem(
+                        title: Footnate(
+                          text: "لینک",
+                        ),
+                        trailingIcon: Icon(Icons.share),
+                        onPressed: () {
+                          print("درسته");
+                        }),
+                    FocusedMenuItem(
+                        title: Footnate(
+                          color: Colors.redAccent,
+                          text: "خروج",
+                        ),
+                        trailingIcon: Icon(
+                          Icons.exit_to_app,
+                          color: Colors.redAccent,
+                        ),
+                        onPressed: () {}),
+                  ],
+                ),
+                pinned: true,
+                floating: true,
+                bottom: TabBar(
+                  isScrollable: true,
+                  tabs: [
+                    Tab(
+                        child: Row(
+                      children: [
+                        Icon(Icons.group),
+                        SizedBox(
+                          width: 3,
+                        ),
+                        Text("گروه")
+                      ],
+                    )),
+                    Tab(
+                        child: Row(
+                      children: [
+                        Icon(Icons.group),
+                        SizedBox(
+                          width: 3,
+                        ),
+                        Text("خصوصی")
+                      ],
+                    )),
+                  ],
+                ),
               ),
             ),
-            ElevatedButton(
-              child: Text("ثبت"),
-              onPressed: () {
-                /*
-                Get.defaultDialog(
-                  title: "قابلیت های جدید نحوینو",
-                  titleStyle: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16,
-                      fontFamily: 'Vazirmatn_Light'),
-                  content: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Caption1(
-                        text: "- با کشیدن پیام به سمت چپ ریپلای زده میشه ",
-                      ),
-                      Caption1(
-                        text: "- با کشیدن پیام به سمت راست ، متن پیام کپی میشه",
-                      ),
-                      Caption1(
-                        text: "- بالا رفتن سرعت ارسال پیام ",
-                      ),
-                      Caption1(
-                        text:
-                            "- اضافه شدن قابلیت ریپورت پیام ها جهت حفظ حرمت در گروه ها",
-                      ),
-                      Caption1(
-                        text: "- اضافه شدن قابلیت اپدیت",
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Buttonfull(
-                        text: "بزن بریم",
-                        color: Colors.white,
-                        onPressed: (() {
-                          Navigator.of(context, rootNavigator: true).pop();
-                        }),
-                      )
-                    ],
-                  ),
-                );
-              */
-              },
-            )
+          ];
+        },
+        body: TabBarView(
+          children: <Widget>[
+            tapone(context),
+            taptow(context),
           ],
         ),
-      ),
+      )),
     );
   }
+
+  tapone(BuildContext context) {
+    return Group();
+  }
+
+  taptow(BuildContext context) {
+    return Person();
+  }
+/*
+  tapone(BuildContext context) {
+    return Column(
+      children: [
+        SizedBox(
+          height: 40,
+        ),
+        Buttonfull(
+          text: "حذف پیام",
+          onPressed: () {
+            showDialog<void>(
+                context: context,
+                builder: (context) => DialogTowButton(
+                      title: "از حذف پیام انتخابی مطمئن هستید؟",
+                      textbutton: "ثبت",
+                      onPressed: () {
+                        print("API Delete Massage");
+                        Navigator.pop(context, true);
+                      },
+                    ));
+
+            // Get.defaultDialog(title: "ddds");
+          },
+          color: Colors.blueAccent,
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        Buttonfull(
+          text: "ویرایش گروه",
+          onPressed: () {
+            Get.to(EditGroup());
+          },
+          color: Colors.blueAccent,
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        Buttonfull(
+          text: "ایجاد گروه",
+          onPressed: () {
+            Get.to(CreateGroup());
+          },
+          color: Colors.blueAccent,
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        Buttonfull(
+          text: "درباره ی گروه",
+          onPressed: () {
+            Get.to(InfoGroup());
+          },
+          color: Colors.blueAccent,
+        ),
+      ],
+    );
+  }
+*/
+
 }

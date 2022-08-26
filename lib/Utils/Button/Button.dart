@@ -38,7 +38,8 @@ class Buttontest extends StatelessWidget {
             child: Text(
               text,
               textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.white, fontSize: 18 , fontFamily: 'byekan'),
+              style: TextStyle(
+                  color: Colors.white, fontSize: 18, fontFamily: 'byekan'),
             ),
           ),
         ),
@@ -49,7 +50,11 @@ class Buttontest extends StatelessWidget {
 
 // ignore: must_be_immutable
 class Buttonfull extends StatelessWidget {
-  Buttonfull({Key? key, required this.text, required this.onPressed,required this.color})
+  Buttonfull(
+      {Key? key,
+      required this.text,
+      required this.onPressed,
+      required this.color})
       : super(key: key);
 
   VoidCallback onPressed;
@@ -74,8 +79,7 @@ class Buttonfull extends StatelessWidget {
                     Colors.cyan.shade300,
                     Colors.cyan.shade800,
                     Colors.cyan.shade900,
-                  ],
-                  end: Alignment(7.0, 6.0)),
+                  ], end: Alignment(7.0, 6.0)),
               borderRadius: BorderRadius.circular(15.0)),
           child: Container(
             constraints: BoxConstraints(maxWidth: 380.0, minHeight: 180.0),
@@ -83,8 +87,8 @@ class Buttonfull extends StatelessWidget {
             child: Text(
               text,
               textAlign: TextAlign.center,
-              style: TextStyle( color: color,
-                  fontSize: 17,  fontFamily: 'Vazirmatn_Light'),
+              style: TextStyle(
+                  color: color, fontSize: 17, fontFamily: 'Vazirmatn_Light'),
             ),
           ),
         ),
@@ -95,7 +99,14 @@ class Buttonfull extends StatelessWidget {
 
 // ignore: must_be_immutable
 class ButtonSignUP extends StatelessWidget {
-  ButtonSignUP({Key? key, required this.text, required this.onPressed,  this.icon, this.prefixIcon, this.suffixIcon, this.color})
+  ButtonSignUP(
+      {Key? key,
+      required this.text,
+      required this.onPressed,
+      this.icon,
+      this.prefixIcon,
+      this.suffixIcon,
+      this.color})
       : super(key: key);
 
   VoidCallback onPressed;
@@ -110,38 +121,33 @@ class ButtonSignUP extends StatelessWidget {
       child: RaisedButton(
         onPressed: onPressed,
         shape:
-        RoundedRectangleBorder(borderRadius: BorderRadius.circular(45.0)),
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(45.0)),
         padding: EdgeInsets.all(0.0),
         child: Ink(
           decoration: BoxDecoration(
               gradient: LinearGradient(
-                //radius: 5,
+                  //radius: 5,
                   colors: [
                     Colors.cyan.shade300,
                     Colors.cyan.shade800,
                     Colors.cyan.shade900,
-                  ],
-                  end: Alignment(7.0, 6.0)),
+                  ], end: Alignment(7.0, 6.0)),
               borderRadius: BorderRadius.circular(45.0)),
           child: Container(
-            constraints: BoxConstraints( minHeight: 50.0),
+            constraints: BoxConstraints(minHeight: 50.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Container(width: 30, alignment: Alignment.center, child: icon!),
                 Container(
-                  width: 30,
-                    alignment: Alignment.center,
-                    child: icon!),
-              Container(
-                width: 250,
-                alignment: Alignment.center,
-
-                child: Callout(
-                  textAlign: TextAlign.center,
-                  text: text, color: Colors.white,
+                  width: 250,
+                  alignment: Alignment.center,
+                  child: Callout(
+                    textAlign: TextAlign.center,
+                    text: text,
+                    color: Colors.white,
+                  ),
                 ),
-              ),
-
               ],
             ),
           ),

@@ -253,7 +253,7 @@ class _ChatpageState extends State<Chatpage> {
                       controller: controller.chatSingleChildScrollController,
                       reverse: true,
                       child: ListView.builder(
-                        shrinkWrap: true,
+                        shrinkWrap: true,                        
                         controller: controller.chatScrollController,
                         itemCount: chatPageController.searchText.value != "" &&
                                 chatPageController.isInSearchMode.value

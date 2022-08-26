@@ -73,6 +73,11 @@ dependencies:
   flutter_downloader: ^1.8.1
   #permission
   permission_handler: ^9.2.0
+  #Tabbar
+  #menu
+  pull_down_button: ^0.1.0-beta.6
+  focused_menu: ^1.0.5
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

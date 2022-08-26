@@ -37,10 +37,10 @@ class textbold extends StatelessWidget {
 
 // ignore: must_be_immutable
 class LargeTitle extends StatelessWidget {
-  LargeTitle({required this.text, this.color, this.textAlign});
+  const LargeTitle({required this.text, this.color, this.textAlign});
   final Color? color;
   final TextAlign? textAlign;
-  String? text;
+  final String? text;
 
   @override
   Widget build(BuildContext context) {
@@ -53,10 +53,10 @@ class LargeTitle extends StatelessWidget {
 
 // ignore: must_be_immutable
 class Title1 extends StatelessWidget {
-  Title1({required this.text, this.color, this.textAlign});
+  const Title1({required this.text, this.color, this.textAlign});
   final Color? color;
   final TextAlign? textAlign;
-  String? text;
+  final String? text;
 
   @override
   Widget build(BuildContext context) {
@@ -69,10 +69,10 @@ class Title1 extends StatelessWidget {
 
 // ignore: must_be_immutable
 class Title2 extends StatelessWidget {
-  Title2({required this.text, this.color, this.textAlign});
+  const Title2({required this.text, this.color, this.textAlign});
   final Color? color;
   final TextAlign? textAlign;
-  String? text;
+  final String? text;
 
   @override
   Widget build(BuildContext context) {
@@ -86,10 +86,10 @@ class Title2 extends StatelessWidget {
 
 // ignore: must_be_immutable
 class Title3 extends StatelessWidget {
-  Title3({required this.text, this.color, this.textAlign});
+  const Title3({required this.text, this.color, this.textAlign});
   final Color? color;
   final TextAlign? textAlign;
-  String? text;
+  final String? text;
 
   @override
   Widget build(BuildContext context) {
@@ -102,10 +102,10 @@ class Title3 extends StatelessWidget {
 
 // ignore: must_be_immutable
 class HeadLine extends StatelessWidget {
-  HeadLine({required this.text, this.color, this.textAlign});
+  const HeadLine({required this.text, this.color, this.textAlign});
   final Color? color;
   final TextAlign? textAlign;
-  String? text;
+  final String? text;
 
   @override
   Widget build(BuildContext context) {
@@ -122,10 +122,10 @@ class HeadLine extends StatelessWidget {
 
 // ignore: must_be_immutable
 class Body extends StatelessWidget {
-  Body({required this.text, this.color, this.textAlign});
+  const Body({required this.text, this.color, this.textAlign});
   final Color? color;
   final TextAlign? textAlign;
-  String? text;
+  final String? text;
   @override
   Widget build(BuildContext context) {
     return Text(
@@ -138,10 +138,10 @@ class Body extends StatelessWidget {
 
 // ignore: must_be_immutable
 class Callout extends StatelessWidget {
-  Callout({required this.text, this.color, this.textAlign});
+  const Callout({required this.text, this.color, this.textAlign});
   final Color? color;
   final TextAlign? textAlign;
-  String? text;
+  final String? text;
   @override
   Widget build(BuildContext context) {
     return Text(
@@ -154,10 +154,10 @@ class Callout extends StatelessWidget {
 
 // ignore: must_be_immutable
 class Subhead extends StatelessWidget {
-  Subhead({required this.text, this.color, this.textAlign});
+  const Subhead({required this.text, this.color, this.textAlign});
   final Color? color;
   final TextAlign? textAlign;
-  String? text;
+  final String? text;
 
   @override
   Widget build(BuildContext context) {
@@ -171,10 +171,10 @@ class Subhead extends StatelessWidget {
 
 // ignore: must_be_immutable
 class Footnate extends StatelessWidget {
-  Footnate({required this.text, this.color, this.textAlign});
+  const Footnate({required this.text, this.color, this.textAlign});
   final Color? color;
   final TextAlign? textAlign;
-  String? text;
+  final String? text;
   @override
   Widget build(BuildContext context) {
     return Text(
@@ -187,10 +187,10 @@ class Footnate extends StatelessWidget {
 
 // ignore: must_be_immutable
 class Caption1 extends StatelessWidget {
-  Caption1({required this.text, this.color, this.textAlign});
+  const Caption1({required this.text, this.color, this.textAlign});
   final Color? color;
   final TextAlign? textAlign;
-  String? text;
+  final String? text;
 
   @override
   Widget build(BuildContext context) {
@@ -205,10 +205,10 @@ class Caption1 extends StatelessWidget {
 
 // ignore: must_be_immutable
 class Caption2 extends StatelessWidget {
-  Caption2({required this.text, this.color, this.textAlign});
+  const Caption2({required this.text, this.color, this.textAlign});
   final Color? color;
   final TextAlign? textAlign;
-  String text;
+  final String text;
 
   @override
   Widget build(BuildContext context) {
