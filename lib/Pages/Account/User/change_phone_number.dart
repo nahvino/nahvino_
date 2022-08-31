@@ -146,7 +146,7 @@ class _ChangePhoneNumberState extends State<ChangePhoneNumber> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              textspan(
+              Callout(
                 textAlign: TextAlign.center,
                 text: AppLocalizations.of(context)!.translate(
                   'phone_text_chenge',

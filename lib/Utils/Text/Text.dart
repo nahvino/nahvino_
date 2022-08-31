@@ -1,39 +1,6 @@
 import 'package:flutter/material.dart';
-
-// ignore: must_be_immutable
-class textspan extends StatelessWidget {
-  textspan(
-      {required this.text, required this.color, required TextAlign textAlign});
-
-  String text;
-  Color color;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      text,
-      style:
-          TextStyle(color: color, fontSize: 16, fontFamily: 'Vazirmatn_Light'),
-    );
-  }
-}
-
-// ignore: must_be_immutable
-class textbold extends StatelessWidget {
-  textbold(
-      {required this.text, required this.color, required TextAlign textAlign});
-  String text;
-  Color color;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      text,
-      style:
-          TextStyle(color: color, fontSize: 18, fontFamily: 'Vazirmatn_Light'),
-    );
-  }
-}
+import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 
 // ignore: must_be_immutable
 class LargeTitle extends StatelessWidget {
@@ -86,7 +53,11 @@ class Title2 extends StatelessWidget {
 
 // ignore: must_be_immutable
 class Title3 extends StatelessWidget {
-  const Title3({required this.text, this.color, this.textAlign});
+  Title3({
+    required this.text,
+    this.color,
+    this.textAlign,
+  });
   final Color? color;
   final TextAlign? textAlign;
   final String? text;
@@ -126,12 +97,13 @@ class Body extends StatelessWidget {
   final Color? color;
   final TextAlign? textAlign;
   final String? text;
+  final double fontsize = 17;
   @override
   Widget build(BuildContext context) {
     return Text(
       text!,
       style: TextStyle(
-          color: color, fontSize: 17, fontFamily: 'Vazirmatn_Regular'),
+          color: color, fontSize: fontsize, fontFamily: 'Vazirmatn_Regular'),
     );
   }
 }
@@ -216,6 +188,29 @@ class Caption2 extends StatelessWidget {
       text,
       style: TextStyle(
           color: color, fontSize: 11, fontFamily: 'Vazirmatn_ExtraLight'),
+    );
+  }
+}
+
+// ignore: must_be_immutable
+class ChatTextMassgae extends StatelessWidget {
+  ChatTextMassgae(
+      {required this.text,
+      this.color,
+      this.textAlign,
+      this.fontsize,
+      this.fonts});
+  final Color? color;
+  final TextAlign? textAlign;
+  final String? text;
+  String? fonts;
+  double? fontsize = 20;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text!,
+      style: TextStyle(color: color, fontSize: fontsize, fontFamily: fonts),
     );
   }
 }

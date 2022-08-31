@@ -36,6 +36,7 @@ class ChatGroup extends StatelessWidget {
 
   Imageview img = Imageview();
   String? imagegrup;
+  
 
   @override
   Widget build(BuildContext context) {
@@ -44,118 +45,104 @@ class ChatGroup extends StatelessWidget {
     height = size.height;
     width = size.width;
     return Obx(
-      () => Directionality(
-        textDirection: TextDirection.ltr,
-        child: Scaffold(
-          appBar: AppBar(
-            elevation: 1,
-            backgroundColor: Colors.cyan.shade800,
-            actions: [
-              chat_group_controller.select_mood.value
-                  ? Row(
-                      children: [
-                        IconButton(
-                            onPressed: () => "", icon: Icon(Icons.delete)),
-                        IconButton(
-                            onPressed: () =>
-                                chat_group_controller.select_mood.value = false,
-                            icon: Icon(Icons.close)),
-                      ],
-                    )
-                  : Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        IconButton(
-                            onPressed: () {
-                              chat_group_controller.serach_mood.value =
-                                  !chat_group_controller.serach_mood.value;
-                              chat_group_controller.update();
-                            },
-                            icon: Icon(chat_group_controller.serach_mood.value
-                                ? Icons.close
-                                : Icons.search)),
-                        // SizedBox(
-                        //   width: width / 2.5,
-                        // ),
-                        chat_group_controller.serach_mood.value
-                            ?
-                            // name group
-                            Padding(
-                                padding: EdgeInsets.only(bottom: 6),
-                                child: Directionality(
-                                  textDirection: TextDirection.rtl,
-                                  child: Container(
-                                    width: width / 1.32,
-                                    height: height / 17,
-                                    child: gowidget.searchmood(),
-                                  ),
-                                ),
-                              )
-                            : Row(
-                                children: [
-                                  SizedBox(
-                                    width: width / 2.5,
-                                  ),
-                                  Title2(
-                                    color: Colors.white,
-                                    text: "نام گروه",
-                                  ),
-                                  InkWell(
-                                    onTap: () => Get.to(InfoGroup()),
-                                    child: (imagegrup != null &&
-                                            imagegrup != "" &&
-                                            imagegrup != "null")
-                                        ? img.image(imagegrup!)
-                                        : img.image_assets(),
-                                  ),
+      () => Scaffold(
+        appBar: AppBar(
+          elevation: 1,
+          backgroundColor: Colors.cyan.shade800,
+          actions: [
+            chat_group_controller.select_mood.value
+                ? Row(
+                    children: [
+                      IconButton(onPressed: () => "", icon: Icon(Icons.delete)),
+                      IconButton(
+                          onPressed: () =>
+                              chat_group_controller.select_mood.value = false,
+                          icon: Icon(Icons.close)),
+                    ],
+                  )
+                : Row(
+                    children: [
+                      IconButton(
+                          onPressed: () {
+                            chat_group_controller.serach_mood.value =
+                                !chat_group_controller.serach_mood.value;
+                            chat_group_controller.update();
+                          },
+                          icon: Icon(chat_group_controller.serach_mood.value
+                              ? Icons.close
+                              : Icons.search)),
+                      // SizedBox(
+                      //   width: width / 2.5,
+                      // ),
+                      chat_group_controller.serach_mood.value
+                          ?
+                          // name group
 
-                                  //menu pop up
-                                  MenuPopUp(
-                                    menuItems: <FocusedMenuItem>[
+                          Container(
+                              width: width / 1.32,
+                              child: gowidget.searchmood(),
+                            )
+                          : Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Title2(
+                                  color: Colors.white,
+                                  text: "نام گروه",
+                                ),
+                                InkWell(
+                                  onTap: () => Get.to(InfoGroup()),
+                                  child: (imagegrup != null &&
+                                          imagegrup != "" &&
+                                          imagegrup != "null")
+                                      ? img.image(imagegrup!)
+                                      : img.image_assets(),
+                                ),
+
+                                //menu pop up
+                                MenuPopUp(
+                                  menuItems: <FocusedMenuItem>[
+                                    FocusedMenuItem(
+                                        title: Footnate(
+                                          text: "تنظیمات",
+                                        ),
+                                        trailingIcon: Icon(Icons.settings),
+                                        onPressed: () {
+                                          Get.to(EditGroup());
+                                        }),
+                                    FocusedMenuItem(
+                                        title: Footnate(
+                                          text: "لینک",
+                                        ),
+                                        trailingIcon: Icon(Icons.share),
+                                        onPressed: () {
+                                          print("درسته");
+                                        }),
+                                    if (info_group_controller.join.value ==
+                                        false)
                                       FocusedMenuItem(
                                           title: Footnate(
-                                            text: "تنظیمات",
+                                            color: Colors.redAccent,
+                                            text: "ترک گروه",
                                           ),
-                                          trailingIcon: Icon(Icons.settings),
-                                          onPressed: () {
-                                            Get.to(EditGroup());
-                                          }),
-                                      FocusedMenuItem(
-                                          title: Footnate(
-                                            text: "لینک",
+                                          trailingIcon: Icon(
+                                            Icons.exit_to_app,
+                                            color: Colors.redAccent,
                                           ),
-                                          trailingIcon: Icon(Icons.share),
                                           onPressed: () {
-                                            print("درسته");
+                                            info_group_controller.leavegroup();
                                           }),
-                                      if (info_group_controller.join.value ==
-                                          false)
-                                        FocusedMenuItem(
-                                            title: Footnate(
-                                              color: Colors.redAccent,
-                                              text: "ترک گروه",
-                                            ),
-                                            trailingIcon: Icon(
-                                              Icons.exit_to_app,
-                                              color: Colors.redAccent,
-                                            ),
-                                            onPressed: () {
-                                              info_group_controller
-                                                  .leavegroup();
-                                            }),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                      ],
-                    ),
-              SizedBox(
-                width: 8,
-              ),
-            ],
-          ),
-          body: body(context),
+                                  ],
+                                ),
+                              ],
+                            ),
+                    ],
+                  ),
+            SizedBox(
+              width: 8,
+            ),
+          ],
         ),
+        body: body(context),
       ),
     );
   }
@@ -180,29 +167,70 @@ class ChatGroup extends StatelessWidget {
             Card(
               child: Row(
                 children: [
-                  Directionality(
-                    textDirection: TextDirection.rtl,
-                    child: IconButton(
-                        icon: Icon(
-                          Icons.send,
-                          color: chat_group_controller.canSend.value
-                              ? Colors.black
-                              : Colors.cyan,
-                        ),
-                        onPressed: () {
-
-                        }),
-                  ),
-                  chat_group.text_group((value) {
-                    chat_group_controller.canSend.value =
-                        value.isEmpty || value == "";
-                  }, chat_group_controller.chat_text, focusNode),
-                  IconButton(
-                      onPressed: () {
+                  Expanded(
+                    child: TextField(
+                      showCursor: true,
+                      enableSuggestions: true,
+                      autocorrect: true,
+                      enableInteractiveSelection: true,
+                      enableIMEPersonalizedLearning: true,
+                      scribbleEnabled: true,
+                      mouseCursor: MouseCursor.uncontrolled,
+                      focusNode: chat_group_controller.focusNode,
+                      smartDashesType: SmartDashesType.enabled,
+                      smartQuotesType: SmartQuotesType.enabled,
+                      decoration: InputDecoration(
+                          prefixIcon: IconButton(
+                            icon: chat_group_controller.icomke,
+                            onPressed: () {
+                              chat_group_controller.focusNode.unfocus();
+                              focusNode.canRequestFocus = false;
+                              chat_group_controller.emojiShowing.value =
+                                  !chat_group_controller.emojiShowing.value;
+                              chat_group_controller.icomke =
+                                  Icon(Icons.keyboard_alt_outlined);
+                              if (chat_group_controller.emojiShowing.value ==
+                                  true) {
+                                FocusScope.of(context).requestFocus(
+                                    chat_group_controller.focusNode);
+                              } else {
+                                chat_group_controller.focusNode.unfocus();
+                                focusNode.canRequestFocus = false;
+                              }
+                            },
+                          ),
+                          border: InputBorder.none,
+                          focusedBorder: InputBorder.none,
+                          enabledBorder: InputBorder.none,
+                          errorBorder: InputBorder.none,
+                          disabledBorder: InputBorder.none,
+                          hintText: "پیام خود را بنویسید"),
+                      onChanged: (value) {
+                        chat_group_controller.canSend.value =
+                            value.isEmpty || value == "";
                       },
-                      icon:
-
-                      Icon(Icons.emoji_emotions_outlined)),
+                      keyboardType: TextInputType.multiline,
+                      autofocus: false,
+                      maxLines: 5,
+                      minLines: 1,
+                      enabled: true,
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                          fontSize: 16, fontFamily: 'Vazirmatn_Light'),
+                      controller: chat_group_controller.chat_text,
+                    ),
+                  ),
+                  // IconButton(
+                  //     onPressed: () {},
+                  //     icon: Icon(Icons.emoji_emotions_outlined)),
+                  IconButton(
+                      icon: Icon(
+                        Icons.send,
+                        color: chat_group_controller.canSend.value
+                            ? Colors.black
+                            : Colors.cyan,
+                      ),
+                      onPressed: () {}),
                 ],
               ),
             ),
@@ -215,7 +243,6 @@ class ChatGroup extends StatelessWidget {
                 chat_group_controller.onEmojiSelected(emoji);
               },
             ),
-
           ],
         ),
       ),
@@ -230,13 +257,14 @@ class ChatGroup extends StatelessWidget {
     return Obx(
       () => Column(
           crossAxisAlignment:
-              fromMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+              fromMe ? CrossAxisAlignment.start : CrossAxisAlignment.end,
           children: [
             Row(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment:
-                  fromMe ? MainAxisAlignment.end : MainAxisAlignment.start,
+                  fromMe ? MainAxisAlignment.start : MainAxisAlignment.end,
               children: [
+                //me
                 fromMe
                     ? Row(
                         children: [
@@ -292,15 +320,47 @@ class ChatGroup extends StatelessWidget {
                                     type: BubbleType.sendBubble),
                                 margin: EdgeInsets.only(top: 4, bottom: 4),
                                 backGroundColor: Colors.cyan[50],
-                                child: Container(
-                                  constraints: BoxConstraints(
-                                    maxWidth:
-                                        MediaQuery.of(context).size.width * 0.7,
-                                  ),
-                                  child: Column(children: [
-                                    //Title3(text: chat!.mass.toString()),
-                                    Title3(text: fakeMassagegroup[index].mass),
-                                  ]),
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      constraints: BoxConstraints(
+                                          maxWidth: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.6),
+                                      child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            //Title3(text: chat!.mass.toString()),
+                                            ChatTextMassgae(
+                                                fontsize: chat_group_controller
+                                                            .settings
+                                                            .read("text") ==
+                                                        null
+                                                    ? 16
+                                                    : chat_group_controller
+                                                        .settings
+                                                        .read("text"),
+                                                text: fakeMassagegroup[index]
+                                                    .mass),
+
+                                            ChatTextMassgae(
+                                                fontsize: chat_group_controller
+                                                            .settings
+                                                            .read("text") ==
+                                                        null
+                                                    ? 16
+                                                    : chat_group_controller
+                                                        .settings
+                                                        .read("text"),
+                                                text: fakeMassagegroup[index]
+                                                    .time),
+                                          ]),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
@@ -353,23 +413,98 @@ class ChatGroup extends StatelessWidget {
                               key: UniqueKey(),
                               child: // Here Tile which will be shown at the top
                                   ChatBubble(
-                                clipper: ChatBubbleClipper1(
-                                    type: BubbleType.receiverBubble),
-                                backGroundColor: Color(0xffE7E7ED),
-                                margin: EdgeInsets.only(top: 4, bottom: 4),
-                                child: Container(
-                                    constraints: BoxConstraints(
-                                      maxWidth:
-                                          MediaQuery.of(context).size.width *
-                                              0.7,
-                                    ),
-                                    child: Column(
-                                      children: [
-                                        Title3(
-                                            text: fakeMassagegroup[index].mass),
-                                      ],
-                                    )),
-                              ),
+                                      clipper: ChatBubbleClipper1(
+                                          type: BubbleType.receiverBubble),
+                                      backGroundColor: Color(0xffE7E7ED),
+                                      margin:
+                                          EdgeInsets.only(top: 4, bottom: 4),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: [
+                                                Container(
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            7.0),
+                                                    shape: BoxShape.rectangle,
+                                                    color: Colors.black12,
+                                                  ),
+                                                  child: Row(
+                                                    children: [
+                                                      Container(
+                                                        width: 5,
+                                                        height: 50,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius.only(
+                                                                  bottomRight: Radius
+                                                                      .circular(
+                                                                          5),
+                                                                  topRight: Radius
+                                                                      .circular(
+                                                                          5)),
+                                                          shape: BoxShape
+                                                              .rectangle,
+                                                          color: Colors
+                                                              .greenAccent,
+                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                        width: 7,
+                                                      ),
+                                                      Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          // Footnate(
+                                                          //   text: chat
+                                                          //       .parentMessageUserNameAlias!,
+                                                          //   ),
+                                                          Footnate(
+                                                            text: "نام",
+                                                          ),
+                                                          // Caption1(
+                                                          //     text: chat.parentMessageText!
+                                                          //         .length >
+                                                          //         30
+                                                          //         ? '${chat.parentMessageText!.substring(0, 30)}...'
+                                                          //         : chat
+                                                          //         .parentMessageText),
+                                                          Caption1(
+                                                              text: "پیام"),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ]),
+                                          ChatTextMassgae(
+                                              fontsize: chat_group_controller
+                                                          .settings
+                                                          .read("text") ==
+                                                      null
+                                                  ? 16
+                                                  : chat_group_controller
+                                                      .settings
+                                                      .read("text"),
+                                              text:
+                                                  fakeMassagegroup[index].mass),
+                                        ],
+                                      )),
                             ),
                           ],
                         ),

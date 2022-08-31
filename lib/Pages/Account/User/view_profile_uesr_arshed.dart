@@ -119,7 +119,7 @@ class _ViewProfileUesrArshedState extends State<ViewProfileUesrArshed> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              textbold(
+                              Subhead(
                                 textAlign: TextAlign.right,
                                 text: resultResponseViewProfileUesr['userName'],
                                 color: Colors.black,
@@ -152,7 +152,7 @@ class _ViewProfileUesrArshedState extends State<ViewProfileUesrArshed> {
                       children: [
                         Column(
                           children: [
-                            /*   textbold(
+                            /*   Subhead(
                             textAlign: TextAlign.right,
                             text: resultResponseViewProfileUesr['userName'],
                             color: Colors.black,
@@ -241,7 +241,7 @@ class _ViewProfileUesrArshedState extends State<ViewProfileUesrArshed> {
                         ),
                         Column(
                           children: [
-                            textbold(
+                            Subhead(
                               text:
                                   resultResponseViewProfileUesr['nameAlias'] ??
                                       "",
@@ -273,7 +273,7 @@ class _ViewProfileUesrArshedState extends State<ViewProfileUesrArshed> {
                                         borderRadius: BorderRadius.circular(50),
                                         border: Border.all(
                                             color: Colors.black26, width: 1)),
-                                    child: textspan(
+                                    child: Callout(
                                       text: ranksadad[
                                           resultResponseViewProfileUesr[
                                               'rank']],
@@ -284,7 +284,7 @@ class _ViewProfileUesrArshedState extends State<ViewProfileUesrArshed> {
                                   SizedBox(
                                     width: 5,
                                   ),
-                                  textspan(
+                                  Callout(
                                     text: ranks[
                                         resultResponseViewProfileUesr['rank'] ??
                                             ""],
@@ -320,7 +320,7 @@ class _ViewProfileUesrArshedState extends State<ViewProfileUesrArshed> {
                             SizedBox(
                               height: 5,
                             ),
-                            textspan(
+                            Callout(
                               text: resultResponseViewProfileUesr['score']
                                   .toString(),
                               color: Colors.black,
@@ -432,7 +432,7 @@ class _ViewProfileUesrArshedState extends State<ViewProfileUesrArshed> {
                             SizedBox(
                               height: 4,
                             ),
-                            textspan(
+                            Callout(
                               text:
                                   resultResponseViewProfileUesr['parentName'] ??
                                       "",
@@ -453,7 +453,7 @@ class _ViewProfileUesrArshedState extends State<ViewProfileUesrArshed> {
                         bottom: MediaQuery.of(context).size.height * 0.02,
                         top: MediaQuery.of(context).size.height * 0.01,
                       ),
-                      child: textspan(
+                      child: Callout(
                         text: resultResponseViewProfileUesr['bio'] ?? "",
                         color: Colors.black,
                         textAlign: TextAlign.start,

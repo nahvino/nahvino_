@@ -33,7 +33,7 @@ class _Splash extends State<Splash> {
             children: <Widget>[
               SizedBox(child: Lottie.asset('assets/splash/animtiopsh.json')),
               Container(
-                  child: textbold(
+                  child: Subhead(
                 color: Colors.black,
                 textAlign: TextAlign.center,
                 text: AppLocalizations.of(context)!.translate(
@@ -42,7 +42,7 @@ class _Splash extends State<Splash> {
               )),
               Column(
                 children: [
-                  textspan(
+                  Callout(
                     color: Colors.black,
                     textAlign: TextAlign.center,
                     text: AppLocalizations.of(context)!.translate(

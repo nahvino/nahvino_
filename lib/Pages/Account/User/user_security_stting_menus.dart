@@ -81,7 +81,7 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
                 onPressed: () => Get.offAll(MyTabs())),
             automaticallyImplyLeading: false,
             backgroundColor: Colors.transparent,
-            title: textbold(
+            title: Subhead(
               textAlign: TextAlign.right,
               text: databox.username.value,
               color: Colors.black,
@@ -124,7 +124,7 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
                           SizedBox(
                             width: 8,
                           ),
-                          textspan(
+                          Callout(
                             textAlign: TextAlign.center,
                             text:
                                 resultResponsepro['identifierCode'].toString(),
@@ -148,7 +148,7 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
                           SizedBox(
                             width: 8,
                           ),
-                          textspan(
+                          Callout(
                             textAlign: TextAlign.center,
                             color: Colors.black,
                             text: AppLocalizations.of(context)!.translate(

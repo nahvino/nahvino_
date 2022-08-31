@@ -119,7 +119,7 @@ class _ChangePasswrodState extends State<ChangePasswrod> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                textspan(
+                Callout(
                   textAlign: TextAlign.center,
                   text: AppLocalizations.of(context)!.translate(
                     'text_ChangePasswrod',
@@ -168,7 +168,7 @@ class _ChangePasswrodState extends State<ChangePasswrod> {
                                 builder: (context) =>
                                     NewCheckQuestionAnswer()));
                       },
-                      child: textspan(
+                      child: Callout(
                         color: Colors.blue,
                         textAlign: TextAlign.center,
                         text: AppLocalizations.of(context)!.translate(

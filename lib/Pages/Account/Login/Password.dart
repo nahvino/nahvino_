@@ -71,7 +71,7 @@ class _NewPasswordState extends State<NewPassword> {
                             height: 150, width: 150),
                       ),
 
-                      /* textspan(
+                      /* Callout(
                 textAlign: TextAlign.right,
                 text: widget.data.toString(),
                 color: Colors.black,

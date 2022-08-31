@@ -25,174 +25,174 @@ class ArshadDialog extends StatelessWidget {
   }
 
   _buildChild(BuildContext context) => SingleChildScrollView(
-    child: Column(
-      children: [
-        Container(
-          // height: 480,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            shape: BoxShape.rectangle,
-            borderRadius: BorderRadius.all(Radius.circular(5)),
-            boxShadow: const [
-              BoxShadow(color: Colors.black, spreadRadius: 2),
-              BoxShadow(color: Colors.pink, spreadRadius: 2, blurRadius: 4),
-            ],
-          ),
-          child: Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.all(15),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.purple.shade200,
-                    shape: BoxShape.rectangle,
-                    borderRadius: BorderRadius.all(Radius.circular(5)),
-                    boxShadow: const [
-                      BoxShadow(color: Colors.black, spreadRadius: 2),
-                    ],
-                  ),
-                  child: Column(
-                    children: [
-                      Container(
-                        child: Text("ارشد شما در حال حاضر"),
+        child: Column(
+          children: [
+            Container(
+              // height: 480,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                shape: BoxShape.rectangle,
+                borderRadius: BorderRadius.all(Radius.circular(5)),
+                boxShadow: const [
+                  BoxShadow(color: Colors.black, spreadRadius: 2),
+                  BoxShadow(color: Colors.pink, spreadRadius: 2, blurRadius: 4),
+                ],
+              ),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.all(15),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.purple.shade200,
+                        shape: BoxShape.rectangle,
+                        borderRadius: BorderRadius.all(Radius.circular(5)),
+                        boxShadow: const [
+                          BoxShadow(color: Colors.black, spreadRadius: 2),
+                        ],
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              width: 120,
-                              height: 30,
-                              decoration: BoxDecoration(
-                                color: Colors.red.shade300,
-                                shape: BoxShape.rectangle,
-                                borderRadius:
-                                BorderRadius.all(Radius.circular(100)),
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("data"),
-                                  Icon(Icons.location_pin),
-                                ],
-                              ),
-                            ),
-                            Row(
+                      child: Column(
+                        children: [
+                          Container(
+                            child: Text("ارشد شما در حال حاضر"),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                // SizedBox(
-                                //   width: 5,
-                                // ),
-                                Column(
+                                Container(
+                                  width: 120,
+                                  height: 30,
+                                  decoration: BoxDecoration(
+                                    color: Colors.red.shade300,
+                                    shape: BoxShape.rectangle,
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(100)),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text("data"),
+                                      Icon(Icons.location_pin),
+                                    ],
+                                  ),
+                                ),
+                                Row(
                                   children: [
-                                    Text("data"),
-                                    Container(
-                                      width: 80,
-                                      height: 30,
-                                      decoration: new BoxDecoration(
-                                          color: Colors.white,
-                                          shape: BoxShape.rectangle,
-                                          borderRadius:
-                                          new BorderRadius.circular(
-                                              30.0),
-                                          border: Border.all(
-                                              color: Colors.black,
-                                              width: 1)),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.center,
-                                        children: [
-                                          Container(
-                                            height: 20,
-                                            width: 20,
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: 4),
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                BorderRadius.circular(
-                                                    50),
-                                                border: Border.all(
-                                                    color: Colors.black26,
-                                                    width: 1)),
-                                            child: textspan(
-                                              text: "5",
-                                              color: Colors.purpleAccent,
-                                              textAlign: TextAlign.left,
-                                            ),
+                                    // SizedBox(
+                                    //   width: 5,
+                                    // ),
+                                    Column(
+                                      children: [
+                                        Text("data"),
+                                        Container(
+                                          width: 80,
+                                          height: 30,
+                                          decoration: new BoxDecoration(
+                                              color: Colors.white,
+                                              shape: BoxShape.rectangle,
+                                              borderRadius:
+                                                  new BorderRadius.circular(
+                                                      30.0),
+                                              border: Border.all(
+                                                  color: Colors.black,
+                                                  width: 1)),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Container(
+                                                height: 20,
+                                                width: 20,
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal: 4),
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            50),
+                                                    border: Border.all(
+                                                        color: Colors.black26,
+                                                        width: 1)),
+                                                child: Callout(
+                                                  text: "5",
+                                                  color: Colors.purpleAccent,
+                                                  textAlign: TextAlign.left,
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                width: 5,
+                                              ),
+                                              Callout(
+                                                text: "ره رو",
+                                                color: Colors.black,
+                                                textAlign: TextAlign.left,
+                                              ),
+                                            ],
                                           ),
-                                          SizedBox(
-                                            width: 5,
-                                          ),
-                                          textspan(
-                                            text: "ره رو",
-                                            color: Colors.black,
-                                            textAlign: TextAlign.left,
-                                          ),
-                                        ],
-                                      ),
+                                        ),
+                                      ],
                                     ),
+
+                                    Image(
+                                        image: AssetImage(
+                                            "assets/images/ram/man1.jpg")),
                                   ],
                                 ),
-
-                                Image(
-                                    image: AssetImage(
-                                        "assets/images/ram/man1.jpg")),
                               ],
                             ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(15),
-                child: Container(
-                  width: 480,
-                  decoration: BoxDecoration(
-                    color: Colors.purple.shade200,
-                    shape: BoxShape.rectangle,
-                    borderRadius: BorderRadius.all(Radius.circular(5)),
-                    boxShadow: const [
-                      BoxShadow(color: Colors.black, spreadRadius: 2),
-                    ],
-                  ),
-                  child: Column(
-                    children: [
-                      Container(
-                        child: Text("ارشد شما در حال حاضر"),
-                      ),
-                      TextSearch(
-                        hint: 'جستجوی کاربر',
-                        prefixIcon: Icon(Icons.search),
-                        suffixIcon: null,
-                      ),
-                      Padding(
-                        padding:
-                        EdgeInsets.only(left: 8, right: 8, bottom: 8),
-                        child: Container(
-                          width: 480,
-                          decoration: BoxDecoration(
-                            color: Colors.purple.shade200,
-                            shape: BoxShape.rectangle,
-                            borderRadius:
-                            BorderRadius.all(Radius.circular(5)),
-                            boxShadow: const [
-                              BoxShadow(
-                                  color: Colors.black, spreadRadius: 2),
-                            ],
                           ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              children: [
-                                Scrollbar(
-                                    child: Column(
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(15),
+                    child: Container(
+                      width: 480,
+                      decoration: BoxDecoration(
+                        color: Colors.purple.shade200,
+                        shape: BoxShape.rectangle,
+                        borderRadius: BorderRadius.all(Radius.circular(5)),
+                        boxShadow: const [
+                          BoxShadow(color: Colors.black, spreadRadius: 2),
+                        ],
+                      ),
+                      child: Column(
+                        children: [
+                          Container(
+                            child: Text("ارشد شما در حال حاضر"),
+                          ),
+                          TextSearch(
+                            hint: 'جستجوی کاربر',
+                            prefixIcon: Icon(Icons.search),
+                            suffixIcon: null,
+                          ),
+                          Padding(
+                            padding:
+                                EdgeInsets.only(left: 8, right: 8, bottom: 8),
+                            child: Container(
+                              width: 480,
+                              decoration: BoxDecoration(
+                                color: Colors.purple.shade200,
+                                shape: BoxShape.rectangle,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(5)),
+                                boxShadow: const [
+                                  BoxShadow(
+                                      color: Colors.black, spreadRadius: 2),
+                                ],
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  children: [
+                                    Scrollbar(
+                                        child: Column(
                                       children: [
                                         Row(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
                                             Column(
                                               children: [
@@ -203,14 +203,14 @@ class ArshadDialog extends StatelessWidget {
                                                     color: Colors.red.shade300,
                                                     shape: BoxShape.rectangle,
                                                     borderRadius:
-                                                    BorderRadius.all(
-                                                        Radius.circular(
-                                                            100)),
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                100)),
                                                   ),
                                                   child: Row(
                                                     mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .center,
+                                                        MainAxisAlignment
+                                                            .center,
                                                     children: [
                                                       Text("data"),
                                                       Icon(Icons.location_pin),
@@ -227,14 +227,14 @@ class ArshadDialog extends StatelessWidget {
                                                     color: Colors.red.shade300,
                                                     shape: BoxShape.rectangle,
                                                     borderRadius:
-                                                    BorderRadius.all(
-                                                        Radius.circular(
-                                                            100)),
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                100)),
                                                   ),
                                                   child: Row(
                                                     mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .center,
+                                                        MainAxisAlignment
+                                                            .center,
                                                     children: [
                                                       Text("data"),
                                                       Icon(Icons.location_pin),
@@ -259,51 +259,51 @@ class ArshadDialog extends StatelessWidget {
                                                           shape: BoxShape
                                                               .rectangle,
                                                           borderRadius:
-                                                          new BorderRadius
-                                                              .circular(
-                                                              30.0),
+                                                              new BorderRadius
+                                                                      .circular(
+                                                                  30.0),
                                                           border: Border.all(
                                                               color:
-                                                              Colors.black,
+                                                                  Colors.black,
                                                               width: 1)),
                                                       child: Row(
                                                         mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
+                                                            MainAxisAlignment
+                                                                .center,
                                                         children: [
                                                           Container(
                                                             height: 20,
                                                             width: 20,
                                                             padding: EdgeInsets
                                                                 .symmetric(
-                                                                horizontal:
-                                                                4),
+                                                                    horizontal:
+                                                                        4),
                                                             decoration: BoxDecoration(
                                                                 borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                    50),
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            50),
                                                                 border: Border.all(
                                                                     color: Colors
                                                                         .black26,
                                                                     width: 1)),
-                                                            child: textspan(
+                                                            child: Callout(
                                                               text: "5",
                                                               color: Colors
                                                                   .purpleAccent,
                                                               textAlign:
-                                                              TextAlign
-                                                                  .left,
+                                                                  TextAlign
+                                                                      .left,
                                                             ),
                                                           ),
                                                           SizedBox(
                                                             width: 5,
                                                           ),
-                                                          textspan(
+                                                          Callout(
                                                             text: "ره رو",
                                                             color: Colors.black,
                                                             textAlign:
-                                                            TextAlign.left,
+                                                                TextAlign.left,
                                                           ),
                                                         ],
                                                       ),
@@ -320,19 +320,19 @@ class ArshadDialog extends StatelessWidget {
                                         ),
                                       ],
                                     ))
-                              ],
+                                  ],
+                                ),
+                              ),
                             ),
                           ),
-                        ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
-                ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
-      ],
-    ),
-  );
+      );
 }

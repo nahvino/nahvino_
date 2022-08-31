@@ -88,16 +88,24 @@ final Massage m1 = Massage(
     userid: "a",
     idgroup: "1",
     image: "assets/images/ram/gorp.png",
-    mass: "سلام",
+    mass:
+        "هر دو پادشاه عاشق همسران خود بودندپادشاه هند دستور \n داد که به یادبود همسر محبوبش \n ، بنای بسیار  زیبای تاج محل را با صرف هزینه گزافی بسازند!",
     name: "علی",
     time: "10:50 ب.ظ");
-
-final Massage m2 = Massage(
+final Massage m11 = Massage(
     id: "2",
+    userid: "a",
+    idgroup: "1",
+    image: "assets/images/ram/gorp.png",
+    mass: "یار زیباید!",
+    name: "علی",
+    time: "10:50 ب.ظ");
+final Massage m2 = Massage(
+    id: "3",
     userid: "b",
     idgroup: "1",
     image: "assets/images/ram/gorp.png",
     mass: "خوبی",
     name: "ممد",
     time: "10:50 ب.ظ");
-List<Massage> fakeMassagegroup = [m1, m2];
+List<Massage> fakeMassagegroup = [m1, m11, m2];

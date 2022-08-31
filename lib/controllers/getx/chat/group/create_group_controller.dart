@@ -9,6 +9,7 @@ class CreateGroupController extends GetxController {
   TextEditingController gholghrarcontroller = TextEditingController();
 
   RxString imagePath = "".obs;
+  RxInt puls = 0.obs;
   @override
   void onInit() {
     super.onInit();

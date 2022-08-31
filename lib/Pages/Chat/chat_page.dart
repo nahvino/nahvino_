@@ -207,7 +207,7 @@ class _ChatpageState extends State<Chatpage> {
                                       const SizedBox(
                                         width: 7,
                                       ),
-                                      textspan(
+                                      Title1(
                                         textAlign: TextAlign.end,
                                         text: "اطلاعات گروه",
                                         color: Colors.black,

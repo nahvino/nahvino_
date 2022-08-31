@@ -24,6 +24,7 @@ class BorderTextFilde extends StatelessWidget {
       maxLines: 3,
       minLines: 3,
       textAlign: TextAlign.right,
+      maxLength: 255,
       controller: controller,
       keyboardType: TextInputType.multiline,
       style: TextStyle(fontSize: 14, fontFamily: 'Vazirmatn_Medium'),

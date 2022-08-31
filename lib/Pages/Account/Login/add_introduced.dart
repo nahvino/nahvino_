@@ -81,7 +81,7 @@ class _AddIntroducedState extends State<AddIntroduced> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      textbold(
+                      Subhead(
                         textAlign: TextAlign.right,
                         text: resultResponse['userName'],
                         color: Colors.green,
@@ -89,7 +89,7 @@ class _AddIntroducedState extends State<AddIntroduced> {
                       SizedBox(
                         width: 03,
                       ),
-                      textspan(
+                      Callout(
                         textAlign: TextAlign.right,
                         text: AppLocalizations.of(context)!.translate(
                           'nahvinoismaslk',

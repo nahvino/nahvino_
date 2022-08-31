@@ -103,7 +103,7 @@ class MenuPopUp extends StatelessWidget {
 
       */
       onPressed: () {},
-      child: Icon(Icons.more_vert_rounded),
+      child: Icon(Icons.more_vert_rounded, size: 30),
     );
   }
 }

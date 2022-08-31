@@ -136,7 +136,7 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              textbold(
+                              Subhead(
                                 textAlign: TextAlign.right,
                                 text:
                                     resultResponseViewProfileUesr['userName'] ??
@@ -171,7 +171,7 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                       children: [
                         Column(
                           children: [
-                            /*   textbold(
+                            /*   Subhead(
                             textAlign: TextAlign.right,
                             text: resultResponseViewProfileUesr['userName'],
                             color: Colors.black,
@@ -269,7 +269,7 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                         ),
                         Column(
                           children: [
-                            textbold(
+                            Subhead(
                               text:
                                   resultResponseViewProfileUesr['nameAlias'] ??
                                       "",
@@ -301,7 +301,7 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                                         borderRadius: BorderRadius.circular(50),
                                         border: Border.all(
                                             color: Colors.black26, width: 1)),
-                                    child: textspan(
+                                    child: Callout(
                                       text: ranksadad[
                                           resultResponseViewProfileUesr[
                                               'rank']],
@@ -312,7 +312,7 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                                   SizedBox(
                                     width: 5,
                                   ),
-                                  textspan(
+                                  Callout(
                                     text: ranks[
                                         resultResponseViewProfileUesr['rank']],
                                     color: Colors.black,
@@ -347,7 +347,7 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                             SizedBox(
                               height: 5,
                             ),
-                            textspan(
+                            Callout(
                               text: resultResponseViewProfileUesr['score']
                                   .toString(),
                               color: Colors.black,
@@ -459,7 +459,7 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                             SizedBox(
                               height: 4,
                             ),
-                            textspan(
+                            Callout(
                               text:
                                   resultResponseViewProfileUesr['parentName'] ??
                                       "نحوینو",
@@ -480,7 +480,7 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                         bottom: MediaQuery.of(context).size.height * 0.02,
                         top: MediaQuery.of(context).size.height * 0.01,
                       ),
-                      child: textspan(
+                      child: Callout(
                         text: resultResponseViewProfileUesr['bio'] ?? "",
                         color: Colors.black,
                         textAlign: TextAlign.start,

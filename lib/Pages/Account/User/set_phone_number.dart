@@ -69,7 +69,7 @@ class _SetPhoneNumberState extends State<SetPhoneNumber> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            textspan(
+            Callout(
               textAlign: TextAlign.center,
               text: AppLocalizations.of(context)!.translate(
                 'set_phone_test',

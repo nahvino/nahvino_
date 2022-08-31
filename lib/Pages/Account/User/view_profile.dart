@@ -231,7 +231,7 @@ class _ViewProfileState extends State<ViewProfile> {
                                 padding: EdgeInsets.only(
                                     right: MediaQuery.of(context).size.height *
                                         0.02),
-                                child: textbold(
+                                child: Subhead(
                                   textAlign: TextAlign.right,
                                   text: databox.username.value,
                                   color: Colors.black,
@@ -257,7 +257,7 @@ class _ViewProfileState extends State<ViewProfile> {
                                           const SizedBox(
                                             width: 7,
                                           ),
-                                          textspan(
+                                          Callout(
                                             textAlign: TextAlign.end,
                                             text: AppLocalizations.of(context)!
                                                 .translate(
@@ -282,7 +282,7 @@ class _ViewProfileState extends State<ViewProfile> {
                                         const SizedBox(
                                           width: 7,
                                         ),
-                                        textspan(
+                                        Callout(
                                           textAlign: TextAlign.end,
                                           color: Colors.black,
                                           text: AppLocalizations.of(context)!
@@ -327,7 +327,7 @@ class _ViewProfileState extends State<ViewProfile> {
                                           SizedBox(
                                             width: 8,
                                           ),
-                                          textspan(
+                                          Callout(
                                             textAlign: TextAlign.center,
                                             text: databox.identifierCode.value
                                                 .toString(),
@@ -354,7 +354,7 @@ class _ViewProfileState extends State<ViewProfile> {
                                           SizedBox(
                                             width: 8,
                                           ),
-                                          textspan(
+                                          Callout(
                                             textAlign: TextAlign.center,
                                             color: Colors.black,
                                             text: AppLocalizations.of(context)!
@@ -430,12 +430,12 @@ class _ViewProfileState extends State<ViewProfile> {
                             children: [
                               databox.namealias.value == "null" ||
                                       databox.namealias.value == ""
-                                  ? textspan(
+                                  ? Callout(
                                       text: "مهمان",
                                       color: Colors.black38,
                                       textAlign: TextAlign.start,
                                     )
-                                  : textbold(
+                                  : Subhead(
                                       text: databox.namealias.value,
                                       color: Colors.teal,
                                       textAlign: TextAlign.start,
@@ -467,7 +467,7 @@ class _ViewProfileState extends State<ViewProfile> {
                                               BorderRadius.circular(50),
                                           border: Border.all(
                                               color: Colors.black26, width: 1)),
-                                      child: textspan(
+                                      child: Callout(
                                         text: ranksadad[databox.rank.value],
                                         color: Colors.purpleAccent,
                                         textAlign: TextAlign.left,
@@ -476,7 +476,7 @@ class _ViewProfileState extends State<ViewProfile> {
                                     SizedBox(
                                       width: 5,
                                     ),
-                                    textspan(
+                                    Callout(
                                       text: ranks[databox.rank.value],
                                       color: Colors.black,
                                       textAlign: TextAlign.left,
@@ -511,7 +511,7 @@ class _ViewProfileState extends State<ViewProfile> {
                               SizedBox(
                                 height: 4,
                               ),
-                              textspan(
+                              Callout(
                                 text: databox.score.value
                                     .toString() /*resultResponse!.score.toString()*/,
                                 color: Colors.black,
@@ -598,7 +598,7 @@ class _ViewProfileState extends State<ViewProfile> {
                                       SizedBox(
                                         height: 4,
                                       ),
-                                      textspan(
+                                      Callout(
                                         text: databox.parentname.value,
                                         color: Colors.teal,
                                         textAlign: TextAlign.left,
@@ -621,12 +621,12 @@ class _ViewProfileState extends State<ViewProfile> {
                           ),
                           child: databox.bio.value == "null" ||
                                   databox.bio.value == ""
-                              ? textspan(
+                              ? Callout(
                                   text: "بیو گرافی شما",
                                   color: Colors.black38,
                                   textAlign: TextAlign.start,
                                 )
-                              : textspan(
+                              : Callout(
                                   text: databox.bio.value,
                                   color: Colors.black,
                                   textAlign: TextAlign.start,

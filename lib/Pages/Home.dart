@@ -1,10 +1,11 @@
 import 'package:Nahvino/Pages/Chat/Widget/public_group_widget.dart';
 
-import 'package:Nahvino/Pages/Chat/group/create_group.dart';
+import 'package:Nahvino/Pages/Chat/group/create_group/page1_group.dart';
 import 'package:Nahvino/Pages/Chat/group/edit_group.dart';
 import 'package:Nahvino/Pages/Chat/group/group.dart';
 import 'package:Nahvino/Pages/Chat/group/info_group.dart';
 import 'package:Nahvino/Pages/Chat/private/person.dart';
+import 'package:Nahvino/Pages/Chat/settings/setting_global.dart';
 import 'package:Nahvino/Utils/Button/Button.dart';
 import 'package:Nahvino/Utils/Menu/menu_pop.dart';
 import 'package:Nahvino/Utils/Text/Text.dart';
@@ -20,106 +21,102 @@ class HomeScren extends StatelessWidget {
       Get.put(HomeGroupController());
 
   PublicGroupWidget gowidget = PublicGroupWidget();
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
+          floatingActionButton: FloatingActionButton(
+              backgroundColor: Colors.cyan.shade800,
+              child: Icon(Icons.group_add),
+              onPressed: (() => Get.to(CreateGroup()))),
           body: NestedScrollView(
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          return <Widget>[
-            Obx(
-              () => SliverAppBar(
-                backgroundColor: Colors.cyan.shade800,
-                actions: [
-                  Container(
-                    width: 20,
-                    height: 20,
-                    child: IconButton(
-                        onPressed: () {
-                          home_group_controller.isInSearchMode.value =
-                              !home_group_controller.isInSearchMode.value;
-                          home_group_controller.update();
-                        },
-                        icon: Icon(home_group_controller.isInSearchMode.value
-                            ? Icons.search
-                            : Icons.close)),
+            headerSliverBuilder:
+                (BuildContext context, bool innerBoxIsScrolled) {
+              return <Widget>[
+                Obx(
+                  () => SliverAppBar(
+                    backgroundColor: Colors.cyan.shade800,
+                    actions: [
+                      Container(
+                        child: IconButton(
+                            onPressed: () {
+                              home_group_controller.isInSearchMode.value =
+                                  !home_group_controller.isInSearchMode.value;
+                              home_group_controller.update();
+                            },
+                            icon: Icon(
+                                home_group_controller.isInSearchMode.value
+                                    ? Icons.search
+                                    : Icons.close)),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                    ],
+                    title: home_group_controller.isInSearchMode.value
+                        ? Subhead(
+                            text: "چت نحوینو",
+                          )
+                        : gowidget.searchmood(),
+                    leadingWidth: 60,
+                    leading: MenuPopUp(
+                      menuItems: <FocusedMenuItem>[
+                        FocusedMenuItem(
+                            title: Footnate(
+                              text: "تنظیمات",
+                            ),
+                            trailingIcon: Icon(Icons.settings),
+                            onPressed: () => Get.to(SettingGlobal())),
+                        FocusedMenuItem(
+                            title: Footnate(
+                              text: "لینک",
+                            ),
+                            trailingIcon: Icon(Icons.share),
+                            onPressed: () {
+                              print("درسته");
+                            }),
+                      ],
+                    ),
+                    pinned: true,
+                    floating: true,
+                    bottom: TabBar(
+                      isScrollable: true,
+                      tabs: [
+                        Tab(
+                            child: Row(
+                          children: [
+                            Icon(Icons.group),
+                            SizedBox(
+                              width: 3,
+                            ),
+                            Text("گروه")
+                          ],
+                        )),
+                        Tab(
+                            child: Row(
+                          children: [
+                            Icon(Icons.group),
+                            SizedBox(
+                              width: 3,
+                            ),
+                            Text("خصوصی")
+                          ],
+                        )),
+                      ],
+                    ),
                   ),
-                  if (home_group_controller.isInSearchMode.value != false)
-                    gowidget.btnappbarhome(),
-                ],
-                title: home_group_controller.isInSearchMode.value
-                    ? Subhead(
-                        text: "چت نحوینو",
-                      )
-                    : gowidget.searchmood(),
-                leadingWidth: 25,
-                leading: MenuPopUp(
-                  menuItems: <FocusedMenuItem>[
-                    FocusedMenuItem(
-                        title: Footnate(
-                          text: "تنظیمات",
-                        ),
-                        trailingIcon: Icon(Icons.settings),
-                        onPressed: () {}),
-                    FocusedMenuItem(
-                        title: Footnate(
-                          text: "لینک",
-                        ),
-                        trailingIcon: Icon(Icons.share),
-                        onPressed: () {
-                          print("درسته");
-                        }),
-                    FocusedMenuItem(
-                        title: Footnate(
-                          color: Colors.redAccent,
-                          text: "خروج",
-                        ),
-                        trailingIcon: Icon(
-                          Icons.exit_to_app,
-                          color: Colors.redAccent,
-                        ),
-                        onPressed: () {}),
-                  ],
                 ),
-                pinned: true,
-                floating: true,
-                bottom: TabBar(
-                  isScrollable: true,
-                  tabs: [
-                    Tab(
-                        child: Row(
-                      children: [
-                        Icon(Icons.group),
-                        SizedBox(
-                          width: 3,
-                        ),
-                        Text("گروه")
-                      ],
-                    )),
-                    Tab(
-                        child: Row(
-                      children: [
-                        Icon(Icons.group),
-                        SizedBox(
-                          width: 3,
-                        ),
-                        Text("خصوصی")
-                      ],
-                    )),
-                  ],
-                ),
-              ),
+              ];
+            },
+            body: TabBarView(
+              children: <Widget>[
+                tapone(context),
+                taptow(context),
+              ],
             ),
-          ];
-        },
-        body: TabBarView(
-          children: <Widget>[
-            tapone(context),
-            taptow(context),
-          ],
-        ),
-      )),
+          )),
     );
   }
 

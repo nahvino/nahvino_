@@ -72,7 +72,7 @@ class _CheckCodeSetPhoneNumberState extends State<CheckCodeSetPhoneNumber> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              textspan(
+              Callout(
                 textAlign: TextAlign.center,
                 text: AppLocalizations.of(context)!.translate(
                   'set_phone_test',
@@ -87,7 +87,7 @@ class _CheckCodeSetPhoneNumberState extends State<CheckCodeSetPhoneNumber> {
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 SizedBox(width: 3),
                 //Text(widget.setPhoneNumber)
-                textspan(
+                Callout(
                   textAlign: TextAlign.center,
                   text: widget.setPhoneNumber,
                   color: Colors.green,

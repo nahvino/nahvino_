@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class ChatGroupWidget {
- 
-
   search_mood() {}
   select_mood() {}
   massgae_box() {}
@@ -49,8 +47,8 @@ class ChatGroupWidget {
     );
   }
 
-  text_group(
-      ValueChanged<String>? onChanged, TextEditingController controller, FocusNode? focusNode) {
+  text_group(ValueChanged<String>? onChanged, TextEditingController controller,
+      FocusNode? focusNode, Widget? icon) {
     return Expanded(
         child: TextField(
       showCursor: true,
@@ -64,6 +62,7 @@ class ChatGroupWidget {
       smartDashesType: SmartDashesType.enabled,
       smartQuotesType: SmartQuotesType.enabled,
       decoration: InputDecoration(
+          prefixIcon: icon!,
           border: InputBorder.none,
           focusedBorder: InputBorder.none,
           enabledBorder: InputBorder.none,
@@ -84,4 +83,22 @@ class ChatGroupWidget {
 
   menu_appbar() {}
   replay() {}
+
+  test() {
+    return Row(
+      children: [
+        Icon(
+          Icons.check,
+          size: 12,
+        ),
+        SizedBox(
+          width: 5,
+        ),
+        Icon(
+          Icons.check,
+          size: 12,
+        ),
+      ],
+    );
+  }
 }

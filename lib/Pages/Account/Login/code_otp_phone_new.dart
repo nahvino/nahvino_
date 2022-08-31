@@ -48,6 +48,7 @@ class _CodeOtpPhoneNewState extends State<CodeOtpPhoneNew> {
     super.initState();
     otpService = OtpService();
   }
+
   @override
   Widget build(BuildContext context) {
     /*final defaultPinTheme = PinTheme(
@@ -97,7 +98,7 @@ class _CodeOtpPhoneNewState extends State<CodeOtpPhoneNew> {
                             SizedBox(width: 3),
                             //Text(widget.setPhoneNumber)
 
-                            textspan(
+                            Callout(
                               textAlign: TextAlign.center,
                               text: widget.OtpCode,
                               color: Colors.green,
@@ -289,7 +290,7 @@ class _CodeOtpPhoneNewState extends State<CodeOtpPhoneNew> {
                             return;
                           }*/
                             if (!_formKey.currentState!.validate()) {
-                            } else {                    
+                            } else {
                               setState(() {
                                 isApiCallProcess = true;
                               });
