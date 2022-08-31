@@ -81,11 +81,11 @@ class ChatGroup extends StatelessWidget {
                             ?
                             // name group
                             Padding(
-                                padding: const EdgeInsets.only(bottom: 6),
+                                padding: EdgeInsets.only(bottom: 6),
                                 child: Directionality(
                                   textDirection: TextDirection.rtl,
                                   child: Container(
-                                    width: width / 1.3,
+                                    width: width / 1.32,
                                     height: height / 17,
                                     child: gowidget.searchmood(),
                                   ),
@@ -180,53 +180,29 @@ class ChatGroup extends StatelessWidget {
             Card(
               child: Row(
                 children: [
+                  Directionality(
+                    textDirection: TextDirection.rtl,
+                    child: IconButton(
+                        icon: Icon(
+                          Icons.send,
+                          color: chat_group_controller.canSend.value
+                              ? Colors.black
+                              : Colors.cyan,
+                        ),
+                        onPressed: () {
+
+                        }),
+                  ),
                   chat_group.text_group((value) {
                     chat_group_controller.canSend.value =
                         value.isEmpty || value == "";
                   }, chat_group_controller.chat_text, focusNode),
-                  /*
-                  if (chat_group_controller.keybord.value == true)
-                    IconButton(
-                        onPressed: () {
-                          FocusScope.of(context).requestFocus(focusNode);
-                          if (WidgetsBinding.instance.window.viewInsets.bottom >
-                              0) {
-                            FocusScope.of(context).unfocus();
-
-                            print("بالا");
-                          } else {
-                            //FocusScope.of(context).unfocus();
-
-                            chat_group_controller.emojiShowing.value =
-                                !chat_group_controller.emojiShowing.value;
-                            chat_group_controller.keybord.value = false;
-                            print("پایین");
-                          }
-                        },
-                        icon: Icon(Icons.keyboard)),
-                  if (chat_group_controller.keybord.value == false)*/
                   IconButton(
                       onPressed: () {
-                        if (WidgetsBinding.instance.window.viewInsets.bottom >
-                            0) {
-                          Future.delayed(Duration(milliseconds: 500), () {
-                            chat_group_controller.emojiShowing.value = true;
-                          });
-                          FocusScope.of(context).unfocus();
-                          print("بالا");
-                        } else {
-                          //FocusScope.of(context).unfocus();
-                          FocusScope.of(context).requestFocus(focusNode);
-                          chat_group_controller.emojiShowing.value = false;
-
-                          print("پایین");
-                        }
-
-                        chat_group_controller.emojiShowing.value = false;
                       },
-                      icon: Icon(chat_group_controller.emojiShowing.value
-                          ? Icons.keyboard
-                          : Icons.emoji_emotions_outlined)),
+                      icon:
+
+                      Icon(Icons.emoji_emotions_outlined)),
                 ],
               ),
             ),
@@ -239,6 +215,7 @@ class ChatGroup extends StatelessWidget {
                 chat_group_controller.onEmojiSelected(emoji);
               },
             ),
+
           ],
         ),
       ),
@@ -337,7 +314,8 @@ class ChatGroup extends StatelessWidget {
                     : Center(
                         child: Row(
                           children: [
-                            if (chat_group_controller.select_mood.value == true)
+                            if (chat_group_controller.admin_select_mood.value ==
+                                true)
                               Checkbox(
                                   value: chat_group_controller.checkbox.value,
                                   onChanged: (Value) {}),
