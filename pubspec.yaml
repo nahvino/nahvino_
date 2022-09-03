@@ -130,6 +130,7 @@ flutter:
     - assets/lang/fa.json
     - assets/lang/en.json
     - assets/images/
+    - assets/images/hart/
     - assets/images/icon/
     - assets/images/login/
     - assets/images/ram/

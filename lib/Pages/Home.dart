@@ -69,14 +69,14 @@ class HomeScren extends StatelessWidget {
                             ),
                             trailingIcon: Icon(Icons.settings),
                             onPressed: () => Get.to(SettingGlobal())),
-                        FocusedMenuItem(
-                            title: Footnate(
-                              text: "لینک",
-                            ),
-                            trailingIcon: Icon(Icons.share),
-                            onPressed: () {
-                              print("درسته");
-                            }),
+                        // FocusedMenuItem(
+                        //     title: Footnate(
+                        //       text: "لینک",
+                        //     ),
+                        //     trailingIcon: Icon(Icons.share),
+                        //     onPressed: () {
+                        //       print("درسته");
+                        //     }),
                       ],
                     ),
                     pinned: true,

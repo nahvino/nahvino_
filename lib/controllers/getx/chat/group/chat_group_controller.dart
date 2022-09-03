@@ -17,7 +17,7 @@ class ChatGroupController extends GetxController {
   FocusNode focusNode = FocusNode();
   Icon icomke = Icon(Icons.emoji_emotions_outlined);
   Color? color;
-  
+
   final List<String> fonts = [
     "Vazirmatn_SemiBold",
     "Vazirmatn_Regular",

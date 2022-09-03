@@ -73,7 +73,7 @@ class Page2Group extends StatelessWidget {
               height: 10,
             ),
             Buttonfull(
-                text: "اعمال تغییرات",
+                text: "بعدی",
                 color: Colors.white,
                 onPressed: () => Get.to(Page3Group())),
           ],

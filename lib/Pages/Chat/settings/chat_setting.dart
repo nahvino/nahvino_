@@ -135,7 +135,6 @@ class ChatSetting extends StatelessWidget {
                     onChanged: (value) {
                       chat_group_controller.color = value as Color;
                     }),
-              
               ],
             )
           ],

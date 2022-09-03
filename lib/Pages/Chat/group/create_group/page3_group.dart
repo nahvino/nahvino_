@@ -67,7 +67,7 @@ class Page3Group extends StatelessWidget {
             height: 10,
           ),
           Buttonfull(
-              text: "اعمال تغییرات",
+              text: "ایجاد گروه",
               color: Colors.white,
               onPressed: () => creategroupcontroller.apply()),
         ],

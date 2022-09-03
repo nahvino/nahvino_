@@ -149,17 +149,6 @@ class _MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
 
   List<PersistentBottomNavBarItem> _navBarsItems() {
     return [
-      PersistentBottomNavBarItem(
-        title: AppLocalizations.of(context)!.translate(
-          'Home',
-        ),
-        iconSize: 20,
-        icon: Icon(CupertinoIcons.home),
-        textStyle: TextStyle(fontSize: 12, fontFamily: 'Vazirmatn_Light'),
-        activeColorPrimary: CupertinoColors.white,
-        inactiveColorPrimary: CupertinoColors.white,
-      ),
-
       /*  PersistentBottomNavBarItem(
         title: AppLocalizations.of(context)!.translate(
           'Blog',
@@ -181,6 +170,14 @@ class _MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
         inactiveColorPrimary: CupertinoColors.white,
       ),
       PersistentBottomNavBarItem(
+        title: "چت",
+        iconSize: 20,
+        icon: Icon(CupertinoIcons.chat_bubble),
+        textStyle: TextStyle(fontSize: 12, fontFamily: 'Vazirmatn_Light'),
+        activeColorPrimary: CupertinoColors.white,
+        inactiveColorPrimary: CupertinoColors.white,
+      ),
+      /*  PersistentBottomNavBarItem(
         title: AppLocalizations.of(context)!.translate(
           'Chat',
         ),
@@ -189,16 +186,17 @@ class _MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
         textStyle: TextStyle(fontSize: 12, fontFamily: 'Vazirmatn_Light'),
         activeColorPrimary: CupertinoColors.white,
         inactiveColorPrimary: CupertinoColors.white,
-      ),
+      ),*/
     ];
   }
 
   List<Widget> _buildScreens() {
     return [
-      HomeScren(),
       // SettingScreen(),
       ViewProfile(),
-      Chatpage(),
+      HomeScren(),
+
+      //Chatpage(),
     ];
   }
 }

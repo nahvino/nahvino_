@@ -58,7 +58,6 @@ class _ViewProfileUesrArshedState extends State<ViewProfileUesrArshed> {
     Lottie.asset('assets/anim/phonix/level5.json'),
     Lottie.asset('assets/anim/phonix/level6.json'),
     Lottie.asset('assets/anim/phonix/level7.json'),
-    Lottie.asset('assets/anim/phonix/level8.json'),
   ];
 
   @override

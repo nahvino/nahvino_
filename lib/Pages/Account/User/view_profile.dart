@@ -79,11 +79,13 @@ class _ViewProfileState extends State<ViewProfile> {
     Lottie.asset('assets/anim/phonix/level5.json'),
     Lottie.asset('assets/anim/phonix/level6.json'),
     Lottie.asset('assets/anim/phonix/level7.json'),
-    Lottie.asset('assets/anim/phonix/level8.json'),
   ];
-
+  List<Widget> hart = <Widget>[
+    Container(
+        width: 150, child: Image.asset('assets/images/hart/hart-lave1.png')),
+  ];
   ghgoghnos() {
-    if (ghoghnosResponsee['data'] > 7) {
+    if (ghoghnosResponsee['data'] > 6) {
       Lottie.asset('assets/anim/phonix/level8.json');
     } else {
       ghoghnos[ghoghnosResponsee['data']];
@@ -651,14 +653,18 @@ class _ViewProfileState extends State<ViewProfile> {
                   padding: const EdgeInsets.all(12.0),
                   child: Column(
                     children: [
-                      if (ghoghnosResponsee['data'] > 7)
+                      if (ghoghnosResponsee['data'] > 6)
                         Container(
                           alignment: Alignment.center,
-                          child: Lottie.asset('assets/anim/phonix/level8.json'),
+                          child: Lottie.asset('assets/anim/phonix/level7.json'),
                         ),
                       Container(
                         alignment: Alignment.center,
                         child: ghoghnos[ghoghnosResponsee['data']],
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        child: hart[ghoghnosResponsee['data']],
                       ),
                     ],
                   ),

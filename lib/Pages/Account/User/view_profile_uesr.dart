@@ -65,7 +65,6 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
     Lottie.asset('assets/anim/phonix/level5.json', fit: BoxFit.cover),
     Lottie.asset('assets/anim/phonix/level6.json', fit: BoxFit.cover),
     Lottie.asset('assets/anim/phonix/level7.json', fit: BoxFit.cover),
-    Lottie.asset('assets/anim/phonix/level8.json', fit: BoxFit.cover),
   ];
 
   @override
@@ -512,7 +511,7 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                               BoxShadow(color: Colors.cyan, spreadRadius: 2),
                             ],
                           ),
-                          child: Lottie.asset('assets/anim/phonix/level8.json',
+                          child: Lottie.asset('assets/anim/phonix/level7.json',
                               fit: BoxFit.cover),
                         ),
                       ),
