@@ -26,6 +26,7 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
   GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
 
   var resultResponseViewProfileUesr;
+
   //late Map<String, dynamic> resultResponseGetLastOtherVisit;
   var resultResponseGetLastOtherVisit;
   var resultResponseGetUserAbandon;

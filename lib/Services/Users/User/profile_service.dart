@@ -103,7 +103,6 @@ class ServiceProfile {
       print(response);
       return respStr;
     } else {
-      print("==================> $response");
       return false;
     }
   }
@@ -127,11 +126,6 @@ class ServiceProfile {
     } else {
       return false;
     }
-    // if (response.statusCode == 200) {
-    //   return json.decode(response.body);
-    // } else {
-    //   return false;
-    // }
   }
 
   static Future GetLastVisit() async {
@@ -170,6 +164,28 @@ class ServiceProfile {
       Future.delayed(const Duration(milliseconds: 1000), () {
         Get.offAll(Registration());
       });
+    } else {
+      return false;
+    }
+  }
+
+  ///flag
+  static Future flag() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer ${await preferences.getString("token")}"
+    };
+    var url = Uri.parse(MainConfig.baseURL + ProfileConfig.flag);
+    var response = await client.post(
+      url,
+      headers: requestHeaders,
+      body: jsonEncode({"userId": await preferences.getString("userId")}),
+    );
+    debugPrint(response.body.toString());
+
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
     } else {
       return false;
     }

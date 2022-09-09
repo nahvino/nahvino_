@@ -7,4 +7,5 @@ class ProfileConfig {
   static const String EditUserAbandon =
       "/api/UserAbandons/AddOrEditUserAbandon";
   static const String GetLastVisit = "/api/UserVisits/GetLastVisit";
+  static const String flag = "/api/v1/Account/IsHaveFlag";
 }

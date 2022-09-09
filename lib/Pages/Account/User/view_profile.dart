@@ -2,6 +2,7 @@ import 'package:Nahvino/Pages/Account/User/edit_profile_screen.dart';
 import 'package:Nahvino/Services/Login/Google/notification_service.dart';
 import 'package:Nahvino/Services/Users/User/profile_service.dart';
 import 'package:Nahvino/Utils/OtherUtils/imagedialog.dart';
+import 'package:Nahvino/Utils/Widget/image_view.dart';
 import 'package:Nahvino/config/main_config.dart';
 import 'package:Nahvino/controllers/getx/chat/about_group_controller.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -36,12 +37,12 @@ class _ViewProfileState extends State<ViewProfile> {
   AboutGroupController noti = Get.put(AboutGroupController());
   ViewProfileController databox = Get.put(ViewProfileController());
   VersionData version = Get.put(VersionData());
-  //CheckController checkcontroller = Get.find<CheckController>();
   GetProfileUserResponseModel? resultResponse;
-  //late Map<String, dynamic> ghoghnosResponsee;
   var ghoghnosResponsee;
   var resultResponseGetUserAbandon;
+  var flag;
   late ServiceProfile testtarkh;
+  Imageview img = Imageview();
   String? imagePath;
   late int day;
   late int month;
@@ -49,7 +50,7 @@ class _ViewProfileState extends State<ViewProfile> {
   String date = "0";
   String mont = "0";
   String yaer = "0";
-  List<String> ranks = <String>[
+    List<String> ranks = <String>[
     "مبتدی",
     "رهجو",
     "ره رو",
@@ -140,53 +141,31 @@ class _ViewProfileState extends State<ViewProfile> {
   @override
   void initState() {
     super.initState();
-    /*Future.microtask(() {
-      databox.checkdata();
-      APIService.getprofileuser().then((response) {
-        // print("getprofileuser-------------------------- => $response");
-        resultResponse = response;
-        APIService.GetLastVisit().then((response) {
-          resultResponsee = response;
-          print(" قوقوی---------------------------- => $response");
-          APIService.getuserabandon().then((response) async {
-            SharedPreferences prefs = await SharedPreferences.getInstance();
-            if (prefs.getBool("switchState") == false ||
-                prefs.getBool("switchState") == null) {
-              APIService.notificationaApi().then((response) {
-                print(
-                    "Notfiiiiiiiiiiiiiiiii---------------------------- => $response");
-              });
-            }
-            print("تاریخ ترک ------------- => $response");
-            setState(() {
-              isApiCallProgress = false;
-              resultResponseGetUserAbandon = response;
-            });
-          });
-        });
-      }).onError((error, stackTrace) {
-        print(error);
-      });
-    });*/
     Future.microtask(() {
       databox.checkdata();
       ServiceProfile.GetLastVisit().then((response) {
         ghoghnosResponsee = response;
         print(" -------------<GetLastVisit>-------------- => $response");
+        ServiceProfile.flag().then((response) {
+          flag =response;
+          print(
+              "--------------<flag>-------------- => $response");
+
         ServiceProfile.getabandon().then((response) async {
-          print("------<getuserabandon>------- => $response");
-          resultResponseGetUserAbandon = response;
-          SharedPreferences prefs = await SharedPreferences.getInstance();
-          if (prefs.getBool("switchState") == false ||
-              prefs.getBool("switchState") == null) {
-            ServiceNotification.notificationaApi().then((response) {
-              print(
-                  "--------------<notificationaApi>-------------- => $response");
-              setState(() {
-                isApiCallProgress = false;
+            print("------<getuserabandon>------- => $response");
+            resultResponseGetUserAbandon = response;
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+            if (prefs.getBool("switchState") == false ||
+                prefs.getBool("switchState") == null) {
+              ServiceNotification.notificationaApi().then((response) {
+                print(
+                    "--------------<notificationaApi>-------------- => $response");
+                setState(() {
+                  isApiCallProgress = false;
+                });
               });
-            });
-          }
+            }
+          });
         });
       });
     }).onError((error, stackTrace) {
@@ -399,41 +378,10 @@ class _ViewProfileState extends State<ViewProfile> {
                         children: [
                           (databox.imageUrl.value == "null" ||
                                   databox.imageUrl.value == "")
-                              ? Image.asset(
-                                  'assets/images/home/user.png',
-                                  fit: BoxFit.cover,
-                                  height: 75,
-                                  width: 75,
-                                )
+                              ? img.imageAssetProfile(flag: flag)
                               : InkWell(
-                                  child: Card(
-                                    shape: CircleBorder(),
-                                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                                    child: CachedNetworkImage(
-                                      height: 75,
-                                      width: 75,
-                                      cacheManager: CacheManager(Config(
-                                          'customCacheKey',
-                                          stalePeriod: Duration(days: 7),
-                                          maxNrOfCacheObjects: 100)),
-                                      imageUrl: MainConfig.fileurl +
-                                          databox.imageUrl
-                                              .value /*resultResponse!.imageUrl!*/,
-                                      imageBuilder: (context, imageProvider) =>
-                                          Container(
-                                        decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                            image: imageProvider,
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                      ),
-                                      placeholder: (context, url) =>
-                                          CircularProgressIndicator(),
-                                      errorWidget: (context, url, error) =>
-                                          Icon(Icons.error),
-                                    ),
-                                  ),
+                                  child:
+                                  img.imageProfile(Img:databox.imageUrl.value, flag: flag),
                                   onTap: () {
                                     showDialog<void>(
                                         context: context,
