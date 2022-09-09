@@ -5,7 +5,9 @@ import 'package:image_picker/image_picker.dart';
 class HomeGroupController extends GetxController {
   final ImagePicker picker = ImagePicker();
   TextEditingController search_controller = TextEditingController();
-  RxBool isInSearchMode = true.obs;
+  RxBool isInSearchMode = false.obs;
+  RxBool InSearchMode = true.obs;
+  RxString serchtext = "".obs;
 
   @override
   void onInit() {

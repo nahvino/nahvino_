@@ -16,6 +16,7 @@ class ChatGroupController extends GetxController {
   RxDouble size_text = 12.0.obs;
   FocusNode focusNode = FocusNode();
   Icon icomke = Icon(Icons.emoji_emotions_outlined);
+  RxString serchtext = "".obs;
   Color? color;
 
   final List<String> fonts = [
@@ -24,7 +25,7 @@ class ChatGroupController extends GetxController {
     "Vazirmatn_Medium"
   ];
   Rx<List<String>> selectedfonts = Rx<List<String>>([]);
-  RxString selectedfont = "".obs;
+  RxString selectedfont = "Vazirmatn_Regular".obs;
 
   @override
   void onInit() {
@@ -35,7 +36,7 @@ class ChatGroupController extends GetxController {
       size_text.value = settings.read("text");
     }
     ;
-    if (settings.read("font") == "") {
+    if (settings.read("font") == "" || settings.read("font") == null  ) {
       settings.write("font", selectedfont.value);
     } else {
       selectedfont.value = settings.read("font");

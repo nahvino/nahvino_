@@ -65,6 +65,28 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
     Lottie.asset('assets/anim/phonix/level5.json', fit: BoxFit.cover),
     Lottie.asset('assets/anim/phonix/level6.json', fit: BoxFit.cover),
     Lottie.asset('assets/anim/phonix/level7.json', fit: BoxFit.cover),
+    Lottie.asset('assets/anim/phonix/level7.json', fit: BoxFit.cover),
+  ];
+
+  List<Widget> hart = <Widget>[
+    Container(
+        width: 100, child: Image.asset('assets/images/hart/hart-lave1.png')),
+    Container(
+        width: 100, child: Image.asset('assets/images/hart/hart-lave2.png')),
+    Container(
+        width: 100, child: Image.asset('assets/images/hart/hart-lave3.png')),
+    Container(
+        width: 100, child: Image.asset('assets/images/hart/hart-lave4.png')),
+    Container(
+        width: 100, child: Image.asset('assets/images/hart/hart-lave5.png')),
+    Container(
+        width: 100, child: Image.asset('assets/images/hart/hart-lave6.png')),
+    Container(
+        width: 100, child: Image.asset('assets/images/hart/hart-lave7.png')),
+    Container(
+        width: 100, child: Image.asset('assets/images/hart/hart-lave8.png')),
+    Container(
+        width: 100, child: Image.asset('assets/images/hart/hart-lave8.png')),
   ];
 
   @override
@@ -170,11 +192,6 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                       children: [
                         Column(
                           children: [
-                            /*   Subhead(
-                            textAlign: TextAlign.right,
-                            text: resultResponseViewProfileUesr['userName'],
-                            color: Colors.black,
-                          ),*/
                             (resultResponseViewProfileUesr['imageUrl'] !=
                                         null &&
                                     resultResponseViewProfileUesr['imageUrl'] !=
@@ -223,47 +240,6 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                                     height: 75,
                                     width: 75,
                                   ),
-                            /*Card(
-                                    shape: CircleBorder(),
-                                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                                    child: Image.network(
-                                      Configss.fileurl +
-                                          resultResponseViewProfileUesr[
-                                              'imageUrl']!,
-                                      fit: BoxFit.cover,
-                                      errorBuilder: (BuildContext context,
-                                          Object exception,
-                                          StackTrace? stackTrace) {
-                                        return const Icon(Icons.person);
-                                      },
-                                      loadingBuilder: (BuildContext context,
-                                          Widget child,
-                                          ImageChunkEvent? loadingProgress) {
-                                        if (loadingProgress == null)
-                                          return child;
-                                        return Center(
-                                          child: CircularProgressIndicator(
-                                            value: loadingProgress
-                                                        .expectedTotalBytes !=
-                                                    null
-                                                ? loadingProgress
-                                                        .cumulativeBytesLoaded /
-                                                    loadingProgress
-                                                        .expectedTotalBytes!
-                                                : null,
-                                          ),
-                                        );
-                                      },
-                                      height: 75,
-                                      width: 75,
-                                    ),
-                                  )
-                                : Image.asset(
-                                    'assets/images/home/user.png',
-                                    fit: BoxFit.cover,
-                                    height: 75,
-                                    width: 75,
-                                  ),*/
                           ],
                         ),
                         Column(
@@ -328,21 +304,6 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                               height: 30,
                               image: AssetImage("assets/images/home/bbarg.png"),
                             ),
-                            /*
-                            InkWell(
-                                child: Image(
-                                  height: 30,
-                                  image: AssetImage(
-                                      "assets/images/home/bbarg.png"),
-                                ),
-                                onTap: () {
-                                  showDialog<void>(
-                                      context: context,
-                                      builder: (context) => BargDialog(
-                                            test: resultResponse!.score
-                                                .toString(),
-                                          ));
-                                }),*/
                             SizedBox(
                               height: 5,
                             ),
@@ -395,66 +356,6 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                                     height: 45,
                                     width: 45,
                                   ),
-
-                            /* Card(
-                                    shape: CircleBorder(),
-                                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                                    child: Image.network(
-                                      Configss.fileurl +
-                                          resultResponseViewProfileUesr[
-                                              'parentImageUrl']!,
-                                      fit: BoxFit.cover,
-                                      errorBuilder: (BuildContext context,
-                                          Object exception,
-                                          StackTrace? stackTrace) {
-                                        return const Icon(Icons.person);
-                                      },
-                                      loadingBuilder: (BuildContext context,
-                                          Widget child,
-                                          ImageChunkEvent? loadingProgress) {
-                                        if (loadingProgress == null)
-                                          return child;
-                                        return Center(
-                                          child: CircularProgressIndicator(
-                                            value: loadingProgress
-                                                        .expectedTotalBytes !=
-                                                    null
-                                                ? loadingProgress
-                                                        .cumulativeBytesLoaded /
-                                                    loadingProgress
-                                                        .expectedTotalBytes!
-                                                : null,
-                                          ),
-                                        );
-                                      },
-                                      height: 30,
-                                      width: 30,
-                                    ),
-                                  )
-                                : Image.asset(
-                                    'assets/images/home/user.png',
-                                    fit: BoxFit.cover,
-                                    height: 30,
-                                    width: 30,
-                                  ),*/
-                            /*    InkWell(
-                              onTap: () {
-
-                                showDialog<void>(
-                                    context: context,
-                                    builder: (context) => ArshadDialog());
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Colors.black12),
-                                height: 30,
-                                width: 30,
-                                child: Image(
-                                    image: AssetImage(
-                                        "assets/images/ram/man1.jpg")),
-                              ),
-                            ),*/
                             SizedBox(
                               height: 4,
                             ),
@@ -511,27 +412,40 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                               BoxShadow(color: Colors.cyan, spreadRadius: 2),
                             ],
                           ),
-                          child: Lottie.asset('assets/anim/phonix/level7.json',
-                              fit: BoxFit.cover),
+                          child: Column(
+                            children: [
+                              Lottie.asset('assets/anim/phonix/level7.json',
+                                  fit: BoxFit.cover),
+                              Container(
+                                  width: 100,
+                                  child: Image.asset(
+                                      'assets/images/hart/hart-lave8.png')),
+                            ],
+                          ),
                         ),
                       ),
-                    Expanded(
-                      child: Container(
-                        height: 150,
-                        width: 150,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          shape: BoxShape.rectangle,
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          boxShadow: const [
-                            BoxShadow(color: Colors.cyan, spreadRadius: 2),
-                          ],
+                    if (resultResponseGetLastOtherVisit['data'] < 7)
+                      Expanded(
+                        child: Container(
+                          height: 150,
+                          width: 150,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            shape: BoxShape.rectangle,
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            boxShadow: const [
+                              BoxShadow(color: Colors.cyan, spreadRadius: 2),
+                            ],
+                          ),
+                          child: Column(
+                            children: [
+                              ghoghnos[resultResponseGetLastOtherVisit['data']],
+                              hart[resultResponseGetLastOtherVisit['data']]
+                            ],
+                          ),
                         ),
-                        child:
-                            ghoghnos[resultResponseGetLastOtherVisit['data']],
                       ),
-                    ),
                     SizedBox(
                       width: 9,
                     ),
@@ -623,10 +537,6 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                 ),
               ),
             ),
-            /*   Body(
-                textAlign: TextAlign.center,
-                color: Colors.cyan,
-                text: widget.userid.toString()),*/
           ],
         ),
       );

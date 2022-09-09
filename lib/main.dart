@@ -130,6 +130,8 @@ class _MyAppState extends State<MyApp> {
       });
     });
     super.initState();
+    //خروجی اپ ویندوز
+    
     IsolateNameServer.registerPortWithName(
         _port.sendPort, 'downloader_send_port');
     _port.listen((dynamic data) {
@@ -139,7 +141,7 @@ class _MyAppState extends State<MyApp> {
       setState(() {});
     });
 
-    FlutterDownloader.registerCallback(downloadCallback);
+    // FlutterDownloader.registerCallback(downloadCallback);
   }
 
   @override

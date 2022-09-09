@@ -177,7 +177,7 @@ class _MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
         activeColorPrimary: CupertinoColors.white,
         inactiveColorPrimary: CupertinoColors.white,
       ),
-      /*  PersistentBottomNavBarItem(
+       PersistentBottomNavBarItem(
         title: AppLocalizations.of(context)!.translate(
           'Chat',
         ),
@@ -186,7 +186,7 @@ class _MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
         textStyle: TextStyle(fontSize: 12, fontFamily: 'Vazirmatn_Light'),
         activeColorPrimary: CupertinoColors.white,
         inactiveColorPrimary: CupertinoColors.white,
-      ),*/
+      ),
     ];
   }
 
@@ -195,8 +195,7 @@ class _MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
       // SettingScreen(),
       ViewProfile(),
       HomeScren(),
-
-      //Chatpage(),
+      Chatpage(),
     ];
   }
 }

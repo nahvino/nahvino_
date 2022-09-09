@@ -60,6 +60,25 @@ class _ViewProfileUesrArshedState extends State<ViewProfileUesrArshed> {
     Lottie.asset('assets/anim/phonix/level7.json'),
   ];
 
+  List<Widget> hart = <Widget>[
+    Container(
+        width: 100, child: Image.asset('assets/images/hart/hart-lave1.png')),
+    Container(
+        width: 100, child: Image.asset('assets/images/hart/hart-lave2.png')),
+    Container(
+        width: 100, child: Image.asset('assets/images/hart/hart-lave3.png')),
+    Container(
+        width: 100, child: Image.asset('assets/images/hart/hart-lave4.png')),
+    Container(
+        width: 100, child: Image.asset('assets/images/hart/hart-lave5.png')),
+    Container(
+        width: 100, child: Image.asset('assets/images/hart/hart-lave6.png')),
+    Container(
+        width: 100, child: Image.asset('assets/images/hart/hart-lave7.png')),
+    Container(
+        width: 100, child: Image.asset('assets/images/hart/hart-lave8.png')),
+  ];
+
   @override
   void initState() {
     super.initState();
@@ -151,11 +170,6 @@ class _ViewProfileUesrArshedState extends State<ViewProfileUesrArshed> {
                       children: [
                         Column(
                           children: [
-                            /*   Subhead(
-                            textAlign: TextAlign.right,
-                            text: resultResponseViewProfileUesr['userName'],
-                            color: Colors.black,
-                          ),*/
                             (resultResponseViewProfileUesr['imageUrl'] !=
                                         null &&
                                     resultResponseViewProfileUesr['imageUrl'] !=
@@ -194,48 +208,6 @@ class _ViewProfileUesrArshedState extends State<ViewProfileUesrArshed> {
                                     height: 75,
                                     width: 75,
                                   ),
-
-                            /*Card(
-                                    shape: CircleBorder(),
-                                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                                    child: Image.network(
-                                      Configss.fileurl +
-                                          resultResponseViewProfileUesr[
-                                              'imageUrl']!,
-                                      fit: BoxFit.cover,
-                                      errorBuilder: (BuildContext context,
-                                          Object exception,
-                                          StackTrace? stackTrace) {
-                                        return const Icon(Icons.person);
-                                      },
-                                      loadingBuilder: (BuildContext context,
-                                          Widget child,
-                                          ImageChunkEvent? loadingProgress) {
-                                        if (loadingProgress == null)
-                                          return child;
-                                        return Center(
-                                          child: CircularProgressIndicator(
-                                            value: loadingProgress
-                                                        .expectedTotalBytes !=
-                                                    null
-                                                ? loadingProgress
-                                                        .cumulativeBytesLoaded /
-                                                    loadingProgress
-                                                        .expectedTotalBytes!
-                                                : null,
-                                          ),
-                                        );
-                                      },
-                                      height: 75,
-                                      width: 75,
-                                    ),
-                                  )
-                                : Image.asset(
-                                    'assets/images/home/user.png',
-                                    fit: BoxFit.cover,
-                                    height: 75,
-                                    width: 75,
-                                  ),*/
                           ],
                         ),
                         Column(
@@ -301,21 +273,6 @@ class _ViewProfileUesrArshedState extends State<ViewProfileUesrArshed> {
                               height: 30,
                               image: AssetImage("assets/images/home/bbarg.png"),
                             ),
-                            /*
-                            InkWell(
-                                child: Image(
-                                  height: 30,
-                                  image: AssetImage(
-                                      "assets/images/home/bbarg.png"),
-                                ),
-                                onTap: () {
-                                  showDialog<void>(
-                                      context: context,
-                                      builder: (context) => BargDialog(
-                                            test: resultResponse!.score
-                                                .toString(),
-                                          ));
-                                }),*/
                             SizedBox(
                               height: 5,
                             ),
@@ -368,66 +325,6 @@ class _ViewProfileUesrArshedState extends State<ViewProfileUesrArshed> {
                                     height: 45,
                                     width: 45,
                                   ),
-
-                            /*Card(
-                                    shape: CircleBorder(),
-                                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                                    child: Image.network(
-                                      Configss.fileurl +
-                                          resultResponseViewProfileUesr[
-                                              'parentImageUrl']!,
-                                      fit: BoxFit.cover,
-                                      errorBuilder: (BuildContext context,
-                                          Object exception,
-                                          StackTrace? stackTrace) {
-                                        return const Icon(Icons.person);
-                                      },
-                                      loadingBuilder: (BuildContext context,
-                                          Widget child,
-                                          ImageChunkEvent? loadingProgress) {
-                                        if (loadingProgress == null)
-                                          return child;
-                                        return Center(
-                                          child: CircularProgressIndicator(
-                                            value: loadingProgress
-                                                        .expectedTotalBytes !=
-                                                    null
-                                                ? loadingProgress
-                                                        .cumulativeBytesLoaded /
-                                                    loadingProgress
-                                                        .expectedTotalBytes!
-                                                : null,
-                                          ),
-                                        );
-                                      },
-                                      height: 30,
-                                      width: 30,
-                                    ),
-                                  )
-                                : Image.asset(
-                                    'assets/images/home/user.png',
-                                    fit: BoxFit.cover,
-                                    height: 30,
-                                    width: 30,
-                                  ),*/
-                            /*    InkWell(
-                              onTap: () {
-
-                                showDialog<void>(
-                                    context: context,
-                                    builder: (context) => ArshadDialog());
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Colors.black12),
-                                height: 30,
-                                width: 30,
-                                child: Image(
-                                    image: AssetImage(
-                                        "assets/images/ram/man1.jpg")),
-                              ),
-                            ),*/
                             SizedBox(
                               height: 4,
                             ),
@@ -483,8 +380,21 @@ class _ViewProfileUesrArshedState extends State<ViewProfileUesrArshed> {
                             BoxShadow(color: Colors.cyan, spreadRadius: 2),
                           ],
                         ),
-                        child:
+                        child: Column(
+                          children: [
                             ranksadadA[resultResponseGetLastOtherVisit['data']],
+                            if (resultResponseGetLastOtherVisit['data'] > 6)
+                              Container(
+                                  width: 100,
+                                  child: Image.asset(
+                                      'assets/images/hart/hart-lave8.png')),
+                            Container(
+                              alignment: Alignment.center,
+                              child:
+                                  hart[resultResponseGetLastOtherVisit['data']],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     SizedBox(
@@ -578,10 +488,6 @@ class _ViewProfileUesrArshedState extends State<ViewProfileUesrArshed> {
                 ),
               ),
             ),
-            /*   Body(
-                textAlign: TextAlign.center,
-                color: Colors.cyan,
-                text: widget.userid.toString()),*/
           ],
         ),
       );

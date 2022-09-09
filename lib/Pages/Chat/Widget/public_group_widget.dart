@@ -18,6 +18,7 @@ class PublicGroupWidget {
   String? adminname;
   String? support1;
   String? support2;
+
   PublicGroupWidget(
       {this.image1,
       this.image2,
@@ -25,6 +26,7 @@ class PublicGroupWidget {
       this.adminname,
       this.support1,
       this.support2});
+
   img_name() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -413,7 +415,6 @@ class PublicGroupWidget {
               width: width / 1.4,
               child: BorderTextFilde(
                 controller: txcontroller,
-            
               )),
           Callout(
               color: Colors.black, textAlign: TextAlign.center, text: caption),
@@ -453,7 +454,7 @@ class PublicGroupWidget {
         ));
   }
 
-  searchmood() {
+  searchmood({required ValueChanged<String>? changed}) {
     return Padding(
       padding: const EdgeInsets.only(top: 5),
       child: Container(
@@ -464,6 +465,7 @@ class PublicGroupWidget {
         child: Padding(
           padding: const EdgeInsets.only(right: 19),
           child: TextFormField(
+            onChanged: changed,
             style: TextStyle(
                 fontSize: 14,
                 fontFamily: 'Vazirmatn_Medium',

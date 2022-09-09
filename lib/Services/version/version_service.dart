@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'package:Nahvino/Utils/Widget/dialog_error.dart';
 import 'package:Nahvino/config/main_config.dart';
 import 'package:Nahvino/config/version_config.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
@@ -16,7 +18,7 @@ class ServiceVersion {
     if (response.statusCode == 200) {
       return json.decode(response.body);
     } else {
-      return false;
+      return ShowError(title: "خطا در دریافت ورژن",);
     }
   }
 }

@@ -82,7 +82,21 @@ class _ViewProfileState extends State<ViewProfile> {
   ];
   List<Widget> hart = <Widget>[
     Container(
-        width: 150, child: Image.asset('assets/images/hart/hart-lave1.png')),
+        width: 100, child: Image.asset('assets/images/hart/hart-lave1.png')),
+    Container(
+        width: 100, child: Image.asset('assets/images/hart/hart-lave2.png')),
+    Container(
+        width: 100, child: Image.asset('assets/images/hart/hart-lave3.png')),
+    Container(
+        width: 100, child: Image.asset('assets/images/hart/hart-lave4.png')),
+    Container(
+        width: 100, child: Image.asset('assets/images/hart/hart-lave5.png')),
+    Container(
+        width: 100, child: Image.asset('assets/images/hart/hart-lave6.png')),
+    Container(
+        width: 100, child: Image.asset('assets/images/hart/hart-lave7.png')),
+    Container(
+        width: 100, child: Image.asset('assets/images/hart/hart-lave8.png')),
   ];
   ghgoghnos() {
     if (ghoghnosResponsee['data'] > 6) {
@@ -188,15 +202,12 @@ class _ViewProfileState extends State<ViewProfile> {
       child: Scaffold(
           backgroundColor: Colors.grey[200],
           body: SafeArea(
-              child:
-                  isApiCallProgress /*&& resultResponse == null &&  resultResponsee == null && resultResponseGetUserAbandon == null*/
-                      ? Center(
-                          child: Lottie.asset(
-                              'assets/anim/loading/loading.json',
-                              height: 300,
-                              width: 300),
-                        )
-                      : body(context))),
+              child: isApiCallProgress
+                  ? Center(
+                      child: Lottie.asset('assets/anim/loading/loading.json',
+                          height: 300, width: 300),
+                    )
+                  : body(context))),
     );
   }
 
@@ -662,6 +673,11 @@ class _ViewProfileState extends State<ViewProfile> {
                         alignment: Alignment.center,
                         child: ghoghnos[ghoghnosResponsee['data']],
                       ),
+                      if (ghoghnosResponsee['data'] > 6)
+                        Container(
+                            width: 150,
+                            child: Image.asset(
+                                'assets/images/hart/hart-lave8.png')),
                       Container(
                         alignment: Alignment.center,
                         child: hart[ghoghnosResponsee['data']],

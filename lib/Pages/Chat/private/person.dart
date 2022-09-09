@@ -12,7 +12,7 @@ class Person extends StatelessWidget {
     return Container(
       child: ListView.builder(
         shrinkWrap: true,
-        itemCount: test.length,
+        itemCount: user.length,
         itemBuilder: chatItem,
         physics: NeverScrollableScrollPhysics(),
       ),
@@ -38,7 +38,7 @@ class Person extends StatelessWidget {
                                 imagegrup != "" &&
                                 imagegrup != "null")
                             ? img.image(imagegrup!)
-                            : img.image_assetsa(test[index].img!),
+                            : img.image_assetsa(user[index].img!),
                         SizedBox(
                           width: 10,
                         ),
@@ -46,17 +46,17 @@ class Person extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Footnate(
-                              text: test[index].name!,
+                              text: user[index].name!,
                             ),
                             Caption1(
-                              text: test[index].mass!,
+                              text: user[index].mass!,
                             ),
                           ],
                         ),
                       ],
                     ),
                     Caption1(
-                      text: test[index].time!,
+                      text: user[index].time!,
                     ),
                   ],
                 ),

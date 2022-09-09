@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_chat_bubble/bubble_type.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_1.dart';
+import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_2.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
@@ -18,6 +19,7 @@ class ChatSetting extends StatelessWidget {
   ChatSetting({Key? key}) : super(key: key);
   ChatGroupController chat_group_controller = Get.put(ChatGroupController());
   String? test;
+
   @override
   Widget build(BuildContext context) {
     return Obx(() {
@@ -90,7 +92,7 @@ class ChatSetting extends StatelessWidget {
             value: chat_group_controller.fonts[0],
             items: [
               DropdownMenuItem(
-                  child: Text("وزیر پهن"), value: "Vazirmatn_SemiBold"),
+                  child: Text("وزیر-زخیم"), value: "Vazirmatn_SemiBold"),
               DropdownMenuItem(
                   child: Text("وزیر-نازک"), value: "Vazirmatn_Regular")
             ],
@@ -100,16 +102,21 @@ class ChatSetting extends StatelessWidget {
               chat_group_controller.settings
                   .write("font", chat_group_controller.selectedfont.value);
             },
-            color: Colors.cyan.shade700, //background color
-            border: Border.all(color: Colors.cyan.shade50, width: 2), //border
+            color: Colors.cyan.shade700,
+            //background color
+            border: Border.all(color: Colors.cyan.shade50, width: 2),
+            //border
 
-            borderRadius: BorderRadius.circular(20), //border radius
+            borderRadius: BorderRadius.circular(20),
+            //border radius
             style: TextStyle(
                 //text style
                 color: Colors.white,
                 fontSize: 20),
-            icon: Icon(Icons.arrow_downward), //icon
-            iconEnableColor: Colors.white, //icon enable color
+            icon: Icon(Icons.arrow_downward),
+            //icon
+            iconEnableColor: Colors.white,
+            //icon enable color
             dropdownColor: Colors.cyan.shade900, //dropdown background color
           ),
         ),
@@ -214,75 +221,124 @@ class ChatSetting extends StatelessWidget {
                         child: Row(
                           children: [
                             ChatBubble(
-                                clipper: ChatBubbleClipper1(
-                                    type: BubbleType.receiverBubble),
-                                backGroundColor: Color(0xffE7E7ED),
-                                margin: EdgeInsets.only(top: 4, bottom: 4),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                        crossAxisAlignment:
+                              clipper: ChatBubbleClipper2(
+                                  type: BubbleType.receiverBubble),
+                              backGroundColor: Color(0xffE7E7ED),
+                              margin: EdgeInsets.only(top: 4, bottom: 4),
+                              child: Column(
+                                children: [
+                                  Container(
+                                    constraints: BoxConstraints(
+                                        maxWidth: MediaQuery.of(context)
+                                            .size
+                                            .width *
+                                            0.6),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                      children: [
+                                        ChatTextMassgae(
+                                            fonts: chat_group_controller
+                                                .selectedfont.value,
+                                            fontsize: chat_group_controller
+                                                .settings
+                                                .read("text") ==
+                                                null
+                                                ? 16
+                                                : chat_group_controller
+                                                .settings
+                                                .read("text"),
+                                            text: fakeMassagegroup[index]
+                                                .name),
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                            BorderRadius.circular(
+                                                7.0),
+                                            shape: BoxShape.rectangle,
+                                            color: Colors.black12,
+                                          ),
+                                          child: Row(
+                                            crossAxisAlignment:
                                             CrossAxisAlignment.start,
-                                        mainAxisAlignment:
+                                            mainAxisAlignment:
                                             MainAxisAlignment.start,
-                                        children: [
-                                          Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(7.0),
-                                              shape: BoxShape.rectangle,
-                                              color: Colors.black12,
-                                            ),
-                                            child: Row(
-                                              children: [
-                                                Container(
-                                                  width: 5,
-                                                  height: 50,
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.only(
-                                                            bottomRight: Radius
-                                                                .circular(5),
-                                                            topRight:
-                                                                Radius.circular(
-                                                                    5)),
-                                                    shape: BoxShape.rectangle,
-                                                    color: Colors.greenAccent,
-                                                  ),
+                                            children: [
+                                              Container(
+                                                width: 5,
+                                                height: 50,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                  BorderRadius.only(
+                                                      bottomRight:
+                                                      Radius
+                                                          .circular(
+                                                          5),
+                                                      topRight: Radius
+                                                          .circular(
+                                                          5)),
+                                                  shape:
+                                                  BoxShape.rectangle,
+                                                  color:
+                                                  Colors.greenAccent,
                                                 ),
-                                                SizedBox(
-                                                  width: 7,
-                                                ),
-                                                Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
+                                              ),
+                                              // Footnate(
+                                              //   text: chat
+                                              //       .parentMessageUserNameAlias!,
+                                              //   ),
+                                              Padding(
+                                                padding:
+                                                const EdgeInsets.only(
+                                                    right: 5),
+                                                child: Column(
                                                   children: [
-                                                    Footnate(
+                                                    ChatTextMassgae(
+                                                      fonts:
+                                                      chat_group_controller
+                                                          .selectedfont
+                                                          .value,
                                                       text: "نام",
                                                     ),
-                                                    Caption1(text: "پیام"),
+                                                    // Caption1(
+                                                    //     text: chat.parentMessageText!
+                                                    //         .length >
+                                                    //         30
+                                                    //         ? '${chat.parentMessageText!.substring(0, 30)}...'
+                                                    //         : chat
+                                                    //         .parentMessageText),
+                                                    ChatTextMassgae(
+                                                        fonts: chat_group_controller
+                                                            .selectedfont
+                                                            .value,
+                                                        text: "پیام"),
                                                   ],
                                                 ),
-                                              ],
-                                            ),
+                                              ),
+                                            ],
                                           ),
-                                        ]),
-                                    ChatTextMassgae(
-                                        fonts: chat_group_controller
-                                            .selectedfont.value,
-                                        fontsize: chat_group_controller.settings
-                                                    .read("text") ==
+                                        ),
+                                        ChatTextMassgae(
+                                            fonts: chat_group_controller
+                                                .selectedfont.value,
+                                            fontsize: chat_group_controller
+                                                .settings
+                                                .read("text") ==
                                                 null
-                                            ? 16
-                                            : chat_group_controller.settings
+                                                ? 16
+                                                : chat_group_controller
+                                                .settings
                                                 .read("text"),
-                                        text: fakeMassagegroup[index].mass),
-                                  ],
-                                )),
+                                            text: fakeMassagegroup[index]
+                                                .mass),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ],
                         ),
                       ),

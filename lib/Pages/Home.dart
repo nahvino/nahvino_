@@ -14,6 +14,7 @@ import 'package:Nahvino/controllers/getx/chat/group/home_group_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:focused_menu/modals.dart';
 import 'package:get/get.dart';
+import 'package:signalr_core/signalr_core.dart';
 
 class HomeScren extends StatelessWidget {
   HomeScren({Key? key}) : super(key: key);
@@ -44,22 +45,26 @@ class HomeScren extends StatelessWidget {
                             onPressed: () {
                               home_group_controller.isInSearchMode.value =
                                   !home_group_controller.isInSearchMode.value;
+                              home_group_controller.serchtext.value = "";
                               home_group_controller.update();
                             },
                             icon: Icon(
                                 home_group_controller.isInSearchMode.value
-                                    ? Icons.search
-                                    : Icons.close)),
+                                    ? Icons.close
+                                    : Icons.search)),
                       ),
                       SizedBox(
                         width: 10,
                       ),
                     ],
                     title: home_group_controller.isInSearchMode.value
-                        ? Subhead(
-                            text: "چت نحوینو",
-                          )
-                        : gowidget.searchmood(),
+                        ? gowidget.searchmood(changed: (value){
+                      home_group_controller.serchtext.value = value;
+                      home_group_controller.update();
+                    })
+                        : Subhead(
+                  text: "چت نحوینو",
+                  ),
                     leadingWidth: 60,
                     leading: MenuPopUp(
                       menuItems: <FocusedMenuItem>[

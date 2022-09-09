@@ -1,4 +1,5 @@
 import 'package:Nahvino/Pages/Chat/Widget/public_group_widget.dart';
+import 'package:Nahvino/Pages/Chat/group/select_menber.dart';
 import 'package:Nahvino/Utils/Button/Button.dart';
 import 'package:Nahvino/Utils/Menu/menu_pop_btn.dart';
 import 'package:Nahvino/Utils/Text/Text.dart';
@@ -15,6 +16,7 @@ class EditGroup extends StatelessWidget {
   Imageview img = Imageview();
   PublicGroupWidget public_group = PublicGroupWidget();
   String? imagegrup;
+
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -130,14 +132,14 @@ class EditGroup extends StatelessWidget {
               ],
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Column(
-                  children: [
-                    public_group.suport("", "نسرین", "معاون اول", () {}),
-                    public_group.suport("", "مهدی", "معاون دوم", () {}),
-                  ],
-                )
+                public_group.suport("", "نسرین", "معاون اول", () {
+                  Get.to(SelectManber());
+                }),
+                public_group.suport("", "مهدی", "معاون دوم", () {
+                  Get.to(SelectManber());
+                }),
               ],
             ),
             public_group.textfilde(

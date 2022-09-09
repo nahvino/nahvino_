@@ -6,7 +6,8 @@ class EditGroupController extends GetxController {
   final ImagePicker picker = ImagePicker();
   TextEditingController rulscontroller = TextEditingController();
   TextEditingController gholghrarcontroller = TextEditingController();
-
+  RxString serchtext = "".obs;
+  RxBool serach_mood = false.obs;
   RxString imagePath = "".obs;
   @override
   void onInit() {
