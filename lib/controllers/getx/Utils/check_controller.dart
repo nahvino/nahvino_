@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:Nahvino/Data/Local/version_data.dart';
+import 'package:Nahvino/version/data/version_data.dart';
 import 'package:Nahvino/Utils/Button/Button.dart';
 import 'package:Nahvino/splash.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';

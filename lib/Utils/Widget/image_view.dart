@@ -119,11 +119,17 @@ class Imageview {
   }
 
   image_assets() {
-    return Image.asset(
-      'assets/images/home/user.png',
-      fit: BoxFit.cover,
-      height: 50,
-      width: 50,
+    return Container(
+      width: 100,
+      height: 100,
+      child: Card(
+        elevation: 0,
+          shape: CircleBorder(),
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+      child: Padding(
+        padding: const EdgeInsets.all(2.0),
+        child: Icon(Icons.group,size: 70,),
+      )),
     );
   }
 

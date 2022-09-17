@@ -1,8 +1,7 @@
 import 'dart:io';
 import 'dart:isolate';
 import 'dart:ui';
-import 'package:Nahvino/Pages/Chat/chat_page_controller.dart';
-import 'package:Nahvino/tabs.dart';
+import 'package:Nahvino/my_tabs/main/screen/tabs.dart';
 import 'package:double_back_to_close/double_back_to_close.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';

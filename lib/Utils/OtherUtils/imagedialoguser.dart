@@ -3,7 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:get/get.dart';
-import '../../Data/Local/view_profial_data.dart';
+import '../../profile/view_profile/data/view_profial_data.dart';
 
 class ImageDialogUser extends StatelessWidget {
   ImageDialogUser({Key? key, this.imageUrl}) : super(key: key);
