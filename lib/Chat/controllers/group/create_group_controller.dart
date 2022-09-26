@@ -1,6 +1,7 @@
 import 'package:Nahvino/Chat/Screen/group/create_group/page2_group.dart';
 import 'package:Nahvino/Chat/Screen/group/create_group/page3_group.dart';
 import 'package:Nahvino/Chat/service/group/create_group.dart';
+import 'package:Nahvino/my_tabs/main/screen/tabs.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -11,6 +12,7 @@ class CreateGroupController extends GetxController {
   TextEditingController rulscontroller = TextEditingController();
   TextEditingController gholghrarcontroller = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> formKey1 = GlobalKey<FormState>();
   GroupService? serviceGroup;
   RxString imagePath = "".obs;
   RxString imageUrl = "".obs;
@@ -31,6 +33,13 @@ class CreateGroupController extends GetxController {
       if (response != false) {
         imageUrl.value = response;
         // profilerequest();
+        Get.snackbar(
+          'درسته',
+          //response['message'],
+          '',
+          icon: Icon(Icons.notifications, color: Colors.white),
+          snackPosition: SnackPosition.TOP,
+        );
         print("-=-=-=-=-=-======== $response");
       } else {
         Get.snackbar(
@@ -48,24 +57,27 @@ class CreateGroupController extends GetxController {
 
   createGroup() {
     print(namecontroller.text);
-    serviceGroup?.createGroup(namecontroller.text, rulscontroller.text,gholghrarcontroller.text,
+    serviceGroup?.createGroup(namecontroller.text, rulscontroller.text,gholghrarcontroller.text,imageUrl.value
           )
         .then((value) {
           print(value);
+
       // Get.snackbar(
       //   value["message"],
       //   '',
       //   icon: Icon(Icons.notifications, color: Colors.white),
       //   snackPosition: SnackPosition.TOP,
       // );
-      /*
+
       if(value != false){
+        Get.to(MyTabs(tabIndex: 2,));
         Get.snackbar(
           value['message'],
           '',
           icon: Icon(Icons.notifications, color: Colors.white),
           snackPosition: SnackPosition.TOP,
         );
+        //Get.to(Page3Group());
       }else{
         Get.snackbar(
           value['message'],
@@ -74,7 +86,7 @@ class CreateGroupController extends GetxController {
           snackPosition: SnackPosition.TOP,
         );
       }
-*/
+
     });
     update();
   }
@@ -84,16 +96,35 @@ class CreateGroupController extends GetxController {
     if (!formKey.currentState!.validate()) {
       print("1");
     } else {
-      Get.to(Page2Group());
+      uploadImage();
+      Get.to(Page3Group());
     }
   }
+  // nextOne() {
+  //   print(rulscontroller);
+  //   if (!formKey.currentState!.validate()) {
+  //     print("1");
+  //   } else {
+  //     Get.to(Page2Group());
+  //   }
+  // }
   nextTow(){
-    Get.to(Page3Group());
+  //  Get.to(Page3Group());
     // if(moderator1.value == "" && moderator2.value == ""){
     //   Get.snackbar("", "معاون ها نمی تواند خالی باشد",snackPosition: SnackPosition.TOP);
     // }else{
     //   Get.to(Page3Group());
     //
     // }
+  }
+  nextthree(){
+    if (!formKey1.currentState!.validate()) {
+      print("1");
+    } else {
+     createGroup();
+      print("2");
+
+
+    }
   }
 }

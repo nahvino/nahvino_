@@ -22,8 +22,8 @@ class DeveloperScreen extends StatelessWidget {
           onPressed: ()async {
             SharedPreferences preferences = await SharedPreferences.getInstance();
             Clipboard.setData(ClipboardData(text: await preferences.getString("userId")));
-            token = await preferences.getString("userId");
-            Get.snackbar("کپی شد", token!);
+            id = await preferences.getString("userId");
+            Get.snackbar("کپی شد", id!);
           },
         ),
         SizedBox(

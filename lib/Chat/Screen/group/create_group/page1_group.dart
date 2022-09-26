@@ -38,7 +38,7 @@ class CreateGroup extends StatelessWidget {
                 Row(
                   children: [
                     TextButton(
-                        onPressed: () => /*creategroupcontroller.nextOne()*/ Get.to(Page3Group()),
+                        onPressed: () => creategroupcontroller.nextOne(),
                         child: Footnate(
                           text: "بعدی",
                           color: Colors.white,

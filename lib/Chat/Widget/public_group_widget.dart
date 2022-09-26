@@ -401,7 +401,8 @@ class PublicGroupWidget {
 
   textfilde(
       String caption, BuildContext context, TextEditingController txcontroller,
-     ) {
+  {    FormFieldValidator<String>? validator,
+  }) {
     var size, height, width;
     size = MediaQuery.of(context).size;
     height = size.height;
@@ -410,10 +411,11 @@ class PublicGroupWidget {
       textDirection: TextDirection.rtl,
       child: Padding(
         padding: const EdgeInsets.only(right: 15, left: 15),
-        child: TextField(
+        child: TextFormField(
           minLines: 1,
           maxLines: 3,
           maxLength: 255,
+          validator: validator,
           decoration: InputDecoration(
             labelText: caption,
             isDense: false,

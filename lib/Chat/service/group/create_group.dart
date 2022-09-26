@@ -31,6 +31,7 @@ class GroupService {
       String? groupName,
       String? rules,
       String? promise,
+      String? imageUrl,
       ) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     Map<String, String> requestHeaders = {
@@ -46,6 +47,7 @@ class GroupService {
         "name": groupName,
         "rules": rules,
         "promise": promise,
+        "imageUrl" : imageUrl
       }),
     );
     if (response.statusCode == 200) {
