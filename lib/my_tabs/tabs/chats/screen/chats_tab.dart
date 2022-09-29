@@ -1,4 +1,4 @@
-import 'package:Nahvino/Chat/Screen/main/screen/home.dart';
+import 'package:Nahvino/Chat/Screen/main/screen/chat_main.dart';
 import 'package:flutter/material.dart';
 
 class ChatsTab extends StatelessWidget {

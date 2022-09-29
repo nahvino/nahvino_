@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:Nahvino/version/service/version_service.dart';
 import 'package:Nahvino/Utils/Button/Button.dart';
 import 'package:Nahvino/registration/main/screen/registration.dart';

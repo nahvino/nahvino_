@@ -2,11 +2,12 @@ import 'package:Nahvino/profile/view_profile/service/profile_service.dart';
 import 'package:Nahvino/settings/user_security/change_phone/screen/change_phone_number.dart';
 import 'package:Nahvino/settings/user_security/set_phone/screen/set_phone_number.dart';
 import 'package:Nahvino/version/data/version_data.dart';
-import 'package:Nahvino/Services/notification_service.dart';
+import 'package:Nahvino/Chat/service/notification_service.dart';
 import 'package:Nahvino/settings/menu/service/security_menu_service.dart';
 import 'package:Nahvino/main.dart';
 import 'package:Nahvino/registration/main/screen/registration.dart';
 import 'package:Nahvino/my_tabs/main/screen/tabs.dart';
+import 'package:Nahvino/version/screen/info_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:get/get.dart';
@@ -307,7 +308,35 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
                   ],
                 ),
               ),
+              SizedBox(
+                height: 5,
+              ),
+              // info screen
+              Column(
+                children: [
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Icon(
+                        Icons.phonelink_setup,
+                        color: Colors.blue,
+                      ),
+                      MenusSttingButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        InfoScreen()));
+                          },
+                          text: 'اطلاعات دستگاه'),
+                    ],
+                  ),
 
+                ],
+              ),
               /* SttingMenusButton(
                   onPressed: () => AppLocalizations.of(context)?.setLocale(Locale.fromSubtags(languageCode: 'en')),
                   icon: Icon(

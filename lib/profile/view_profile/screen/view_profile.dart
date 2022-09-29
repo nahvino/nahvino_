@@ -1,7 +1,7 @@
 import 'package:Nahvino/Chat/controllers/about_group_controller.dart';
 import 'package:Nahvino/profile/edit_profile/screen/edit_profile_screen.dart';
 import 'package:Nahvino/profile/view_profile_uesr/screen/view_profile_uesr.dart';
-import 'package:Nahvino/Services/notification_service.dart';
+import 'package:Nahvino/Chat/service/notification_service.dart';
 import 'package:Nahvino/profile/view_profile/service/profile_service.dart';
 import 'package:Nahvino/Utils/OtherUtils/imagedialog.dart';
 import 'package:Nahvino/Utils/Widget/image_view.dart';

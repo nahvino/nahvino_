@@ -44,7 +44,8 @@ dependencies:
   emoji_picker_flutter: ^1.1.2
   flutter_local_notifications: ^9.4.1
   #flutter_background_service: ^2.0.0
-  device_info_plus: ^3.2.3
+  #version:
+  device_info_plus: ^4.1.2
   chat_bubbles: ^1.2.0
   scrollable_positioned_list:
   flutter_chat_bubble: ^2.0.0
@@ -79,6 +80,9 @@ dependencies:
   focused_menu: ^1.0.5
   syncfusion_flutter_sliders: ^20.2.45
   decorated_dropdownbutton: ^0.0.3
+  #reports
+  take_screenshot: ^0.0.2
+  dart_ipify: ^1.1.1
 
 dev_dependencies:
   flutter_test:
@@ -127,6 +131,7 @@ flutter:
         - asset: fonts/Vazirmatn-UI-FD-NL-Thin.ttf
 
   assets:
+    - assets/
     - assets/splash/animtiopsh.json
     - assets/lang/fa.json
     - assets/lang/en.json
