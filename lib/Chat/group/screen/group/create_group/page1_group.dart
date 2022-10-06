@@ -1,6 +1,5 @@
-import 'package:Nahvino/Chat/Screen/group/create_group/page3_group.dart';
-import 'package:Nahvino/Chat/Widget/public_group_widget.dart';
-import 'package:Nahvino/Chat/controllers/group/create_group_controller.dart';
+import 'package:Nahvino/Chat/group/Widget/public_group_widget.dart';
+import 'package:Nahvino/Chat/group/controllers/group/create_group_controller.dart';
 import 'package:Nahvino/Utils/Button/Button.dart';
 import 'package:Nahvino/Utils/Menu/menu_pop_btn.dart';
 import 'package:Nahvino/Utils/Text/Text.dart';

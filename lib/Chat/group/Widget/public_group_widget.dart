@@ -1,4 +1,4 @@
-import 'package:Nahvino/Chat/Screen/group/create_group/page1_group.dart';
+import 'package:Nahvino/Chat/group/screen/group/create_group/page1_group.dart';
 import 'package:Nahvino/Utils/Button/Button.dart';
 import 'package:Nahvino/Utils/Menu/menu_pop_btn.dart';
 import 'package:Nahvino/Utils/Text/Text.dart';

@@ -123,7 +123,7 @@ class TextProfileBio extends StatelessWidget {
       padding: const EdgeInsets.only(right: 35, left: 39),
       child: TextFormField(
         maxLength: 200,
-        maxLines: 3,
+        maxLines: 6,
         minLines: 1,
         textAlign: TextAlign.right,
         controller: controller,

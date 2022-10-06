@@ -1,8 +1,8 @@
-import 'package:Nahvino/Chat/Screen/group/create_group/page1_group.dart';
-import 'package:Nahvino/Chat/Screen/group/group.dart';
-import 'package:Nahvino/Chat/Screen/private/person.dart';
-import 'package:Nahvino/Chat/Widget/public_group_widget.dart';
-import 'package:Nahvino/Chat/controllers/group/home_group_controller.dart';
+import 'package:Nahvino/Chat/Screen/main/screen/person.dart';
+import 'package:Nahvino/Chat/group/Widget/public_group_widget.dart';
+import 'package:Nahvino/Chat/group/controllers/group/home_group_controller.dart';
+import 'package:Nahvino/Chat/group/screen/group/create_group/page1_group.dart';
+import 'package:Nahvino/Chat/group/screen/group/group.dart';
 import 'package:Nahvino/Chat/settings/setting_global.dart';
 import 'package:Nahvino/Utils/Menu/menu_pop.dart';
 import 'package:Nahvino/Utils/Text/Text.dart';

@@ -30,7 +30,7 @@ class EnglishTextFilde extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(right: 35, left: 39),
       child: TextFormField(
-        textAlign: TextAlign.right,
+        textAlign: TextAlign.left,
         controller: controller,
         keyboardType: TextInputType.name,
         textCapitalization: TextCapitalization.none,

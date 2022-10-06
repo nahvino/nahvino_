@@ -22,12 +22,10 @@ class SttingMenusButton extends StatelessWidget {
   final Widget? suffixIcon;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      child: RaisedButton(
+    return FloatingActionButton(
         onPressed: onPressed,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0.0)),
-        padding: EdgeInsets.all(0.0),
+     //   padding: EdgeInsets.all(0.0),
         child: Ink(
           decoration: BoxDecoration(
               gradient: RadialGradient(
@@ -58,7 +56,7 @@ class SttingMenusButton extends StatelessWidget {
             ),
           ),
         ),
-      ),
+
     );
   }
 }

@@ -1,10 +1,10 @@
-import 'package:Nahvino/Chat/Screen/group/edit_group.dart';
-import 'package:Nahvino/Chat/Screen/group/info_group.dart';
-import 'package:Nahvino/Chat/Widget/chat_group_widget.dart';
-import 'package:Nahvino/Chat/Widget/public_group_widget.dart';
-import 'package:Nahvino/Chat/controllers/group/chat_group_controller.dart';
-import 'package:Nahvino/Chat/controllers/group/info_group_controller.dart';
+import 'package:Nahvino/Chat/group/Widget/chat_group_widget.dart';
+import 'package:Nahvino/Chat/group/Widget/public_group_widget.dart';
 import 'package:Nahvino/Chat/fake_info/model_user.dart';
+import 'package:Nahvino/Chat/group/controllers/group/chat_group_controller.dart';
+import 'package:Nahvino/Chat/group/controllers/group/info_group_controller.dart';
+import 'package:Nahvino/Chat/group/screen/group/edit_group.dart';
+import 'package:Nahvino/Chat/group/screen/group/info_group.dart';
 import 'package:Nahvino/Utils/Menu/menu_pop.dart';
 import 'package:Nahvino/Utils/Text/Text.dart';
 import 'package:Nahvino/Utils/Widget/image_view.dart';

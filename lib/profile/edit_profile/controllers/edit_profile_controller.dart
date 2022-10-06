@@ -4,7 +4,7 @@ import 'package:Nahvino/profile/view_profile/data/view_profial_data.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-
+import 'package:persian_datetime_picker/persian_datetime_picker.dart';
 
 class EditProfileController extends GetxController {
   //import
@@ -22,6 +22,7 @@ class EditProfileController extends GetxController {
   RxString berlinWallFell = "تاریخ ترک".obs;
 
   RxString imagePath = "".obs;
+
   //String? imagePath;
 
   late EditProfileService? serpro;
@@ -53,6 +54,19 @@ class EditProfileController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+  }
+
+  selectDate(BuildContext context) async {
+    Jalali? picked = await showPersianDatePicker(
+      context: context,
+      initialDate: Jalali.now(),
+      firstDate: Jalali(1320, 1),
+      lastDate: Jalali.now(),
+    );
+    print(picked!.formatCompactDate());
+    berlinWallFell.value = picked.formatCompactDate();
+    tarikhController = TextEditingController(text: picked.formatCompactDate().toString());
+    update();
   }
 
   upimg() async {

@@ -13,14 +13,11 @@ class Buttontest extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      height: 50.0,
-      child: RaisedButton(
+    return  FloatingActionButton(
         onPressed: onPressed,
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(80.0)),
-        padding: EdgeInsets.all(0.0),
+      //  padding: EdgeInsets.all(0.0),
         child: Ink(
           decoration: BoxDecoration(
               gradient: RadialGradient(
@@ -43,7 +40,6 @@ class Buttontest extends StatelessWidget {
             ),
           ),
         ),
-      ),
     );
   }
 }
@@ -62,36 +58,40 @@ class Buttonfull extends StatelessWidget {
   Color color;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 40,
-      alignment: Alignment.center,
-      child: RaisedButton(
-        elevation: 0,
-        onPressed: onPressed,
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
-        padding: EdgeInsets.all(0.0),
-        child: Ink(
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  //radius: 5,
-                  colors: [
-                    Colors.cyan.shade300,
-                    Colors.cyan.shade800,
-                    Colors.cyan.shade900,
-                  ], end: Alignment(7.0, 6.0)),
-              borderRadius: BorderRadius.circular(15.0)),
-          child: Container(
-            constraints: BoxConstraints(maxWidth: 380.0, minHeight: 180.0),
-            alignment: Alignment.center,
-            child: Text(
-              text,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  color: color, fontSize: 17, fontFamily: 'Vazirmatn_Light'),
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
+
+    return SizedBox(
+      height: 58,
+      width: width*2,
+      child: FloatingActionButton(
+          elevation: 0,
+          onPressed: onPressed,
+         // shape:
+           //   RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+          //padding: EdgeInsets.all(0.0),
+          child: Ink(
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    //radius: 5,
+                    colors: [
+                      Colors.cyan.shade300,
+                      Colors.cyan.shade800,
+                      Colors.cyan.shade900,
+                    ], end: Alignment(7.0, 6.0)),
+                borderRadius: BorderRadius.circular(15.0)),
+            child: Container(
+                //padding: EdgeInsets.all(10.0),
+              constraints: BoxConstraints(maxWidth: 380.0, minHeight: 180.0),
+              alignment: Alignment.center,
+              child: Text(
+                text,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: color, fontSize: 17, fontFamily: 'Vazirmatn_Light'),
+              ),
             ),
           ),
-        ),
       ),
     );
   }
@@ -117,12 +117,11 @@ class ButtonSignUP extends StatelessWidget {
   final Widget? suffixIcon;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: RaisedButton(
+    return  FloatingActionButton(
         onPressed: onPressed,
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(45.0)),
-        padding: EdgeInsets.all(0.0),
+       // padding: EdgeInsets.all(0.0),
         child: Ink(
           decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -134,7 +133,7 @@ class ButtonSignUP extends StatelessWidget {
                   ], end: Alignment(7.0, 6.0)),
               borderRadius: BorderRadius.circular(45.0)),
           child: Container(
-            constraints: BoxConstraints(minHeight: 50.0),
+            constraints: BoxConstraints(minHeight: 50.0 ,maxWidth: 380),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -152,7 +151,6 @@ class ButtonSignUP extends StatelessWidget {
             ),
           ),
         ),
-      ),
     );
   }
 }

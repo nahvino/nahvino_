@@ -22,13 +22,11 @@ class NotValidFilde extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Padding(
       padding: const EdgeInsets.only(right: 35, left: 39),
       child: TextFormField(
-        textAlign: TextAlign.right,
+        textAlign: TextAlign.left,
         controller: controller,
-
         onTap: ontap,
         keyboardType: TextInputType.text,
         style: TextStyle(fontSize: 14, fontFamily: 'Vazirmatn_Medium'),

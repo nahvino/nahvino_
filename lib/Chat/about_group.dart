@@ -1,4 +1,4 @@
-import 'package:Nahvino/Chat/controllers/about_group_controller.dart';
+import 'package:Nahvino/Chat/about_group_controller.dart';
 import 'package:Nahvino/profile/view_profile_uesr/screen/view_profile_uesr.dart';
 import 'package:Nahvino/Chat/service/notification_service.dart';
 import 'package:Nahvino/config/main_config.dart';
