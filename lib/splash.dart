@@ -1,9 +1,9 @@
-import 'package:Nahvino/controllers/getx/Utils/check_controller.dart';
+import 'package:Nahvino/core/Utils/Text/Text.dart';
+import 'package:Nahvino/core/shared/presentation/controllers/getx/Utils/check_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import '../App_localizations.dart';
-import 'Utils/Text/Text.dart';
 
 class Splash extends StatefulWidget {
   Splash({Key? key}) : super(key: key);
