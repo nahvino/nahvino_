@@ -1,8 +1,8 @@
 import 'package:Nahvino/core/Utils/Text/Text.dart';
 import 'package:Nahvino/core/Utils/Widget/ui/image_view.dart';
 import 'package:Nahvino/features/Chat/fake_info/model_user.dart';
-import 'package:Nahvino/features/Chat/group/controllers/group/home_group_controller.dart';
-import 'package:Nahvino/features/Chat/group/screen/group/chat_group.dart';
+import 'package:Nahvino/features/Chat/Screen/main/controllers/home_group_controller.dart';
+import 'package:Nahvino/features/Chat/group/chat_group/screen/chat_group.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

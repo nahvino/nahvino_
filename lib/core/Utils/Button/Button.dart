@@ -3,46 +3,7 @@
 import 'package:flutter/material.dart';
 import '../Text/Text.dart';
 
-// ignore: must_be_immutable
-class Buttontest extends StatelessWidget {
-  Buttontest({Key? key, required this.text, required this.onPressed})
-      : super(key: key);
 
-  VoidCallback onPressed;
-  String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return  FloatingActionButton(
-        onPressed: onPressed,
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(80.0)),
-      //  padding: EdgeInsets.all(0.0),
-        child: Ink(
-          decoration: BoxDecoration(
-              gradient: RadialGradient(
-                  radius: 5,
-                  colors: [
-                    Colors.cyan.shade300,
-                    Colors.cyan.shade800,
-                    Colors.cyan.shade900,
-                  ],
-                  center: Alignment(0.0, 0.11)),
-              borderRadius: BorderRadius.circular(30.0)),
-          child: Container(
-            constraints: BoxConstraints(maxWidth: 180.0, minHeight: 50.0),
-            alignment: Alignment.center,
-            child: Text(
-              text,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  color: Colors.white, fontSize: 18, fontFamily: 'byekan'),
-            ),
-          ),
-        ),
-    );
-  }
-}
 
 // ignore: must_be_immutable
 class Buttonfull extends StatelessWidget {
@@ -50,12 +11,12 @@ class Buttonfull extends StatelessWidget {
       {Key? key,
       required this.text,
       required this.onPressed,
-      required this.color})
+       this.color})
       : super(key: key);
 
   VoidCallback onPressed;
   String text;
-  Color color;
+  Color? color;
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;

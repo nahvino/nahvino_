@@ -11,7 +11,7 @@ import 'package:double_back_to_close/double_back_to_close.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:Nahvino/App_localizations.dart';
+import 'package:Nahvino/config/lang/App_localizations.dart';
 import 'package:once/once.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 

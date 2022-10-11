@@ -1,4 +1,4 @@
-import 'package:Nahvino/App_localizations.dart';
+import 'package:Nahvino/config/lang/App_localizations.dart';
 import 'package:Nahvino/core/Utils/Text/Text.dart';
 import 'package:Nahvino/features/profile/view_profile/screen/view_profile.dart';
 import 'package:Nahvino/features/settings/menu/screen/user_security_stting_menus.dart';

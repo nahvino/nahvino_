@@ -1,4 +1,4 @@
-import 'package:Nahvino/App_localizations.dart';
+import 'package:Nahvino/config/lang/App_localizations.dart';
 import 'package:Nahvino/features/profile/view_profile/model/viewprofile_response_model.dart';
 import 'package:Nahvino/config/main_config.dart';
 import 'package:Nahvino/core/Utils/Button/Button.dart';

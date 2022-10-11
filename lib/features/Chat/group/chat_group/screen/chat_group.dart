@@ -5,10 +5,10 @@ import 'package:Nahvino/core/shared/presentation/controllers/getx/Utils/check_co
 import 'package:Nahvino/features/Chat/fake_info/model_user.dart';
 import 'package:Nahvino/features/Chat/group/Widget/chat_group_widget.dart';
 import 'package:Nahvino/features/Chat/group/Widget/public_group_widget.dart';
-import 'package:Nahvino/features/Chat/group/controllers/group/chat_group_controller.dart';
-import 'package:Nahvino/features/Chat/group/controllers/group/info_group_controller.dart';
-import 'package:Nahvino/features/Chat/group/screen/group/edit_group.dart';
-import 'package:Nahvino/features/Chat/group/screen/group/info_group.dart';
+import 'package:Nahvino/features/Chat/group/chat_group/controllers/chat_group_controller.dart';
+import 'package:Nahvino/features/Chat/group/info_group/controllers/info_group_controller.dart';
+import 'package:Nahvino/features/Chat/group/edit_group/screen/edit_group.dart';
+import 'package:Nahvino/features/Chat/group/info_group/screen/info_group.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_chat_bubble/bubble_type.dart';

@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../../App_localizations.dart';
+import 'package:Nahvino/config/lang/App_localizations.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 

@@ -1,4 +1,4 @@
-import 'package:Nahvino/App_localizations.dart';
+import 'package:Nahvino/config/lang/App_localizations.dart';
 import 'package:Nahvino/config/main_config.dart';
 import 'package:Nahvino/core/Utils/Button/Button.dart';
 import 'package:Nahvino/core/Utils/Text/Text.dart';

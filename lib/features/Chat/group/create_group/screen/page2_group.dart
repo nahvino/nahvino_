@@ -1,7 +1,7 @@
 import 'package:Nahvino/core/Utils/Text/Text.dart';
 import 'package:Nahvino/core/Utils/Widget/ui/image_view.dart';
 import 'package:Nahvino/features/Chat/group/Widget/public_group_widget.dart';
-import 'package:Nahvino/features/Chat/group/controllers/group/create_group_controller.dart';
+import 'package:Nahvino/features/Chat/group/create_group/controllers/create_group_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

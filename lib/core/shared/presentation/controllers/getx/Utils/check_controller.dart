@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:Nahvino/core/Utils/Button/Button.dart';
 import 'package:Nahvino/features/version/data/version_data.dart';
-import 'package:Nahvino/splash.dart';
+import 'package:Nahvino/features/splash/screen/splash.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -88,7 +88,7 @@ class CheckController extends GetxController {
                 children: [
                   Container(
                     width: 120,
-                    child: Buttontest(
+                    child: Buttonfull(
                       text: "تلاش مجدد",
                       onPressed: () {
                         // Navigator.pushReplacement(
@@ -116,7 +116,7 @@ class CheckController extends GetxController {
                   SizedBox(width: 10),
                   Container(
                     width: 120,
-                    child: Buttontest(
+                    child: Buttonfull(
                       text: "خروج",
                       onPressed: () {
                         SystemNavigator.pop();
@@ -150,7 +150,7 @@ class CheckController extends GetxController {
                 children: [
                   Container(
                     width: 120,
-                    child: Buttontest(
+                    child: Buttonfull(
                       text: "تلاش مجدد",
                       onPressed: () {
                         // Navigator.pushReplacement(
@@ -178,7 +178,7 @@ class CheckController extends GetxController {
                   SizedBox(width: 10),
                   Container(
                     width: 120,
-                    child: Buttontest(
+                    child: Buttonfull(
                       text: "خروج",
                       onPressed: () {
                         SystemNavigator.pop();
@@ -205,7 +205,7 @@ class CheckController extends GetxController {
                 children: [
                   Container(
                     width: 120,
-                    child: Buttontest(
+                    child: Buttonfull(
                       text: "تلاش مجدد",
                       onPressed: () {
                         // Navigator.pushReplacement(
@@ -233,7 +233,7 @@ class CheckController extends GetxController {
                   SizedBox(width: 10),
                   Container(
                     width: 120,
-                    child: Buttontest(
+                    child: Buttonfull(
                       text: "خروج",
                       onPressed: () {
                         SystemNavigator.pop();
@@ -263,7 +263,7 @@ class CheckController extends GetxController {
               children: [
                 Container(
                   width: 120,
-                  child: Buttontest(
+                  child: Buttonfull(
                     text: "تلاش مجدد",
                     onPressed: () {
                       // Navigator.pushReplacement(
@@ -291,7 +291,7 @@ class CheckController extends GetxController {
                 SizedBox(width: 10),
                 Container(
                   width: 120,
-                  child: Buttontest(
+                  child: Buttonfull(
                     text: "خروج",
                     onPressed: () {
                       SystemNavigator.pop();

@@ -1,10 +1,10 @@
 import 'package:Nahvino/core/Utils/Menu/menu_pop.dart';
 import 'package:Nahvino/core/Utils/Text/Text.dart';
-import 'package:Nahvino/features/Chat/Screen/main/screen/person.dart';
+import 'package:Nahvino/features/Chat/private/screen/person.dart';
 import 'package:Nahvino/features/Chat/group/Widget/public_group_widget.dart';
-import 'package:Nahvino/features/Chat/group/controllers/group/home_group_controller.dart';
-import 'package:Nahvino/features/Chat/group/screen/group/create_group/page1_group.dart';
-import 'package:Nahvino/features/Chat/group/screen/group/group.dart';
+import 'package:Nahvino/features/Chat/Screen/main/controllers/home_group_controller.dart';
+import 'package:Nahvino/features/Chat/group/create_group/screen/page1_group.dart';
+import 'package:Nahvino/features/Chat/group/screen/group.dart';
 import 'package:Nahvino/features/Chat/settings/setting_global.dart';
 import 'package:flutter/material.dart';
 import 'package:focused_menu/modals.dart';

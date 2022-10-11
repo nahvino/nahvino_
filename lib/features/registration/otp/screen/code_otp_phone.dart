@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:Nahvino/App_localizations.dart';
+import 'package:Nahvino/config/lang/App_localizations.dart';
 import 'package:Nahvino/core/Utils/Button/Button.dart';
 import 'package:Nahvino/core/Utils/Text/Text.dart';
 import 'package:Nahvino/features/profile/view_profile/service/profile_service.dart';
@@ -279,7 +279,7 @@ class _CodeOtpPhoneState extends State<CodeOtpPhone> {
                       SizedBox(
                         height: 5,
                       ),
-                      Buttontest(
+                      Buttonfull(
                           text: AppLocalizations.of(context)!.translate(
                             'OK',
                           )!,

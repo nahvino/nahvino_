@@ -1,6 +1,6 @@
 import 'package:Nahvino/core/Utils/Text/Text.dart';
 import 'package:Nahvino/features/Chat/fake_info/model_user.dart';
-import 'package:Nahvino/features/Chat/group/controllers/group/chat_group_controller.dart';
+import 'package:Nahvino/features/Chat/group/chat_group/controllers/chat_group_controller.dart';
 import 'package:decorated_dropdownbutton/decorated_dropdownbutton.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

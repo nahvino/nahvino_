@@ -21,31 +21,30 @@ class SettingGlobal extends StatelessWidget {
 
   Widget global_body(BuildContext context) {
     return SafeArea(
-        child: SingleChildScrollView(
-      child: Column(
-        children: [
-          SizedBox(
-            height: 7,
-          ),
-          SttingMenusButton(
-              text: "تنظیمات اعلان",
-              onPressed: () => "",
-              icon: Icon(
-                Icons.notifications,
-                color: Colors.white,
-              )),
-          SizedBox(
-            height: 7,
-          ),
-          SttingMenusButton(
-              text: "تنظیمات چت",
-              onPressed: () => Get.to(ChatSetting()),
-              icon: Icon(
-                Icons.chat_outlined,
-                color: Colors.white,
-              )),
-        ],
-      ),
-    ));
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: 7,
+            ),
+            SttingMenusButton(
+                text: "تنظیمات اعلان",
+                onPressed: () => "",
+                icon: Icon(
+                  Icons.notifications,
+                  color: Colors.white,
+                )),
+            SizedBox(
+              height: 7,
+            ),
+            SttingMenusButton(
+                text: "تنظیمات چت",
+                onPressed: () => Get.to(ChatSetting()),
+                icon: Icon(
+                  Icons.chat_outlined,
+                  color: Colors.white,
+                )),
+          ],
+        ));
   }
 }

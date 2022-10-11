@@ -1,6 +1,6 @@
 
-import 'package:Nahvino/features/Chat/group/screen/group/create_group/page3_group.dart';
-import 'package:Nahvino/features/Chat/group/service/create_group.dart';
+import 'package:Nahvino/features/Chat/group/create_group/screen/page3_group.dart';
+import 'package:Nahvino/features/Chat/group/create_group/service/create_group.dart';
 import 'package:Nahvino/features/my_tabs/main/screen/tabs.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

@@ -1,5 +1,5 @@
 import 'package:Nahvino/core/Utils/Button/Button.dart';
-import 'package:Nahvino/splash.dart';
+import 'package:Nahvino/features/splash/screen/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -22,7 +22,7 @@ ShowError({required String title}){
           children: [
             Container(
               width: 120,
-              child: Buttontest(
+              child: Buttonfull(
                 text: "تلاش مجدد",
                 onPressed: () {
                   // Navigator.pushReplacement(
@@ -50,7 +50,7 @@ ShowError({required String title}){
             SizedBox(width: 10),
             Container(
               width: 120,
-              child: Buttontest(
+              child: Buttonfull(
                 text: "خروج",
                 onPressed: () {
                   SystemNavigator.pop();

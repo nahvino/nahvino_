@@ -3,7 +3,7 @@ import 'package:Nahvino/core/shared/presentation/controllers/getx/Utils/check_co
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
-import '../App_localizations.dart';
+import 'package:Nahvino/config/lang/App_localizations.dart';
 
 class Splash extends StatefulWidget {
   Splash({Key? key}) : super(key: key);

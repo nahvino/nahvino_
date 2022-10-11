@@ -83,7 +83,7 @@ class VersionData extends GetxController {
                 children: [
                   Container(
                     width: 120,
-                    child: Buttontest(
+                    child: Buttonfull(
                       text: "دانلود",
                       onPressed: () async {
                         _deleteAppDir();
@@ -107,7 +107,7 @@ class VersionData extends GetxController {
                   SizedBox(width: 10),
                   Container(
                     width: 120,
-                    child: Buttontest(
+                    child: Buttonfull(
                       text: "خروج",
                       onPressed: () {
                         SystemNavigator.pop();

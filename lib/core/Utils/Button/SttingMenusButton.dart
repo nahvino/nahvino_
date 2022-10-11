@@ -1,8 +1,5 @@
-// ignore_for_file: deprecated_member_use
-
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
 class SttingMenusButton extends StatelessWidget {
   SttingMenusButton(
       {Key? key,
@@ -20,12 +17,17 @@ class SttingMenusButton extends StatelessWidget {
   final Widget? color;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
+
   @override
   Widget build(BuildContext context) {
-    return FloatingActionButton(
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
+    return SizedBox(
+      width: width / 1,
+      child: FloatingActionButton(
         onPressed: onPressed,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0.0)),
-     //   padding: EdgeInsets.all(0.0),
+        //   padding: EdgeInsets.all(0.0),
         child: Ink(
           decoration: BoxDecoration(
               gradient: RadialGradient(
@@ -37,7 +39,7 @@ class SttingMenusButton extends StatelessWidget {
                   center: Alignment(0.0, 0.0)),
               borderRadius: BorderRadius.circular(0.0)),
           child: Container(
-            constraints: BoxConstraints(minHeight: 50.0),
+            // constraints: BoxConstraints(minHeight: 150.0),
             alignment: Alignment.center,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -50,13 +52,13 @@ class SttingMenusButton extends StatelessWidget {
                   text,
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                      color: Colors.white, fontSize: 25, fontFamily: 'byekan'),
+                      color: Colors.white, fontSize: 25, fontFamily: 'Vazirmatn_Regular'),
                 ),
               ],
             ),
           ),
         ),
-
+      ),
     );
   }
 }
@@ -96,7 +98,7 @@ class MenusSttingButton extends StatelessWidget {
               text!,
               textAlign: TextAlign.right,
               style: TextStyle(
-                  color: Colors.black, fontSize: 25, fontFamily: 'byekan'),
+                  color: Colors.black, fontSize: 25, fontFamily: 'Vazirmatn_Regular'),
             ),
           ],
         ),

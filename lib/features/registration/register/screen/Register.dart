@@ -1,4 +1,4 @@
-import 'package:Nahvino/App_localizations.dart';
+import 'package:Nahvino/config/lang/App_localizations.dart';
 import 'package:Nahvino/core/Utils/Button/Button.dart';
 import 'package:Nahvino/core/Utils/Text/Text.dart';
 import 'package:Nahvino/core/Utils/TextField/english_text_filde.dart';
@@ -246,7 +246,7 @@ class _NewRegisterState extends State<Register> {
                           ),
                         ],
                       ),
-                      Buttontest(
+                      Buttonfull(
                           text: AppLocalizations.of(context)!.translate(
                             'OK',
                           )!,

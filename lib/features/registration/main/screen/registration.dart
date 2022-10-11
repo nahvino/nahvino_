@@ -5,7 +5,7 @@ import 'package:Nahvino/features/registration/otp/screen/otp_phone.dart';
 import 'package:Nahvino/features/registration/register/screen/Register.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../../../App_localizations.dart';
+import 'package:Nahvino/config/lang/App_localizations.dart';
 
 class Registration extends StatefulWidget {
   const Registration({Key? key}) : super(key: key);

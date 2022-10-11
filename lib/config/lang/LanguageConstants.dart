@@ -1,7 +1,6 @@
+import 'package:Nahvino/config/lang/App_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import 'App_localizations.dart';
 
 const String LAGUAGE_CODE = 'languageCode';
 

@@ -1,4 +1,4 @@
-import 'package:Nahvino/App_localizations.dart';
+import 'package:Nahvino/config/lang/App_localizations.dart';
 import 'package:accordion/accordion.dart';
 import 'package:flutter/material.dart';
 

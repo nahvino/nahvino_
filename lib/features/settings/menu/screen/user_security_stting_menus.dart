@@ -1,5 +1,6 @@
-import 'package:Nahvino/App_localizations.dart';
-import 'package:Nahvino/LanguageConstants.dart';
+import 'package:Nahvino/config/lang/App_localizations.dart';
+import 'package:Nahvino/config/lang/LanguageConstants.dart';
+import 'package:Nahvino/config/lang/language.dart';
 import 'package:Nahvino/core/Utils/Button/SttingMenusButton.dart';
 import 'package:Nahvino/core/Utils/Text/Text.dart';
 import 'package:Nahvino/features/Chat/service/notification_service.dart';
@@ -12,7 +13,6 @@ import 'package:Nahvino/features/settings/user_security/change_phone/screen/chan
 import 'package:Nahvino/features/settings/user_security/set_phone/screen/set_phone_number.dart';
 import 'package:Nahvino/features/version/data/version_data.dart';
 import 'package:Nahvino/features/version/screen/info_screen.dart';
-import 'package:Nahvino/language.dart';
 import 'package:Nahvino/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';

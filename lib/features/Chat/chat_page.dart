@@ -20,7 +20,7 @@ import 'package:get/get.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:lottie/lottie.dart';
 import 'package:swipeable_tile/swipeable_tile.dart';
-import '../../../App_localizations.dart';
+import 'package:Nahvino/config/lang/App_localizations.dart';
 
 class Chatpage extends StatefulWidget {
   Chatpage({Key? key}) : super(key: key);

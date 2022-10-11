@@ -83,6 +83,8 @@ dependencies:
   #reports
   take_screenshot: ^0.0.2
   dart_ipify: ^1.1.1
+  #tooltip
+  overlay_tooltip: ^0.2.1
 
 dev_dependencies:
   flutter_test:
