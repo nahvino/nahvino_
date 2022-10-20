@@ -25,7 +25,7 @@ class ChatPageController extends GetxController {
   void onInit() {
     super.onInit();
     _getMyData();
-    dicreconnection();
+   // dicreconnection();
     //openSignalRConnection();
   }
 

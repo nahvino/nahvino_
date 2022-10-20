@@ -1,7 +1,9 @@
 import 'dart:io';
+import 'dart:isolate';
 import 'dart:typed_data';
 import 'package:Nahvino/core/Utils/Button/Button.dart';
 import 'package:Nahvino/core/error/screen/report_screen.dart';
+import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:dart_ipify/dart_ipify.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +20,12 @@ class DeveloperScreen extends StatelessWidget {
   String? token;
   String? id;
   String? fileName;
+
+  static void printHello() {
+    final DateTime now = DateTime.now();
+    final int isolateId = Isolate.current.hashCode;
+    print("[$now] Hello, world! isolate=${isolateId} function='$printHello'");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,14 +77,13 @@ class DeveloperScreen extends StatelessWidget {
                 ByteData? byteData =
                     await image.toByteData(format: ui.ImageByteFormat.png);
 
-                  Uint8List pngBytes = byteData!.buffer.asUint8List();
-                  //String base64Image = base64.encode(pngBytes);
-                  final directory = (await getExternalStorageDirectory())?.path;
-                  File imgFile = new File('$directory/screenshot.png');
-                  imgFile.writeAsBytes(pngBytes);
-                  print("$directory/screenshot.png");
-                  Get.to(ReportScreen(img: "$directory/screenshot.png"));
-
+                Uint8List pngBytes = byteData!.buffer.asUint8List();
+                //String base64Image = base64.encode(pngBytes);
+                final directory = (await getExternalStorageDirectory())?.path;
+                File imgFile = new File('$directory/screenshot.png');
+                imgFile.writeAsBytes(pngBytes);
+                print("$directory/screenshot.png");
+                Get.to(ReportScreen(img: "$directory/screenshot.png"));
               },
             ),
             SizedBox(
@@ -93,10 +100,26 @@ class DeveloperScreen extends StatelessWidget {
                 print(ipv6); // 98.207.254.136 or 2a00:1450:400f:80d::200e
 
                 final ipv4json = await Ipify.ipv64(format: Format.JSON);
-                print(ipv4json); //{"ip":"98.207.254.136"} or {"ip":"2a00:1450:400f:80d::200e"}
+                print(
+                    ipv4json); //{"ip":"98.207.254.136"} or {"ip":"2a00:1450:400f:80d::200e"}
 
                 // The response type can be text, json or jsonp
                 Get.snackbar("کپی شد", ipv4);
+              },
+            ),
+            SizedBox(
+              height: 10,
+            ),
+
+            ///تست نوتیف
+            Buttonfull(
+              text: "نوتیف",
+              color: Colors.white,
+              onPressed: () async {
+                final int helloAlarmID = 0;
+                await AndroidAlarmManager.periodic(
+                    const Duration(minutes: 1), helloAlarmID, printHello);
+                print("OK");
               },
             ),
           ],

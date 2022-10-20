@@ -4,13 +4,13 @@ import 'package:Nahvino/features/Chat/group/chat_group/controllers/chat_group_co
 import 'package:decorated_dropdownbutton/decorated_dropdownbutton.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_chat_bubble/bubble_type.dart';
-import 'package:flutter_chat_bubble/chat_bubble.dart';
-import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_1.dart';
-import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_2.dart';
+// import 'package:flutter_chat_bubble/bubble_type.dart';
+// import 'package:flutter_chat_bubble/chat_bubble.dart';
+// import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_1.dart';
+// import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_2.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
-
+/*
 class ChatSetting extends StatelessWidget {
   ChatSetting({Key? key}) : super(key: key);
   ChatGroupController chat_group_controller = Get.put(ChatGroupController());
@@ -344,3 +344,4 @@ class ChatSetting extends StatelessWidget {
     });
   }
 }
+*/

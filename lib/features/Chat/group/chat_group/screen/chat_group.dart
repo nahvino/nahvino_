@@ -11,14 +11,14 @@ import 'package:Nahvino/features/Chat/group/edit_group/screen/edit_group.dart';
 import 'package:Nahvino/features/Chat/group/info_group/screen/info_group.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_chat_bubble/bubble_type.dart';
-import 'package:flutter_chat_bubble/chat_bubble.dart';
-import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_1.dart';
-import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_2.dart';
+// import 'package:flutter_chat_bubble/bubble_type.dart';
+// import 'package:flutter_chat_bubble/chat_bubble.dart';
+// import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_1.dart';
+// import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_2.dart';
 import 'package:focused_menu/modals.dart';
 import 'package:get/get.dart';
 import 'package:swipeable_tile/swipeable_tile.dart';
-
+/*
 class ChatGroup extends StatelessWidget {
   ChatGroup({Key? key, required this.idgroup}) : super(key: key);
   final String? idgroup;
@@ -395,6 +395,80 @@ class ChatGroup extends StatelessWidget {
                                                         .read("text"),
                                                 text: fakeMassagegroup[index]
                                                     .name),
+                                            InkWell(
+                                              onTap: (){
+                                                print("asd");
+                                              },
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                  BorderRadius.circular(
+                                                      7.0),
+                                                  shape: BoxShape.rectangle,
+                                                  color: Colors.black12,
+                                                ),
+                                                child: Row(
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                                  mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                                  children: [
+                                                    Container(
+                                                      width: 5,
+                                                      height: 50,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                        BorderRadius.only(
+                                                            bottomRight:
+                                                            Radius
+                                                                .circular(
+                                                                5),
+                                                            topRight: Radius
+                                                                .circular(
+                                                                5)),
+                                                        shape:
+                                                        BoxShape.rectangle,
+                                                        color:
+                                                        Colors.greenAccent,
+                                                      ),
+                                                    ),
+                                                    // Footnate(
+                                                    //   text: chat
+                                                    //       .parentMessageUserNameAlias!,
+                                                    //   ),
+                                                    Padding(
+                                                      padding:
+                                                      const EdgeInsets.only(
+                                                          right: 5),
+                                                      child: Column(
+                                                        children: [
+                                                          ChatTextMassgae(
+                                                            fonts:
+                                                            chat_group_controller
+                                                                .selectedfont
+                                                                .value,
+                                                            text: "نام",
+                                                          ),
+                                                          // Caption1(
+                                                          //     text: chat.parentMessageText!
+                                                          //         .length >
+                                                          //         30
+                                                          //         ? '${chat.parentMessageText!.substring(0, 30)}...'
+                                                          //         : chat
+                                                          //         .parentMessageText),
+                                                          ChatTextMassgae(
+                                                              fonts: chat_group_controller
+                                                                  .selectedfont
+                                                                  .value,
+                                                              text: fakeMassagegroup[index]
+                                                                  .mass),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
                                             ChatTextMassgae(
                                                 fonts: chat_group_controller
                                                     .selectedfont.value,
@@ -422,6 +496,14 @@ class ChatGroup extends StatelessWidget {
                                                         .read("text"),
                                                 text: fakeMassagegroup[index]
                                                     .time),
+                                            Stack(children: [
+                                             Icon(Icons.check_outlined,size: 14,),
+                                             Padding(
+                                               padding: const EdgeInsets.only(right: 10),
+                                               child: Icon(Icons.check_outlined,size: 14,),
+                                             ),
+
+                                            ],),
                                           ]),
                                     ),
                                   ],
@@ -606,6 +688,19 @@ class ChatGroup extends StatelessWidget {
                                                           .read("text"),
                                                   text: fakeMassagegroup[index]
                                                       .mass),
+                                              ChatTextMassgae(
+                                                  fonts: chat_group_controller
+                                                      .selectedfont.value,
+                                                  fontsize: chat_group_controller
+                                                      .settings
+                                                      .read("text") ==
+                                                      null
+                                                      ? 16
+                                                      : chat_group_controller
+                                                      .settings
+                                                      .read("text"),
+                                                  text: fakeMassagegroup[index]
+                                                      .time),
                                             ],
                                           ),
                                         ),
@@ -631,3 +726,4 @@ class ChatGroup extends StatelessWidget {
   }
 
 }
+*/
