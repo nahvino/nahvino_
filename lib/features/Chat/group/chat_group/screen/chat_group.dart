@@ -11,17 +11,16 @@ import 'package:Nahvino/features/Chat/group/edit_group/screen/edit_group.dart';
 import 'package:Nahvino/features/Chat/group/info_group/screen/info_group.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-// import 'package:flutter_chat_bubble/bubble_type.dart';
-// import 'package:flutter_chat_bubble/chat_bubble.dart';
-// import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_1.dart';
-// import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_2.dart';
+import 'package:flutter_chat_bubble/bubble_type.dart';
+import 'package:flutter_chat_bubble/chat_bubble.dart';
+import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_1.dart';
+import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_2.dart';
 import 'package:focused_menu/modals.dart';
 import 'package:get/get.dart';
 import 'package:swipeable_tile/swipeable_tile.dart';
-/*
+
 class ChatGroup extends StatelessWidget {
-  ChatGroup({Key? key, required this.idgroup}) : super(key: key);
-  final String? idgroup;
+  ChatGroup({Key? key,}) : super(key: key);
 
   ChatGroupController chat_group_controller = Get.put(ChatGroupController());
   InfoGroupController info_group_controller = Get.put(InfoGroupController());
@@ -361,7 +360,9 @@ class ChatGroup extends StatelessWidget {
                             child: InkWell(
                               onLongPress: (() => chat_group_controller
                                   .select_mood.value = true),
-                              child: ChatBubble(
+                              child:
+
+                              ChatBubble(
                                 clipper: ChatBubbleClipper1(
                                     type: BubbleType.sendBubble),
                                 margin: EdgeInsets.only(top: 4, bottom: 4),
@@ -575,6 +576,8 @@ class ChatGroup extends StatelessWidget {
                                   Row(
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
+
+
                                   ChatBubble(
                                     clipper: ChatBubbleClipper2(
                                         type: BubbleType.receiverBubble),
@@ -726,4 +729,3 @@ class ChatGroup extends StatelessWidget {
   }
 
 }
-*/

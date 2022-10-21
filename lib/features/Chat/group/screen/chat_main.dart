@@ -5,6 +5,7 @@ import 'package:Nahvino/features/Chat/private/screen/person.dart';
 import 'package:Nahvino/features/Chat/group/Widget/public_group_widget.dart';
 import 'package:Nahvino/features/Chat/group/create_group/screen/page1_group.dart';
 import 'package:Nahvino/features/Chat/group/main/screen/group.dart';
+import 'package:Nahvino/features/Chat/settings/chat_setting.dart';
 import 'package:Nahvino/features/Chat/settings/setting_global.dart';
 import 'package:flutter/material.dart';
 import 'package:focused_menu/modals.dart';
@@ -68,7 +69,7 @@ class Chats extends StatelessWidget {
                             ),
                             trailingIcon: Icon(Icons.settings),
                             onPressed: () =>
-                                ""),
+                        Get.to(SettingGlobal())),
                                 //Get.to(SettingGlobal())),
                         // FocusedMenuItem(
                         //     title: Footnate(

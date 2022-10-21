@@ -4,7 +4,7 @@ import 'package:Nahvino/features/Chat/settings/chat_setting.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-/*
+
 class SettingGlobal extends StatelessWidget {
   const SettingGlobal({Key? key}) : super(key: key);
 
@@ -48,4 +48,3 @@ class SettingGlobal extends StatelessWidget {
         ));
   }
 }
-*/

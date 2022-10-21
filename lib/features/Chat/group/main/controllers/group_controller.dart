@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../chat_group/screen/chat_group.dart';
 import 'hub.dart';
 
 class GroupController extends GetxController {
@@ -41,17 +42,16 @@ class GroupController extends GetxController {
    hub.connection.on('GetOtherGroups', (OtherGroups) {
       print("===========>GetOtherGroups<===========");
       print( " =======index=======< $OtherGroups![0]");
-     // var res = OtherGroups![0];
-     //  other_group_model = OtherGroupsModel.fromJson(res);
-     //  other_groups?.add(other_group_model!);
-     //  //print(OtherGroups.toString());
-     //  defaultLogWriterCallback(OtherGroups.toString());
+     var item = OtherGroups![0];
+      other_group_model =Group.fromJson(item);
+      other_groups?.add(other_group_model!);
+      defaultLogWriterCallback(OtherGroups.toString());
      // debugPrint(OtherGroups.toString());
-      for (var item in OtherGroups![0]) {
-        other_group_model = Group.fromJson(item);
-        other_groups?.add(other_group_model!);
-        print(OtherGroups.toString());
-      }
+     //  for (var item in OtherGroups![0]) {
+     //    other_group_model = Group.fromJson(item);
+     //    other_groups?.add(other_group_model!);
+     //    print(OtherGroups.toString());
+     //  }
     });
     hub.connection.on('GetMyGroups', (MyGroups) {
       print("===========>GetMyGroups<===========");
@@ -80,5 +80,8 @@ class GroupController extends GetxController {
 
   }
 
+  getChat(){
+    return  Get.to(ChatGroup());
+  }
 
 }
