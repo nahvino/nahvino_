@@ -79,12 +79,13 @@ class CreateGroupController extends GetxController {
         );
         //Get.to(Page3Group());
       }else{
-        Get.snackbar(
+       /* Get.snackbar(
           value['message'],
           '',
           icon: Icon(Icons.notifications, color: Colors.white),
           snackPosition: SnackPosition.TOP,
-        );
+        );*/
+        print("مشکل");
       }
 
     });

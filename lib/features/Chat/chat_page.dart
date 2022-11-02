@@ -13,15 +13,15 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_chat_bubble/bubble_type.dart';
-import 'package:flutter_chat_bubble/chat_bubble.dart';
-import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_1.dart';
+// import 'package:flutter_chat_bubble/bubble_type.dart';
+// import 'package:flutter_chat_bubble/chat_bubble.dart';
+// import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_1.dart';
 import 'package:get/get.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:lottie/lottie.dart';
 import 'package:swipeable_tile/swipeable_tile.dart';
 import 'package:Nahvino/config/lang/App_localizations.dart';
-
+/*
 class Chatpage extends StatefulWidget {
   Chatpage({Key? key}) : super(key: key);
 
@@ -1020,3 +1020,4 @@ class _ChatpageState extends State<Chatpage> {
     }
   }
 }
+*/

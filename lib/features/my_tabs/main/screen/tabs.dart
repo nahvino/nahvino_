@@ -30,7 +30,7 @@ class _MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    chatPageController.openSignalRConnection();
+   // chatPageController.openSignalRConnection();
     _controller = PersistentTabController(initialIndex: widget.tabIndex ?? 0);
     Once.runOnce(
       'my-app-widget',

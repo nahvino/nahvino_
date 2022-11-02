@@ -17,7 +17,7 @@ class CheckController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    intwoek();
+  //  intwoek();
   }
 
   @override
@@ -33,8 +33,8 @@ class CheckController extends GetxController {
   @override
   void onClose() {
     super.onClose();
-    subscription.cancel();
-    interfaceSubscription.cancel();
+   // subscription.cancel();
+ //   interfaceSubscription.cancel();
   }
 
   // checklogin() async {
@@ -65,7 +65,7 @@ class CheckController extends GetxController {
 
   checkInternetConnection() async {
     print(
-        " ************************------checkInternetConnection--------------********");
+        "************************------checkInternetConnection--------------********");
     bool result = await InternetConnectionChecker().hasConnection;
     //check if the connection
     if (result == true) {

@@ -5,6 +5,7 @@ import 'package:Nahvino/config/lang/LanguageConstants.dart';
 import 'package:Nahvino/core/shared/Services/http.dart';
 import 'package:Nahvino/config/lang/App_localizations.dart';
 import 'package:Nahvino/features/my_tabs/main/screen/tabs.dart';
+import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -17,17 +18,21 @@ import 'dart:async';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'firebase_options.dart';
 
+/*
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   print("Handling a background message: ${message.messageId}");
 }
+*/
+
 
 void main() async {
+
   HttpOverrides.global = new MyHttpOverrides();
   await GetStorage.init();
   WidgetsFlutterBinding.ensureInitialized();
   await FlutterDownloader.initialize(debug: true, ignoreSsl: true);
+  await AndroidAlarmManager.initialize();
   runApp(MyApp());
-  WidgetsFlutterBinding.ensureInitialized(); //imp line need to be added first
   FlutterError.onError = (FlutterErrorDetails details) {
     //this line prints the default flutter gesture caught exception in console
     //FlutterError.dumpErrorToConsole(details);
@@ -37,7 +42,6 @@ void main() async {
     print("StackTrace :  ${details.stack}");
   };
 }
-
 class MyApp extends StatefulWidget {
   const MyApp({
     Key? key,
@@ -52,6 +56,10 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+
+
+
+  /*
   late int totalNotifications;
   String? tolll;
   String? messgaeTitle;
@@ -113,11 +121,12 @@ class _MyAppState extends State<MyApp> {
     //   });
     // });
   }
-
+*/
   ReceivePort _port = ReceivePort();
 
   @override
   void initState() {
+    /*
     totalNotifications = 0;
     registerNotfition();
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
@@ -134,10 +143,9 @@ class _MyAppState extends State<MyApp> {
         messgaeTitle = message.data["title"];
         notificationAlert = message.data['body'];
       });
-    });
+    });*/
     super.initState();
     //خروجی اپ ویندوز
-    
     IsolateNameServer.registerPortWithName(
         _port.sendPort, 'downloader_send_port');
     _port.listen((dynamic data) {
@@ -181,7 +189,6 @@ class _MyAppState extends State<MyApp> {
     });
     super.didChangeDependencies();
   }
-
   @override
   Widget build(BuildContext context) {
     if (this._locale == null) {
@@ -219,7 +226,7 @@ class _MyAppState extends State<MyApp> {
         },
         home: Splash(),
 
-        navigatorKey: navigatorKey,
+     //   navigatorKey: navigatorKey,
         // initialRoute:Splash() ,
       );
     }

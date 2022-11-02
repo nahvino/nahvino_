@@ -2,12 +2,13 @@ import 'dart:io';
 
 import 'package:Nahvino/config/main_config.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+
+import 'package:flutter/material.dart';
 
 class Imageview {
   ///test
-  image(String Img) {
+  image(String? Img) {
     return Stack(
       children: [
         Card(
@@ -18,7 +19,7 @@ class Imageview {
             width: 50,
             cacheManager: CacheManager(Config('customCacheKey',
                 stalePeriod: Duration(days: 7), maxNrOfCacheObjects: 100)),
-            imageUrl: MainConfig.fileurl + Img,
+            imageUrl: MainConfig.fileurl + Img!,
             imageBuilder: (context, imageProvider) => Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
