@@ -27,7 +27,7 @@ class ViewProfileController extends GetxController {
   void onInit() {
     super.onInit();
     GetStorage.init();
-    //checkdata();
+   // checkdata();
   }
 
   @override
@@ -86,7 +86,7 @@ class ViewProfileController extends GetxController {
     parentId.value = box.read('parentId') ?? "";
     parentname.value = box.read('parentname') ?? "";
     parentimageurl.value = box.read('parentimageurl') ?? "";
-    dateTimeAbandon.value = box.read('dateTimeAbandon') ?? "تاریخ ترک";
+    dateTimeAbandon.value = box.read('dateTimeAbandon') ?? "تاریخ آغاز ترک";
     update();
   }
 

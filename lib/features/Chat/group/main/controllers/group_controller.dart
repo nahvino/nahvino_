@@ -1,14 +1,13 @@
 import 'dart:math';
 
-import 'package:Nahvino/features/Chat/group/main/model/Group.dart';
-import 'package:Nahvino/features/Chat/group/main/model/groups_model.dart';
 import 'package:Nahvino/features/Chat/group/main/model/other_groups_model.dart';
+import 'package:Nahvino/features/Chat/group/main/model/groups_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../chat_group/screen/chat_group.dart';
+import '../../chat_group/screen/chat_group_screen.dart';
 import 'hub.dart';
 
 class GroupController extends GetxController {
@@ -36,26 +35,21 @@ class GroupController extends GetxController {
   }
 
   List<GroupsModel> groups = [];
-  List<Group>? other_groups = [];
+  List<Group> other_groups = [];
   Future<void> GroupConnection() async {
     await hub.connection.start();
    hub.connection.on('GetOtherGroups', (OtherGroups) {
-      print("===========>GetOtherGroups<===========");
-      print( " =======index=======< $OtherGroups![0]");
-     var item = OtherGroups![0];
-      other_group_model =Group.fromJson(item);
-      other_groups?.add(other_group_model!);
-      defaultLogWriterCallback(OtherGroups.toString());
-     // debugPrint(OtherGroups.toString());
-     //  for (var item in OtherGroups![0]) {
-     //    other_group_model = Group.fromJson(item);
-     //    other_groups?.add(other_group_model!);
-     //    print(OtherGroups.toString());
-     //  }
+    //  print("===========>GetOtherGroups<===========");
+    // debugPrint(OtherGroups.toString());
+      for (var item in OtherGroups![0]) {
+        other_group_model = Group.fromJson(item);
+        other_groups?.add(other_group_model!);
+        print(OtherGroups.toString());
+      }
     });
     hub.connection.on('GetMyGroups', (MyGroups) {
-      print("===========>GetMyGroups<===========");
-      print(MyGroups.toString());
+    //  print("===========>GetMyGroups<===========");
+    //  print(MyGroups.toString());
       var res = MyGroups![0];
       group_model = GroupsModel.fromJson(res);
       groups.add(group_model!);

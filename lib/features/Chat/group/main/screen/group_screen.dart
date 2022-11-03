@@ -1,7 +1,7 @@
 import 'package:Nahvino/core/Utils/Text/Text.dart';
 import 'package:Nahvino/core/Utils/Widget/ui/image_view.dart';
 import 'package:Nahvino/features/Chat/fake_info/model_user.dart';
-import 'package:Nahvino/features/Chat/group/chat_group/screen/chat_group.dart';
+import 'package:Nahvino/features/Chat/group/chat_group/screen/chat_group_screen.dart';
 import 'package:Nahvino/features/Chat/group/controllers/home_group_controller.dart';
 import 'package:Nahvino/features/Chat/group/main/controllers/group_controller.dart';
 import 'package:Nahvino/features/Chat/group/main/model/groups_model.dart';
@@ -41,7 +41,15 @@ class Group extends GetView<GroupController> {
         GetBuilder<GroupController>(builder: (logic) {
           return ListView.builder(
             shrinkWrap: true,
-            itemCount: group_controller.other_groups!.length,
+            itemCount: home_group_controller.serchtext.value != "" &&
+                    home_group_controller.isInSearchMode.value
+                ? group_controller.other_groups
+                    .where((element) => element.name!
+                        .contains(home_group_controller.serchtext.value))
+                    .toList()
+                    .length
+                : group_controller.other_groups.length,
+            //group_controller.other_groups.length
             itemBuilder: OtherGroups,
             physics: NeverScrollableScrollPhysics(),
           );
@@ -50,6 +58,7 @@ class Group extends GetView<GroupController> {
     );
   }
 
+  //گروه خودم
   Widget myGroups(context, index) {
     return Column(
       children: [
@@ -214,17 +223,9 @@ class Group extends GetView<GroupController> {
                                 : img.image_assetsa("assets/images/ram/gorp.png"),
 */
 
-                          (group_controller.other_group_model?.data?[index]
-                                          .imageUrl! !=
-                                      null ||
-                                  group_controller.other_group_model!
-                                          .data![index].imageUrl! !=
-                                      "null" ||
-                              group_controller.other_group_model!
-                                  .data![index].imageUrl! !=
-                                  "")
-                              ?
-                              Card(
+                             (group_controller.other_groups[index].imageUrl !=
+                                      null )
+                              ? Card(
                                   shape: CircleBorder(),
                                   clipBehavior: Clip.antiAliasWithSaveLayer,
                                   child: CachedNetworkImage(
@@ -235,8 +236,8 @@ class Group extends GetView<GroupController> {
                                         stalePeriod: Duration(days: 7),
                                         maxNrOfCacheObjects: 100)),
                                     imageUrl: MainConfig.fileurl +
-                                        group_controller.other_group_model!
-                                            .data![index].imageUrl!,
+                                        group_controller
+                                            .other_groups![index].imageUrl!,
                                     imageBuilder: (context, imageProvider) =>
                                         Container(
                                       decoration: BoxDecoration(
@@ -251,7 +252,9 @@ class Group extends GetView<GroupController> {
                                     errorWidget: (context, url, error) =>
                                         Icon(Icons.error),
                                   ),
-                                ):img.image_assetsa("assets/images/ram/gorp.png"),
+                                )
+                              :
+                          img.image_assetsa("assets/images/ram/gorp.png"),
                           SizedBox(
                             width: 10,
                           ),
@@ -262,7 +265,7 @@ class Group extends GetView<GroupController> {
                                 children: [
                                   Footnate(
                                     text: group_controller
-                                        .other_group_model?.data?[index].name,
+                                        .other_groups[index].name,
                                   ),
                                   SizedBox(
                                     width: 12,
@@ -294,7 +297,7 @@ class Group extends GetView<GroupController> {
                                   ),
                                   Caption1(
                                     text: group_controller
-                                        .other_group_model?.data?[index].name,
+                                        .other_groups[index].ownerName,
                                   ),
                                 ],
                               ),
@@ -314,14 +317,14 @@ class Group extends GetView<GroupController> {
                                 left: 8, right: 8, bottom: 2, top: 4),
                             child: Caption1(
                               text: group_controller
-                                  .group_model?.data.lastMessage,
+                                  .other_groups[index].numberMessageNoSeen ?? "0",
                               color: Colors.white,
                             ),
                           ),
                         ),
                         Caption1(
                           text: group_controller
-                              .other_group_model?.data?[index].name,
+                              .other_groups[index].lastMessageDateTime.toString().split(' ')[1].split('0000000')[0],
                         ),
                       ],
                     ),

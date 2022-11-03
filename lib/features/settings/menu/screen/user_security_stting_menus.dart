@@ -1,6 +1,5 @@
 import 'package:Nahvino/config/lang/App_localizations.dart';
-import 'package:Nahvino/config/lang/LanguageConstants.dart';
-import 'package:Nahvino/config/lang/language.dart';
+import 'package:Nahvino/core/Utils/Button/Button.dart';
 import 'package:Nahvino/core/Utils/Button/SttingMenusButton.dart';
 import 'package:Nahvino/core/Utils/Text/Text.dart';
 import 'package:Nahvino/features/Chat/service/notification_service.dart';
@@ -8,6 +7,7 @@ import 'package:Nahvino/features/my_tabs/main/screen/tabs.dart';
 import 'package:Nahvino/features/profile/view_profile/data/view_profial_data.dart';
 import 'package:Nahvino/features/profile/view_profile/service/profile_service.dart';
 import 'package:Nahvino/features/registration/main/screen/registration.dart';
+import 'package:Nahvino/features/settings/menu/controllers/menu_controllers.dart';
 import 'package:Nahvino/features/settings/menu/service/security_menu_service.dart';
 import 'package:Nahvino/features/settings/user_security/change_phone/screen/change_phone_number.dart';
 import 'package:Nahvino/features/settings/user_security/set_phone/screen/set_phone_number.dart';
@@ -34,6 +34,7 @@ class UserSecuritySttingMenus extends StatefulWidget {
 class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
   ViewProfileController databox = Get.put(ViewProfileController());
   VersionData version = Get.put(VersionData());
+  MenuController menu_controller = Get.put(MenuController());
 
   bool isApiCallProgress = true;
   GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
@@ -41,6 +42,7 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
   var resultResponsepro;
   late bool phoneNumber;
   late bool password;
+
   @override
   void initState() {
     super.initState();
@@ -62,12 +64,6 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
   }
 
   bool lang = false; // en => true / fa => false
-  void changeLanguage(Language language) async {
-    // ignore: unnecessary_cast
-    Locale _locale = (await setLocale(language.languageCode)) as Locale;
-    MyApp.setLocale(context, _locale);
-    setState(() {});
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -328,49 +324,78 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) =>
-                                        InfoScreen()));
+                                    builder: (context) => InfoScreen()));
                           },
                           text: 'اطلاعات دستگاه'),
                     ],
                   ),
-
                 ],
               ),
-              /* SttingMenusButton(
-                  onPressed: () => AppLocalizations.of(context)?.setLocale(Locale.fromSubtags(languageCode: 'en')),
-                  icon: Icon(
-                    Icons.language,
-                    color: Colors.white,
-                  ),
-                  text: 'تغییر زبان'),*/
-              /*   DropdownButton<Language>(
-                underline: SizedBox(),
-                icon: Icon(
-                  Icons.language,
-                  color: Colors.white,
-                ),
-                onChanged: (Language? language) {
-                  changeLanguage(language!);
-                },
-                items: Language.languageList()
-                    .map<DropdownMenuItem<Language>>(
-                      (e) => DropdownMenuItem<Language>(
-                        value: e,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: <Widget>[
-                            Text(
-                              e.flag,
-                              style: TextStyle(fontSize: 30),
+              Padding(
+                padding: const EdgeInsets.only(right: 10, left: 10),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.language,
+                      color: Colors.blue,
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    SizedBox(
+                      width: 330,
+                      child: DropdownButton<String>(
+                          hint: Text('Language'),
+                          value: menu_controller.selectedValue,
+                          onChanged: (newValue) {
+                            menu_controller.onSelected(newValue!);
+                          },
+                          underline: Container(color: Colors.transparent),
+                          elevation: 0,
+                          items: [
+                            DropdownMenuItem(
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text("انگلیسی"),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Container(
+                                    width: 50,
+                                    height: 40,
+                                    child: Image.network(
+                                        "https://static3.parsnews.com/thumbnail/dAui7C5GYEcQ/00u_gJ5mbDPjYGfawu2HP7LRCRJqBGsxLfbtptyQEOTBhDRCzPHiEt5DkgzeYWqHX0lAEvzLGIE,/%D8%A2%D9%85%D8%B1%DB%8C%DA%A9%D8%A7.jpg"),
+                                  )
+                                ],
+                              ),
+                              value: 'English',
                             ),
-                            Text(e.name)
-                          ],
-                        ),
-                      ),
-                    )
-                    .toList(),
-              ),*/
+                            DropdownMenuItem(
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text("فارسی"),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Container(
+                                    width: 50,
+                                    height: 40,
+                                    child: Image.network(
+                                        "https://www.seyedrezabazyar.com/fa/files/2016/07/iran-flag.jpg"),
+                                  )
+                                ],
+                              ),
+                              value: 'Persian',
+                            ),
+                          ]),
+                    ),
+                  ],
+                ),
+              ),
             ],
           )
         ],

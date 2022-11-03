@@ -5,7 +5,8 @@ import 'package:Nahvino/core/Utils/Widget/ui/dialog_tow_btn.dart';
 import 'package:Nahvino/core/Utils/Widget/ui/image_view.dart';
 import 'package:Nahvino/features/Chat/group/Widget/public_group_widget.dart';
 import 'package:Nahvino/features/Chat/group/info_group/controllers/info_group_controller.dart';
-import 'package:Nahvino/features/Chat/group/edit_group/screen/edit_group.dart';
+import 'package:Nahvino/features/Chat/group/edit_group/screen/edit_group_screen.dart';
+import 'package:Nahvino/features/Chat/group/info_group/model/info_model.dart';
 import 'package:flutter/material.dart';
 import 'package:focused_menu/modals.dart';
 import 'package:get/get.dart';
@@ -17,7 +18,7 @@ class InfoGroup extends StatelessWidget {
   InfoGroupController info_group_controller = Get.put(InfoGroupController());
   Imageview img = Imageview();
   String? imagegrup;
-
+  InfoModel? infom;
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.ltr,
@@ -32,7 +33,8 @@ class InfoGroup extends StatelessWidget {
               actions: [
                 Row(
                   children: [
-                    Footnate(text: "درباره گروه"),
+                //    Footnate(text: "درباره گروه"),
+                    Footnate(text: infom?.message.toString() ?? "0"),
                     SizedBox(
                       width: 8,
                     ),

@@ -30,18 +30,26 @@ class ChatGroupController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    font();
+    focu();
+  }
+
+  font() {
     if (settings.read("text") == null) {
       settings.write("text", size_text.value);
     } else {
       size_text.value = settings.read("text");
     }
     ;
-    if (settings.read("font") == "" || settings.read("font") == null  ) {
+    if (settings.read("font") == "" || settings.read("font") == null) {
       settings.write("font", selectedfont.value);
     } else {
       selectedfont.value = settings.read("font");
     }
     ;
+  }
+
+  focu() {
     focusNode.addListener(() {
       if (focusNode.hasFocus) {
         emojiShowing.value = true;

@@ -3,6 +3,8 @@ import 'dart:isolate';
 import 'dart:typed_data';
 import 'package:Nahvino/core/Utils/Button/Button.dart';
 import 'package:Nahvino/core/error/screen/report_screen.dart';
+import 'package:Nahvino/core/shared/Services/notification_service.dart';
+import 'package:Nahvino/features/settings/menu/controllers/menu_controllers.dart';
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:dart_ipify/dart_ipify.dart';
 import 'package:flutter/foundation.dart';
@@ -16,6 +18,7 @@ import 'dart:ui' as ui;
 
 class DeveloperScreen extends StatelessWidget {
   DeveloperScreen({Key? key}) : super(key: key);
+  MenuController menu_controller = Get.put(MenuController());
   final GlobalKey _key = GlobalKey();
   String? token;
   String? id;
@@ -76,7 +79,6 @@ class DeveloperScreen extends StatelessWidget {
                 ui.Image image = await boundary.toImage();
                 ByteData? byteData =
                     await image.toByteData(format: ui.ImageByteFormat.png);
-
                 Uint8List pngBytes = byteData!.buffer.asUint8List();
                 //String base64Image = base64.encode(pngBytes);
                 final directory = (await getExternalStorageDirectory())?.path;
@@ -116,9 +118,21 @@ class DeveloperScreen extends StatelessWidget {
               text: "نوتیف",
               color: Colors.white,
               onPressed: () async {
-                final int helloAlarmID = 0;
-                await AndroidAlarmManager.periodic(
-                    const Duration(minutes: 1), helloAlarmID, printHello);
+                // final int helloAlarmID = 0;
+                // await AndroidAlarmManager.periodic(
+                //     const Duration(minutes: 1), helloAlarmID, printHello);
+                await NotificationService().showNotifications();
+
+                print("OK");
+              },
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Buttonfull(
+              text: "ای پی پرچم",
+              color: Colors.white,
+              onPressed: () async {
                 print("OK");
               },
             ),

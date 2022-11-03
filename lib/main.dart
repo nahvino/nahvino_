@@ -1,10 +1,11 @@
 import 'dart:io';
 import 'dart:isolate';
 import 'dart:ui';
-import 'package:Nahvino/config/lang/LanguageConstants.dart';
 import 'package:Nahvino/core/shared/Services/http.dart';
 import 'package:Nahvino/config/lang/App_localizations.dart';
+import 'package:Nahvino/core/shared/presentation/controllers/getx/Utils/download_controller.dart';
 import 'package:Nahvino/features/my_tabs/main/screen/tabs.dart';
+import 'package:Nahvino/features/settings/menu/controllers/menu_controllers.dart';
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
@@ -13,6 +14,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'core/shared/Services/notification_service.dart';
 import 'features/splash/screen/splash.dart';
 import 'dart:async';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -26,38 +28,34 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 
 
 void main() async {
-
+  WidgetsFlutterBinding.ensureInitialized();
+  await NotificationService().init();
   HttpOverrides.global = new MyHttpOverrides();
   await GetStorage.init();
-  WidgetsFlutterBinding.ensureInitialized();
   await FlutterDownloader.initialize(debug: true, ignoreSsl: true);
   await AndroidAlarmManager.initialize();
   runApp(MyApp());
   FlutterError.onError = (FlutterErrorDetails details) {
-    //this line prints the default flutter gesture caught exception in console
-    //FlutterError.dumpErrorToConsole(details);
+    FlutterError.dumpErrorToConsole(details);
     print("Error From INSIDE FRAME_WORK");
-    print("----------------------");
-    print("Error :  ${details.exception}");
-    print("StackTrace :  ${details.stack}");
+    print("----------------------------");
+    print("Error : ${details.exception}");
+    print("StackTrace :${details.stack}");
   };
 }
+
 class MyApp extends StatefulWidget {
   const MyApp({
     Key? key,
   }) : super(key: key);
-  static void setLocale(BuildContext context, Locale newLocale) {
-    _MyAppState? state = context.findAncestorStateOfType<_MyAppState>();
-    state!.setLocale(newLocale);
-  }
 
   @override
   State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-
-
+  MenuController menu_controller = Get.put(MenuController());
+  DownloadController down_controller = Get.put(DownloadController());
 
   /*
   late int totalNotifications;
@@ -122,7 +120,6 @@ class _MyAppState extends State<MyApp> {
     // });
   }
 */
-  ReceivePort _port = ReceivePort();
 
   @override
   void initState() {
@@ -146,89 +143,41 @@ class _MyAppState extends State<MyApp> {
     });*/
     super.initState();
     //خروجی اپ ویندوز
-    IsolateNameServer.registerPortWithName(
-        _port.sendPort, 'downloader_send_port');
-    _port.listen((dynamic data) {
-      String id = data[0];
-      DownloadTaskStatus status = data[1];
-      int progress = data[2];
-      setState(() {});
-    });
-
-    FlutterDownloader.registerCallback(downloadCallback);
 
   }
 
-  @override
-  void dispose() {
-    IsolateNameServer.removePortNameMapping('downloader_send_port');
-    super.dispose();
-  }
 
-  @pragma('vm:entry-point')
-  static void downloadCallback(
-      String id, DownloadTaskStatus status, int progress) {
-    final SendPort? send =
-        IsolateNameServer.lookupPortByName('downloader_send_port');
-    send!.send([id, status, progress]);
-  }
-
-  Locale? _locale;
-  setLocale(Locale locale) {
-    setState(() {
-      _locale = locale;
-    });
-  }
-
-  @override
-  void didChangeDependencies() {
-    getLocale().then((locale) {
-      setState(() {
-        this._locale = locale;
-      });
-    });
-    super.didChangeDependencies();
-  }
   @override
   Widget build(BuildContext context) {
-    if (this._locale == null) {
-      return Container(
-        child: Center(
-          child: CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.blue)),
-        ),
-      );
-    } else {
-      return GetMaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primarySwatch: Colors.blueGrey,
-        ),
-        supportedLocales: [
-          Locale('fa', 'IR'),
-          Locale('en', 'US'),
-        ],
-        locale: _locale,
-        localizationsDelegates: [
-          AppLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate
-        ],
-        localeResolutionCallback: (locale, supportedLocales) {
-          for (var supportedLocale in supportedLocales) {
-            if (supportedLocale.languageCode == locale!.languageCode &&
-                supportedLocale.countryCode == locale.countryCode) {
-              return supportedLocale;
-            }
-          }
-          return supportedLocales.first;
-        },
-        home: Splash(),
+    return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.blueGrey,
+      ),
+      supportedLocales: [
+        Locale('en', 'US'),
+        Locale('fa', 'IR'),
+      ],
+      locale: Locale(menu_controller.box_menu.read("lang")),
+      localizationsDelegates: [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate
+      ],
+      // localeResolutionCallback: (locale, supportedLocales) {
+      //   for (var supportedLocale in supportedLocales) {
+      //     if (supportedLocale.languageCode == locale!.languageCode &&
+      //         supportedLocale.countryCode == locale.countryCode) {
+      //       return supportedLocale;
+      //     }
+      //   }
+      //   return supportedLocales.first;
+      // },
+      home: Splash(),
 
-     //   navigatorKey: navigatorKey,
-        // initialRoute:Splash() ,
-      );
-    }
+      //   navigatorKey: navigatorKey,
+      // initialRoute:Splash() ,
+    );
   }
 }

@@ -43,8 +43,9 @@ class MenuPopUpButton extends StatelessWidget {
 
  */
 class MenuPopUpButton extends StatelessWidget {
-  const MenuPopUpButton({Key? key, required this.menuItems}) : super(key: key);
+  const MenuPopUpButton({Key? key, required this.menuItems, required this.icon}) : super(key: key);
   final List<FocusedMenuItem> menuItems;
+  final Widget icon;
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +70,7 @@ class MenuPopUpButton extends StatelessWidget {
             color: Colors.white,
             shape: BoxShape.circle,
             border: Border.all(width: 2, color: Colors.black45)
-          ),child: Icon(Icons.add))
+          ),child: icon)
     );
   }
 }

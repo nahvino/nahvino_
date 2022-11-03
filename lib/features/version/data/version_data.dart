@@ -94,7 +94,7 @@ class VersionData extends GetxController {
                         }
                         final baseStorage = await getExternalStorageDirectory();
                         final taskId = await FlutterDownloader.enqueue(
-                          url: 'https://dl.nahvino.com/app/Nahvino.apk',
+                          url: 'https://dl.nahvino.com/app/Nahvino.1.0.0.apk',
                           savedDir: baseStorage!.path,
                           showNotification:
                               true, // show download progress in status bar (for Android)

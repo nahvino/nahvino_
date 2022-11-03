@@ -3,7 +3,9 @@ import 'dart:io';
 import 'package:Nahvino/config/palette.dart';
 import 'package:Nahvino/core/Utils/Text/Text.dart';
 import 'package:Nahvino/features/version/controllers/info_controller.dart';
+import 'package:Nahvino/features/version/widget/flag_info_widget.dart';
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:flag/flag_widget.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -172,7 +174,9 @@ class _InfoScreenState extends State<InfoScreen> {
     return Scaffold(
         appBar: AppBar(
           actions: [
-            Text(info_controller.ip.value)
+            //Text(info_controller.ip.value),
+           // Flag.fromString('IR', height: 30, width: 30),
+            FlagInfo(),
           ],
           backgroundColor: Palette.appbar,
           title: Body( text:

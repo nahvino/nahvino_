@@ -1,7 +1,7 @@
 import 'package:Nahvino/core/Utils/Text/Text.dart';
 import 'package:Nahvino/core/Utils/TextField/public_text_filde.dart';
 import 'package:Nahvino/core/Utils/Widget/ui/image_view.dart';
-import 'package:Nahvino/features/Chat/group/create_group/screen/page1_group.dart';
+import 'package:Nahvino/features/Chat/group/create_group/screen/page1_group_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

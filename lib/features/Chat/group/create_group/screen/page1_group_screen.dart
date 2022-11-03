@@ -85,7 +85,9 @@ class CreateGroup extends StatelessWidget {
                         bottom: 0,
                         right: 50,
                         left: 0,
-                        child: MenuPopUpButton(menuItems: <FocusedMenuItem>[
+                        child: MenuPopUpButton(
+                            icon: Icon(Icons.add),
+                            menuItems: <FocusedMenuItem>[
                           FocusedMenuItem(
                             title: Footnate(
                               text: "دوربین",

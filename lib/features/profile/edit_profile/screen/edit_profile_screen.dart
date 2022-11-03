@@ -94,7 +94,17 @@ class EditProfileScreen extends GetView<EditProfileController> {
                                 bottom: 0,
                                 right: 0,
                                 left: 70,
-                                child: MenuPopUpButton(menuItems: <
+                                child: MenuPopUpButton(
+
+                                  icon: (editcontroller
+                                      .databox.imageUrl.value ==
+                                      "" ||
+                                      editcontroller
+                                          .databox.imageUrl.value ==
+                                          "null") ?
+
+                                  Icon(Icons.add) : Icon(Icons.edit),
+                                    menuItems: <
                                     FocusedMenuItem>[
                                   FocusedMenuItem(
                                     title: Footnate(
@@ -286,7 +296,7 @@ class EditProfileScreen extends GetView<EditProfileController> {
                         builder: (logic) {
                       return NotValidFilde(
                           controller: editcontroller.tarikhController,
-                          hint: editcontroller.databox.dateTimeAbandon.value,
+                          hint: editcontroller.berlinWallFell.value +"   "+ editcontroller.databox.dateTimeAbandon.value,
                           ontap: () async {
                             editcontroller.selectDate(context);
                             /*

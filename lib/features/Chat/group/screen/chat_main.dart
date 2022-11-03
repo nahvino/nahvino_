@@ -3,8 +3,8 @@ import 'package:Nahvino/core/Utils/Text/Text.dart';
 import 'package:Nahvino/features/Chat/group/controllers/home_group_controller.dart';
 import 'package:Nahvino/features/Chat/private/screen/person.dart';
 import 'package:Nahvino/features/Chat/group/Widget/public_group_widget.dart';
-import 'package:Nahvino/features/Chat/group/create_group/screen/page1_group.dart';
-import 'package:Nahvino/features/Chat/group/main/screen/group.dart';
+import 'package:Nahvino/features/Chat/group/create_group/screen/page1_group_screen.dart';
+import 'package:Nahvino/features/Chat/group/main/screen/group_screen.dart';
 import 'package:Nahvino/features/Chat/settings/chat_setting.dart';
 import 'package:Nahvino/features/Chat/settings/setting_global.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +14,7 @@ import 'package:get/get.dart';
 class Chats extends StatelessWidget {
   Chats({Key? key}) : super(key: key);
   final HomeGroupController home_group_controller =
-  Get.put(HomeGroupController());
+      Get.put(HomeGroupController());
 
   PublicGroupWidget gowidget = PublicGroupWidget();
 
@@ -32,14 +32,14 @@ class Chats extends StatelessWidget {
                 (BuildContext context, bool innerBoxIsScrolled) {
               return <Widget>[
                 Obx(
-                      () => SliverAppBar(
+                  () => SliverAppBar(
                     backgroundColor: Colors.cyan.shade800,
                     actions: [
                       Container(
                         child: IconButton(
                             onPressed: () {
                               home_group_controller.isInSearchMode.value =
-                              !home_group_controller.isInSearchMode.value;
+                                  !home_group_controller.isInSearchMode.value;
                               home_group_controller.serchtext.value = "";
                               home_group_controller.update();
                             },
@@ -53,13 +53,13 @@ class Chats extends StatelessWidget {
                       ),
                     ],
                     title: home_group_controller.isInSearchMode.value
-                        ? gowidget.searchmood(changed: (value){
-                      home_group_controller.serchtext.value = value;
-                      home_group_controller.update();
-                    })
+                        ? gowidget.searchmood(changed: (value) {
+                            home_group_controller.serchtext.value = value;
+                            home_group_controller.update();
+                          })
                         : Subhead(
-                      text: "چت نحوینو",
-                    ),
+                            text: "چت نحوینو",
+                          ),
                     leadingWidth: 60,
                     leading: MenuPopUp(
                       menuItems: <FocusedMenuItem>[
@@ -68,9 +68,8 @@ class Chats extends StatelessWidget {
                               text: "تنظیمات",
                             ),
                             trailingIcon: Icon(Icons.settings),
-                            onPressed: () =>
-                        Get.to(SettingGlobal())),
-                                //Get.to(SettingGlobal())),
+                            onPressed: () => Get.to(SettingGlobal())),
+                        //Get.to(SettingGlobal())),
                         // FocusedMenuItem(
                         //     title: Footnate(
                         //       text: "لینک",
@@ -88,24 +87,24 @@ class Chats extends StatelessWidget {
                       tabs: [
                         Tab(
                             child: Row(
-                              children: [
-                                Icon(Icons.group),
-                                SizedBox(
-                                  width: 3,
-                                ),
-                                Text("گروه")
-                              ],
-                            )),
+                          children: [
+                            Icon(Icons.group),
+                            SizedBox(
+                              width: 3,
+                            ),
+                            Text("گروه")
+                          ],
+                        )),
                         Tab(
                             child: Row(
-                              children: [
-                                Icon(Icons.group),
-                                SizedBox(
-                                  width: 3,
-                                ),
-                                Text("خصوصی")
-                              ],
-                            )),
+                          children: [
+                            Icon(Icons.group),
+                            SizedBox(
+                              width: 3,
+                            ),
+                            Text("خصوصی")
+                          ],
+                        )),
                       ],
                     ),
                   ),
@@ -123,11 +122,11 @@ class Chats extends StatelessWidget {
   }
 
   tapone(BuildContext context) {
-    return Group();
+    return SingleChildScrollView(child: Group());
   }
 
   taptow(BuildContext context) {
-    return Person();
+    return SingleChildScrollView(child: Person());
   }
 /*
   tapone(BuildContext context) {

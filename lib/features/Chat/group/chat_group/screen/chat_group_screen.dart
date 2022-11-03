@@ -7,8 +7,9 @@ import 'package:Nahvino/features/Chat/group/Widget/chat_group_widget.dart';
 import 'package:Nahvino/features/Chat/group/Widget/public_group_widget.dart';
 import 'package:Nahvino/features/Chat/group/chat_group/controllers/chat_group_controller.dart';
 import 'package:Nahvino/features/Chat/group/info_group/controllers/info_group_controller.dart';
-import 'package:Nahvino/features/Chat/group/edit_group/screen/edit_group.dart';
-import 'package:Nahvino/features/Chat/group/info_group/screen/info_group.dart';
+import 'package:Nahvino/features/Chat/group/edit_group/screen/edit_group_screen.dart';
+import 'package:Nahvino/features/Chat/group/info_group/screen/info_group_screen.dart';
+import 'package:Nahvino/features/Chat/group/sharing/screen/mission_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_chat_bubble/bubble_type.dart';
@@ -83,18 +84,22 @@ class ChatGroup extends StatelessWidget {
                           : Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Title2(
-                                    color: Colors.white,
-                                    text: name.length > 17
-                                        ? '${name.substring(0, 17)}...'
-                                        : name),
+
                                 InkWell(
                                   onTap: () => Get.to(InfoGroup()),
-                                  child: (imagegrup != null &&
-                                          imagegrup != "" &&
-                                          imagegrup != "null")
-                                      ? img.image(imagegrup!)
-                                      : img.image_assets(),
+                                  child: Row(children: [
+                                    Title2(
+                                        color: Colors.white,
+                                        text: name.length > 17
+                                            ? '${name.substring(0, 17)}...'
+                                            : name),
+                                    (imagegrup != null &&
+                                        imagegrup != "" &&
+                                        imagegrup != "null")
+                                        ? img.image(imagegrup!)
+                                        : img.image_assets(),
+
+                                  ],)
                                 ),
 
                                 //menu pop up
@@ -115,6 +120,14 @@ class ChatGroup extends StatelessWidget {
                                         trailingIcon: Icon(Icons.share),
                                         onPressed: () {
                                           print("درسته");
+                                        }),
+                                    FocusedMenuItem(
+                                        title: Footnate(
+                                          text: "مرام نامه",
+                                        ),
+                                        trailingIcon: Icon(Icons.pending_actions),
+                                        onPressed: () {
+                                         Get.to(MissionScreen());
                                         }),
                                     if (info_group_controller.join.value ==
                                         false)

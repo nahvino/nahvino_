@@ -5,7 +5,7 @@ class HubConnectionn{
   //con
   final connection = HubConnectionBuilder()
       .withUrl(
-    ChatConfig.mainurl,
+    ChatConfig.mainisurl,
     HttpConnectionOptions(
       logging: (level, message) => print(message),
     ),

@@ -1,27 +1,15 @@
+
 import 'dart:convert';
 
-OtherGroupsModel otherGroupsModelFromJson(String str) => OtherGroupsModel.fromJson(json.decode(str));
 
-String otherGroupsModelToJson(OtherGroupsModel data) => json.encode(data.toJson());
+List<List<Group>> otherGroupsModelFromJson(String str) => List<List<Group>>.from(json.decode(str).map((x) => List<Group>.from(x.map((x) => Group.fromJson(x)))));
 
-class OtherGroupsModel {
-  OtherGroupsModel({
-    required this.data,
-  });
+String otherGroupsModelToJson(List<List<Group>> data) => json.encode(List<dynamic>.from(data.map((x) => List<dynamic>.from(x.map((x) => x.toJson())))));
 
-  List<Datum> data;
-
-  factory OtherGroupsModel.fromJson(Map<String, dynamic> json) => OtherGroupsModel(
-    data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))).toList(),
-  );
-
-  Map<String, dynamic> toJson() => {
-    "data": List<dynamic>.from(data.map((x) => x.toJson())),
-  };
-}
-
-class Datum {
-  Datum({
+class Group {
+  Group({
+    this.id,
+    this.description,
     this.name,
     this.imageUrl,
     this.lastMessage,
@@ -29,7 +17,8 @@ class Datum {
     this.ownerName,
     this.numberMessageNoSeen,
   });
-
+  int? id;
+  String? description;
   String? name;
   String? imageUrl;
   String? lastMessage;
@@ -37,7 +26,9 @@ class Datum {
   String? ownerName;
   String? numberMessageNoSeen;
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory Group.fromJson(Map<String, dynamic> json) => Group(
+    id: json["id"],
+    description: json["description"],
     name: json["name"],
     imageUrl: json["imageUrl"],
     lastMessage: json["lastMessage"],
@@ -47,6 +38,8 @@ class Datum {
   );
 
   Map<String, dynamic> toJson() => {
+    "id": id,
+    "description": description,
     "name": name,
     "imageUrl": imageUrl,
     "lastMessage": lastMessage,

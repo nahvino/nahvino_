@@ -50,7 +50,6 @@ dependencies:
   #notifications:
   firebase_core: ^1.17.1
   firebase_messaging: ^11.4.4
-  overlay_support: ^2.0.1
   pinput: ^2.2.7
   #cacheimage
   cached_network_image: ^3.2.0
@@ -81,10 +80,11 @@ dependencies:
   take_screenshot: ^0.0.2
   dart_ipify: ^1.1.1
   #tooltip
-  overlay_tooltip: ^0.2.1
-  #notfi
+  #.notfi
   android_alarm_manager_plus: ^2.0.7+1
   flutter_local_notifications: ^12.0.2
+  #flag
+  flag: ^6.0.0
 
 dev_dependencies:
   flutter_test:

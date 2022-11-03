@@ -18,7 +18,7 @@ class EditProfileController extends GetxController {
   TextEditingController bioController = TextEditingController();
   TextEditingController tarikhController = TextEditingController();
   String? error;
-  RxString berlinWallFell = "تاریخ ترک".obs;
+  RxString berlinWallFell = "تاریخ آغاز ترک  ".obs;
 
   RxString imagePath = "".obs;
 
