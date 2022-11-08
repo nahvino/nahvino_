@@ -5,12 +5,15 @@ import 'package:Nahvino/features/Chat/model/SignalR/ReceiveMessageModel.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:signalr_core/signalr_core.dart';
 
 class ChatPageController extends GetxController {
   RxBool emojiShowing = false.obs;
   TextEditingController chatEditController = TextEditingController();
+  final ItemScrollController itemScrollController = ItemScrollController();
+  final ItemPositionsListener itemPositionsListener = ItemPositionsListener.create();
   GroupModel? model;
   String? myUserId;
   String? token;
@@ -21,6 +24,7 @@ class ChatPageController extends GetxController {
   RxBool isApiCallProgress = true.obs;
   RxString searchText = "".obs;
   RxString disconnected = "".obs;
+
   @override
   void onInit() {
     super.onInit();
@@ -100,7 +104,6 @@ class ChatPageController extends GetxController {
   RxBool showScrollToEnd = false.obs;
   ScrollController chatScrollController = ScrollController();
   ScrollController chatSingleChildScrollController = ScrollController();
-
   Future getAllMessages() async {
     if (loadMoreLoading.value) {
       return;
@@ -197,7 +200,15 @@ class ChatPageController extends GetxController {
 
     if (index != -1) {}
   }
+  scrolltointhechat(ReceiveMessageModel chat){
+    // chats.removeWhere((chat) => messageIds!.contains(chat.id));
+    // update();
+    itemScrollController.scrollTo(index: chats.indexWhere((element) => element.id == chat.id), duration: Duration(seconds: 1));
+    //itemScrollController.scrollTo(index: 50, duration: Duration(seconds: 1));
 
+    update();
+
+  }
   dicreconnection() {
     Timer.periodic(Duration(seconds: 5), (timer) async {
       if (connection.state == HubConnectionState.connected) {

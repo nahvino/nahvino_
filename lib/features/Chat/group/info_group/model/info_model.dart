@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final infoModel = infoModelFromJson(jsonString);
-
 import 'dart:convert';
 
 InfoModel infoModelFromJson(String str) => InfoModel.fromJson(json.decode(str));

@@ -10,6 +10,7 @@ import 'package:Nahvino/features/Chat/group/info_group/controllers/info_group_co
 import 'package:Nahvino/features/Chat/group/edit_group/screen/edit_group_screen.dart';
 import 'package:Nahvino/features/Chat/group/info_group/screen/info_group_screen.dart';
 import 'package:Nahvino/features/Chat/group/sharing/screen/mission_screen.dart';
+import 'package:chat_composer/chat_composer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_chat_bubble/bubble_type.dart';
@@ -19,9 +20,12 @@ import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_2.dart';
 import 'package:focused_menu/modals.dart';
 import 'package:get/get.dart';
 import 'package:swipeable_tile/swipeable_tile.dart';
+import 'package:voice_message_package/voice_message_package.dart';
 
 class ChatGroup extends StatelessWidget {
-  ChatGroup({Key? key,}) : super(key: key);
+  ChatGroup({
+    Key? key,
+  }) : super(key: key);
 
   ChatGroupController chat_group_controller = Get.put(ChatGroupController());
   InfoGroupController info_group_controller = Get.put(InfoGroupController());
@@ -76,7 +80,7 @@ class ChatGroup extends StatelessWidget {
 
                           Container(
                               width: width / 1.32,
-                              child: gowidget.searchmood(changed: (value){
+                              child: gowidget.searchmood(changed: (value) {
                                 chat_group_controller.serchtext.value = value;
                                 chat_group_controller.update();
                               }),
@@ -84,23 +88,22 @@ class ChatGroup extends StatelessWidget {
                           : Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-
                                 InkWell(
-                                  onTap: () => Get.to(InfoGroup()),
-                                  child: Row(children: [
-                                    Title2(
-                                        color: Colors.white,
-                                        text: name.length > 17
-                                            ? '${name.substring(0, 17)}...'
-                                            : name),
-                                    (imagegrup != null &&
-                                        imagegrup != "" &&
-                                        imagegrup != "null")
-                                        ? img.image(imagegrup!)
-                                        : img.image_assets(),
-
-                                  ],)
-                                ),
+                                    onTap: () => Get.to(InfoGroup()),
+                                    child: Row(
+                                      children: [
+                                        Title2(
+                                            color: Colors.white,
+                                            text: name.length > 17
+                                                ? '${name.substring(0, 17)}...'
+                                                : name),
+                                        (imagegrup != null &&
+                                                imagegrup != "" &&
+                                                imagegrup != "null")
+                                            ? img.image(imagegrup!)
+                                            : img.image_assets(),
+                                      ],
+                                    )),
 
                                 //menu pop up
                                 MenuPopUp(
@@ -125,9 +128,10 @@ class ChatGroup extends StatelessWidget {
                                         title: Footnate(
                                           text: "مرام نامه",
                                         ),
-                                        trailingIcon: Icon(Icons.pending_actions),
+                                        trailingIcon:
+                                            Icon(Icons.pending_actions),
                                         onPressed: () {
-                                         Get.to(MissionScreen());
+                                          Get.to(MissionScreen());
                                         }),
                                     if (info_group_controller.join.value ==
                                         false)
@@ -171,123 +175,140 @@ class ChatGroup extends StatelessWidget {
                   shrinkWrap: true,
                   reverse: true,
                   itemCount: chat_group_controller.serchtext.value != "" &&
-                      chat_group_controller.serach_mood.value
+                          chat_group_controller.serach_mood.value
                       ? fakeMassagegroup
-                      .where((element) => element.mass!.contains(
-                      chat_group_controller.serchtext.value))
-                      .toList()
-                      .length : fakeMassagegroup.length,
+                          .where((element) => element.mass!
+                              .contains(chat_group_controller.serchtext.value))
+                          .toList()
+                          .length
+                      : fakeMassagegroup.length,
                   itemBuilder: chatItem,
                   physics: NeverScrollableScrollPhysics(),
                 ),
               ),
             ),
-            if (info_group_controller.join.value ==
-                true)
-            Card(
-              color: Colors.white,
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Caption1(
-                              color: Colors.black,
-                              text: "شما در گروه عضو نیستید",
-                              textAlign: TextAlign.right,
-                            ),
-                            TextButton(onPressed: () {
-                              info_group_controller.join.value = false;
-                            },
-                              child: Subhead(
-                                color: Colors.blue,
-                                text: "عضویت",
+            if (info_group_controller.join.value == true)
+              Card(
+                color: Colors.white,
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Caption1(
+                                color: Colors.black,
+                                text: "شما در گروه عضو نیستید",
                                 textAlign: TextAlign.right,
-                              ),),
-                          ],
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  info_group_controller.join.value = false;
+                                },
+                                child: Subhead(
+                                  color: Colors.blue,
+                                  text: "عضویت",
+                                  textAlign: TextAlign.right,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
-            if (info_group_controller.join.value ==
-                false)
-            Card(
-              child: Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      showCursor: true,
-                      enableSuggestions: true,
-                      autocorrect: true,
-                      enableInteractiveSelection: true,
-                      enableIMEPersonalizedLearning: true,
-                      scribbleEnabled: true,
-                      mouseCursor: MouseCursor.uncontrolled,
-                      focusNode: chat_group_controller.focusNode,
-                      smartDashesType: SmartDashesType.enabled,
-                      smartQuotesType: SmartQuotesType.enabled,
-                      decoration: InputDecoration(
-                          prefixIcon: IconButton(
-                            icon: chat_group_controller.icomke,
-                            onPressed: () {
-                              chat_group_controller.focusNode.unfocus();
-                              focusNode.canRequestFocus = false;
-                              chat_group_controller.emojiShowing.value =
-                                  !chat_group_controller.emojiShowing.value;
-                              chat_group_controller.icomke =
-                                  Icon(Icons.keyboard_alt_outlined);
-                              if (chat_group_controller.emojiShowing.value ==
-                                  true) {
-                                FocusScope.of(context).requestFocus(
-                                    chat_group_controller.focusNode);
-                              } else {
+            if (info_group_controller.join.value == false)
+              Directionality(
+               textDirection: TextDirection.ltr,
+                child: ChatComposer(
+
+                  onReceiveText: (str) {
+                    print('TEXT : ' + str!);
+                  },
+                  onRecordEnd: (path) {
+
+                    print('AUDIO PATH : ' + path!);
+                  },
+                ),
+              ),
+             /* Card(
+                child:
+               Row(
+                  children: [
+
+                    Expanded(
+                      child:
+
+                      TextField(
+                        showCursor: true,
+                        enableSuggestions: true,
+                        autocorrect: true,
+                        enableInteractiveSelection: true,
+                        enableIMEPersonalizedLearning: true,
+                        scribbleEnabled: true,
+                        mouseCursor: MouseCursor.uncontrolled,
+                        focusNode: chat_group_controller.focusNode,
+                        smartDashesType: SmartDashesType.enabled,
+                        smartQuotesType: SmartQuotesType.enabled,
+                        decoration: InputDecoration(
+                            prefixIcon: IconButton(
+                              icon: chat_group_controller.icomke,
+                              onPressed: () {
                                 chat_group_controller.focusNode.unfocus();
                                 focusNode.canRequestFocus = false;
-                              }
-                            },
-                          ),
-                          border: InputBorder.none,
-                          focusedBorder: InputBorder.none,
-                          enabledBorder: InputBorder.none,
-                          errorBorder: InputBorder.none,
-                          disabledBorder: InputBorder.none,
-                          hintText: "پیام خود را بنویسید"),
-                      onChanged: (value) {
-                        chat_group_controller.canSend.value =
-                            value.isEmpty || value == "";
-                      },
-                      keyboardType: TextInputType.multiline,
-                      autofocus: false,
-                      maxLines: 5,
-                      minLines: 1,
-                      enabled: true,
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                          fontSize: 16, fontFamily: 'Vazirmatn_Light'),
-                      controller: chat_group_controller.chat_text,
-                    ),
-                  ),
-                  // IconButton(
-                  //     onPressed: () {},
-                  //     icon: Icon(Icons.emoji_emotions_outlined)),
-                  IconButton(
-                      icon: Icon(
-                        Icons.send,
-                        color: chat_group_controller.canSend.value
-                            ? Colors.black
-                            : Colors.cyan,
+                                chat_group_controller.emojiShowing.value =
+                                    !chat_group_controller.emojiShowing.value;
+                                chat_group_controller.icomke =
+                                    Icon(Icons.keyboard_alt_outlined);
+                                if (chat_group_controller.emojiShowing.value ==
+                                    true) {
+                                  FocusScope.of(context).requestFocus(
+                                      chat_group_controller.focusNode);
+                                } else {
+                                  chat_group_controller.focusNode.unfocus();
+                                  focusNode.canRequestFocus = false;
+                                }
+                              },
+                            ),
+                            border: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                            errorBorder: InputBorder.none,
+                            disabledBorder: InputBorder.none,
+                            hintText: "پیام خود را بنویسید"),
+                        onChanged: (value) {
+                          chat_group_controller.canSend.value =
+                              value.isEmpty || value == "";
+                        },
+                        keyboardType: TextInputType.multiline,
+                        autofocus: false,
+                        maxLines: 5,
+                        minLines: 1,
+                        enabled: true,
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                            fontSize: 16, fontFamily: 'Vazirmatn_Light'),
+                        controller: chat_group_controller.chat_text,
                       ),
-                      onPressed: () {}),
-                ],
+                    ),
+                    // IconButton(
+                    //     onPressed: () {},
+                    //     icon: Icon(Icons.emoji_emotions_outlined)),
+                    IconButton(
+                        icon: Icon(
+                          Icons.send,
+                          color: chat_group_controller.canSend.value
+                              ? Colors.black
+                              : Colors.cyan,
+                        ),
+                        onPressed: () {}),
+                  ],
+                ),
               ),
-            ),
             chat_group.icon_message(
               chat_group_controller.emojiShowing.value,
               () {
@@ -296,7 +317,7 @@ class ChatGroup extends StatelessWidget {
               (category, emoji) {
                 chat_group_controller.onEmojiSelected(emoji);
               },
-            ),
+            ),*/
           ],
         ),
       ),
@@ -335,8 +356,8 @@ class ChatGroup extends StatelessWidget {
                             resizeDuration: Duration(milliseconds: 1),
                             onSwiped: (direction) {
                               if (direction == SwipeDirection.endToStart) {
-                                 Clipboard.setData(ClipboardData(text: fakeMassagegroup[index].mass));
-
+                                Clipboard.setData(ClipboardData(
+                                    text: fakeMassagegroup[index].mass));
                               } else if (direction ==
                                   SwipeDirection.startToEnd) {}
                             },
@@ -373,9 +394,7 @@ class ChatGroup extends StatelessWidget {
                             child: InkWell(
                               onLongPress: (() => chat_group_controller
                                   .select_mood.value = true),
-                              child:
-
-                              ChatBubble(
+                              child: ChatBubble(
                                 clipper: ChatBubbleClipper1(
                                     type: BubbleType.sendBubble),
                                 margin: EdgeInsets.only(top: 4, bottom: 4),
@@ -410,40 +429,40 @@ class ChatGroup extends StatelessWidget {
                                                 text: fakeMassagegroup[index]
                                                     .name),
                                             InkWell(
-                                              onTap: (){
+                                              onTap: () {
                                                 print("asd");
                                               },
                                               child: Container(
                                                 decoration: BoxDecoration(
                                                   borderRadius:
-                                                  BorderRadius.circular(
-                                                      7.0),
+                                                      BorderRadius.circular(
+                                                          7.0),
                                                   shape: BoxShape.rectangle,
                                                   color: Colors.black12,
                                                 ),
                                                 child: Row(
                                                   crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                                      CrossAxisAlignment.start,
                                                   mainAxisAlignment:
-                                                  MainAxisAlignment.start,
+                                                      MainAxisAlignment.start,
                                                   children: [
                                                     Container(
                                                       width: 5,
                                                       height: 50,
                                                       decoration: BoxDecoration(
                                                         borderRadius:
-                                                        BorderRadius.only(
-                                                            bottomRight:
-                                                            Radius
-                                                                .circular(
-                                                                5),
-                                                            topRight: Radius
-                                                                .circular(
-                                                                5)),
+                                                            BorderRadius.only(
+                                                                bottomRight:
+                                                                    Radius
+                                                                        .circular(
+                                                                            5),
+                                                                topRight: Radius
+                                                                    .circular(
+                                                                        5)),
                                                         shape:
-                                                        BoxShape.rectangle,
+                                                            BoxShape.rectangle,
                                                         color:
-                                                        Colors.greenAccent,
+                                                            Colors.greenAccent,
                                                       ),
                                                     ),
                                                     // Footnate(
@@ -452,15 +471,15 @@ class ChatGroup extends StatelessWidget {
                                                     //   ),
                                                     Padding(
                                                       padding:
-                                                      const EdgeInsets.only(
-                                                          right: 5),
+                                                          const EdgeInsets.only(
+                                                              right: 5),
                                                       child: Column(
                                                         children: [
                                                           ChatTextMassgae(
                                                             fonts:
-                                                            chat_group_controller
-                                                                .selectedfont
-                                                                .value,
+                                                                chat_group_controller
+                                                                    .selectedfont
+                                                                    .value,
                                                             text: "نام",
                                                           ),
                                                           // Caption1(
@@ -474,8 +493,10 @@ class ChatGroup extends StatelessWidget {
                                                               fonts: chat_group_controller
                                                                   .selectedfont
                                                                   .value,
-                                                              text: fakeMassagegroup[index]
-                                                                  .mass),
+                                                              text:
+                                                                  fakeMassagegroup[
+                                                                          index]
+                                                                      .mass),
                                                         ],
                                                       ),
                                                     ),
@@ -496,7 +517,15 @@ class ChatGroup extends StatelessWidget {
                                                         .read("text"),
                                                 text: fakeMassagegroup[index]
                                                     .mass),
-
+                                            VoiceMessage(
+                                              audioSrc: 'https://www.fesliyanstudios.com/soundeffects-download.php?id=1037',
+                                              played: false,
+                                              // To show played badge or not.
+                                              me: true,
+                                              // Set message side.
+                                              onPlay:
+                                                  () {}, // Do something when voice played.
+                                            ),
                                             ChatTextMassgae(
                                                 fonts: chat_group_controller
                                                     .selectedfont.value,
@@ -510,14 +539,23 @@ class ChatGroup extends StatelessWidget {
                                                         .read("text"),
                                                 text: fakeMassagegroup[index]
                                                     .time),
-                                            Stack(children: [
-                                             Icon(Icons.check_outlined,size: 14,),
-                                             Padding(
-                                               padding: const EdgeInsets.only(right: 10),
-                                               child: Icon(Icons.check_outlined,size: 14,),
-                                             ),
-
-                                            ],),
+                                            Stack(
+                                              children: [
+                                                Icon(
+                                                  Icons.check_outlined,
+                                                  size: 14,
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          right: 10),
+                                                  child: Icon(
+                                                    Icons.check_outlined,
+                                                    size: 14,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
                                           ]),
                                     ),
                                   ],
@@ -546,10 +584,8 @@ class ChatGroup extends StatelessWidget {
                                 if (direction == SwipeDirection.endToStart) {
                                 } else if (direction ==
                                     SwipeDirection.startToEnd) {
-                                  Clipboard.setData(
-                                      ClipboardData(
-                                          text: fakeMassagegroup[index].mass));
-
+                                  Clipboard.setData(ClipboardData(
+                                      text: fakeMassagegroup[index].mass));
                                 }
                               },
                               backgroundBuilder:
@@ -580,7 +616,6 @@ class ChatGroup extends StatelessWidget {
                                       ),
                                     ],
                                   );
-
                                 }
                                 return Container();
                               },
@@ -589,8 +624,6 @@ class ChatGroup extends StatelessWidget {
                                   Row(
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
-
-
                                   ChatBubble(
                                     clipper: ChatBubbleClipper2(
                                         type: BubbleType.receiverBubble),
@@ -708,13 +741,13 @@ class ChatGroup extends StatelessWidget {
                                                   fonts: chat_group_controller
                                                       .selectedfont.value,
                                                   fontsize: chat_group_controller
-                                                      .settings
-                                                      .read("text") ==
-                                                      null
+                                                              .settings
+                                                              .read("text") ==
+                                                          null
                                                       ? 16
                                                       : chat_group_controller
-                                                      .settings
-                                                      .read("text"),
+                                                          .settings
+                                                          .read("text"),
                                                   text: fakeMassagegroup[index]
                                                       .time),
                                             ],
@@ -740,5 +773,4 @@ class ChatGroup extends StatelessWidget {
           ]),
     );
   }
-
 }

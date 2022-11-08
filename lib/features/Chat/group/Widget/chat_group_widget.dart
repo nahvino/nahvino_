@@ -30,7 +30,7 @@ class ChatGroupWidget {
                 indicatorColor: Colors.blue,
                 iconColor: Colors.grey,
                 iconColorSelected: Colors.blue,
-                progressIndicatorColor: Colors.blue,
+                //progressIndicatorColor: Colors.blue,
                 backspaceColor: Colors.blue,
                 skinToneDialogBgColor: Colors.white,
                 skinToneIndicatorColor: Colors.grey,

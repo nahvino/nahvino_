@@ -19,6 +19,7 @@ import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_1.dart';
 import 'package:get/get.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:lottie/lottie.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:swipeable_tile/swipeable_tile.dart';
 import 'package:Nahvino/config/lang/App_localizations.dart';
 
@@ -252,9 +253,11 @@ class _ChatpageState extends State<Chatpage> {
                     child: SingleChildScrollView(
                       controller: controller.chatSingleChildScrollController,
                       reverse: true,
-                      child: ListView.builder(
-                        shrinkWrap: true,                        
-                        controller: controller.chatScrollController,
+                      child: ScrollablePositionedList.builder(
+                        shrinkWrap: true,
+                        itemScrollController:controller.itemScrollController,
+                      itemPositionsListener: chatPageController.itemPositionsListener,
+                      // controller.chatScrollController,
                         itemCount: chatPageController.searchText.value != "" &&
                                 chatPageController.isInSearchMode.value
                             ? chatPageController.chats
@@ -357,9 +360,9 @@ class _ChatpageState extends State<Chatpage> {
           child: SizedBox(
             height: 250,
             child: EmojiPicker(
-                onEmojiSelected: (Category category, Emoji emoji) {
-                  chatPageController.onEmojiSelected(emoji);
-                },
+                // onEmojiSelected: (Category category, Emoji emoji) {
+                //   chatPageController.onEmojiSelected(emoji);
+                // },
                 onBackspacePressed: chatPageController.onBackspacePressed,
                 config: Config(
                     columns: 7,
@@ -371,7 +374,7 @@ class _ChatpageState extends State<Chatpage> {
                     indicatorColor: Colors.blue,
                     iconColor: Colors.grey,
                     iconColorSelected: Colors.blue,
-                    progressIndicatorColor: Colors.blue,
+                  //  progressIndicatorColor: Colors.blue,
                     backspaceColor: Colors.blue,
                     skinToneDialogBgColor: Colors.white,
                     skinToneIndicatorColor: Colors.grey,
@@ -855,73 +858,77 @@ class _ChatpageState extends State<Chatpage> {
                                             chatPageController
                                                 .scrollToChat(chat);
                                           },
-                                          child: Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                Container(
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            7.0),
-                                                    shape: BoxShape.rectangle,
-                                                    color: Colors.black12,
-                                                  ),
-                                                  child: Row(
-                                                    children: [
-                                                      Container(
-                                                        width: 5,
-                                                        height: 50,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius.only(
-                                                                  bottomRight: Radius
-                                                                      .circular(
-                                                                          5),
-                                                                  topRight: Radius
-                                                                      .circular(
-                                                                          5)),
-                                                          shape: BoxShape
-                                                              .rectangle,
-                                                          color: Colors
-                                                              .greenAccent,
-                                                        ),
-                                                      ),
-                                                      SizedBox(
-                                                        width: 7,
-                                                      ),
-                                                      Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Footnate(
-                                                            text: chat
-                                                                .parentMessageUserNameAlias!,
+                                          //replay
+                                          child: InkWell(
+                                            onTap: ()=>chatPageController.scrolltointhechat(chat),
+                                            child: Row(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  Container(
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              7.0),
+                                                      shape: BoxShape.rectangle,
+                                                      color: Colors.black12,
+                                                    ),
+                                                    child: Row(
+                                                      children: [
+                                                        Container(
+                                                          width: 5,
+                                                          height: 50,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius.only(
+                                                                    bottomRight: Radius
+                                                                        .circular(
+                                                                            5),
+                                                                    topRight: Radius
+                                                                        .circular(
+                                                                            5)),
+                                                            shape: BoxShape
+                                                                .rectangle,
+                                                            color: Colors
+                                                                .greenAccent,
                                                           ),
-                                                          Caption1(
-                                                              text: chat.parentMessageText!
-                                                                          .length >
-                                                                      30
-                                                                  ? '${chat.parentMessageText!.substring(0, 30)}...'
-                                                                  : chat
-                                                                      .parentMessageText),
-                                                          /*Caption1(
-                                                            text: chat
-                                                                .parentMessageText!),*/
-                                                        ],
-                                                      ),
-                                                    ],
+                                                        ),
+                                                        SizedBox(
+                                                          width: 7,
+                                                        ),
+                                                        Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Footnate(
+                                                              text: chat
+                                                                  .parentMessageUserNameAlias!,
+                                                            ),
+                                                            Caption1(
+                                                                text: chat.parentMessageText!
+                                                                            .length >
+                                                                        30
+                                                                    ? '${chat.parentMessageText!.substring(0, 30)}...'
+                                                                    : chat
+                                                                        .parentMessageText),
+                                                            /*Caption1(
+                                                              text: chat
+                                                                  .parentMessageText!),*/
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
                                                   ),
-                                                ),
-                                              ]),
+                                                ]),
+                                          ),
                                         ),
                                     Subhead(
                                       color: Colors.black,

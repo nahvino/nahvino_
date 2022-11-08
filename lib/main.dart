@@ -13,11 +13,9 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'core/shared/Services/notification_service.dart';
 import 'features/splash/screen/splash.dart';
 import 'dart:async';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'firebase_options.dart';
 
 /*
