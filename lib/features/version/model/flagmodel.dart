@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final flagModel = flagModelFromJson(jsonString);
-
 import 'dart:convert';
 
 FlagModel flagModelFromJson(String str) => FlagModel.fromJson(json.decode(str));
@@ -10,20 +6,20 @@ String flagModelToJson(FlagModel data) => json.encode(data.toJson());
 
 class FlagModel {
   FlagModel({
-     this.status,
-     this.country,
-     this.countryCode,
-     this.region,
-     this.regionName,
-     this.city,
-     this.zip,
-     this.lat,
-     this.lon,
-     this.timezone,
-     this.isp,
-     this.org,
-     this.flagModelAs,
-     this.query,
+    this.status,
+    this.country,
+    this.countryCode,
+    this.region,
+    this.regionName,
+    this.city,
+    this.zip,
+    this.lat,
+    this.lon,
+    this.timezone,
+    this.isp,
+    this.org,
+    this.flagModelAs,
+    this.query,
   });
 
   String? status;

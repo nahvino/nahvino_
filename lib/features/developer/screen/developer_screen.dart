@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:isolate';
 import 'dart:typed_data';
@@ -5,6 +6,7 @@ import 'package:Nahvino/core/Utils/Button/Button.dart';
 import 'package:Nahvino/core/error/screen/report_screen.dart';
 import 'package:Nahvino/core/shared/Services/notification_service.dart';
 import 'package:Nahvino/features/settings/menu/controllers/menu_controllers.dart';
+import 'package:Nahvino/features/version/screen/info_screen.dart';
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:dart_ipify/dart_ipify.dart';
 import 'package:flutter/foundation.dart';
@@ -121,8 +123,11 @@ class DeveloperScreen extends StatelessWidget {
                 // final int helloAlarmID = 0;
                 // await AndroidAlarmManager.periodic(
                 //     const Duration(minutes: 1), helloAlarmID, printHello);
-                await NotificationService().showNotifications();
+                Timer(Duration(seconds: 10), () {
+                  print("Yeah, this line is printed after 3 seconds");
+                   NotificationService().showNotifications();
 
+                });
                 print("OK");
               },
             ),
@@ -130,10 +135,10 @@ class DeveloperScreen extends StatelessWidget {
               height: 10,
             ),
             Buttonfull(
-              text: "ای پی پرچم",
+              text: "info",
               color: Colors.white,
               onPressed: () async {
-                print("OK");
+               Get.to( InfoScreen());
               },
             ),
           ],

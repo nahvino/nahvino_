@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 class FlagController extends GetxController {
 
   var fetch;
-
   @override
   void onInit() {
     super.onInit();
@@ -15,6 +14,8 @@ class FlagController extends GetxController {
   start_service() {
     FlagService.fetchFlags().then((value){
       fetch =value;
+      print("====<>====");
+      print(fetch);
     });
 
   }

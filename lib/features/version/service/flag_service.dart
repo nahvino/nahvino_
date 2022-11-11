@@ -5,21 +5,26 @@ import 'package:http/http.dart' as http;
 
 class FlagService {
   static var client = http.Client();
-  FlagModel? flagModel;
-  static Future<FlagModel> fetchFlags() async {
+
+  static Future fetchFlags() async {
     var url = Uri.parse(FlagConfig.flag);
     var response = await client.get(
       url,
     );
-    print(response.body.toString());
+    //print(response.body.toString());
     if (response.statusCode == 200) {
-      // If the server did return a 200 OK response,
-      // then parse the JSON.
-      return FlagModel.fromJson(jsonDecode(response.body));
+     // return FlagModel.fromJson(jsonDecode(response.body));
+      return response.body;
     } else {
-      // If the server did not return a 200 OK response,
-      // then throw an exception.
       throw Exception('Failed to load album');
     }
   }
+
+ /* static fetchFlags()async{
+    var res = await http.get(Uri.parse(FlagConfig.flag));
+    //final flagm= FlagModel.fromJson(jsonDecode(res.body));
+    if(res.statusCode == 200){
+      return res.body;
+    }
+  }*/
 }
