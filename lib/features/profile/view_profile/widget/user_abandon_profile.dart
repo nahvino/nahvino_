@@ -55,12 +55,12 @@ class UserAbandonProfile extends StatelessWidget {
                               children: [
                                 Footnate(
                                   textAlign: TextAlign.center,
-                                  color: Colors.cyan,
+                               //   color: Colors.cyan,
                                   text: user_abandon_Controller.yaer.toString(),
                                 ),
                                 Caption2(
                                     textAlign: TextAlign.center,
-                                    color: Colors.cyan,
+                               //     color: Colors.cyan,
                                     text: "سال"),
                               ],
                             ),
@@ -83,12 +83,12 @@ class UserAbandonProfile extends StatelessWidget {
                               children: [
                                 Footnate(
                                     textAlign: TextAlign.center,
-                                    color: Colors.cyan,
+                                 //   color: Colors.cyan,
                                     text: user_abandon_Controller.month
                                         .toString()),
                                 Caption2(
                                     textAlign: TextAlign.center,
-                                    color: Colors.cyan,
+                                 //   color: Colors.cyan,
                                     text: "ماه"),
                               ],
                             ),
@@ -111,12 +111,12 @@ class UserAbandonProfile extends StatelessWidget {
                               children: [
                                 Footnate(
                                     textAlign: TextAlign.center,
-                                    color: Colors.cyan,
+                               //     color: Colors.cyan,
                                     text: user_abandon_Controller.day
                                         .toString()),
                                 Caption2(
                                     textAlign: TextAlign.center,
-                                    color: Colors.cyan,
+                                 //   color: Colors.cyan,
                                     text: "روز"),
                               ],
                             ),

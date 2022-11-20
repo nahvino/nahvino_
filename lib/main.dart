@@ -14,6 +14,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'core/shared/Services/notification_service.dart';
+import 'core/shared/presentation/controllers/theme_get/theme_controller.dart';
 import 'features/splash/screen/splash.dart';
 import 'dart:async';
 import 'firebase_options.dart';
@@ -53,6 +54,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   MenuController menu_controller = Get.put(MenuController());
+  ThemeController theme_controller = Get.put(ThemeController());
   DownloadController down_controller = Get.put(DownloadController());
 
   /*
@@ -149,9 +151,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blueGrey,
-      ),
+      theme: theme_controller.box_theme.read('theme'),
       supportedLocales: [
         Locale('en', 'US'),
         Locale('fa', 'IR'),

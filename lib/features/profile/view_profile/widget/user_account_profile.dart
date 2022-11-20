@@ -92,12 +92,12 @@ class UserAcconutProfile extends StatelessWidget {
                               databox.namealias.value == ""
                               ? Callout(
                             text: "مهمان",
-                            color: Colors.black38,
+                          //  color: Colors.black38,
                             textAlign: TextAlign.start,
                           )
                               : Subhead(
                             text: databox.namealias.value,
-                            color: Colors.teal,
+                           // color: Colors.teal,
                             textAlign: TextAlign.start,
                           ),
                           SizedBox(
@@ -274,7 +274,7 @@ class UserAcconutProfile extends StatelessWidget {
                                   ),
                                   Callout(
                                     text: databox.parentname.value,
-                                    color: Colors.teal,
+                               //     color: Colors.teal,
                                     textAlign: TextAlign.left,
                                   ),
                                 ],

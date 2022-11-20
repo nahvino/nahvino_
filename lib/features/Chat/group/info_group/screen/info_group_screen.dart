@@ -20,6 +20,7 @@ class InfoGroup extends StatelessWidget {
   String? imagegrup;
   InfoModel? infom;
   Widget build(BuildContext context) {
+    imagegrup =info_group_controller.imageUrl.value;
     return Directionality(
       textDirection: TextDirection.ltr,
       child: Obx(
@@ -34,7 +35,7 @@ class InfoGroup extends StatelessWidget {
                 Row(
                   children: [
                 //    Footnate(text: "درباره گروه"),
-                    Footnate(text: infom?.message.toString() ?? "0"),
+                    Footnate(text: info_group_controller.name.value),
                     SizedBox(
                       width: 8,
                     ),

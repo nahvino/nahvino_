@@ -22,6 +22,7 @@ class GroupsModel {
 
 class Data {
   Data({
+    this.id,
     this.name,
     this.imageUrl,
     this.lastMessage,
@@ -29,7 +30,7 @@ class Data {
     this.ownerName,
     this.numberMessageNoSeen,
   });
-
+  int? id;
   String? name;
   String? imageUrl;
   String? lastMessage;
@@ -38,6 +39,7 @@ class Data {
   String? numberMessageNoSeen;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
+    id: json["id"],
     name: json["name"],
     imageUrl: json["imageUrl"],
     lastMessage: json["lastMessage"],
@@ -47,6 +49,7 @@ class Data {
   );
 
   Map<String, dynamic> toJson() => {
+    "id":id,
     "name": name,
     "imageUrl": imageUrl,
     "lastMessage": lastMessage,

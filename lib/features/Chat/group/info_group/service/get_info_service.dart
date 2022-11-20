@@ -7,14 +7,14 @@ import '../config/get_info_config.dart';
 
 class GetInfoService {
   static var client = http.Client();
-  static Future info_service() async {
-      var url = Uri.parse( MainConfig.baseURL+ GetInfoConfig.info_group + "GroupId=49");
+  static Future info_service(int? adad) async {
+      var url = Uri.parse( MainConfig.baseURL+ GetInfoConfig.info_group + "GroupId=$adad");
       var response = await client.get(
         url,
     );
-    //print(response.body.toString());
+    print(response.body.toString());
     if (response.statusCode == 200) {
-      return InfoModel.fromJson(jsonDecode(response.body));
+      return response.body;
     }else{
       return Error();
     }

@@ -174,8 +174,6 @@ class _InfoScreenState extends State<InfoScreen> {
     return Scaffold(
         appBar: AppBar(
           actions: [
-            //Text(info_controller.ip.value),
-           // Flag.fromString('IR', height: 30, width: 30),
             FlagInfo(),
           ],
           backgroundColor: Palette.appbar,
@@ -195,37 +193,40 @@ class _InfoScreenState extends State<InfoScreen> {
                 : '',
           ),
         ),
-        body: Directionality(
-          textDirection: TextDirection.ltr,
-          child: ListView(
-            children: _deviceData.keys.map(
-                  (String property) {
-                return Row(
-                  children: <Widget>[
-                    Container(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Text(
-                        property,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+        body: _body(context),
+    );
+  }
+  Widget _body (BuildContext context){
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: ListView(
+        children: _deviceData.keys.map(
+              (String property) {
+            return Row(
+              children: <Widget>[
+                Container(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Text(
+                    property,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
                     ),
-                    Expanded(
-                        child: Container(
-                          padding: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
-                          child: Text(
-                            '${_deviceData[property]}',
-                            maxLines: 10,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        )),
-                  ],
-                );
-              },
-            ).toList(),
-          ),
-        ),
+                  ),
+                ),
+                Expanded(
+                    child: Container(
+                      padding: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
+                      child: Text(
+                        '${_deviceData[property]}',
+                        maxLines: 10,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    )),
+              ],
+            );
+          },
+        ).toList(),
+      ),
     );
   }
 }

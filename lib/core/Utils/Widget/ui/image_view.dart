@@ -129,17 +129,24 @@ class Imageview {
       clipBehavior: Clip.antiAliasWithSaveLayer,
       child: Padding(
         padding: const EdgeInsets.all(2.0),
-        child: Icon(Icons.group,size: 70,),
+        child: Icon(Icons.group,size: 35,),
       )),
     );
   }
 
-  //test
   image_assetsa(String ass) {
-    return Container(
-      width: 60,
-      height: 60,
-      child: Image.asset(ass),
+    return Padding(
+      padding:  EdgeInsets.only(right: 5,top: 5,bottom: 5),
+      child: Container(
+        height: 50,
+        width: 50,
+        decoration: BoxDecoration(
+          //  color: Colors.white,
+          shape: BoxShape.circle,
+          //border: Border.all(width: 2, color: Colors.cyan)
+        ),
+        child: Image.asset(ass),
+      ),
     );
   }
 

@@ -40,7 +40,7 @@ class PhonixProfile extends StatelessWidget {
 
   ghgoghnos() {
     if (phoenix_Controller.phoenixResponse['data'] > 6) {
-      Lottie.asset('assets/anim/phonix/level8.json');
+      Lottie.asset('assets/anim/phonix/level7.json');
     } else {
       ghoghnos[phoenix_Controller.phoenixResponse['data']];
     }

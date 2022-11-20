@@ -11,16 +11,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../version/data/version_data.dart';
 import '../widget/appbar_profile.dart';
 
-class ViewProfile extends StatefulWidget {
+class ViewProfile extends StatelessWidget {
   const ViewProfile({Key? key, this.tabIndex}) : super(key: key);
   final int? tabIndex;
 
-  @override
-  State<ViewProfile> createState() => _ViewProfileState();
-}
 
-class _ViewProfileState extends State<ViewProfile> {
-  bool isApiCallProgress = true;
   @override
   Widget build(BuildContext context) {
     return Directionality(

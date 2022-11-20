@@ -3,8 +3,10 @@ import 'package:Nahvino/core/Utils/Widget/ui/image_view.dart';
 import 'package:Nahvino/features/Chat/fake_info/model_user.dart';
 import 'package:Nahvino/features/Chat/group/chat_group/screen/chat_group_screen.dart';
 import 'package:Nahvino/features/Chat/group/controllers/home_group_controller.dart';
+import 'package:Nahvino/features/Chat/group/info_group/controllers/info_group_controller.dart';
 import 'package:Nahvino/features/Chat/group/main/controllers/group_controller.dart';
 import 'package:Nahvino/features/Chat/group/main/model/groups_model.dart';
+import 'package:dotted_decoration/dotted_decoration.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:Nahvino/config/main_config.dart';
@@ -14,6 +16,8 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 class Group extends GetView<GroupController> {
   Group({Key? key}) : super(key: key);
   GroupController group_controller = Get.put(GroupController());
+  InfoGroupController infoGroupController = Get.put(InfoGroupController());
+
   final HomeGroupController home_group_controller =
       Get.put(HomeGroupController());
   Imageview img = Imageview();
@@ -24,18 +28,22 @@ class Group extends GetView<GroupController> {
     return Column(
       children: [
         GetBuilder<GroupController>(builder: (logic) {
-          return ListView.builder(
-            shrinkWrap: true,
-            itemCount: home_group_controller.serchtext.value != "" &&
-                    home_group_controller.isInSearchMode.value
-                ? group_controller.groups
-                    .where((element) => element.data.name!
-                        .contains(home_group_controller.serchtext.value))
-                    .toList()
-                    .length
-                : group_controller.groups.length,
-            itemBuilder: myGroups,
-            physics: NeverScrollableScrollPhysics(),
+          return Column(
+            children: [
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: home_group_controller.serchtext.value != "" &&
+                        home_group_controller.isInSearchMode.value
+                    ? group_controller.groups
+                        .where((element) => element.data.name!
+                            .contains(home_group_controller.serchtext.value))
+                        .toList()
+                        .length
+                    : group_controller.groups.length,
+                itemBuilder: myGroups,
+                physics: NeverScrollableScrollPhysics(),
+              ),
+            ],
           );
         }),
         GetBuilder<GroupController>(builder: (logic) {
@@ -63,10 +71,12 @@ class Group extends GetView<GroupController> {
     return Column(
       children: [
         InkWell(
-          onTap: (() => group_controller.getChat()),
+          onTap: (() => ""),
           child: Padding(
-            padding:
-                const EdgeInsets.only(right: 10, left: 10, top: 8, bottom: 8),
+            padding: const EdgeInsets.only(
+              right: 10,
+              left: 10,
+            ),
             child: Column(
               children: [
                 Row(
@@ -128,7 +138,9 @@ class Group extends GetView<GroupController> {
                                     text: "اعضاء: ",
                                   ),
                                   Caption1(
-                                    text: "20",
+                                    text: group_controller.group_model?.data
+                                            .numberMessageNoSeen ??
+                                        "0",
                                   ),
                                   SizedBox(
                                     width: 12,
@@ -137,7 +149,9 @@ class Group extends GetView<GroupController> {
                                     text: "تماشاگران: ",
                                   ),
                                   Caption1(
-                                    text: "10",
+                                    text: group_controller.groups[index].data
+                                            .numberMessageNoSeen ??
+                                        "0",
                                   ),
                                 ],
                               ),
@@ -150,9 +164,8 @@ class Group extends GetView<GroupController> {
                                     text: "رئیس: ",
                                   ),
                                   Caption1(
-                                    text: group_controller
-                                        .group_model?.data.ownerName,
-                                  ),
+                                      text: group_controller
+                                          .groups[index].data.ownerName),
                                 ],
                               ),
                             ],
@@ -161,24 +174,27 @@ class Group extends GetView<GroupController> {
                       ),
                     Column(
                       children: [
-                        Card(
-                          color: Colors.cyan,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15.0),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                                left: 8, right: 8, bottom: 2, top: 4),
-                            child: Caption1(
-                              text: group_controller
-                                  .group_model?.data.lastMessage,
-                              color: Colors.white,
+                        SizedBox(
+                          width: 45,
+                          height: 30,
+                          child: Card(
+                            color: Colors.cyan,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            child: Center(
+                              child: Footnate(
+                                text: "12",
+                                //group_controller.group_model?.data.lastMessage ?? "0",
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                         ),
                         Caption1(
                           text: group_controller
-                              .group_model?.data.lastMessageDateTime,
+                                  .groups[index].data.lastMessageDateTime ??
+                              "00:00",
                         ),
                       ],
                     ),
@@ -188,8 +204,13 @@ class Group extends GetView<GroupController> {
             ),
           ),
         ),
-        Divider(
-          thickness: 1,
+
+        // Divider(
+        //   thickness: 1,
+        // )
+
+        Container(
+          decoration: DottedDecoration(),
         )
       ],
     );
@@ -199,14 +220,19 @@ class Group extends GetView<GroupController> {
     return Column(
       children: [
         InkWell(
-          onTap: (() => ""
-              // Get.to(ChatGroup(
-              //   idgroup: fakegroup[index].id,
-              // ))
-              ),
+          onTap: (() {
+            infoGroupController
+                .start_service(group_controller.other_groups[index].id!);
+            Get.to(ChatGroup(
+              names: group_controller.other_groups[index].name!,
+              imagegrup: group_controller.other_groups[index].imageUrl,
+            ));
+          }),
           child: Padding(
-            padding:
-                const EdgeInsets.only(right: 10, left: 10, top: 8, bottom: 8),
+            padding: const EdgeInsets.only(
+              right: 10,
+              left: 10,
+            ),
             child: Column(
               children: [
                 Row(
@@ -215,46 +241,11 @@ class Group extends GetView<GroupController> {
                     if (group_controller.InSearchMode.value == true)
                       Row(
                         children: [
-                          /*
-                            (imagegrup != null &&
-                                    imagegrup != "" &&
-                                    imagegrup != "null")
-                                ? img.image(imagegrup!)
-                                : img.image_assetsa("assets/images/ram/gorp.png"),
-*/
-
-                             (group_controller.other_groups[index].imageUrl !=
-                                      null )
-                              ? Card(
-                                  shape: CircleBorder(),
-                                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                                  child: CachedNetworkImage(
-                                    height: 50,
-                                    width: 50,
-                                    cacheManager: CacheManager(Config(
-                                        'customCacheKey',
-                                        stalePeriod: Duration(days: 7),
-                                        maxNrOfCacheObjects: 100)),
-                                    imageUrl: MainConfig.fileurl +
-                                        group_controller
-                                            .other_groups![index].imageUrl!,
-                                    imageBuilder: (context, imageProvider) =>
-                                        Container(
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                          image: imageProvider,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    ),
-                                    placeholder: (context, url) =>
-                                        CircularProgressIndicator(),
-                                    errorWidget: (context, url, error) =>
-                                        Icon(Icons.error),
-                                  ),
-                                )
-                              :
-                          img.image_assetsa("assets/images/ram/gorp.png"),
+                          (group_controller.other_groups[index].imageUrl !=
+                                  null)
+                              ? img.image(group_controller
+                                  .other_groups[index].imageUrl!)
+                              : img.image_assetsa("assets/images/ram/gorp.png"),
                           SizedBox(
                             width: 10,
                           ),
@@ -307,24 +298,30 @@ class Group extends GetView<GroupController> {
                       ),
                     Column(
                       children: [
-                        Card(
-                          color: Colors.cyan,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15.0),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                                left: 8, right: 8, bottom: 2, top: 4),
-                            child: Caption1(
-                              text: group_controller
-                                  .other_groups[index].numberMessageNoSeen ?? "0",
-                              color: Colors.white,
+                        SizedBox(
+                          width: 45,
+                          height: 30,
+                          child: Card(
+                            color: Colors.cyan,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            child: Center(
+                              child: Footnate(
+                                text: group_controller.other_groups[index]
+                                        .numberMessageNoSeen ??
+                                    "10",
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                         ),
                         Caption1(
                           text: group_controller
-                              .other_groups[index].lastMessageDateTime.toString().split(' ')[1].split('0000000')[0],
+                              .other_groups[index].lastMessageDateTime
+                              .toString()
+                              .split(' ')[1]
+                              .split('0000000')[0],
                         ),
                       ],
                     ),
@@ -334,9 +331,9 @@ class Group extends GetView<GroupController> {
             ),
           ),
         ),
-        Divider(
-          thickness: 1,
-        )
+        Container(
+          decoration: DottedDecoration(),
+        ),
       ],
     );
   }

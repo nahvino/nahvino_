@@ -9,6 +9,7 @@ import 'package:Nahvino/features/Chat/group/chat_group/controllers/chat_group_co
 import 'package:Nahvino/features/Chat/group/info_group/controllers/info_group_controller.dart';
 import 'package:Nahvino/features/Chat/group/edit_group/screen/edit_group_screen.dart';
 import 'package:Nahvino/features/Chat/group/info_group/screen/info_group_screen.dart';
+import 'package:Nahvino/features/Chat/group/main/controllers/group_controller.dart';
 import 'package:Nahvino/features/Chat/group/sharing/screen/mission_screen.dart';
 import 'package:chat_composer/chat_composer.dart';
 import 'package:flutter/material.dart';
@@ -25,18 +26,18 @@ import 'package:voice_message_package/voice_message_package.dart';
 class ChatGroup extends StatelessWidget {
   ChatGroup({
     Key? key,
+    required this.names,
+    this.imagegrup,
   }) : super(key: key);
-
+  final String names;
+  final String? imagegrup;
   ChatGroupController chat_group_controller = Get.put(ChatGroupController());
+  GroupController group_controller = Get.put(GroupController());
   InfoGroupController info_group_controller = Get.put(InfoGroupController());
-
   CheckController checkcontroller = Get.put(CheckController());
   ChatGroupWidget chat_group = ChatGroupWidget();
   PublicGroupWidget gowidget = PublicGroupWidget();
-
   Imageview img = Imageview();
-  String? imagegrup;
-  String name = "نام های گروه من و او";
 
   @override
   Widget build(BuildContext context) {
@@ -94,14 +95,13 @@ class ChatGroup extends StatelessWidget {
                                       children: [
                                         Title2(
                                             color: Colors.white,
-                                            text: name.length > 17
-                                                ? '${name.substring(0, 17)}...'
-                                                : name),
-                                        (imagegrup != null &&
-                                                imagegrup != "" &&
-                                                imagegrup != "null")
-                                            ? img.image(imagegrup!)
-                                            : img.image_assets(),
+                                            text: names.length > 17
+                                                ? '${names.substring(0, 17)}...'
+                                                : names),
+                                        (imagegrup != null)
+                                            ?img.image(imagegrup)
+                                        :img.image_assets()
+                                             ,
                                       ],
                                     )),
 
@@ -222,28 +222,11 @@ class ChatGroup extends StatelessWidget {
                 ),
               ),
             if (info_group_controller.join.value == false)
-              Directionality(
-               textDirection: TextDirection.ltr,
-                child: ChatComposer(
-
-                  onReceiveText: (str) {
-                    print('TEXT : ' + str!);
-                  },
-                  onRecordEnd: (path) {
-
-                    print('AUDIO PATH : ' + path!);
-                  },
-                ),
-              ),
-             /* Card(
-                child:
-               Row(
+              Card(
+                child: Row(
                   children: [
-
                     Expanded(
-                      child:
-
-                      TextField(
+                      child: TextField(
                         showCursor: true,
                         enableSuggestions: true,
                         autocorrect: true,
@@ -317,7 +300,7 @@ class ChatGroup extends StatelessWidget {
               (category, emoji) {
                 chat_group_controller.onEmojiSelected(emoji);
               },
-            ),*/
+            ),
           ],
         ),
       ),
@@ -517,15 +500,7 @@ class ChatGroup extends StatelessWidget {
                                                         .read("text"),
                                                 text: fakeMassagegroup[index]
                                                     .mass),
-                                            VoiceMessage(
-                                              audioSrc: 'https://www.fesliyanstudios.com/soundeffects-download.php?id=1037',
-                                              played: false,
-                                              // To show played badge or not.
-                                              me: true,
-                                              // Set message side.
-                                              onPlay:
-                                                  () {}, // Do something when voice played.
-                                            ),
+
                                             ChatTextMassgae(
                                                 fonts: chat_group_controller
                                                     .selectedfont.value,

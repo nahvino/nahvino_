@@ -1,4 +1,5 @@
 import 'package:Nahvino/core/Utils/Text/Text.dart';
+import 'package:Nahvino/core/shared/presentation/Widget/theme_switcher.dart';
 import 'package:Nahvino/features/profile/view_profile/controllers/profile_controller.dart';
 import 'package:Nahvino/features/profile/view_profile/data/view_profial_data.dart';
 import 'package:Nahvino/features/profile/view_profile/widget/popup_menu_profile.dart';
@@ -14,17 +15,19 @@ class AppBarProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(() {
       return AppBar(
-        backgroundColor: Colors.cyan.shade800,
+        backgroundColor: Colors.white,
+        elevation: 0.1,
         title: Subhead(
           textAlign: TextAlign.right,
           text: databox.username.value,
-          color: Colors.white,
+          //color: Colors.white,
         ),
         actions: [
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              ThemeSwitcher(),
               Visibility(
                   visible: profile_Controller.help.value,
                   child: Row(
@@ -32,7 +35,7 @@ class AppBarProfile extends StatelessWidget {
                       Caption1(
                         textAlign: TextAlign.right,
                         text: "بستن آموزش",
-                        color: Colors.white,
+                       // color: Colors.white,
                       ),
                       InkWell(
                         onTap: () => profile_Controller.help.value = false,

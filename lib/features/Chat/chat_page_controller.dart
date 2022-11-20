@@ -203,7 +203,9 @@ class ChatPageController extends GetxController {
   scrolltointhechat(ReceiveMessageModel chat){
     // chats.removeWhere((chat) => messageIds!.contains(chat.id));
     // update();
-    itemScrollController.scrollTo(index: chats.indexWhere((element) => element.id == chat.id), duration: Duration(seconds: 1));
+    itemScrollController.scrollTo(index: chats.indexWhere((element) => element.id == chat.id),
+        duration: Duration(seconds: 1)
+    );
     //itemScrollController.scrollTo(index: 50, duration: Duration(seconds: 1));
 
     update();
