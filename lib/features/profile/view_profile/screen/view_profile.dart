@@ -15,7 +15,7 @@ class ViewProfile extends StatelessWidget {
   const ViewProfile({Key? key, this.tabIndex}) : super(key: key);
   final int? tabIndex;
 
-
+ 
   @override
   Widget build(BuildContext context) {
     return Directionality(
