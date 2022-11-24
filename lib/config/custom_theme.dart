@@ -1,5 +1,6 @@
 import 'package:Nahvino/config/typography.dart';
 import 'package:flutter/material.dart';
+
 class CustomTheme {
   // light
   static final lightTheme = ThemeData(
@@ -14,17 +15,19 @@ class CustomTheme {
     //     bodyText1: TextStyle(color: Colors.black),
     // ),
     drawerTheme: const DrawerThemeData(backgroundColor: Colors.white),
-    inputDecorationTheme: const InputDecorationTheme(
+    inputDecorationTheme: InputDecorationTheme(
       filled: true,
+      fillColor: Colors.transparent,
+      hintStyle: TextStyle(color: Colors.grey.shade500),
       disabledBorder: InputBorder.none,
       border: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(15)),
-          borderSide: BorderSide.none),
+          borderSide: BorderSide(color: Colors.black, width: 2)),
       focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.blue, width: 2),
           borderRadius: BorderRadius.all(Radius.circular(15))),
     ),
-    hintColor: Colors.grey.shade200,
+    hintColor: Colors.grey.shade300,
     hoverColor: Colors.white,
     errorColor: Colors.red,
     secondaryHeaderColor: Colors.black,

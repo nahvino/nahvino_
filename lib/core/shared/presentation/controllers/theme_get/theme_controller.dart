@@ -23,6 +23,7 @@ class ThemeController extends GetxController {
   void onReady() {
     super.onReady();
   }
+
   // void onSelected(String value) {
   //   selectedValue = value;
   //   update();

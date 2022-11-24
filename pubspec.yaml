@@ -89,7 +89,6 @@ dependencies:
   flutter_local_notifications: ^12.0.2
   #flag
   flag: ^6.0.0
-
 dev_dependencies:
   flutter_test:
     sdk: flutter

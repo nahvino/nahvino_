@@ -11,7 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
-
 // ignore: must_be_immutable
 class Login extends StatelessWidget {
   // const NewLogin({
@@ -70,6 +69,9 @@ class Login extends StatelessWidget {
                               'username',
                             )!,
                             controller: loginController.usernameController,
+                          ),
+                          SizedBox(
+                            height: 10,
                           ),
                           TextPassReAndLog(
                             icon: Icon(Icons.lock),

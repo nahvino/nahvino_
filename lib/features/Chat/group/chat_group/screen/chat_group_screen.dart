@@ -1,3 +1,4 @@
+import 'package:Nahvino/config/main_config.dart';
 import 'package:Nahvino/core/Utils/Menu/menu_pop.dart';
 import 'package:Nahvino/core/Utils/Text/Text.dart';
 import 'package:Nahvino/core/Utils/Widget/ui/image_view.dart';
@@ -9,6 +10,7 @@ import 'package:Nahvino/features/Chat/group/chat_group/controllers/chat_group_co
 import 'package:Nahvino/features/Chat/group/info_group/controllers/info_group_controller.dart';
 import 'package:Nahvino/features/Chat/group/edit_group/screen/edit_group_screen.dart';
 import 'package:Nahvino/features/Chat/group/info_group/screen/info_group_screen.dart';
+import 'package:Nahvino/features/Chat/group/info_group/screen/info_screen.dart';
 import 'package:Nahvino/features/Chat/group/main/controllers/group_controller.dart';
 import 'package:Nahvino/features/Chat/group/sharing/screen/mission_screen.dart';
 import 'package:chat_composer/chat_composer.dart';
@@ -20,6 +22,7 @@ import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_1.dart';
 import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_2.dart';
 import 'package:focused_menu/modals.dart';
 import 'package:get/get.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:swipeable_tile/swipeable_tile.dart';
 import 'package:voice_message_package/voice_message_package.dart';
 
@@ -90,7 +93,9 @@ class ChatGroup extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 InkWell(
-                                    onTap: () => Get.to(InfoGroup()),
+                                    onTap: () => Get.to(
+                                        // InfoGroup()
+                                        InfoScreen()),
                                     child: Row(
                                       children: [
                                         Title2(
@@ -99,9 +104,8 @@ class ChatGroup extends StatelessWidget {
                                                 ? '${names.substring(0, 17)}...'
                                                 : names),
                                         (imagegrup != null)
-                                            ?img.image(imagegrup)
-                                        :img.image_assets()
-                                             ,
+                                            ? img.image(imagegrup)
+                                            : img.image_assets(),
                                       ],
                                     )),
 
@@ -122,7 +126,10 @@ class ChatGroup extends StatelessWidget {
                                         ),
                                         trailingIcon: Icon(Icons.share),
                                         onPressed: () {
-                                          print("درسته");
+                                          Share.share(MainConfig.baseURL +
+                                              "/" +
+                                              info_group_controller.link
+                                                  .toString());
                                         }),
                                     FocusedMenuItem(
                                         title: Footnate(

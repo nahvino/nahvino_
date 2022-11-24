@@ -43,15 +43,13 @@ class TextPassReAndLog extends StatelessWidget {
         },
         style: TextStyle(fontSize: 14, fontFamily: 'Vazirmatn_Medium'),
         decoration: InputDecoration(
-            hintText: hint,
-            suffix: suffix,
-            errorText: error,
-            icon: icon,
-            prefixIcon: prefixIcon,
-            suffixIcon: suffixIcon,
-            border: UnderlineInputBorder(
-              borderRadius: BorderRadius.circular(0),
-            )),
+          hintText: hint,
+          suffix: suffix,
+          errorText: error,
+          icon: icon,
+          prefixIcon: prefixIcon,
+          suffixIcon: suffixIcon,
+        ),
       ),
     );
   }

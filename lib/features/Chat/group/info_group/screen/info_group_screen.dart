@@ -1,3 +1,4 @@
+import 'package:Nahvino/config/main_config.dart';
 import 'package:Nahvino/core/Utils/Button/Button.dart';
 import 'package:Nahvino/core/Utils/Menu/menu_pop.dart';
 import 'package:Nahvino/core/Utils/Text/Text.dart';
@@ -10,6 +11,7 @@ import 'package:Nahvino/features/Chat/group/info_group/model/info_model.dart';
 import 'package:flutter/material.dart';
 import 'package:focused_menu/modals.dart';
 import 'package:get/get.dart';
+import 'package:share_plus/share_plus.dart';
 
 // ignore: must_be_immutable
 class InfoGroup extends StatelessWidget {
@@ -20,7 +22,7 @@ class InfoGroup extends StatelessWidget {
   String? imagegrup;
   InfoModel? infom;
   Widget build(BuildContext context) {
-    imagegrup =info_group_controller.imageUrl.value;
+    imagegrup = info_group_controller.imageUrl.value;
     return Directionality(
       textDirection: TextDirection.ltr,
       child: Obx(
@@ -34,7 +36,7 @@ class InfoGroup extends StatelessWidget {
               actions: [
                 Row(
                   children: [
-                //    Footnate(text: "درباره گروه"),
+                    //    Footnate(text: "درباره گروه"),
                     Footnate(text: info_group_controller.name.value),
                     SizedBox(
                       width: 8,
@@ -64,7 +66,9 @@ class InfoGroup extends StatelessWidget {
                             ),
                             trailingIcon: Icon(Icons.share),
                             onPressed: () {
-                              print("درسته");
+                              Share.share(MainConfig.baseURL +
+                                  "/" +
+                                  info_group_controller.link.toString());
                             }),
                         if (info_group_controller.join.value == false)
                           FocusedMenuItem(

@@ -34,21 +34,6 @@ class EnglishTextFilde extends StatelessWidget {
         controller: controller,
         keyboardType: TextInputType.name,
         textCapitalization: TextCapitalization.none,
-        // autofocus: true,
-        /*     inputFormatters: [
-          FilteringTextInputFormatter.deny(
-              RegExp(r'[آابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهیئ]')),
-        ],*/
-        /*       onChanged: (input) {
-          if (alphanumeric.hasMatch(input) == false) {
-            error = "نام کاربری نمی تواند فارسی باشد.";
-          } else {
-            error = null;
-          }
-          if ((input).isEmpty) {
-            error = "نام کاربری نمی تواند خالی باشد.";
-          }
-        },*/
         validator: (value) {
           if (value!.isEmpty) {
             return 'نام کاربری نمی تواند خالی باشد';
@@ -62,15 +47,13 @@ class EnglishTextFilde extends StatelessWidget {
         },
         style: TextStyle(fontSize: 14, fontFamily: 'Vazirmatn_Medium'),
         decoration: InputDecoration(
-            hintText: hint,
-            suffix: suffix,
-            errorText: error,
-            icon: icon,
-            prefixIcon: prefixIcon,
-            suffixIcon: suffixIcon,
-            border: UnderlineInputBorder(
-              borderRadius: BorderRadius.circular(0),
-            )),
+          hintText: hint,
+          suffix: suffix,
+          errorText: error,
+          icon: icon,
+          prefixIcon: prefixIcon,
+          suffixIcon: suffixIcon,
+        ),
       ),
     );
   }

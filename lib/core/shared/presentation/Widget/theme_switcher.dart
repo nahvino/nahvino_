@@ -11,11 +11,12 @@ class ThemeSwitcher extends StatelessWidget {
     return Obx(() {
       return FloatingActionButton(
         onPressed: () => theme_controller.change_theme(),
-        child: theme_controller.switch_theme.value ? Icon(
-            Icons.mode_night,color: Colors.black,
-        ) : Icon(
-            Icons.sunny,color: Colors.white
-        ),
+        child: theme_controller.switch_theme.value
+            ? Icon(
+                Icons.mode_night,
+                color: Colors.white,
+              )
+            : Icon(Icons.sunny, color: Colors.black),
         backgroundColor: Colors.transparent,
         elevation: 0,
       );

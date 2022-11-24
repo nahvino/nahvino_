@@ -28,6 +28,7 @@ class EditProfileScreen extends GetView<EditProfileController> {
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
         backgroundColor: Colors.cyan.shade800,
+        elevation: 0,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -38,7 +39,8 @@ class EditProfileScreen extends GetView<EditProfileController> {
                 IconButton(
                     icon: Icon(Icons.check_circle_outline),
                     onPressed: () {
-                      if (!_formKey.currentState!.validate()) {} else {
+                      if (!_formKey.currentState!.validate()) {
+                      } else {
                         version.versionrequest();
                         editcontroller.upimg();
                         editcontroller.date();
@@ -50,8 +52,7 @@ class EditProfileScreen extends GetView<EditProfileController> {
           ],
         ),
       ),
-      body: Obx((() =>
-          SafeArea(
+      body: Obx((() => SafeArea(
             child: Form(
               key: _formKey,
               child: SingleChildScrollView(
@@ -74,159 +75,6 @@ class EditProfileScreen extends GetView<EditProfileController> {
                                   width: 100,
                                   child: editcontroller.imagePath.value == ""
                                       ? (editcontroller
-                                      .databox.imageUrl.value ==
-                                      "" ||
-                                      editcontroller
-                                          .databox.imageUrl.value ==
-                                          "null")
-                                      ? Icon(Icons.person)
-                                      : Image.network(
-                                      MainConfig.fileurl +
-                                          editcontroller
-                                              .databox.imageUrl.value,
-                                      fit: BoxFit.cover)
-                                      : Image.file(
-                                      File(editcontroller.imagePath.value),
-                                      fit: BoxFit.cover),
-                                ),
-                              ),
-                              Positioned(
-                                bottom: 0,
-                                right: 0,
-                                left: 70,
-                                child: MenuPopUpButton(
-
-                                  icon: (editcontroller
-                                      .databox.imageUrl.value ==
-                                      "" ||
-                                      editcontroller
-                                          .databox.imageUrl.value ==
-                                          "null") ?
-
-                                  Icon(Icons.add) : Icon(Icons.edit),
-                                    menuItems: <
-                                    FocusedMenuItem>[
-                                  FocusedMenuItem(
-                                    title: Footnate(
-                                      text: "دوربین",
-                                    ),
-                                    trailingIcon: Icon(Icons.camera),
-                                    onPressed: () async {
-                                      final XFile? photo =
-                                      await editcontroller.picker.pickImage(
-                                          source: ImageSource.camera,
-                                          maxHeight: 512,
-                                          maxWidth: 512,
-                                          imageQuality: 25);
-                                      if (photo != null) {
-                                        editcontroller.imagePath.value =
-                                            photo.path;
-                                      }
-                                    },
-                                  ),
-                                  FocusedMenuItem(
-                                      title: Footnate(
-                                        text: "حافظه",
-                                      ),
-                                      trailingIcon: Icon(Icons.storage),
-                                      onPressed: () async {
-                                        final XFile? photo =
-                                        await editcontroller.picker
-                                            .pickImage(
-                                            source: ImageSource.gallery,
-                                            maxHeight: 512,
-                                            maxWidth: 512,
-                                            imageQuality: 25);
-                                        if (photo != null) {
-                                          editcontroller.imagePath.value =
-                                              photo.path;
-                                        }
-                                      }),
-                                ]),
-                              ),
-                            ],
-                          ),
-                          /*   InkWell(
-                                onTap: () async {
-                                  await showDialog(
-                                      context: context,
-                                      builder: (c) => Dialog(
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                ListTile(
-                                                  title: Text(
-                                                    AppLocalizations.of(
-                                                            context)!
-                                                        .translate(
-                                                      'Camera',
-                                                    )!,
-                                                  ),
-                                                  onTap: () async {
-                                                    final XFile? photo =
-                                                        await editcontroller
-                                                            .picker
-                                                            .pickImage(
-                                                                source:
-                                                                    ImageSource
-                                                                        .camera,
-                                                                maxHeight: 512,
-                                                                maxWidth: 512,
-                                                                imageQuality:
-                                                                    25);
-                                                    if (photo != null) {
-                                                      editcontroller.imagePath
-                                                          .value = photo.path;
-                                                      Navigator.pop(c);
-                                                      // setState(() {
-                                                      //   editcontroller.imagePath
-                                                      //       .value = photo.path;
-                                                      //   Navigator.pop(c);
-                                                      // });
-                                                    }
-                                                  },
-                                                ),
-                                                ListTile(
-                                                  title: Text(
-                                                    AppLocalizations.of(
-                                                            context)!
-                                                        .translate(
-                                                      'Gallery',
-                                                    )!,
-                                                  ),
-                                                  onTap: () async {
-                                                    final XFile? photo =
-                                                        await editcontroller
-                                                            .picker
-                                                            .pickImage(
-                                                                source:
-                                                                    ImageSource
-                                                                        .gallery,
-                                                                maxHeight: 512,
-                                                                maxWidth: 512,
-                                                                imageQuality:
-                                                                    25);
-                                                    if (photo != null) {
-                                                      editcontroller.imagePath
-                                                          .value = photo.path;
-                                                      Navigator.pop(c);
-                                                      // setState(() {
-                                                      //   editcontroller.imagePath
-                                                      //       .value = photo.path;
-                                                      //   Navigator.pop(c);
-                                                      // });
-                                                    }
-                                                  },
-                                                ),
-                                              ],
-                                            ),
-                                          ));
-                                },
-                                child: Container(
-                                  height: 100,
-                                  width: 100,
-                                  child: editcontroller.imagePath.value == ""
-                                      ? (editcontroller
                                                       .databox.imageUrl.value ==
                                                   "" ||
                                               editcontroller
@@ -242,7 +90,64 @@ class EditProfileScreen extends GetView<EditProfileController> {
                                           File(editcontroller.imagePath.value),
                                           fit: BoxFit.cover),
                                 ),
-                              )),*/
+                              ),
+                              Positioned(
+                                bottom: 0,
+                                right: 0,
+                                left: 70,
+                                child: MenuPopUpButton(
+                                    icon: (editcontroller
+                                                    .databox.imageUrl.value ==
+                                                "" ||
+                                            editcontroller
+                                                    .databox.imageUrl.value ==
+                                                "null")
+                                        ? Icon(Icons.add)
+                                        : Icon(Icons.edit),
+                                    menuItems: <FocusedMenuItem>[
+                                      FocusedMenuItem(
+                                        title: Footnate(
+                                          text: "دوربین",
+                                        ),
+                                        trailingIcon: Icon(Icons.camera),
+                                        onPressed: () async {
+                                          final XFile? photo =
+                                              await editcontroller.picker
+                                                  .pickImage(
+                                                      source:
+                                                          ImageSource.camera,
+                                                      maxHeight: 512,
+                                                      maxWidth: 512,
+                                                      imageQuality: 25);
+                                          if (photo != null) {
+                                            editcontroller.imagePath.value =
+                                                photo.path;
+                                          }
+                                        },
+                                      ),
+                                      FocusedMenuItem(
+                                          title: Footnate(
+                                            text: "حافظه",
+                                          ),
+                                          trailingIcon: Icon(Icons.storage),
+                                          onPressed: () async {
+                                            final XFile? photo =
+                                                await editcontroller.picker
+                                                    .pickImage(
+                                                        source:
+                                                            ImageSource.gallery,
+                                                        maxHeight: 512,
+                                                        maxWidth: 512,
+                                                        imageQuality: 25);
+                                            if (photo != null) {
+                                              editcontroller.imagePath.value =
+                                                  photo.path;
+                                            }
+                                          }),
+                                    ]),
+                              ),
+                            ],
+                          ),
                           Column(
                             children: [
                               if (editcontroller.databox.imageUrl.value != "")
@@ -251,7 +156,7 @@ class EditProfileScreen extends GetView<EditProfileController> {
                                     IconButton(
                                       onPressed: () {
                                         editcontroller.databox.imageUrl.value =
-                                        "";
+                                            "";
                                         editcontroller.imageuris.value = "";
                                       },
                                       icon: Image.asset(
@@ -268,7 +173,7 @@ class EditProfileScreen extends GetView<EditProfileController> {
                                   children: [
                                     IconButton(
                                         onPressed: () =>
-                                        editcontroller.imagePath.value = "",
+                                            editcontroller.imagePath.value = "",
                                         icon: Icon(Icons.close)),
                                     Caption2(
                                       text: 'انصراف',
@@ -280,11 +185,17 @@ class EditProfileScreen extends GetView<EditProfileController> {
                         ],
                       ),
                     ),
+                    SizedBox(
+                      height: 10,
+                    ),
                     EnglishTextFilde(
                       controller: editcontroller.userNameController,
                       hint: AppLocalizations.of(context)!.translate(
                         'username',
                       )!,
+                    ),
+                    SizedBox(
+                      height: 10,
                     ),
                     PublicTextFilde(
                       controller: editcontroller.nameAliasController,
@@ -292,11 +203,15 @@ class EditProfileScreen extends GetView<EditProfileController> {
                         'name',
                       )!,
                     ),
-                    GetBuilder<EditProfileController>(
-                        builder: (logic) {
+                    SizedBox(
+                      height: 10,
+                    ),
+                    GetBuilder<EditProfileController>(builder: (logic) {
                       return NotValidFilde(
                           controller: editcontroller.tarikhController,
-                          hint: editcontroller.berlinWallFell.value +"   "+ editcontroller.databox.dateTimeAbandon.value,
+                          hint: editcontroller.berlinWallFell.value +
+                              "                                             " +
+                              editcontroller.databox.dateTimeAbandon.value,
                           ontap: () async {
                             editcontroller.selectDate(context);
                             /*
@@ -313,6 +228,9 @@ class EditProfileScreen extends GetView<EditProfileController> {
                           print(editcontroller.berlinWallFell.value);*/
                           });
                     }),
+                    SizedBox(
+                      height: 10,
+                    ),
                     TextProfileBio(
                       controller: editcontroller.bioController,
                       hint: AppLocalizations.of(context)!.translate(

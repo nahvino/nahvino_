@@ -25,7 +25,6 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 }
 */
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await NotificationService().init();
@@ -143,9 +142,7 @@ class _MyAppState extends State<MyApp> {
     });*/
     super.initState();
     //خروجی اپ ویندوز
-
   }
-
 
   @override
   Widget build(BuildContext context) {

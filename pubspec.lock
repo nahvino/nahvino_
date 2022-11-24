@@ -1370,6 +1370,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.0+3"
+  tabbed_sliverlist:
+    dependency: "direct main"
+    description:
+      name: tabbed_sliverlist
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.0"
   take_screenshot:
     dependency: "direct main"
     description:
