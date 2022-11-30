@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:Nahvino/features/Chat/group/info_group/controllers/info_group_controller.dart';
 import 'package:Nahvino/features/Chat/group/main/model/other_groups_model.dart';
 import 'package:Nahvino/features/Chat/group/main/model/groups_model.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -44,12 +45,12 @@ class GroupController extends GetxController {
   Future<void> GroupConnection() async {
     await hub.connection.start();
     hub.connection.on('GetOtherGroups', (OtherGroups) {
-      //  print("===========>GetOtherGroups<===========");
-      // debugPrint(OtherGroups.toString());
+      print("===========>GetOtherGroups<===========");
+       printError(info:OtherGroups.toString());
       for (var item in OtherGroups![0]) {
         other_group_model = Group.fromJson(item);
         other_groups.add(other_group_model!);
-        print(OtherGroups.toString());
+       // print(OtherGroups.toString());
       }
       update();
     });

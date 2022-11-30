@@ -62,45 +62,6 @@ class _ChangePhoneNumberState extends State<ChangePhoneNumber> {
                 child: IconButton(
                   icon: Icon(Icons.task_alt),
                   onPressed: (() {
-                    /*   if (currentPhoneNumber.text.isEmpty) {
-                      apiService.showSnackBar(text: AppLocalizations.of(context)!.translate(
-                        'ValidphoneNumber',
-                      )!);
-                      return;
-                    }
-                    if (newPhoneNumber.text.isEmpty) {
-                      apiService.showSnackBar(text: AppLocalizations.of(context)!.translate(
-                        'ValidphoneNumber',
-                      )!);
-                      return;
-                    }
-                    if (!currentPhoneNumber.text.startsWith("09")) {
-                      apiService.showSnackBar(text:AppLocalizations.of(context)!.translate(
-                        'MobileNumberIncorrect',
-                      )!);
-                      return;
-                    }
-                    if (!newPhoneNumber.text.startsWith("09")) {
-                      apiService.showSnackBar(text:AppLocalizations.of(context)!.translate(
-                        'MobileNumberIncorrect',
-                      )!);                      return;
-                    }
-                    if (currentPhoneNumber.text.length < 11) {
-                      apiService.showSnackBar(
-                        text: AppLocalizations.of(context)!.translate(
-                          'MobileNumberIncorrect',
-                        )!,
-                      );
-                      return;
-                    }
-                    if (newPhoneNumber.text.length < 11) {
-                      apiService.showSnackBar(
-                        text: AppLocalizations.of(context)!.translate(
-                          'MobileNumberIncorrect',
-                        )!,
-                      );
-                      return;
-                    }*/
                     if (!_formKey.currentState!.validate()) {
                     } else {
                       chhange_phone_service.ChangePhoneNumber(
@@ -112,7 +73,9 @@ class _ChangePhoneNumberState extends State<ChangePhoneNumber> {
                         if (response != false) {
                           //apiService.showSnackBar(text:response['message'] ?? "کد تایید ارسال شد");
                           Get.snackbar(
-                            "اعلان",
+                              AppLocalizations.of(context)!.translate(
+                                'Notifications',
+                              )!,
                             response['message'] ?? "کد تایید ارسال شد",
                             icon: Icon(Icons.person, color: Colors.white),
                             snackPosition: SnackPosition.TOP,

@@ -209,13 +209,14 @@ class PublicGroupWidget {
               onChanged: (bool value) {},
               value: isSwitched,
             ),
+            /*
             SizedBox(
-              width: 35,
+              width: 2,
             ),
             Footnate(
                 textAlign: TextAlign.end,
                 color: Colors.black,
-                text: "بیصدا کردن"),
+                text: "بیصدا کردن"),*/
           ],
         )
       ],

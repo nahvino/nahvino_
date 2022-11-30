@@ -74,7 +74,6 @@ dependencies:
   flutter_downloader: ^1.8.1
   #permission
   permission_handler: ^10.2.0
-  #Tabbar
   #menu
   pull_down_button: ^0.1.0-beta.6
   focused_menu: ^1.0.5
@@ -89,6 +88,7 @@ dependencies:
   flutter_local_notifications: ^12.0.2
   #flag
   flag: ^6.0.0
+  iconsax: ^0.0.8
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -137,7 +137,6 @@ flutter:
 
   assets:
     - assets/
-    - assets/splash/animtiopsh.json
     - assets/lang/fa.json
     - assets/lang/en.json
     - assets/images/
@@ -152,6 +151,7 @@ flutter:
     - assets/anim/login/
     - assets/anim/user/
     - assets/anim/chat/
+    - assets/anim/splash/
     - assets/anim/viewprofile/
     - assets/images/home/
 

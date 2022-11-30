@@ -1,9 +1,11 @@
+import 'package:Nahvino/config/lang/App_localizations.dart';
 import 'package:Nahvino/core/Utils/Text/Text.dart';
 import 'package:Nahvino/core/Utils/Widget/ui/image_view.dart';
 import 'package:Nahvino/features/Chat/fake_info/model_user.dart';
 import 'package:Nahvino/features/Chat/group/chat_group/screen/chat_group_screen.dart';
 import 'package:Nahvino/features/Chat/group/controllers/home_group_controller.dart';
 import 'package:Nahvino/features/Chat/group/info_group/controllers/info_group_controller.dart';
+import 'package:Nahvino/features/Chat/group/info_group/controllers/members_controller.dart';
 import 'package:Nahvino/features/Chat/group/main/controllers/group_controller.dart';
 import 'package:Nahvino/features/Chat/group/main/model/groups_model.dart';
 import 'package:dotted_decoration/dotted_decoration.dart';
@@ -17,6 +19,8 @@ class Group extends GetView<GroupController> {
   Group({Key? key}) : super(key: key);
   GroupController group_controller = Get.put(GroupController());
   InfoGroupController infoGroupController = Get.put(InfoGroupController());
+  MembersListController membersListController =
+      Get.put(MembersListController());
 
   final HomeGroupController home_group_controller =
       Get.put(HomeGroupController());
@@ -135,7 +139,9 @@ class Group extends GetView<GroupController> {
                                     width: 12,
                                   ),
                                   Footnate(
-                                    text: "اعضاء: ",
+                                    text:  AppLocalizations.of(context)!.translate(
+                                      'Members',
+                                    )!,
                                   ),
                                   Caption1(
                                     text: group_controller.group_model?.data
@@ -146,7 +152,9 @@ class Group extends GetView<GroupController> {
                                     width: 12,
                                   ),
                                   Footnate(
-                                    text: "تماشاگران: ",
+                                    text:  AppLocalizations.of(context)!.translate(
+                                      'Audience',
+                                    )!,
                                   ),
                                   Caption1(
                                     text: group_controller.groups[index].data
@@ -161,7 +169,9 @@ class Group extends GetView<GroupController> {
                               Row(
                                 children: [
                                   Caption1(
-                                    text: "رئیس: ",
+                                    text: AppLocalizations.of(context)!.translate(
+                                      'Boss',
+                                    )!,
                                   ),
                                   Caption1(
                                       text: group_controller
@@ -223,6 +233,8 @@ class Group extends GetView<GroupController> {
           onTap: (() {
             infoGroupController
                 .start_service(group_controller.other_groups[index].id!);
+            membersListController
+                .start_service(group_controller.other_groups[index].id!);
             Get.to(ChatGroup(
               names: group_controller.other_groups[index].name!,
               imagegrup: group_controller.other_groups[index].imageUrl,
@@ -231,6 +243,8 @@ class Group extends GetView<GroupController> {
           child: Padding(
             padding: const EdgeInsets.only(
               right: 10,
+              top: 20,
+              bottom: 20,
               left: 10,
             ),
             child: Column(
@@ -262,16 +276,22 @@ class Group extends GetView<GroupController> {
                                     width: 12,
                                   ),
                                   Footnate(
-                                    text: "اعضاء: ",
+                                    text:  AppLocalizations.of(context)!.translate(
+                                      'Members',
+                                    )!,
                                   ),
                                   Caption1(
-                                    text: "20",
+                                    text: group_controller
+                                        .other_groups[index].count
+                                        .toString(),
                                   ),
                                   SizedBox(
                                     width: 12,
                                   ),
                                   Footnate(
-                                    text: "تماشاگران: ",
+                                    text:  AppLocalizations.of(context)!.translate(
+                                      'Audience',
+                                    )!,
                                   ),
                                   Caption1(
                                     text: "10",
@@ -284,7 +304,9 @@ class Group extends GetView<GroupController> {
                               Row(
                                 children: [
                                   Caption1(
-                                    text: "رئیس: ",
+                                    text:  AppLocalizations.of(context)!.translate(
+                                      'Boss',
+                                    )!,
                                   ),
                                   Caption1(
                                     text: group_controller
@@ -319,9 +341,7 @@ class Group extends GetView<GroupController> {
                         Caption1(
                           text: group_controller
                               .other_groups[index].lastMessageDateTime
-                              .toString()
-                              .split(' ')[1]
-                              .split('0000000')[0],
+                              .toString(),
                         ),
                       ],
                     ),

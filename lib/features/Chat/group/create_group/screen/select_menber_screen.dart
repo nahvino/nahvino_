@@ -1,3 +1,4 @@
+import 'package:Nahvino/config/lang/App_localizations.dart';
 import 'package:Nahvino/core/Utils/Button/Button.dart';
 import 'package:Nahvino/core/Utils/Text/Text.dart';
 import 'package:Nahvino/core/Utils/Widget/ui/image_view.dart';
@@ -31,7 +32,9 @@ class SelectManber extends StatelessWidget {
                   home_group_controller.update();
                 })
               : Subhead(
-                  text: "انتخاب معاون",
+                  text: AppLocalizations.of(context)!.translate(
+                    'select_deputy',
+                  )!,
                 ),
           actions: [
             Container(
@@ -108,7 +111,9 @@ class SelectManber extends StatelessWidget {
                   Container(
                     width: 60,
                     child: Buttonfull(
-                      text: "افزودن",
+                      text: AppLocalizations.of(context)!.translate(
+                        'add',
+                      )!,
                       color: Colors.white,
                       onPressed: () {},
                     ),

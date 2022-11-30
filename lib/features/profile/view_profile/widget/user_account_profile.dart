@@ -312,8 +312,9 @@ class UserAcconutProfile extends StatelessWidget {
                                       child: Callout(
                                         textAlign: TextAlign.center,
                                         color: Colors.white,
-                                        text:
-                                        "رتبه شما در نحوینو را نشان میدهد. \n رتبه ها از 1 شروع شده و به 7 ختم میشوند برای دیدن قوانین کسب رتبه به بخش مرام نامه نحوینو مراجعه کنید",
+                                        text:AppLocalizations.of(context)!.translate(
+                                          'Ranks_start',
+                                        )!,
                                       ),
                                     ),
                                   ],
@@ -350,7 +351,9 @@ class UserAcconutProfile extends StatelessWidget {
                                         textAlign: TextAlign.center,
                                         color: Colors.white,
                                         text:
-                                        "شاهپر ها امتیاز شما را در دنیای نحوینو هستند با هر فعالیت مثبت در این مسلک میتوانید شاهبر جدید کسب کنید. \n شاهپر ها قدرت و نیروی شما هستند. \n برای توضیحات بیشتر به برام نامه نحوینو مراجعه نمانید. ",
+                                        AppLocalizations.of(context)!.translate(
+                                          'privilege_in_the_world',
+                                        )!,
                                       ),
                                     ),
                                   ],
@@ -387,7 +390,9 @@ class UserAcconutProfile extends StatelessWidget {
                                         textAlign: TextAlign.center,
                                         color: Colors.white,
                                         text:
-                                        "این شخص ارشد شما در مسلک نحوینو می باشد.\n کسی که شما با کد نحوینو وارد شده اید.",
+                                       AppLocalizations.of(context)!.translate(
+                                        'senior_person',
+                                      )!,
                                       ),
                                     ),
                                   ],
@@ -410,7 +415,9 @@ class UserAcconutProfile extends StatelessWidget {
                   child: databox.bio.value == "null" ||
                       databox.bio.value == ""
                       ? Callout(
-                    text: "بیو گرافی شما",
+                    text: AppLocalizations.of(context)!.translate(
+                      'Your_biography',
+                    )!,
                     color: Colors.black38,
                     textAlign: TextAlign.start,
                   )

@@ -93,7 +93,9 @@ class _ChangePasswrodState extends State<ChangePasswrod> {
                           });
                           if (currentPassword.text == newPassword.text) {
                             errortext =
-                                "رمز فعلی نمی تواند با رمز جدید یکی باشد";
+                            AppLocalizations.of(context)!.translate(
+                              'tcpcbtstnp',
+                            );
                           } else {
                             if (response != false) {
                               change_password_service.showSnackBar(

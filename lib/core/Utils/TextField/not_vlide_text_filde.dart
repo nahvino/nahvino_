@@ -32,6 +32,8 @@ class NotValidFilde extends StatelessWidget {
         style: TextStyle(fontSize: 14, fontFamily: 'Vazirmatn_Medium'),
         decoration: InputDecoration(
           hintText: hint,
+          prefixIcon: prefixIcon,
+          suffixIcon: suffixIcon,
         ),
       ),
     );

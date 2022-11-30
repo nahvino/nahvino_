@@ -1,3 +1,4 @@
+import 'package:Nahvino/config/lang/App_localizations.dart';
 import 'package:Nahvino/config/main_config.dart';
 import 'package:Nahvino/core/Utils/Menu/menu_pop.dart';
 import 'package:Nahvino/core/Utils/Text/Text.dart';
@@ -9,11 +10,9 @@ import 'package:Nahvino/features/Chat/group/Widget/public_group_widget.dart';
 import 'package:Nahvino/features/Chat/group/chat_group/controllers/chat_group_controller.dart';
 import 'package:Nahvino/features/Chat/group/info_group/controllers/info_group_controller.dart';
 import 'package:Nahvino/features/Chat/group/edit_group/screen/edit_group_screen.dart';
-import 'package:Nahvino/features/Chat/group/info_group/screen/info_group_screen.dart';
 import 'package:Nahvino/features/Chat/group/info_group/screen/info_screen.dart';
 import 'package:Nahvino/features/Chat/group/main/controllers/group_controller.dart';
 import 'package:Nahvino/features/Chat/group/sharing/screen/mission_screen.dart';
-import 'package:chat_composer/chat_composer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_chat_bubble/bubble_type.dart';
@@ -24,7 +23,6 @@ import 'package:focused_menu/modals.dart';
 import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:swipeable_tile/swipeable_tile.dart';
-import 'package:voice_message_package/voice_message_package.dart';
 
 class ChatGroup extends StatelessWidget {
   ChatGroup({
@@ -114,7 +112,9 @@ class ChatGroup extends StatelessWidget {
                                   menuItems: <FocusedMenuItem>[
                                     FocusedMenuItem(
                                         title: Footnate(
-                                          text: "تنظیمات",
+                                          text: AppLocalizations.of(context)!.translate(
+                                            'Settings',
+                                          )!,
                                         ),
                                         trailingIcon: Icon(Icons.settings),
                                         onPressed: () {
@@ -122,7 +122,9 @@ class ChatGroup extends StatelessWidget {
                                         }),
                                     FocusedMenuItem(
                                         title: Footnate(
-                                          text: "لینک",
+                                          text: AppLocalizations.of(context)!.translate(
+                                            'link',
+                                          )!,
                                         ),
                                         trailingIcon: Icon(Icons.share),
                                         onPressed: () {
@@ -133,7 +135,9 @@ class ChatGroup extends StatelessWidget {
                                         }),
                                     FocusedMenuItem(
                                         title: Footnate(
-                                          text: "مرام نامه",
+                                          text: AppLocalizations.of(context)!.translate(
+                                            'Maram_Namah',
+                                          )!,
                                         ),
                                         trailingIcon:
                                             Icon(Icons.pending_actions),
@@ -145,7 +149,9 @@ class ChatGroup extends StatelessWidget {
                                       FocusedMenuItem(
                                           title: Footnate(
                                             color: Colors.redAccent,
-                                            text: "ترک گروه",
+                                            text: AppLocalizations.of(context)!.translate(
+                                              'Leave_group',
+                                            )!,
                                           ),
                                           trailingIcon: Icon(
                                             Icons.exit_to_app,
@@ -207,7 +213,9 @@ class ChatGroup extends StatelessWidget {
                             children: [
                               Caption1(
                                 color: Colors.black,
-                                text: "شما در گروه عضو نیستید",
+                                text: AppLocalizations.of(context)!.translate(
+                                  'You_are_not_a_member_of_the_group',
+                                )!,
                                 textAlign: TextAlign.right,
                               ),
                               TextButton(
@@ -216,7 +224,9 @@ class ChatGroup extends StatelessWidget {
                                 },
                                 child: Subhead(
                                   color: Colors.blue,
-                                  text: "عضویت",
+                                  text: AppLocalizations.of(context)!.translate(
+                                    'Subscribe',
+                                  )!,
                                   textAlign: TextAlign.right,
                                 ),
                               ),
@@ -359,7 +369,9 @@ class ChatGroup extends StatelessWidget {
                                   children: [
                                     Subhead(
                                       color: Colors.black,
-                                      text: "کپی",
+                                      text: AppLocalizations.of(context)!.translate(
+                                        'copy',
+                                      )!,
                                       textAlign: TextAlign.right,
                                     ),
                                   ],
@@ -372,7 +384,9 @@ class ChatGroup extends StatelessWidget {
                                   children: [
                                     Subhead(
                                       color: Colors.black,
-                                      text: "پاسخ",
+                                      text: AppLocalizations.of(context)!.translate(
+                                        'Replay',
+                                      )!,
                                       textAlign: TextAlign.right,
                                     ),
                                   ],
@@ -580,7 +594,9 @@ class ChatGroup extends StatelessWidget {
                                     children: [
                                       Subhead(
                                         color: Colors.black,
-                                        text: "پاسخ",
+                                        text: AppLocalizations.of(context)!.translate(
+                                          'Replay',
+                                        )!,
                                         textAlign: TextAlign.right,
                                       ),
                                     ],
@@ -593,7 +609,9 @@ class ChatGroup extends StatelessWidget {
                                     children: [
                                       Subhead(
                                         color: Colors.black,
-                                        text: "کپی",
+                                        text: AppLocalizations.of(context)!.translate(
+                                          'copy',
+                                        )!,
                                         textAlign: TextAlign.right,
                                       ),
                                     ],

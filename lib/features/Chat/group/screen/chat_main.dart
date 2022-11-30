@@ -1,3 +1,4 @@
+import 'package:Nahvino/config/lang/App_localizations.dart';
 import 'package:Nahvino/core/Utils/Menu/menu_pop.dart';
 import 'package:Nahvino/core/Utils/Text/Text.dart';
 import 'package:Nahvino/features/Chat/group/controllers/home_group_controller.dart';
@@ -10,6 +11,7 @@ import 'package:Nahvino/features/Chat/settings/setting_global.dart';
 import 'package:flutter/material.dart';
 import 'package:focused_menu/modals.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 
 class Chats extends StatelessWidget {
   Chats({Key? key}) : super(key: key);
@@ -87,22 +89,33 @@ class Chats extends StatelessWidget {
                       tabs: [
                         Tab(
                             child: Row(
-                          children: [
-                            Icon(Icons.group),
+                          children: [  Icon(
+                            Iconsax.people,
+                            color: Colors.white,
+                          ),
+
                             SizedBox(
                               width: 3,
                             ),
-                            Text("گروه")
+                            Text( AppLocalizations.of(context)!.translate(
+                              'group',
+                            )!,)
                           ],
                         )),
                         Tab(
                             child: Row(
                           children: [
-                            Icon(Icons.group),
+                            Icon(
+                              Iconsax.user,
+                              color: Colors.white,
+                            ),
                             SizedBox(
                               width: 3,
                             ),
-                            Text("خصوصی")
+                            Text( AppLocalizations
+                                .of(context)!.translate(
+                              'private',
+                            )!,)
                           ],
                         )),
                       ],
@@ -128,64 +141,4 @@ class Chats extends StatelessWidget {
   taptow(BuildContext context) {
     return SingleChildScrollView(child: Person());
   }
-/*
-  tapone(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(
-          height: 40,
-        ),
-        Buttonfull(
-          text: "حذف پیام",
-          onPressed: () {
-            showDialog<void>(
-                context: context,
-                builder: (context) => DialogTowButton(
-                      title: "از حذف پیام انتخابی مطمئن هستید؟",
-                      textbutton: "ثبت",
-                      onPressed: () {
-                        print("API Delete Massage");
-                        Navigator.pop(context, true);
-                      },
-                    ));
-
-            // Get.defaultDialog(title: "ddds");
-          },
-          color: Colors.blueAccent,
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        Buttonfull(
-          text: "ویرایش گروه",
-          onPressed: () {
-            Get.to(EditGroup());
-          },
-          color: Colors.blueAccent,
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        Buttonfull(
-          text: "ایجاد گروه",
-          onPressed: () {
-            Get.to(CreateGroup());
-          },
-          color: Colors.blueAccent,
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        Buttonfull(
-          text: "درباره ی گروه",
-          onPressed: () {
-            Get.to(InfoGroup());
-          },
-          color: Colors.blueAccent,
-        ),
-      ],
-    );
-  }
-*/
-
 }

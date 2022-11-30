@@ -153,7 +153,7 @@ class _MyAppState extends State<MyApp> {
         Locale('en', 'US'),
         Locale('fa', 'IR'),
       ],
-      locale: Locale(menu_controller.box_menu.read("lang")),
+      locale: menu_controller.box_menu.read("lang") ,
       localizationsDelegates: [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,

@@ -1,20 +1,22 @@
 import 'dart:convert';
+import 'package:Nahvino/config/main_config.dart';
 import 'package:Nahvino/features/Chat/group/info_group/service/get_info_service.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class InfoGroupController extends GetxController {
-
   RxBool join = false.obs;
-  RxString name ="na".obs;
-  RxString description ="as".obs;
-  RxString imageUrl ="".obs;
-  RxString audience ="".obs;
-  RxString link ="".obs;
-  RxString flagearers ="".obs;
-  RxString conquests ="".obs;
-  RxString rules ="".obs;
-  RxString promise ="".obs;
-  RxString count ="".obs;
+  RxString name = "na".obs;
+  RxString description = "as".obs;
+  RxString imageUrl = "".obs;
+  RxString audience = "".obs;
+  RxString link = "".obs;
+  RxString flagearers = "".obs;
+  RxString conquests = "".obs;
+  RxString rules = "".obs;
+  RxString promise = "".obs;
+  RxString count = "".obs;
+
   @override
   void onInit() {
     super.onInit();
@@ -35,6 +37,7 @@ class InfoGroupController extends GetxController {
       update();
     });
   }
+
   sendrequsetjoin() {
     join.value = false;
   }

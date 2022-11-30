@@ -181,7 +181,9 @@ class _AddIntroducedState extends State<AddIntroduced> {
                               if (response != false) {
                                 seraddcodeservice.showSnackBar(
                                     text: response['message'] ??
-                                        "هیچ معرفی یافت نشد");
+                                        AppLocalizations.of(context)!.translate(
+                                          'No_introduction_found',
+                                        )!,);
 
                                 Navigator.pushAndRemoveUntil(
                                   context,

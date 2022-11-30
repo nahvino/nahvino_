@@ -16,6 +16,7 @@ class Group {
     this.lastMessageDateTime,
     this.ownerName,
     this.numberMessageNoSeen,
+    this.count
   });
   int? id;
   String? description;
@@ -25,6 +26,7 @@ class Group {
   String? lastMessageDateTime;
   String? ownerName;
   String? numberMessageNoSeen;
+  int? count;
 
   factory Group.fromJson(Map<String, dynamic> json) => Group(
     id: json["id"],
@@ -35,6 +37,7 @@ class Group {
     lastMessageDateTime: json["lastMessageDateTime"],
     ownerName: json["ownerName"],
     numberMessageNoSeen: json["numberMessageNoSeen"],
+    count: json["count"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -46,5 +49,6 @@ class Group {
     "lastMessageDateTime": lastMessageDateTime,
     "ownerName": ownerName,
     "numberMessageNoSeen": numberMessageNoSeen,
+    "count": count,
   };
 }

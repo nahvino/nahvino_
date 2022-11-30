@@ -39,6 +39,8 @@ class PublicTextFilde extends StatelessWidget {
         keyboardType: TextInputType.text,
         style: TextStyle(fontSize: 14, fontFamily: 'Vazirmatn_Medium'),
         decoration: InputDecoration(
+          prefixIcon: prefixIcon,
+          suffixIcon: suffixIcon,
           hintText: hint,
         ),
       ),

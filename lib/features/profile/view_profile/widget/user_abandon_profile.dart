@@ -1,3 +1,4 @@
+import 'package:Nahvino/config/lang/App_localizations.dart';
 import 'package:Nahvino/core/Utils/Text/Text.dart';
 import 'package:Nahvino/features/profile/view_profile/controllers/profile_controller.dart';
 import 'package:Nahvino/features/profile/view_profile/controllers/user_abandon_controller.dart';
@@ -34,7 +35,9 @@ class UserAbandonProfile extends StatelessWidget {
                   Body(
                     textAlign: TextAlign.center,
                     color: Colors.black87,
-                    text: "پاکی شما تا این لحظه",
+                    text: AppLocalizations.of(context)!.translate(
+                      'Your_purity_until_this_moment',
+                    )!,
                   ),
                   SizedBox(
                     height: 10,
@@ -61,7 +64,9 @@ class UserAbandonProfile extends StatelessWidget {
                                 Caption2(
                                     textAlign: TextAlign.center,
                                //     color: Colors.cyan,
-                                    text: "سال"),
+                                    text: AppLocalizations.of(context)!.translate(
+                                      'Year',
+                                    )!),
                               ],
                             ),
                           ),
@@ -89,7 +94,9 @@ class UserAbandonProfile extends StatelessWidget {
                                 Caption2(
                                     textAlign: TextAlign.center,
                                  //   color: Colors.cyan,
-                                    text: "ماه"),
+                                    text: AppLocalizations.of(context)!.translate(
+                                      'Month',
+                                    )!),
                               ],
                             ),
                           ),
@@ -117,7 +124,9 @@ class UserAbandonProfile extends StatelessWidget {
                                 Caption2(
                                     textAlign: TextAlign.center,
                                  //   color: Colors.cyan,
-                                    text: "روز"),
+                                    text:  AppLocalizations.of(context)!.translate(
+                                      'Day',
+                                    )!),
                               ],
                             ),
                           ),
@@ -159,8 +168,9 @@ class UserAbandonProfile extends StatelessWidget {
                               child: Callout(
                                 textAlign: TextAlign.center,
                                 color: Colors.white,
-                                text:
-                                "این شمارنده روز های پاکی شماست کافیست روزی را تصمیم به ترک عادت بد خود گرفته اید به نحوینو اعلام کنید تا این شمارنده هر روز موفقیت شما را در استمرار بر هدفتان به شما و سایر کاربران نحوینو نشان دهد",
+                                text: AppLocalizations.of(context)!.translate(
+                                  'clean_days',
+                                )!
                               ),
                             ),
                           ],

@@ -29,6 +29,7 @@ class Data {
     this.lastMessageDateTime,
     this.ownerName,
     this.numberMessageNoSeen,
+    this.count
   });
   int? id;
   String? name;
@@ -37,6 +38,7 @@ class Data {
   String? lastMessageDateTime;
   String? ownerName;
   String? numberMessageNoSeen;
+  int? count;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
     id: json["id"],
@@ -46,6 +48,7 @@ class Data {
     lastMessageDateTime: json["lastMessageDateTime"],
     ownerName: json["ownerName"],
     numberMessageNoSeen: json["numberMessageNoSeen"],
+    count: json["count"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -56,5 +59,6 @@ class Data {
     "lastMessageDateTime": lastMessageDateTime,
     "ownerName": ownerName,
     "numberMessageNoSeen": numberMessageNoSeen,
+    "count": count,
   };
 }

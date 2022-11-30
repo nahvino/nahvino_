@@ -170,7 +170,9 @@ class _CodeOtpPhoneState extends State<CodeOtpPhone> {
                           length: 5,
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return 'مقدار نمی تواند خالی باشد';
+                              return AppLocalizations.of(context)!.translate(
+                                'notull',
+                              );
                             }
                           },
                           inputFormatters: [

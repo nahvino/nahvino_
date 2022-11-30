@@ -109,26 +109,7 @@ class _SetPhoneNumberState extends State<SetPhoneNumber> {
                   'OK',
                 )!,
                 onPressed: () {
-                  /*    if (setPhoneNumber.text.isEmpty) {
-                  apiService.showSnackBar(text: AppLocalizations.of(context)!.translate(
-                    'ValidphoneNumber',
-                  )!);
-                  return;
-                }
-                if (!setPhoneNumber.text.startsWith("09")) {
-                  apiService.showSnackBar(text:AppLocalizations.of(context)!.translate(
-                    'MobileNumberIncorrect',
-                  )!);
-                  return;
-                }
-                if (setPhoneNumber.text.length < 11) {
-                  apiService.showSnackBar(
-                    text: AppLocalizations.of(context)!.translate(
-                      'MobileNumberIncorrect',
-                    )!,
-                  );
-                  return;
-                }*/
+
                   if (!_formKey.currentState!.validate()) {
                   } else {
                     set_phone_service

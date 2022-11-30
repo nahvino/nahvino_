@@ -24,17 +24,29 @@ class _CheckQuestionAnswerState extends State<CheckQuestionAnswer> {
   void securityQuestion() {
     listDrap = [];
     listDrap.add(new DropdownMenuItem(
-        child: Text("نام اولین معلم شما چیست؟"), value: "0"));
+        child: Text(AppLocalizations.of(context)!.translate(
+          'first_teacher',
+        )!,), value: "0"));
     listDrap.add(new DropdownMenuItem(
-        child: Text("نام اولین مدرسه شما چیست؟"), value: "1"));
+        child: Text(AppLocalizations.of(context)!.translate(
+          'your_first_school',
+        )!,), value: "1"));
     listDrap.add(new DropdownMenuItem(
-        child: Text("نام شهری که در آن متولد شدید چیست؟"), value: "2"));
+        child: Text(AppLocalizations.of(context)!.translate(
+          'city_where_you_were_born',
+        )!,), value: "2"));
     listDrap.add(new DropdownMenuItem(
-        child: Text("چه مدل ماشینی را میپسندید؟"), value: "3"));
+        child: Text(AppLocalizations.of(context)!.translate(
+          'model_do_you_like',
+        )!,), value: "3"));
     listDrap.add(new DropdownMenuItem(
-        child: Text("نام اولین دوست دوران مدرسه شما چیست؟"), value: "4"));
+        child: Text(AppLocalizations.of(context)!.translate(
+          'school_friend',
+        )!,), value: "4"));
     listDrap.add(new DropdownMenuItem(
-        child: Text("نام یک فیلم خوب را بنویسید؟"), value: "5"));
+        child: Text(AppLocalizations.of(context)!.translate(
+          'good_movie',
+        )!,), value: "5"));
   }
 
   bool isApiCallProcess = false;
@@ -179,8 +191,7 @@ class _CheckQuestionAnswerState extends State<CheckQuestionAnswer> {
                                 .then((response) async {
                               if (response != false) {
                                 resetservice.showSnackBar(
-                                    text: response['message'] ??
-                                        "جواب سوال درست بود");
+                                    text: response['message']);
                                 Navigator.pushAndRemoveUntil(
                                   context,
                                   MaterialPageRoute(
@@ -193,7 +204,7 @@ class _CheckQuestionAnswerState extends State<CheckQuestionAnswer> {
                                   isApiCallProcess = false;
                                 });
                                 resetservice.showSnackBar(
-                                    text: response['message'] ?? "sdd");
+                                    text: response['message']);
                               }
                             });
                           }

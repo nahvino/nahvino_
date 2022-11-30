@@ -31,6 +31,7 @@ class TextProfileBio extends StatelessWidget {
         keyboardType: TextInputType.multiline,
         style: TextStyle(fontSize: 14, fontFamily: 'Vazirmatn_Medium'),
         decoration: InputDecoration(
+
           hintText: hint,
           icon: icon,
           prefixIcon: prefixIcon,

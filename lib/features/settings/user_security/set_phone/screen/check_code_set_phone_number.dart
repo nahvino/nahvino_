@@ -127,7 +127,9 @@ class _CheckCodeSetPhoneNumberState extends State<CheckCodeSetPhoneNumber> {
                 onPressed: () {
                   if (code.text.isEmpty) {
                     set_phone_service.showSnackBar(
-                        text: "شماره تلفن نمی تواند خالی باشد");
+                        text: AppLocalizations.of(context)!.translate(
+                          'ValidphoneNumber',
+                        )!,);
                     return;
                   }
                   set_phone_service

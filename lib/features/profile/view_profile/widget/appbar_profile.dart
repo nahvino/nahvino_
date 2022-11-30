@@ -1,3 +1,4 @@
+import 'package:Nahvino/config/lang/App_localizations.dart';
 import 'package:Nahvino/core/Utils/Text/Text.dart';
 import 'package:Nahvino/core/shared/presentation/Widget/theme_switcher.dart';
 import 'package:Nahvino/features/profile/view_profile/controllers/profile_controller.dart';
@@ -34,7 +35,9 @@ class AppBarProfile extends StatelessWidget {
                     children: [
                       Caption1(
                         textAlign: TextAlign.right,
-                        text: "بستن آموزش",
+                        text: AppLocalizations.of(context)!.translate(
+                          'close_tutorial',
+                        )!,
                        // color: Colors.white,
                       ),
                       InkWell(

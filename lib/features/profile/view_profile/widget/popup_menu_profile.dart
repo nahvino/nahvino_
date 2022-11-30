@@ -8,6 +8,7 @@ import 'package:Nahvino/features/settings/menu/screen/user_security_stting_menus
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -20,7 +21,10 @@ class PopUpMenuProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton<int>(
-      icon: Icon(Icons.more_vert_rounded),
+      icon:  Icon(
+        Iconsax.menu,
+        color: Colors.cyan,
+      ),
       itemBuilder: (context) => [
         PopupMenuItem(
           value: 0,
@@ -29,7 +33,7 @@ class PopUpMenuProfile extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Icon(
-                Icons.security,
+                Iconsax.security,
                 color: Colors.cyan,
               ),
               const SizedBox(
@@ -70,7 +74,7 @@ class PopUpMenuProfile extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(
-                Icons.share,
+                Iconsax.share,
                 color: Colors.cyan,
               ),
               SizedBox(
@@ -107,8 +111,12 @@ class PopUpMenuProfile extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset('assets/images/icon/pngwing.com.png',
-                  height: 24, width: 24, color: Colors.cyan),
+              // Image.asset('assets/images/icon/pngwing.com.png',
+              //     height: 24, width: 24, color: Colors.cyan),
+              Icon(
+                Iconsax.logout_1,
+                color: Colors.cyan,
+              ),
               SizedBox(
                 width: 8,
               ),
@@ -141,15 +149,18 @@ class PopUpMenuProfile extends StatelessWidget {
         break;
       case 2:
         Share.share(databox.identifierCode.toString() +
-            " \n این عدد کد معرف من در نحوینو می باشد. اگر هنگام ثبت نام از این کد استفاده کنید ده شاهپر به شما اهدا میکنم و راهنمای شما در این مسلک زیبا خواهم بود");
+            AppLocalizations.of(context)!.translate(
+              'identification_code',
+            )!);
 
         break;
       case 5:
         profile_Controller.help_vizi();
         break;
       case 4:
-        Share.share(databox.identifierCode.toString() +
-            " \n این عدد کد معرف من در نحوینو می باشد. اگر هنگام ثبت نام از این کد استفاده کنید ده شاهپر به شما اهدا میکنم و راهنمای شما در این مسلک زیبا خواهم بود");
+        Share.share(databox.identifierCode.toString() + AppLocalizations.of(context)!.translate(
+          'identification_code',
+        )!);
 
         break;
       case 3:

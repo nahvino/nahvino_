@@ -1,3 +1,4 @@
+import 'package:Nahvino/config/lang/App_localizations.dart';
 import 'package:Nahvino/core/Utils/Button/Button.dart';
 import 'package:Nahvino/core/Utils/Text/Text.dart';
 import 'package:Nahvino/core/Utils/Widget/ui/image_view.dart';
@@ -29,7 +30,9 @@ class Page3Group extends StatelessWidget {
             actions: [
               Row(
                 children: [
-                  Footnate(text: "ایجاد گروه"),
+                  Footnate(text: AppLocalizations.of(context)!.translate(
+                    'create_group',
+                  )!,),
                   SizedBox(
                     width: 18,
                   ),
@@ -69,12 +72,16 @@ class Page3Group extends StatelessWidget {
                   maxLength: 255,
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return "قوانین گروه نمی تواند خالی باشد";
+                      return AppLocalizations.of(context)!.translate(
+                        'Group_rules_cannot_be_empty',
+                      );
                     }
                     return null;
                   },
                   decoration: InputDecoration(
-                    labelText: "قوانین گروه",
+                    labelText: AppLocalizations.of(context)!.translate(
+                      'group_rules',
+                    )!,
                     isDense: false,
                     filled: true,
                     // border: OutlineInputBorder(),
@@ -95,7 +102,9 @@ class Page3Group extends StatelessWidget {
           ),
         ),
         Buttonfull(
-            text: "ایجاد گروه",
+            text: AppLocalizations.of(context)!.translate(
+    'create_group',
+    )!,
             color: Colors.white,
             onPressed: () => creategroupcontroller.nextthree()),
       ],

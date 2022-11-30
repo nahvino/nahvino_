@@ -1,3 +1,4 @@
+import 'package:Nahvino/config/lang/App_localizations.dart';
 import 'package:Nahvino/core/Utils/Menu/menu_pop_btn.dart';
 import 'package:Nahvino/core/Utils/Text/Text.dart';
 import 'package:Nahvino/core/Utils/Widget/ui/image_view.dart';
@@ -30,14 +31,18 @@ class CreateGroup extends StatelessWidget {
               backgroundColor: Colors.cyan.shade800,
               automaticallyImplyLeading: true,
               elevation: 2,
-              title: Footnate(text: "ایجاد گروه"),
+              title: Footnate(text: AppLocalizations.of(context)!.translate(
+                'create_group',
+              )!,),
               actions: [
                 Row(
                   children: [
                     TextButton(
                         onPressed: () => creategroupcontroller.nextOne(),
                         child: Footnate(
-                          text: "بعدی",
+                          text: AppLocalizations.of(context)!.translate(
+                            'next',
+                          )!,
                           color: Colors.white,
                         )),
                     SizedBox(
@@ -90,7 +95,9 @@ class CreateGroup extends StatelessWidget {
                             menuItems: <FocusedMenuItem>[
                           FocusedMenuItem(
                             title: Footnate(
-                              text: "دوربین",
+                              text: AppLocalizations.of(context)!.translate(
+                                'Camera',
+                              )!,
                             ),
                             trailingIcon: Icon(Icons.camera),
                             onPressed: () async {
@@ -108,7 +115,9 @@ class CreateGroup extends StatelessWidget {
                           ),
                           FocusedMenuItem(
                               title: Footnate(
-                                text: "حافظه",
+                                text: AppLocalizations.of(context)!.translate(
+                                  'Gallery',
+                                )!,
                               ),
                               trailingIcon: Icon(Icons.storage),
                               onPressed: () async {

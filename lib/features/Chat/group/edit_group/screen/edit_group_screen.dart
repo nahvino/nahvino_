@@ -1,3 +1,4 @@
+import 'package:Nahvino/config/lang/App_localizations.dart';
 import 'package:Nahvino/core/Utils/Button/Button.dart';
 import 'package:Nahvino/core/Utils/Menu/menu_pop_btn.dart';
 import 'package:Nahvino/core/Utils/Text/Text.dart';
@@ -32,7 +33,9 @@ class EditGroup extends StatelessWidget {
               actions: [
                 Row(
                   children: [
-                    Footnate(text: "ویرایش گروه"),
+                    Footnate(text: AppLocalizations.of(context)!.translate(
+                      'Edit_Group',
+                    )!,),
                     SizedBox(
                       width: 8,
                     ),
@@ -88,7 +91,9 @@ class EditGroup extends StatelessWidget {
                           menuItems: <FocusedMenuItem>[
                         FocusedMenuItem(
                           title: Footnate(
-                            text: "دوربین",
+                            text: AppLocalizations.of(context)!.translate(
+                              'Camera',
+                            )!,
                           ),
                           trailingIcon: Icon(Icons.camera),
                           onPressed: () async {
@@ -105,7 +110,9 @@ class EditGroup extends StatelessWidget {
                         ),
                         FocusedMenuItem(
                             title: Footnate(
-                              text: "حافظه",
+                              text: AppLocalizations.of(context)!.translate(
+                                'Gallery',
+                              )!,
                             ),
                             trailingIcon: Icon(Icons.storage),
                             onPressed: () async {
@@ -145,17 +152,23 @@ class EditGroup extends StatelessWidget {
               ],
             ),
             public_group.textfilde(
-                " :قوانین گروه", context, editgroupcontroller.rulscontroller),
+                AppLocalizations.of(context)!.translate(
+                  'group_rules',
+                )!, context, editgroupcontroller.rulscontroller),
             SizedBox(
               height: 10,
             ),
-            public_group.textfilde(" :قول و قرار  ", context,
+            public_group.textfilde(AppLocalizations.of(context)!.translate(
+              'promise',
+            )!, context,
                 editgroupcontroller.gholghrarcontroller),
             SizedBox(
               height: 10,
             ),
             Buttonfull(
-              text: "اعمال تغییرات",
+              text: AppLocalizations.of(context)!.translate(
+                'apply_changes',
+              )!,
               color: Colors.white,
               onPressed: () => editgroupcontroller.apply(),
             ),

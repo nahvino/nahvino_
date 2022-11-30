@@ -1,3 +1,4 @@
+import 'package:Nahvino/config/lang/App_localizations.dart';
 import 'package:Nahvino/core/Utils/Text/Text.dart';
 import 'package:Nahvino/core/Utils/Widget/ui/image_view.dart';
 import 'package:Nahvino/features/Chat/group/Widget/public_group_widget.dart';
@@ -26,7 +27,9 @@ class Page2Group extends StatelessWidget {
             backgroundColor: Colors.cyan.shade800,
             automaticallyImplyLeading: true,
             elevation: 2,
-            title:  Footnate(text: "ایجاد گروه"),
+            title:  Footnate(text: AppLocalizations.of(context)!.translate(
+              'create_group',
+            )!,),
 
             actions: [
               Row(

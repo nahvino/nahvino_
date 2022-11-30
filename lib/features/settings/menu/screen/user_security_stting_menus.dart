@@ -215,7 +215,9 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
                                   MaterialPageRoute(
                                       builder: (context) => ChangePasswrod()));
                             },
-                            text: 'تغییر رمز عبور'),
+                            text: AppLocalizations.of(context)!.translate(
+                              'text_ChangePasswrod',
+                            )!,),
                       ],
                     ),
                     Padding(
@@ -252,7 +254,9 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
                                   MaterialPageRoute(
                                       builder: (context) => SetPhoneNumber()));
                             },
-                            text: 'موبایل'),
+                            text: AppLocalizations.of(context)!.translate(
+                              'Mobile',
+                            )!,),
                       ],
                     ),
                     Padding(
@@ -290,7 +294,9 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
                                       builder: (context) =>
                                           ChangePhoneNumber()));
                             },
-                            text: 'تغییر شماره تلفن'),
+                            text: AppLocalizations.of(context)!.translate(
+                              'phone_text_chenge',
+                            )!,),
                       ],
                     ),
                     Padding(
@@ -326,7 +332,9 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
                                 MaterialPageRoute(
                                     builder: (context) => InfoScreen()));
                           },
-                          text: 'اطلاعات دستگاه'),
+                          text: AppLocalizations.of(context)!.translate(
+                            'infidivac',
+                          )!,),
                     ],
                   ),
                 ],
@@ -358,7 +366,9 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text("انگلیسی"),
+                                  Text(AppLocalizations.of(context)!.translate(
+                                    'English',
+                                  )!,),
                                   SizedBox(
                                     width: 10,
                                   ),
@@ -370,14 +380,19 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
                                   )
                                 ],
                               ),
-                              value: 'English',
+                              value: 'English',onTap: (){
+                              menu_controller.box_menu.write("lang", Locale('en', 'US'));
+                              print(menu_controller.box_menu.read("lang"));
+                            },
                             ),
                             DropdownMenuItem(
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text("فارسی"),
+                                  Text(AppLocalizations.of(context)!.translate(
+                                    'Persian',
+                                  )!,),
                                   SizedBox(
                                     width: 10,
                                   ),
@@ -390,6 +405,10 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
                                 ],
                               ),
                               value: 'Persian',
+                              onTap: (){
+                                menu_controller.box_menu.write("lang",Locale('fa', 'IR'));
+                                print(menu_controller.box_menu.read("lang"));
+                              },
                             ),
                           ]),
                     ),
@@ -411,8 +430,9 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
         break;
       case 2:
         Share.share(databox.identifierCode.toString() +
-            " \n این عدد کد معرف من در نحوینو می باشد. اگر هنگام ثبت نام از این کد استفاده کنید ده شاهپر به شما اهدا میکنم و راهنمای شما در این مسلک زیبا خواهم بود");
-
+            AppLocalizations.of(context)!.translate(
+              'identification_code',
+            )!);
         break;
       case 3:
         showDialog<String>(
@@ -469,8 +489,9 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
         break;
       case 4:
         Share.share(databox.identifierCode.toString() +
-            " \n این عدد کد معرف من در نحوینو می باشد. اگر هنگام ثبت نام از این کد استفاده کنید ده شاهپر به شما اهدا میکنم و راهنمای شما در این مسلک زیبا خواهم بود");
-
+            AppLocalizations.of(context)!.translate(
+              'identification_code',
+            )!);
         break;
     }
   }

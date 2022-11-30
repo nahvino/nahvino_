@@ -12,6 +12,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:Nahvino/config/lang/App_localizations.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:once/once.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
@@ -160,7 +161,7 @@ class _MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
           'Profile',
         ),
         iconSize: 20,
-        icon: Icon(CupertinoIcons.person),
+        icon: Icon(Iconsax.personalcard),
         textStyle: TextStyle(fontSize: 12, fontFamily: 'Vazirmatn_Light'),
         activeColorPrimary: CupertinoColors.white,
         inactiveColorPrimary: CupertinoColors.white,
@@ -168,7 +169,7 @@ class _MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
       PersistentBottomNavBarItem(
         title: "چت",
         iconSize: 20,
-        icon: Icon(CupertinoIcons.chat_bubble),
+        icon: Icon(Iconsax.message),
         textStyle: TextStyle(fontSize: 12, fontFamily: 'Vazirmatn_Light'),
         activeColorPrimary: CupertinoColors.white,
         inactiveColorPrimary: CupertinoColors.white,

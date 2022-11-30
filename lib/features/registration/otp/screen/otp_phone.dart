@@ -47,7 +47,9 @@ class _OtpPhoneState extends State<OtpPhone> {
         title: Title3(
             color: Colors.black,
             textAlign: TextAlign.start,
-            text: "ورود و ثبت نام با شماره موبایل"),
+            text: AppLocalizations.of(context)!.translate(
+              'reotp',
+            )!,),
         backgroundColor: Colors.grey[50],
         leading: BackButton(
           color: Colors.black,

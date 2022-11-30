@@ -31,7 +31,7 @@ class _Splash extends State<Splash> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              SizedBox(child: Lottie.asset('assets/splash/animtiopsh.json')),
+              SizedBox(child: Lottie.asset('assets/anim/splash/splash.json')),
               Container(
                   child: Subhead(
                 color: Colors.black,

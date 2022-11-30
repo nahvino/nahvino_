@@ -12,7 +12,7 @@ class MenuController extends GetxController{
   void onInit() {
     super.onInit();
     //switchState();
-    chaklang();
+  //  chaklang();
   }
   @override
   void onClose() {
@@ -24,6 +24,7 @@ class MenuController extends GetxController{
   }
   void onSelected(String value) {
     selectedValue = value;
+   // print(value);
     update();
     changeLanguage(selectedValue);
   }
@@ -32,24 +33,25 @@ class MenuController extends GetxController{
       case 'English':
         var locale = Locale('en', 'US');
         Get.updateLocale(locale);
-        box_menu.write("lang", 'en');
+
         break;
       case 'Persian':
         var locale =  Locale('fa', 'IR');
         Get.updateLocale(locale);
-        box_menu.write("lang", 'fa');
+
         break;
-      default:
-        Get.updateLocale(Locale('fa', 'IR'));
+      default: Get.updateLocale(Locale('fa', 'IR'));
         print('Fallback to En');
         break;
     }
   }
   chaklang(){
-    if (box_menu.read("lang") == null){
-      box_menu.write("lang", "fa");
-    }else{
+    if (box_menu.read("lang") != null){
       box_menu.read("lang");
+      print(box_menu.read("lang"));
+    }else{
+      box_menu.write("lang", Locale('fa', 'IR'));
+      print(box_menu.read("lang"));
     }
   }
 

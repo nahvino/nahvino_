@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:Nahvino/config/lang/App_localizations.dart';
 import 'package:Nahvino/config/main_config.dart';
 import 'package:Nahvino/core/Utils/OtherUtils/imagedialoguser.dart';
 import 'package:Nahvino/core/Utils/Text/Text.dart';
@@ -453,7 +454,9 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                             Footnate(
                               textAlign: TextAlign.center,
                               color: Colors.cyan,
-                              text: "مدت پاکی:",
+                              text: AppLocalizations.of(context)!.translate(
+                                'Cleaning_period',
+                              )!,
                             ),
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -471,7 +474,9 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                                     Caption2(
                                         textAlign: TextAlign.center,
                                         color: Colors.cyan,
-                                        text: "سال"),
+                                        text: AppLocalizations.of(context)!.translate(
+                                          'Year',
+                                        )!,),
                                   ],
                                 ),
                                 SizedBox(
@@ -490,7 +495,9 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                                     Caption2(
                                         textAlign: TextAlign.center,
                                         color: Colors.cyan,
-                                        text: "ماه"),
+                                        text: AppLocalizations.of(context)!.translate(
+                                          'Month',
+                                        )!,),
                                   ],
                                 ),
                                 SizedBox(
@@ -509,7 +516,9 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                                     Caption2(
                                         textAlign: TextAlign.center,
                                         color: Colors.cyan,
-                                        text: "روز"),
+                                        text: AppLocalizations.of(context)!.translate(
+                                          'Day',
+                                        )!,),
                                   ],
                                 ),
                               ],

@@ -75,7 +75,9 @@ class _CheckCodeChangePhoneNumberState
 
                     if (code.text.isEmpty) {
                       chhange_phone_service.showSnackBar(
-                          text: "شماره تلفن نمی تواند خالی باشد");
+                          text: AppLocalizations.of(context)!.translate(
+                            'ValidphoneNumber',
+                          )!,);
                       return;
                     }
                     chhange_phone_service.CheckCodeChangePhoneNumber(
