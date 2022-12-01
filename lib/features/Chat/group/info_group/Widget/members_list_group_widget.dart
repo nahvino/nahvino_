@@ -15,12 +15,15 @@ class MembersList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: ListView.builder(
-        itemCount: membersListController.members.length,
+      child: (membersListController.members != null)
+          ? ListView.builder(
+        itemCount:
+        membersListController.members!.length,
         shrinkWrap: true,
         itemBuilder: member_item,
         physics: NeverScrollableScrollPhysics(),
-      ),
+      )
+          : Container(),
     );
   }
 
@@ -41,7 +44,7 @@ class MembersList extends StatelessWidget {
                   ),
                   Body(
                       color: Colors.black,
-                      text: membersListController.memmodel?.data![index].userame.toString()
+                      text: membersListController.members?[index].userame
                       //membersListController.members[index].data?[index].userame
                   ),
                 ],

@@ -146,33 +146,37 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: theme_controller.box_theme.read('theme'),
-      supportedLocales: [
-        Locale('en', 'US'),
-        Locale('fa', 'IR'),
-      ],
-      locale: menu_controller.box_menu.read("lang") ,
-      localizationsDelegates: [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate
-      ],
-      // localeResolutionCallback: (locale, supportedLocales) {
-      //   for (var supportedLocale in supportedLocales) {
-      //     if (supportedLocale.languageCode == locale!.languageCode &&
-      //         supportedLocale.countryCode == locale.countryCode) {
-      //       return supportedLocale;
-      //     }
-      //   }
-      //   return supportedLocales.first;
-      // },
-      home: Splash(),
+    return GetBuilder<ThemeController>(
+      builder: (logic) {
+        return GetMaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: theme_controller.box_theme.read('theme'),
+          supportedLocales: [
+            Locale('en', 'US'),
+            Locale('fa', 'IR'),
+          ],
+          locale: menu_controller.box_menu.read("lang"),
+          localizationsDelegates: [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate
+          ],
+          // localeResolutionCallback: (locale, supportedLocales) {
+          //   for (var supportedLocale in supportedLocales) {
+          //     if (supportedLocale.languageCode == locale!.languageCode &&
+          //         supportedLocale.countryCode == locale.countryCode) {
+          //       return supportedLocale;
+          //     }
+          //   }
+          //   return supportedLocales.first;
+          // },
+          home: Splash(),
 
-      //   navigatorKey: navigatorKey,
-      // initialRoute:Splash() ,
+          //   navigatorKey: navigatorKey,
+          // initialRoute:Splash() ,
+        );
+      },
     );
   }
 }
