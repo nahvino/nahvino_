@@ -2,17 +2,21 @@ import 'dart:ui';
 
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MenuController extends GetxController{
   var switch_lang = false;
   String? selectedValue;
+  String? contry;
+  String? code;
   GetStorage box_menu = GetStorage();
+
   var local;
   @override
   void onInit() {
     super.onInit();
     //switchState();
-  //  chaklang();
+    chaklang();
   }
   @override
   void onClose() {
@@ -24,8 +28,14 @@ class MenuController extends GetxController{
   }
   void onSelected(String value) {
     selectedValue = value;
-   // print(value);
     update();
+    if(selectedValue == 'Persian'){
+      box_menu.write("lang", 'fa');
+      box_menu.write("langs", 'IR');
+    } else if (selectedValue == 'English'){
+      box_menu.write("lang", 'en');
+      box_menu.write("langs", 'US');
+    }
     changeLanguage(selectedValue);
   }
   changeLanguage(String? selectedLanguage) {
@@ -41,18 +51,22 @@ class MenuController extends GetxController{
 
         break;
       default: Get.updateLocale(Locale('fa', 'IR'));
-        print('Fallback to En');
-        break;
-    }
-  }
-  chaklang(){
-    if (box_menu.read("lang") != null){
-      box_menu.read("lang");
-      print(box_menu.read("lang"));
-    }else{
-      box_menu.write("lang", Locale('fa', 'IR'));
-      print(box_menu.read("lang"));
+      print('Fallback to En');
+      break;
     }
   }
 
-}
+    chaklang(){
+      if (box_menu.read("lang") != null){
+        box_menu.read("lang");
+      }else{
+        box_menu.write("lang", 'fa');
+        box_menu.write("langs", 'IR');
+
+        print(box_menu.read("lang"));
+      }
+    }
+
+
+  }
+

@@ -11,8 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
-class InfoScreen extends StatelessWidget {
-  InfoScreen({Key? key}) : super(key: key);
+class InfoScreenGroup extends StatelessWidget {
+  InfoScreenGroup({Key? key}) : super(key: key);
 
   InfoGroupController info_group_controller = Get.put(InfoGroupController());
 

@@ -37,8 +37,11 @@ class MembersList extends StatelessWidget {
             children: [
               Row(
                 children: [
+                  (membersListController.members?[index].imageUrl ==null)?
                   SizedBox(
-                      height: 50, width: 50, child: Imageview().image_assets()),
+                      height: 50, width: 50, child: Imageview().image_assets()):
+                  SizedBox(
+                      height: 50, width: 50, child: Imageview().image(membersListController.members?[index].imageUrl)),
                   SizedBox(
                     width: 5,
                   ),
@@ -49,7 +52,9 @@ class MembersList extends StatelessWidget {
                   ),
                 ],
               ),
-              Icon(Icons.stars)
+              Visibility(
+                  visible: membersListController.members![index].isAdmin!,
+                  child: Icon(Icons.stars))
             ],
           ),
         ),

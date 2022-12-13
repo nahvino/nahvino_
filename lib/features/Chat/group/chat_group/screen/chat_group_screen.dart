@@ -8,11 +8,13 @@ import 'package:Nahvino/features/Chat/fake_info/model_user.dart';
 import 'package:Nahvino/features/Chat/group/Widget/chat_group_widget.dart';
 import 'package:Nahvino/features/Chat/group/Widget/public_group_widget.dart';
 import 'package:Nahvino/features/Chat/group/chat_group/controllers/chat_group_controller.dart';
+import 'package:Nahvino/features/Chat/group/chat_group/widget/app_bar_chat_widght.dart';
 import 'package:Nahvino/features/Chat/group/info_group/controllers/info_group_controller.dart';
 import 'package:Nahvino/features/Chat/group/edit_group/screen/edit_group_screen.dart';
 import 'package:Nahvino/features/Chat/group/info_group/screen/info_screen.dart';
 import 'package:Nahvino/features/Chat/group/main/controllers/group_controller.dart';
-import 'package:Nahvino/features/Chat/group/sharing/screen/mission_screen.dart';
+import 'package:Nahvino/features/Chat/group/info_group/Widget/requset_group_widght.dart';
+import 'package:Nahvino/features/Chat/group/shared/screen/mission_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_chat_bubble/bubble_type.dart';
@@ -27,11 +29,8 @@ import 'package:swipeable_tile/swipeable_tile.dart';
 class ChatGroup extends StatelessWidget {
   ChatGroup({
     Key? key,
-    required this.names,
-    this.imagegrup,
   }) : super(key: key);
-  final String names;
-  final String? imagegrup;
+
   ChatGroupController chat_group_controller = Get.put(ChatGroupController());
   GroupController group_controller = Get.put(GroupController());
   InfoGroupController info_group_controller = Get.put(InfoGroupController());
@@ -46,133 +45,13 @@ class ChatGroup extends StatelessWidget {
     size = MediaQuery.of(context).size;
     height = size.height;
     width = size.width;
-    return Obx(
-      () => Scaffold(
-        appBar: AppBar(
-          elevation: 1,
-          backgroundColor: Colors.cyan.shade800,
-          actions: [
-            chat_group_controller.select_mood.value
-                ? Row(
-                    children: [
-                      IconButton(onPressed: () => "", icon: Icon(Icons.delete)),
-                      IconButton(
-                          onPressed: () =>
-                              chat_group_controller.select_mood.value = false,
-                          icon: Icon(Icons.close)),
-                    ],
-                  )
-                : Row(
-                    children: [
-                      IconButton(
-                          onPressed: () {
-                            chat_group_controller.serach_mood.value =
-                                !chat_group_controller.serach_mood.value;
-                            chat_group_controller.update();
-                          },
-                          icon: Icon(chat_group_controller.serach_mood.value
-                              ? Icons.close
-                              : Icons.search)),
-                      // SizedBox(
-                      //   width: width / 2.5,
-                      // ),
-                      chat_group_controller.serach_mood.value
-                          ?
-                          // name group
-
-                          Container(
-                              width: width / 1.32,
-                              child: gowidget.searchmood(changed: (value) {
-                                chat_group_controller.serchtext.value = value;
-                                chat_group_controller.update();
-                              }),
-                            )
-                          : Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                InkWell(
-                                    onTap: () => Get.to(
-                                        // InfoGroup()
-                                        InfoScreen()),
-                                    child: Row(
-                                      children: [
-                                        Title2(
-                                            color: Colors.white,
-                                            text: names.length > 17
-                                                ? '${names.substring(0, 17)}...'
-                                                : names),
-                                        (imagegrup != null)
-                                            ? img.image(imagegrup)
-                                            : img.image_assets(),
-                                      ],
-                                    )),
-
-                                //menu pop up
-                                MenuPopUp(
-                                  menuItems: <FocusedMenuItem>[
-                                    FocusedMenuItem(
-                                        title: Footnate(
-                                          text: AppLocalizations.of(context)!.translate(
-                                            'Settings',
-                                          )!,
-                                        ),
-                                        trailingIcon: Icon(Icons.settings),
-                                        onPressed: () {
-                                          Get.to(EditGroup());
-                                        }),
-                                    FocusedMenuItem(
-                                        title: Footnate(
-                                          text: AppLocalizations.of(context)!.translate(
-                                            'link',
-                                          )!,
-                                        ),
-                                        trailingIcon: Icon(Icons.share),
-                                        onPressed: () {
-                                          Share.share(MainConfig.baseURL +
-                                              "/" +
-                                              info_group_controller.link
-                                                  .toString());
-                                        }),
-                                    FocusedMenuItem(
-                                        title: Footnate(
-                                          text: AppLocalizations.of(context)!.translate(
-                                            'Maram_Namah',
-                                          )!,
-                                        ),
-                                        trailingIcon:
-                                            Icon(Icons.pending_actions),
-                                        onPressed: () {
-                                          Get.to(MissionScreen());
-                                        }),
-                                    if (info_group_controller.join.value ==
-                                        false)
-                                      FocusedMenuItem(
-                                          title: Footnate(
-                                            color: Colors.redAccent,
-                                            text: AppLocalizations.of(context)!.translate(
-                                              'Leave_group',
-                                            )!,
-                                          ),
-                                          trailingIcon: Icon(
-                                            Icons.exit_to_app,
-                                            color: Colors.redAccent,
-                                          ),
-                                          onPressed: () {
-                                            info_group_controller.leavegroup();
-                                          }),
-                                  ],
-                                ),
-                              ],
-                            ),
-                    ],
-                  ),
-            SizedBox(
-              width: 8,
+    return  Scaffold(
+        appBar:PreferredSize(
+            preferredSize: Size.fromHeight(60.0), // here the desired height
+            child:
+            AppBarChatWidght()
             ),
-          ],
-        ),
         body: body(context),
-      ),
     );
   }
 
@@ -200,7 +79,7 @@ class ChatGroup extends StatelessWidget {
                 ),
               ),
             ),
-            if (info_group_controller.join.value == true)
+            if (info_group_controller.join.value == false)
               Card(
                 color: Colors.white,
                 child: Column(
@@ -220,7 +99,18 @@ class ChatGroup extends StatelessWidget {
                               ),
                               TextButton(
                                 onPressed: () {
-                                  info_group_controller.join.value = false;
+                                //  info_group_controller.join.value = false;
+                                  showModalBottomSheet(
+                                      isScrollControlled: true,
+                                      //backgroundColor: theme.backgroundColor,
+                                      shape: const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(20.0),
+                                          topRight: Radius.circular(20.0),
+                                        ),
+                                      ),
+                                      context: context,
+                                      builder: (context) => RequsetGroupWidget());
                                 },
                                 child: Subhead(
                                   color: Colors.blue,
@@ -238,7 +128,7 @@ class ChatGroup extends StatelessWidget {
                   ],
                 ),
               ),
-            if (info_group_controller.join.value == false)
+            if (info_group_controller.join.value == true)
               Card(
                 child: Row(
                   children: [
@@ -756,12 +646,12 @@ class ChatGroup extends StatelessWidget {
                                       ],
                                     ),
                                   ),
-                                  (imagegrup != null &&
-                                          imagegrup != "" &&
-                                          imagegrup != "null")
-                                      ? img.image(imagegrup!)
-                                      : img.image_asset_user(
-                                          fakeMassagegroup[index].image!, true),
+                                  // (imagegrup != null &&
+                                  //         imagegrup != "" &&
+                                  //         imagegrup != "null")
+                                  //     ? img.image(imagegrup!)
+                                  //     : img.image_asset_user(
+                                  //         fakeMassagegroup[index].image!, true),
                                 ],
                               ),
                             ),

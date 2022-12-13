@@ -5,6 +5,7 @@ import 'dart:typed_data';
 import 'package:Nahvino/core/Utils/Button/Button.dart';
 import 'package:Nahvino/core/error/screen/report_screen.dart';
 import 'package:Nahvino/core/shared/Services/notification_service.dart';
+import 'package:Nahvino/features/Chat/group/info_group/Widget/requset_group_widght.dart';
 import 'package:Nahvino/features/settings/menu/controllers/menu_controllers.dart';
 import 'package:Nahvino/features/version/screen/info_screen.dart';
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
@@ -139,6 +140,27 @@ class DeveloperScreen extends StatelessWidget {
               color: Colors.white,
               onPressed: () async {
                Get.to( InfoScreen());
+              },
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Buttonfull(
+              text: "درخواست عضویت",
+              color: Colors.white,
+              onPressed: () async {
+                //RequsetGroupWidget().request_membership(context);
+                showModalBottomSheet(
+                    isScrollControlled: true,
+                    //backgroundColor: theme.backgroundColor,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20.0),
+                        topRight: Radius.circular(20.0),
+                      ),
+                    ),
+                    context: context,
+                    builder: (context) => RequsetGroupWidget());
               },
             ),
           ],

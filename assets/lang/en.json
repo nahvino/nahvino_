@@ -160,10 +160,7 @@
   "Boss": "Boss: ",
   "reotp": "login And Register With Mobile Number",
   "notull": "THE VALUE CANNOT BE EMPTY",
-  "infidivac":"DEVICE INFORMATION",
-  "tark_ct": "HISTORY OF TURKEY"
-
-
-
-
+  "infidivac": "DEVICE INFORMATION",
+  "tark_ct": "HISTORY OF TURKEY",
+  "dti_grup": "If you are a group member. By sending this request, your previous membership will be canceled if the president accepts.\nDo you still want to send a membership request?"
 }

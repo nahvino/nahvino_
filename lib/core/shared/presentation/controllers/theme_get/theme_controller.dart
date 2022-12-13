@@ -4,45 +4,42 @@ import 'package:Nahvino/config/custom_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ThemeController extends GetxController {
   RxBool switch_theme = false.obs;
   RxString theme = "".obs;
   GetStorage box_theme = GetStorage();
   String? selectedValue;
+  var themes;
+
   @override
   void onInit() {
     super.onInit();
-    check_theme();
-    print(box_theme.read('theme'));
-
+    getSwitchValues();
   }
 
-  check_theme() {
-    if (box_theme.read("theme") == null) {
-      box_theme.write("theme", CustomTheme.lightTheme);
-    } else {
-      box_theme.read("theme");
-    }
-    update();
+  getSwitchValues() async {
+    switch_theme.value = (await getSwitchState())!;
   }
-  change_theme() {
-   // Get.changeThemeMode(switch_theme.value ? ThemeMode.light : ThemeMode.dark);
-    if (switch_theme.value == false) {
-    //  box_theme.write("theme", CustomTheme.lightTheme);
-      box_theme.writeInMemory("theme", CustomTheme.lightTheme);
-      switch_theme.value = true;
-      print('light');
-    } else {
-    //  box_theme.write("theme", CustomTheme.darkTheme);
-      box_theme.writeInMemory("theme", CustomTheme.darkTheme);
 
-      box_theme.write("value", true);
+  Future<bool> saveSwitchState(bool value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool("switchState", value);
+    print('Switch Value saved $value');
+    return prefs.setBool("switchState", value);
+  }
+
+  Future<bool?> getSwitchState() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (prefs.getBool("switchState") == null) {
       switch_theme.value = false;
-      print('dark');
     }
-    update();
+    if (prefs.getBool("switchState") != null) {
+      switch_theme.value = prefs.getBool("switchState")!;
+    }
+    print(switch_theme);
+
+    return switch_theme.value;
   }
-
-
 }

@@ -1,13 +1,12 @@
 import 'package:Nahvino/config/lang/App_localizations.dart';
 import 'package:Nahvino/core/Utils/Text/Text.dart';
 import 'package:Nahvino/core/Utils/Widget/ui/image_view.dart';
-import 'package:Nahvino/features/Chat/fake_info/model_user.dart';
+import 'package:Nahvino/features/Chat/group/chat_group/controllers/chat_group_controller.dart';
 import 'package:Nahvino/features/Chat/group/chat_group/screen/chat_group_screen.dart';
 import 'package:Nahvino/features/Chat/group/controllers/home_group_controller.dart';
 import 'package:Nahvino/features/Chat/group/info_group/controllers/info_group_controller.dart';
 import 'package:Nahvino/features/Chat/group/info_group/controllers/members_controller.dart';
 import 'package:Nahvino/features/Chat/group/main/controllers/group_controller.dart';
-import 'package:Nahvino/features/Chat/group/main/model/groups_model.dart';
 import 'package:dotted_decoration/dotted_decoration.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -18,6 +17,7 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 class Group extends GetView<GroupController> {
   Group({Key? key}) : super(key: key);
   GroupController group_controller = Get.put(GroupController());
+  ChatGroupController chat_group_controller = Get.put(ChatGroupController());
   InfoGroupController infoGroupController = Get.put(InfoGroupController());
   MembersListController membersListController =
       Get.put(MembersListController());
@@ -75,7 +75,18 @@ class Group extends GetView<GroupController> {
     return Column(
       children: [
         InkWell(
-          onTap: (() => ""),
+          onTap: (() {
+            infoGroupController
+                .start_service(group_controller.groups[index].data.id!);
+            membersListController
+                .start_service(group_controller.groups[index].data.id!);
+            Get.to(ChatGroup());
+            chat_group_controller.appbarname.value =
+            group_controller.groups[index].data.name!;
+            chat_group_controller.appbarimage.value =
+            group_controller.groups[index].data.imageUrl!;
+            print(chat_group_controller.appbarimage.value);
+          }),
           child: Padding(
             padding: const EdgeInsets.only(
               right: 10,
@@ -139,7 +150,8 @@ class Group extends GetView<GroupController> {
                                     width: 12,
                                   ),
                                   Footnate(
-                                    text:  AppLocalizations.of(context)!.translate(
+                                    text:
+                                        AppLocalizations.of(context)!.translate(
                                       'Members',
                                     )!,
                                   ),
@@ -152,7 +164,8 @@ class Group extends GetView<GroupController> {
                                     width: 12,
                                   ),
                                   Footnate(
-                                    text:  AppLocalizations.of(context)!.translate(
+                                    text:
+                                        AppLocalizations.of(context)!.translate(
                                       'Audience',
                                     )!,
                                   ),
@@ -169,7 +182,8 @@ class Group extends GetView<GroupController> {
                               Row(
                                 children: [
                                   Caption1(
-                                    text: AppLocalizations.of(context)!.translate(
+                                    text:
+                                        AppLocalizations.of(context)!.translate(
                                       'Boss',
                                     )!,
                                   ),
@@ -232,13 +246,18 @@ class Group extends GetView<GroupController> {
         InkWell(
           onTap: (() {
             infoGroupController
-                .start_service(group_controller.other_groups[index].id!);
+                .start_service(group_controller.other_groups[index].id!.toInt());
             membersListController
-                .start_service(group_controller.other_groups[index].id!);
+                .start_service(group_controller.other_groups[index].id!.toInt());
             Get.to(ChatGroup(
-              names: group_controller.other_groups[index].name!,
-              imagegrup: group_controller.other_groups[index].imageUrl,
-            ));
+                // names: group_controller.other_groups[index].name!,
+                // imagegrup: group_controller.other_groups[index].imageUrl,
+                ));
+            chat_group_controller.appbarname.value =
+                group_controller.other_groups[index].name.toString();
+            chat_group_controller.appbarimage.value =
+                group_controller.other_groups[index].imageUrl.toString();
+            print(chat_group_controller.appbarimage.value);
           }),
           child: Padding(
             padding: const EdgeInsets.only(
@@ -276,7 +295,8 @@ class Group extends GetView<GroupController> {
                                     width: 12,
                                   ),
                                   Footnate(
-                                    text:  AppLocalizations.of(context)!.translate(
+                                    text:
+                                        AppLocalizations.of(context)!.translate(
                                       'Members',
                                     )!,
                                   ),
@@ -289,7 +309,8 @@ class Group extends GetView<GroupController> {
                                     width: 12,
                                   ),
                                   Footnate(
-                                    text:  AppLocalizations.of(context)!.translate(
+                                    text:
+                                        AppLocalizations.of(context)!.translate(
                                       'Audience',
                                     )!,
                                   ),
@@ -304,7 +325,8 @@ class Group extends GetView<GroupController> {
                               Row(
                                 children: [
                                   Caption1(
-                                    text:  AppLocalizations.of(context)!.translate(
+                                    text:
+                                        AppLocalizations.of(context)!.translate(
                                       'Boss',
                                     )!,
                                   ),

@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:isolate';
 import 'dart:ui';
+import 'package:Nahvino/config/custom_theme.dart';
 import 'package:Nahvino/core/shared/Services/http.dart';
 import 'package:Nahvino/config/lang/App_localizations.dart';
 import 'package:Nahvino/core/shared/presentation/controllers/getx/Utils/download_controller.dart';
@@ -146,16 +147,19 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<ThemeController>(
+    return GetX<ThemeController>(
       builder: (logic) {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
-          theme: theme_controller.box_theme.read('theme'),
+          theme: theme_controller.switch_theme.value? CustomTheme.darkTheme : CustomTheme.lightTheme ,
           supportedLocales: [
             Locale('en', 'US'),
             Locale('fa', 'IR'),
+
           ],
-          locale: menu_controller.box_menu.read("lang"),
+          locale: Locale(menu_controller.box_menu.read('lang'), menu_controller.box_menu.read('langs')),
+
+          //  locale:  Locale('fa', 'IR'),
           localizationsDelegates: [
             AppLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,

@@ -2,6 +2,7 @@ import 'package:Nahvino/config/lang/App_localizations.dart';
 import 'package:Nahvino/core/Utils/Button/Button.dart';
 import 'package:Nahvino/core/Utils/Button/SttingMenusButton.dart';
 import 'package:Nahvino/core/Utils/Text/Text.dart';
+import 'package:Nahvino/core/shared/presentation/Widget/theme_switcher.dart';
 import 'package:Nahvino/features/Chat/service/notification_service.dart';
 import 'package:Nahvino/features/my_tabs/main/screen/tabs.dart';
 import 'package:Nahvino/features/profile/view_profile/data/view_profial_data.dart';
@@ -357,14 +358,17 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
                           value: menu_controller.selectedValue,
                           onChanged: (newValue) {
                             menu_controller.onSelected(newValue!);
+                            print(newValue);
                           },
                           underline: Container(color: Colors.transparent),
                           elevation: 0,
                           items: [
+
+
                             DropdownMenuItem(
                               child: Row(
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(AppLocalizations.of(context)!.translate(
                                     'English',
@@ -380,15 +384,12 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
                                   )
                                 ],
                               ),
-                              value: 'English',onTap: (){
-                              menu_controller.box_menu.write("lang", Locale('en', 'US'));
-                              print(menu_controller.box_menu.read("lang"));
-                            },
+                              value: 'English',
                             ),
                             DropdownMenuItem(
                               child: Row(
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(AppLocalizations.of(context)!.translate(
                                     'Persian',
@@ -405,16 +406,21 @@ class _UserSecuritySttingMenusState extends State<UserSecuritySttingMenus> {
                                 ],
                               ),
                               value: 'Persian',
-                              onTap: (){
-                                menu_controller.box_menu.write("lang",Locale('fa', 'IR'));
-                                print(menu_controller.box_menu.read("lang"));
-                              },
                             ),
                           ]),
                     ),
                   ],
                 ),
               ),
+              Padding(
+                padding: EdgeInsets.only(right: 20,left: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Title2(text: "تغییر تم",),
+                    ThemeSwitcher()
+                  ],),
+              )
             ],
           )
         ],

@@ -14,6 +14,8 @@ class ChatGroupController extends GetxController {
   RxBool keybord = true.obs;
   RxBool canSend = true.obs;
   RxDouble size_text = 12.0.obs;
+  RxString appbarimage = "".obs;
+  RxString appbarname = "".obs;
   FocusNode focusNode = FocusNode();
   Icon icomke = Icon(Icons.emoji_emotions_outlined);
   RxString serchtext = "".obs;
