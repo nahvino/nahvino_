@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:iconsax/iconsax.dart';
 
 class TextOtpPhone extends StatelessWidget {
   const TextOtpPhone({
@@ -28,7 +29,7 @@ class TextOtpPhone extends StatelessWidget {
       padding: const EdgeInsets.only(right: 30, left: 30),
       child: TextFormField(
         maxLength: 11,
-        textAlign: TextAlign.left,
+       // textAlign: TextAlign.left,
         controller: controller,
         keyboardType: TextInputType.phone,
         validator: (value) {
@@ -71,7 +72,10 @@ class TextOtpPhone extends StatelessWidget {
         decoration: InputDecoration(
             hintText: hint,
             icon: icon,
-            prefixIcon: prefixIcon,
+            prefixIcon:  Icon(
+              Icons.phone_android,
+              color: Colors.cyan,
+            ),
             suffixIcon: suffixIcon,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(20),

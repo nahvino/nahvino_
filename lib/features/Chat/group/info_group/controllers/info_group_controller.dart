@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 
 class InfoGroupController extends GetxController {
   RxBool join = false.obs;
+  RxInt idgrup= 0.obs;
   RxString name = "na".obs;
   RxString description = "as".obs;
   RxString imageUrl = "".obs;
@@ -24,6 +25,7 @@ class InfoGroupController extends GetxController {
 
   start_service(int id) {
     GetInfoService.info_service(id).then((res) {
+      idgrup.value = json.decode(res)['data']['id'];
       name.value = json.decode(res)['data']['name'].toString();
       description.value = json.decode(res)['data']['description'].toString();
       imageUrl.value = json.decode(res)['data']['imageUrl'].toString();

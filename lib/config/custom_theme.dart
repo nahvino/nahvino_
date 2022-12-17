@@ -15,6 +15,7 @@ class CustomTheme {
     //     bodyText1: TextStyle(color: Colors.black),
     // ),
     drawerTheme: const DrawerThemeData(backgroundColor: Colors.white),
+    
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: Colors.transparent,

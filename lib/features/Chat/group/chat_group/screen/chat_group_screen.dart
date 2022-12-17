@@ -1,6 +1,4 @@
 import 'package:Nahvino/config/lang/App_localizations.dart';
-import 'package:Nahvino/config/main_config.dart';
-import 'package:Nahvino/core/Utils/Menu/menu_pop.dart';
 import 'package:Nahvino/core/Utils/Text/Text.dart';
 import 'package:Nahvino/core/Utils/Widget/ui/image_view.dart';
 import 'package:Nahvino/core/shared/presentation/controllers/getx/Utils/check_controller.dart';
@@ -10,20 +8,15 @@ import 'package:Nahvino/features/Chat/group/Widget/public_group_widget.dart';
 import 'package:Nahvino/features/Chat/group/chat_group/controllers/chat_group_controller.dart';
 import 'package:Nahvino/features/Chat/group/chat_group/widget/app_bar_chat_widght.dart';
 import 'package:Nahvino/features/Chat/group/info_group/controllers/info_group_controller.dart';
-import 'package:Nahvino/features/Chat/group/edit_group/screen/edit_group_screen.dart';
-import 'package:Nahvino/features/Chat/group/info_group/screen/info_screen.dart';
 import 'package:Nahvino/features/Chat/group/main/controllers/group_controller.dart';
-import 'package:Nahvino/features/Chat/group/info_group/Widget/requset_group_widght.dart';
-import 'package:Nahvino/features/Chat/group/shared/screen/mission_screen.dart';
+import 'package:Nahvino/features/Chat/group/chat_group/widget/requset_group_widght.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_chat_bubble/bubble_type.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_1.dart';
 import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_2.dart';
-import 'package:focused_menu/modals.dart';
 import 'package:get/get.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:swipeable_tile/swipeable_tile.dart';
 
 class ChatGroup extends StatelessWidget {

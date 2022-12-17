@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 
 // ignore: must_be_immutable
 class QuestionTextFilde extends StatelessWidget {
@@ -28,7 +29,7 @@ class QuestionTextFilde extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 35, left: 39),
+      padding: const EdgeInsets.only(right: 39, left: 39),
       child: TextFormField(
         textAlign: TextAlign.right,
         controller: controller,
@@ -66,11 +67,15 @@ class QuestionTextFilde extends StatelessWidget {
             suffix: suffix,
             errorText: error,
             icon: icon,
-            prefixIcon: prefixIcon,
+            prefixIcon:  Icon(
+              Iconsax.security,
+            color: Colors.cyan,
+            ),
             suffixIcon: suffixIcon,
-            border: UnderlineInputBorder(
-              borderRadius: BorderRadius.circular(0),
-            )),
+            // border: UnderlineInputBorder(
+            //   borderRadius: BorderRadius.circular(0),
+            // )
+    ),
       ),
     );
   }

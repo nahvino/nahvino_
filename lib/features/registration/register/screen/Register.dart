@@ -4,6 +4,7 @@ import 'package:Nahvino/core/Utils/Text/Text.dart';
 import 'package:Nahvino/core/Utils/TextField/english_text_filde.dart';
 import 'package:Nahvino/core/Utils/TextField/password_text_filde.dart';
 import 'package:Nahvino/core/Utils/TextField/question_text_filde.dart';
+import 'package:Nahvino/core/Utils/drop_down/dropdownbtn.dart';
 import 'package:Nahvino/features/registration/login/screen/Login.dart';
 import 'package:Nahvino/features/registration/main/screen/privacy_screen.dart';
 import 'package:Nahvino/features/registration/main/screen/registration.dart';
@@ -11,6 +12,7 @@ import 'package:Nahvino/features/registration/main/screen/terms_services_screen.
 import 'package:Nahvino/features/registration/register/service/register_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../add_introduced/screen/add_introduced.dart';
@@ -115,18 +117,15 @@ class _NewRegisterState extends State<Register> {
                             height: 150, width: 150),
                       ),
                       EnglishTextFilde(
-                        icon: Icon(Icons.person),
-                        suffixIcon: null,
-                        prefixIcon: null,
                         hint: AppLocalizations.of(context)!.translate(
                           'username',
                         )!,
                         controller: usernameController,
                       ),
+                      SizedBox(
+                        height: 15,
+                      ),
                       TextPassReAndLog(
-                        icon: Icon(
-                          Icons.lock,
-                        ),
                         passwordInVisible: obscurePasswordVisibility,
                         suffixIcon: IconButton(
                             onPressed: () {
@@ -144,8 +143,9 @@ class _NewRegisterState extends State<Register> {
                         controller: passwordController,
                       ),
                       SizedBox(
-                        height: 8,
+                        height: 15,
                       ),
+                      /*
                       Padding(
                         padding: const EdgeInsets.only(right: 35),
                         child: Row(
@@ -173,11 +173,17 @@ class _NewRegisterState extends State<Register> {
                                 }),
                           ],
                         ),
+                      ),*/
+                      DrapDoonButton(onChanged: (value) {
+                        setState(() {
+                          securityQuestionselected = value as String;
+                          print(securityQuestionselected);
+                        });
+                      }),
+                      SizedBox(
+                        height: 15,
                       ),
                       QuestionTextFilde(
-                        icon: Icon(Icons.security),
-                        suffixIcon: null,
-                        prefixIcon: null,
                         hint: AppLocalizations.of(context)!.translate(
                           'sqAnswer',
                         )!,

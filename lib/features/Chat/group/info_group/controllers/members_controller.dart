@@ -1,5 +1,5 @@
-import 'dart:convert';
 import 'package:Nahvino/features/Chat/group/info_group/model/members_model.dart';
+import 'package:Nahvino/features/Chat/group/info_group/model/request_membres_model_group.dart';
 import 'package:Nahvino/features/Chat/group/info_group/service/get_members_service.dart';
 import 'package:get/get.dart';
 
@@ -12,7 +12,9 @@ class MembersListController extends GetxController {
   GetMembersService? get;
  // MembersModel? memmodel;
   MembersModel? membersModel;
+  RequestMembresModelGroup? requestmembresmodelgroup;
   List<Data>? members;
+  List<RequestData>? requestmembresmodel;
   // List members = [];
   var respane;
   @override
@@ -23,6 +25,8 @@ class MembersListController extends GetxController {
   start_service(int id) async {
     membersModel = await GetMembersService.info_service(id);
     members =  membersModel?.data;
+    requestmembresmodelgroup = await GetMembersService.reques_service(id);
+    requestmembresmodel= requestmembresmodelgroup?.data;
     update();
   }
 

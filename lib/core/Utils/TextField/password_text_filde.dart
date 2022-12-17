@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 
 class TextPassReAndLog extends StatelessWidget {
   const TextPassReAndLog(
       {Key? key,
       required this.hint,
       required this.controller,
-      required this.icon,
+       this.icon,
       this.prefixIcon,
       this.suffixIcon,
       this.passwordInVisible = true,
@@ -15,7 +16,7 @@ class TextPassReAndLog extends StatelessWidget {
 
   final String hint;
   final TextEditingController controller;
-  final Widget icon;
+  final Widget? icon;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final bool passwordInVisible;
@@ -26,7 +27,7 @@ class TextPassReAndLog extends StatelessWidget {
     final alphanumeric = RegExp("[A-Z a-z 0-9]");
 
     return Padding(
-      padding: const EdgeInsets.only(right: 35, left: 39),
+      padding: const EdgeInsets.only(right: 39, left: 39),
       child: TextFormField(
         textDirection: TextDirection.ltr,
         controller: controller,
@@ -47,7 +48,10 @@ class TextPassReAndLog extends StatelessWidget {
           suffix: suffix,
           errorText: error,
           icon: icon,
-          prefixIcon: prefixIcon,
+          prefixIcon: Icon(
+            Iconsax.lock,
+            color: Colors.cyan,
+          ),
           suffixIcon: suffixIcon,
         ),
       ),

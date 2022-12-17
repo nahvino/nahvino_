@@ -246,36 +246,6 @@ class _CodeOtpPhoneState extends State<CodeOtpPhone> {
                               });
                             },
                           ),
-                          /*    TimerButton(
-                            timeOutInSeconds: 120,
-                            disabledColor: Colors.transparent,
-                            color: Colors.cyan,
-                            disabledTextStyle: TextStyle(color: Colors.black54),
-                            buttonType: ButtonType.TextButton,
-                            label: AppLocalizations.of(context)!.translate(
-                              'ReCode',
-                            )!,
-                            onPressed: () {
-                              apiService.NewReSendCode(
-                                widget.OtpCode.toString(),
-                              ).then((response) async {
-                                setState(() {
-                                  isApiCallProcess = false;
-                                });
-                                if (response != false) {
-                                  apiService.showSnackBar(
-                                      text: AppLocalizations.of(context)!.translate(
-                                        'Resendcode',
-                                      )!);
-                                } else {
-                                  setState(() {
-                                    isApiCallProcess = true;
-                                  });
-                                  apiService.showSnackBar(text: response['message']);
-                                }
-                              });
-                            },
-                          ),*/
                         ],
                       ),
                       SizedBox(

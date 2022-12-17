@@ -77,9 +77,6 @@ class _OtpPhoneState extends State<OtpPhone> {
                             height: 150, width: 150),
                       ),
                       TextOtpPhone(
-                        icon: Icon(Icons.phone_android, size: 32),
-                        suffixIcon: null,
-                        prefixIcon: null,
                         hint: AppLocalizations.of(context)!.translate(
                           'phoneNumber',
                         )!,

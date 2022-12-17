@@ -21,6 +21,7 @@ dependencies:
     sdk: flutter         # Add this line
   #OTP
   pin_code_fields: ^7.4.0
+  dropdown_button2: ^1.9.2
   #timer_button: ^2.0.0
   persistent_bottom_nav_bar: ^4.0.2
   cupertino_icons: ^1.0.2

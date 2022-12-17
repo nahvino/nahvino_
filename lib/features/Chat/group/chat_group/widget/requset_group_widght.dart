@@ -1,9 +1,12 @@
 import 'package:Nahvino/config/lang/App_localizations.dart';
 import 'package:Nahvino/core/Utils/Button/Button.dart';
 import 'package:Nahvino/core/Utils/Text/Text.dart';
+import 'package:Nahvino/features/Chat/group/chat_group/controllers/join_group_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 class RequsetGroupWidget extends StatelessWidget {
-  const RequsetGroupWidget({Key? key}) : super(key: key);
+  RequsetGroupWidget({Key? key}) : super(key: key);
+  ChatJoinGroupController chat_join_group_controller = Get.put(ChatJoinGroupController());
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +46,10 @@ class RequsetGroupWidget extends StatelessWidget {
                     text: "درخواست عضویت",
                     color: Colors.white,
                     onPressed: () async {
+                    chat_join_group_controller.get_rquset();
+                    Get.snackbar("پیام", chat_join_group_controller.add_request_join_group_model!.message.toString());
+                    Navigator.pop(context, true);
+
                     },
                   ),
                 ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 
 // ignore: must_be_immutable
 class EnglishTextFilde extends StatelessWidget {
@@ -28,9 +29,9 @@ class EnglishTextFilde extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 35, left: 39),
+      padding: const EdgeInsets.only(right: 39, left: 39),
       child: TextFormField(
-        textAlign: TextAlign.left,
+        //textAlign: TextAlign.left,
         controller: controller,
         keyboardType: TextInputType.name,
         textCapitalization: TextCapitalization.none,
@@ -51,7 +52,10 @@ class EnglishTextFilde extends StatelessWidget {
           suffix: suffix,
           errorText: error,
           icon: icon,
-          prefixIcon: prefixIcon,
+          prefixIcon:  Icon(
+            Iconsax.user,
+            color: Colors.cyan,
+          ),
           suffixIcon: suffixIcon,
         ),
       ),

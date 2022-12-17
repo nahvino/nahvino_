@@ -31,12 +31,9 @@ class _SetPhoneNumberState extends State<SetPhoneNumber> {
 
   @override
   Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Scaffold(
-        backgroundColor: Colors.grey[200],
-        body: SafeArea(child: body(context)),
-      ),
+    return Scaffold(
+      backgroundColor: Colors.grey[200],
+      body: SafeArea(child: body(context)),
     );
   }
 
@@ -95,7 +92,6 @@ class _SetPhoneNumberState extends State<SetPhoneNumber> {
             ),*/
               TextOtpPhone(
                 controller: setPhoneNumber,
-                icon: Icon(Icons.phone_android, size: 32),
                 hint: AppLocalizations.of(context)!.translate(
                   'phone_text_new',
                 )!,

@@ -2,21 +2,38 @@ import 'package:Nahvino/config/lang/App_localizations.dart';
 import 'package:Nahvino/core/Utils/Button/Button.dart';
 import 'package:Nahvino/core/Utils/Text/Text.dart';
 import 'package:Nahvino/core/Utils/Widget/ui/image_view.dart';
+import 'package:Nahvino/features/Chat/group/info_group/controllers/members_controller.dart';
 import 'package:dotted_decoration/dotted_decoration.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 class MembershipRequestList extends StatelessWidget {
-  const MembershipRequestList({Key? key}) : super(key: key);
-
+   MembershipRequestList({Key? key}) : super(key: key);
+   MembersListController membersListController =
+   Get.put(MembersListController());
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+      child: (membersListController.members != null)
+          ? ListView.builder(
+        itemCount:
+        membersListController.requestmembresmodel!.length,
+        shrinkWrap: true,
+        itemBuilder: requestList_item,
+        physics: NeverScrollableScrollPhysics(),
+      )
+          : Container(),
+    );
+
+    /*
+      SingleChildScrollView(
       child: ListView.builder(
         itemCount: 30,
         shrinkWrap: true,
         itemBuilder: requestList_item,
         physics: NeverScrollableScrollPhysics(),
       ),
-    );
+    );*/
+
   }
   Widget requestList_item(context, index) {
     return Column(
@@ -33,27 +50,46 @@ class MembershipRequestList extends StatelessWidget {
                   SizedBox(width: 5,),
                   Body(
                     color: Colors.black,
-                    text: "علی",
+                    text: membersListController.requestmembresmodel?[index].userName!,
                   )
                 ],
               ),
-              SizedBox(
-                width: 175,
-                height: 35,
-                child: Buttonfull(
-                  text:AppLocalizations.of(context)!.translate(
-                    'Accept_request',
-                  )!,
-                  onPressed: () => "",
-                  color: Colors.white,
-                ),
-              )
+
+              // SizedBox(
+              //   width: 175,
+              //   height: 35,
+              //   child: Visibility(
+              //     visible: membersListController.requestmembresmodel?[index].isAccsept!,
+              //     child: Buttonfull(
+              //       text:AppLocalizations.of(context)!.translate(
+              //         'Accept_request',
+              //       )!,
+              //       onPressed: () => "",
+              //       color: Colors.white,
+              //     ),
+              //   ),
+              // )
+            ],
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(right: 10, left: 20),
+          child: Row(
+            children: [
+              Body(
+                color: Colors.black,
+                text: "تاریخ درخواست : ",
+              ),
+              Body(
+                color: Colors.black,
+                text: membersListController.requestmembresmodel?[index].requesteDateTime!,
+              ),
             ],
           ),
         ),
         Container(
           decoration: DottedDecoration(),
-        )
+        ),
       ],
     );
   }

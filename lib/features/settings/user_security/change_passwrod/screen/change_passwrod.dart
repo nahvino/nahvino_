@@ -142,26 +142,26 @@ class _ChangePasswrodState extends State<ChangePasswrod> {
                 )!,
               ),*/
                     TextPassReAndLog(
-                      icon: Icon(Icons.lock),
                       passwordInVisible: changepasswrodcontroller
                           .obscurecurrentPasswordVisibility.value,
-                      suffix: IconButton(
+                      suffixIcon: IconButton(
                           onPressed: () {
                             changepasswrodcontroller
-                                    .obscurecurrentPasswordVisibility.value =
-                                !changepasswrodcontroller
-                                    .obscurecurrentPasswordVisibility.value;
+                                .obscurecurrentPasswordVisibility.value =
+                            !changepasswrodcontroller
+                                .obscurecurrentPasswordVisibility.value;
                           },
                           icon: Icon(changepasswrodcontroller
-                                      .obscurecurrentPasswordVisibility ==
-                                  true
+                              .obscurecurrentPasswordVisibility ==
+                              true
                               ? Icons.visibility_off
                               : Icons.visibility)),
-                      hint: AppLocalizations.of(context)!.translate(
-                        'textfilde_currentPassword',
-                      )!,
+                hint: AppLocalizations.of(context)!.translate(
+                  'textfilde_currentPassword',
+                )!,
                       controller: currentPassword,
                     ),
+
                     TextButton(
                       onPressed: () {
                         Navigator.pushReplacement(
@@ -170,7 +170,7 @@ class _ChangePasswrodState extends State<ChangePasswrod> {
                                 builder: (context) =>
                                     CheckQuestionAnswer()));
                       },
-                      child: Callout(
+                      child: Footnate(
                         color: Colors.blue,
                         textAlign: TextAlign.center,
                         text: AppLocalizations.of(context)!.translate(
@@ -183,22 +183,21 @@ class _ChangePasswrodState extends State<ChangePasswrod> {
                 hint: AppLocalizations.of(context)!.translate(
                   'textfilde_newPassword',
                 )!,
+
               ),*/
                     TextPassReAndLog(
-                      icon: Icon(Icons.lock),
                       passwordInVisible: changepasswrodcontroller
-                          .obscurenewPasswordVisibility.value,
-                      error: errortext,
-                      suffix: IconButton(
+                          .obscurecurrentPasswordVisibility.value,
+                      suffixIcon: IconButton(
                           onPressed: () {
                             changepasswrodcontroller
-                                    .obscurenewPasswordVisibility.value =
-                                !changepasswrodcontroller
-                                    .obscurenewPasswordVisibility.value;
+                                .obscurecurrentPasswordVisibility.value =
+                            !changepasswrodcontroller
+                                .obscurecurrentPasswordVisibility.value;
                           },
                           icon: Icon(changepasswrodcontroller
-                                      .obscurenewPasswordVisibility ==
-                                  true
+                              .obscurecurrentPasswordVisibility ==
+                              true
                               ? Icons.visibility_off
                               : Icons.visibility)),
                       hint: AppLocalizations.of(context)!.translate(

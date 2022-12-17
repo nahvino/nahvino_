@@ -62,9 +62,6 @@ class Login extends StatelessWidget {
                                 width: 150),
                           ),
                           EnglishTextFilde(
-                            icon: Icon(Icons.person),
-                            suffixIcon: null,
-                            prefixIcon: null,
                             hint: AppLocalizations.of(context)!.translate(
                               'username',
                             )!,
@@ -74,7 +71,6 @@ class Login extends StatelessWidget {
                             height: 10,
                           ),
                           TextPassReAndLog(
-                            icon: Icon(Icons.lock),
                             passwordInVisible:
                                 loginController.obscurePasswordVisibility.value,
                             suffixIcon: IconButton(
