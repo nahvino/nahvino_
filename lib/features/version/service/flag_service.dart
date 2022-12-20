@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:Nahvino/features/version/config/flag_config.dart';
+import 'package:Nahvino/features/version/model/FlagModel.dart';
 import 'package:http/http.dart' as http;
 
 class FlagService {
@@ -11,18 +14,16 @@ class FlagService {
     );
     //print(response.body.toString());
     if (response.statusCode == 200) {
-     // return MyModel.fromJson(jsonDecode(response.body));
-      return response.body;
+      FlagModel flagmodel =
+      FlagModel.fromJson(json.decode(response.body));
+      print("%%%%%%%%%%%%%%%%%");
+      print(flagmodel.country);
+      print("%%%%%%%%%%%%%%%%%");
+
+      return flagmodel;
     } else {
       throw Exception('Failed to load album');
     }
   }
 
- /* static fetchFlags()async{
-    var res = await http.get(Uri.parse(FlagConfig.flag));
-    //final flagm= FlagModel.fromJson(jsonDecode(res.body));
-    if(res.statusCode == 200){
-      return res.body;
-    }
-  }*/
 }

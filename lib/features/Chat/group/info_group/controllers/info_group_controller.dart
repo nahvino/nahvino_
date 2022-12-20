@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:Nahvino/config/main_config.dart';
+import 'package:Nahvino/features/Chat/group/info_group/model/InfoModel.dart';
 import 'package:Nahvino/features/Chat/group/info_group/service/get_info_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,12 +18,19 @@ class InfoGroupController extends GetxController {
   RxString rules = "".obs;
   RxString promise = "".obs;
   RxString count = "".obs;
-
+  InfoModel? info;
   @override
   void onInit() {
     super.onInit();
   }
 
+
+  start_service(int id) async {
+    info = await GetInfoService.info_service(id);
+    print(info?.data!.imageUrl!);
+    update();
+  }
+  /*
   start_service(int id) {
     GetInfoService.info_service(id).then((res) {
       idgrup.value = json.decode(res)['data']['id'];
@@ -39,7 +47,7 @@ class InfoGroupController extends GetxController {
       update();
     });
   }
-
+*/
   sendrequsetjoin() {
     join.value = false;
   }

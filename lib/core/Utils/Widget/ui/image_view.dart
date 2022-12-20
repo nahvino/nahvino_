@@ -19,7 +19,7 @@ class Imageview {
             width: 50,
             cacheManager: CacheManager(Config('customCacheKey',
                 stalePeriod: Duration(days: 7), maxNrOfCacheObjects: 100)),
-            imageUrl: MainConfig.fileurl + Img!,
+            imageUrl:  Img!,
             imageBuilder: (context, imageProvider) => Container(
               decoration: BoxDecoration(
                 image: DecorationImage(

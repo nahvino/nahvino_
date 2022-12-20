@@ -23,7 +23,7 @@ class MembersListController extends GetxController {
   }
 
   start_service(int id) async {
-    membersModel = await GetMembersService.info_service(id);
+    membersModel = await GetMembersService.members_service(id);
     members =  membersModel?.data;
     requestmembresmodelgroup = await GetMembersService.reques_service(id);
     requestmembresmodel= requestmembresmodelgroup?.data;

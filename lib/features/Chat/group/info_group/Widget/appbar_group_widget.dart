@@ -11,13 +11,13 @@ class AppBarInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() {
-      return SliverAppBar(
+    return
+       SliverAppBar(
         expandedHeight: 200.0,
         flexibleSpace: FlexibleSpaceBar(
-            background: (info_group_controller.imageUrl.value != "null" ?
+            background: (info_group_controller.info!.data!.imageUrl! != null ?
             Image.network(
-              MainConfig.fileurl + info_group_controller.imageUrl.value,
+             info_group_controller.info!.data!.imageUrl!,
               fit: BoxFit.fitWidth,
             ) :
             Image.network(
@@ -35,13 +35,12 @@ class AppBarInfo extends StatelessWidget {
         ],
         title: Title2(
             color: Colors.white,
-            text: info_group_controller.name.value.length > 17
-                ? '${info_group_controller.name.value.substring(0, 17)}...'
-                : info_group_controller.name.value),
+            text: info_group_controller.info!.data!.name!.length > 17
+                ? '${info_group_controller.info!.data!.name!.substring(0, 17)}...'
+                : info_group_controller.info!.data!.name!),
         leadingWidth: 60,
         pinned: true,
         floating: true,
       );
-    });
   }
 }

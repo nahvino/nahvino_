@@ -36,7 +36,8 @@ class InfoScreenGroup extends StatelessWidget {
           },
           body: SingleChildScrollView(
             child: Column(children: [
-              DetailsGroupWidget(),
+             DetailsGroupWidget(),
+
               SizedBox(
                 height: 10,
               ),
@@ -88,7 +89,8 @@ class InfoScreenGroup extends StatelessWidget {
               SizedBox(
                 height: height,
                 child: TabBarView(
-                  children: [MembersList(), MembershipRequestList()],
+                  children: [
+                    MembersList(), MembershipRequestList()],
                 ),
               ),
             ]),

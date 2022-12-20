@@ -223,82 +223,9 @@ class PublicGroupWidget {
     );
   }
 
-  details_group(BuildContext context, String rulos, String about, String diet) {
-    var size, height, width;
-    size = MediaQuery.of(context).size;
-    height = size.height;
-    width = size.width;
-    return Container(
-      width: width - 38,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          SizedBox(
-            height: height / 70,
-          ),
-          Container(
-              child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Flexible(
-                child: Directionality(
-                  textDirection: TextDirection.rtl,
-                  child: Caption1(
-                    text: rulos,
-                    textAlign: TextAlign.justify,
-                  ),
-                ),
-              ),
-              Body(text: " :قوانین"),
-            ],
-          )),
-          SizedBox(
-            height: height / 70,
-          ),
-          Container(
-              child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Flexible(
-                child: Directionality(
-                  textDirection: TextDirection.rtl,
-                  child: Caption1(
-                    text: about,
-                    textAlign: TextAlign.justify,
-                  ),
-                ),
-              ),
-              Body(text: " :درباره گروه"),
-            ],
-          )),
-          SizedBox(
-            height: height / 70,
-          ),
-          Container(
-              child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Flexible(
-                child: Directionality(
-                  textDirection: TextDirection.rtl,
-                  child: Caption1(
-                    text: diet,
-                    textAlign: TextAlign.justify,
-                  ),
-                ),
-              ),
-              Body(text: " :قول و قرار"),
-            ],
-          )),
-          SizedBox(
-            height: height * 0.03,
-          ),
-        ],
-      ),
-    );
+  details_group(BuildContext context, String? rulos, String? about, String? diet) {
+
+    return ;
   }
 
   informationtow(String menbers, String flag) {

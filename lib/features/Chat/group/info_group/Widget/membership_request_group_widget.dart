@@ -55,20 +55,20 @@ class MembershipRequestList extends StatelessWidget {
                 ],
               ),
 
-              // SizedBox(
-              //   width: 175,
-              //   height: 35,
-              //   child: Visibility(
-              //     visible: membersListController.requestmembresmodel?[index].isAccsept!,
-              //     child: Buttonfull(
-              //       text:AppLocalizations.of(context)!.translate(
-              //         'Accept_request',
-              //       )!,
-              //       onPressed: () => "",
-              //       color: Colors.white,
-              //     ),
-              //   ),
-              // )
+              SizedBox(
+                width: 175,
+                height: 35,
+                child: Visibility(
+                  visible: membersListController.requestmembresmodel?[index].isAccsept!,
+                  child: Buttonfull(
+                    text:AppLocalizations.of(context)!.translate(
+                      'Accept_request',
+                    )!,
+                    onPressed: () => "",
+                    color: Colors.white,
+                  ),
+                ),
+              )
             ],
           ),
         ),

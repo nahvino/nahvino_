@@ -117,7 +117,7 @@ class Group extends GetView<GroupController> {
                                   'customCacheKey',
                                   stalePeriod: Duration(days: 7),
                                   maxNrOfCacheObjects: 100)),
-                              imageUrl: MainConfig.fileurl +
+                              imageUrl:
                                   group_controller.group_model!.data.imageUrl!,
                               imageBuilder: (context, imageProvider) =>
                                   Container(
@@ -245,6 +245,7 @@ class Group extends GetView<GroupController> {
       children: [
         InkWell(
           onTap: (() {
+            print(group_controller.other_groups[index].id!.toInt());
             infoGroupController
                 .start_service(group_controller.other_groups[index].id!.toInt());
             membersListController

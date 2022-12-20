@@ -10,9 +10,9 @@ import '../config/get_info_config.dart';
 class GetMembersService {
   static var client = http.Client();
 
-  static info_service(int? adad) async {
+  static members_service(int? adad) async {
     final response = await http.get(Uri.parse(MainConfig.baseURL +
-        GetInfoConfig.requset_list_group +
+        GetInfoConfig.members_list_group +
         "GroupId=$adad"));
     print(response.body.toString());
     if (response.statusCode == 200) {
