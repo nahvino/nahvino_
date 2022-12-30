@@ -1,7 +1,7 @@
 import 'package:Nahvino/config/lang/App_localizations.dart';
 import 'package:Nahvino/core/Utils/Button/Button.dart';
 import 'package:Nahvino/core/Utils/Text/Text.dart';
-import 'package:Nahvino/core/Utils/Text/TextField.dart';
+import 'package:Nahvino/core/Utils/TextField/public_text_filde.dart';
 import 'package:Nahvino/features/profile/view_profile/service/profile_service.dart';
 import 'package:Nahvino/features/registration/add_introduced/service/add_code_service.dart';
 import 'package:flutter/material.dart';
@@ -113,7 +113,7 @@ class _AddIntroducedState extends State<AddIntroduced> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      TextProfile(
+                      PublicTextFilde(
                         controller: identifierCode,
                         hint: AppLocalizations.of(context)!.translate(
                           'AddIntroducedhint',

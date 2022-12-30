@@ -4,365 +4,163 @@ import 'package:Nahvino/core/Utils/Button/Button.dart';
 import 'package:Nahvino/core/Utils/Text/Text.dart';
 import 'package:Nahvino/features/profile/view_profile/service/profile_service.dart';
 import 'package:Nahvino/features/registration/main/screen/registration.dart';
-import 'package:Nahvino/features/registration/otp/service/otp_service.dart';
+import 'package:Nahvino/features/registration/otp/controllers/code_otp_controller.dart';
+import 'package:Nahvino/features/registration/otp/controllers/otp_phone_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:lottie/lottie.dart';
+import 'package:get/get.dart';
 import 'package:otp_timer_button/otp_timer_button.dart';
-import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:pinput/pinput.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import '../../../my_tabs/main/screen/tabs.dart';
-import '../../add_introduced/screen/add_introduced.dart';
 import '../../../registration/otp/screen/otp_phone.dart';
 
-class CodeOtpPhone extends StatefulWidget {
-  const CodeOtpPhone({Key? key, required this.OtpCode}) : super(key: key);
-  final OtpCode;
+class CodeOtpPhone extends StatelessWidget {
+  CodeOtpPhone({Key? key,}) : super(key: key);
 
-  @override
-  State<CodeOtpPhone> createState() => _CodeOtpPhoneState();
-}
+  OtpPhoneController otp_phone_controller = Get.put(OtpPhoneController());
+  CodeOtpConrtoller code_controller = Get.put(CodeOtpConrtoller());
 
-class _CodeOtpPhoneState extends State<CodeOtpPhone> {
-  bool isApiCallProcess = false;
-  TextEditingController OtpCodePhoneController = TextEditingController();
-  TextEditingController OtpCodeController = TextEditingController();
-  late StreamController<ErrorAnimationType> errorController;
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-  late String otpcode = "";
-  late OtpService otpService;
-  late SharedPreferences logindata;
-  bool hasError = false;
-
-  var resultResponsepro;
-  var parentName;
-
-  //String? parentName;
-
-  @override
-  void initState() {
-    errorController = StreamController<ErrorAnimationType>();
-    super.initState();
-    otpService = OtpService();
-  }
 
   @override
   Widget build(BuildContext context) {
-    /*final defaultPinTheme = PinTheme(
-      width: 56,
-      height: 60,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: Colors.transparent),
-      ),
-    );*/
+    var width = MediaQuery
+        .of(context)
+        .size
+        .width;
+    var height = MediaQuery
+        .of(context)
+        .size
+        .height;
     return Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          title: Title3(
-              color: Colors.black,
-              textAlign: TextAlign.start,
-              text: "تایید کد"),
-          backgroundColor: Colors.grey[50],
-          leading: BackButton(
-            color: Colors.black,
-            onPressed: (() {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => Registration()));
-            }),
-          ),
-        ),
-        body: isApiCallProcess
-            ? Center(
-                child: Lottie.asset('assets/anim/login/send-massage.json',
-                    height: 300, width: 300),
-              )
-            : SafeArea(
-                child: Form(
-                  key: _formKey,
-                  child: Column(
+        backgroundColor: Colors.white,
+        resizeToAvoidBottomInset: false,
+        body: SafeArea(
+          child: Form(
+            key: code_controller.formKey,
+            child: Column(
+              children: [
+                Image(
+                    image: NetworkImage(
+                        "https://cdn.dribbble.com/users/1597968/screenshots/7114886/media/2bbe83d0e87d6e7aae278f2a38ced50f.png?compress=1&resize=400x300&vertical=top")),
+                SizedBox(
+                  height: height * 0.02,
+                ),
+                HeadLine(text: "ورود و ثبت نام با شماره تلفن"),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Center(
-                        child: Lottie.asset('assets/anim/login/send.json',
-                            height: 150, width: 150),
+                      Body(
+                        text: AppLocalizations.of(context)!.translate(
+                          'vrifycodephonetoptext',
+                        )!,
+                        color: Colors.grey,
                       ),
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(AppLocalizations.of(context)!.translate(
-                              'vrifycodephonetoptext',
-                            )!),
-                            SizedBox(width: 3),
-                            //Text(widget.setPhoneNumber)
+                      SizedBox(
+                        height: height * 0.09,
+                      ),
+                      SizedBox(
+                        width: width * 0.03,
+                      ),
+                      //Text(widget.setPhoneNumber)
 
-                            Callout(
-                              textAlign: TextAlign.center,
-                              text: widget.OtpCode,
-                              color: Colors.green,
-                            ),
-                          ]),
-                      /* TextOtpPhone(
-                      icon: Icon(Icons.phone_android, size: 24),
-                      suffixIcon: null,
-                      prefixIcon: null,
-                      hint: AppLocalizations.of(context)!.translate(
-                        'vrifycode',
-                      )!,
-                      controller: OtpCodeController,
-                    ),*/
-                      /*
-              Padding(
-                padding: const EdgeInsets.only(right: 3033,left: 30),
-                child: PinCodeTextField(
-                    appContext: context,
+                      HeadLine(
+                        textAlign: TextAlign.center,
+                        text: otp_phone_controller.phone_text_controller.text,
+                        color: Colors.black,
+                      ),
+                    ]),
+                SizedBox(
+                  height: height * 0.03,
+                ),
+                Directionality(
+                  textDirection: TextDirection.ltr,
+                  child: Pinput(
+                    controller: code_controller.OtpCodeController,
+                    autofocus: true,
+                    enabled: true,
                     length: 5,
-
-                    enableActiveFill: true,
-                    pastedTextStyle: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.normal,
-                        fontFamily: 'Vazirmatn_Regular'
-                    ),
-                    keyboardType: TextInputType.number,
-                    cursorColor: Colors.white,
-                    animationType: AnimationType.fade,
-                    pinTheme: PinTheme(
-                      shape: PinCodeFieldShape.box,
-                      borderRadius: BorderRadius.circular(10),
-                      fieldHeight: 60,
-                      fieldWidth: 50,
-                      activeFillColor:
-                      hasError ? Colors.orange : Colors.white,
-                    ),
-                    animationDuration: Duration(milliseconds: 300),
-                    textStyle: TextStyle(fontSize: 20, height: 1.6),
-                    beforeTextPaste: (text) {
-
-                      return true;
-                    },
-                    boxShadows: [
-                      BoxShadow(
-                        offset: Offset(0, 1),
-                        color: Colors.black12,
-                        blurRadius: 5,
-                      )
-                    ],
-                    controller: OtpCodeController,
-                    errorAnimationController: errorController ,
                     onChanged: (value) {
-                      setState(() {
-                        otpcode = value;
-                      });
-                    }),
-
-              ),*/
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Directionality(
-                        textDirection: TextDirection.ltr,
-                        child: Pinput(
-                          controller: OtpCodeController,
-                          autofocus: true,
-                          enabled: true,
-                          length: 5,
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return AppLocalizations.of(context)!.translate(
-                                'notull',
-                              );
-                            }
-                          },
-                          inputFormatters: [
-                            FilteringTextInputFormatter.deny(RegExp('[./,]'))
-                          ],
-                          keyboardType: TextInputType.number,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          androidSmsAutofillMethod:
-                              AndroidSmsAutofillMethod.smsUserConsentApi,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          TextButton(
-                            onPressed: () {
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => OtpPhone(
-                                            phone: widget.OtpCode,
-                                          )));
-                            },
-                            child: Caption1(
-                              color: Colors.cyan,
-                              textAlign: TextAlign.right,
-                              text: AppLocalizations.of(context)!.translate(
-                                'MobileNumberCorrection',
-                              )!,
-                            ),
-                          ),
-                          OtpTimerButton(
-                            height: 60,
-                            text: Text(
-                              'ارسال مجدد',
-                            ),
-                            duration: 120,
-                            radius: 30,
-                            backgroundColor: Colors.cyan,
-                            textColor: Colors.white,
-                            buttonType: ButtonType
-                                .text_button, // or ButtonType.outlined_button
-                            loadingIndicator: CircularProgressIndicator(
-                              strokeWidth: 2,
-                              color: Colors.cyan,
-                            ),
-                            loadingIndicatorColor: Colors.cyan,
-                            onPressed: () {
-                              otpService.ReSendCode(
-                                widget.OtpCode.toString(),
-                              ).then((response) async {
-                                setState(() {
-                                  isApiCallProcess = false;
-                                });
-                                if (response != false) {
-                                  otpService.showSnackBar(
-                                      text: AppLocalizations.of(context)!
-                                          .translate(
-                                    'Resendcode',
-                                  )!);
-                                } else {
-                                  setState(() {
-                                    isApiCallProcess = true;
-                                  });
-                                  otpService.showSnackBar(
-                                      text: response['message']);
-                                }
-                              });
-                            },
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Buttonfull(
-                          text: AppLocalizations.of(context)!.translate(
-                            'OK',
-                          )!,
-                          onPressed: () {
-                            /* if (OtpCodeController.text.isEmpty) {
-                            apiService.showSnackBar(text: "filed is empty!");
-                            return;
-                          }*/
-                            if (!_formKey.currentState!.validate()) {
-                            } else {
-                              setState(() {
-                                isApiCallProcess = true;
-                              });
-                              otpService.OtpCodePhone(widget.OtpCode.toString(),
-                                      int.parse(OtpCodeController.text))
-                                  .then((response) async {
-                                if (response != false) {
-                                  logindata =
-                                      await SharedPreferences.getInstance();
-                                  await logindata.setString("token",
-                                      response['data']['userToken']['token']);
-                                  await logindata.setString(
-                                      "userId", response['data']['id']);
-                                  otpService.showSnackBar(
-                                      text: AppLocalizations.of(context)!
-                                          .translate(
-                                    'Welcome',
-                                  )!);
-
-                                  /*     Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => AddIntroduced()),
-                                    (route) => false,
-                              );*/
-
-                                  ProfileService.profileuser().then((response) {
-                                    print(
-                                        "APIService.profilleall => $response");
-                                    setState(() {
-                                      isApiCallProcess = false;
-                                      resultResponsepro = response;
-                                    });
-                                    parentName = resultResponsepro['parentId'];
-                                    // print(parentName);
-
-                                    if (parentName != null) {
-                                      print("mogdar null => $parentName");
-                                      Navigator.pushAndRemoveUntil(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => MyTabs()),
-                                        (route) => false,
-                                      );
-                                    } else {
-                                      print("mghdar por => $parentName");
-                                      Navigator.pushAndRemoveUntil(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                AddIntroduced()),
-                                        (route) => false,
-                                      );
-                                    }
-                                    /*if(parentName.toString().isNotEmpty){
-                                  print("mghdar por => $parentName");
-                                  Navigator.pushAndRemoveUntil(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => MyTabs()),
-                                        (route) => false,
-                                  );
-                                }*/
-                                    /*  if (parentName != null) {
-                                  print("mogdar por => $parentName");
-                                  Navigator.pushAndRemoveUntil(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => MyTabs()),
-                                        (route) => false,
-                                  );
-                                }*/
-                                  });
-                                  /*   if (response != null) {
-                                  resultResponsepro = response ?? "اطلاعات یافت نشد";
-                                } else {
-                                  setState(() {
-                                    isApiCallProcess = false;
-                                    resultResponsepro = response;
-                                  });
-                                }
-                              });*/
-                                  /*   Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => AddIntroduced()),
-                              (route) => false,
-                        );*/
-                                } else {
-                                  setState(() {
-                                    isApiCallProcess = false;
-                                  });
-                                  otpService.showSnackBar(
-                                      text: response['message'] ?? "sdd");
-                                }
-                              });
-                            }
-                          }),
+                      if (value.length == 5) {
+                        code_controller.start(context);
+                      }
+                    },
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return AppLocalizations.of(context)!.translate(
+                          'notull',
+                        );
+                      }
+                    },
+                    inputFormatters: [
+                      FilteringTextInputFormatter.deny(RegExp('[./,]'))
                     ],
+                    keyboardType: TextInputType.number,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    androidSmsAutofillMethod:
+                    AndroidSmsAutofillMethod.smsUserConsentApi,
                   ),
                 ),
-              ));
+                SizedBox(
+                  height: height * 0.07,
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: 30,
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => OtpPhone()));
+                        },
+                        child: Caption1(
+                          color: Colors.cyan,
+                          textAlign: TextAlign.right,
+                          text: AppLocalizations.of(context)!.translate(
+                            'MobileNumberCorrection',
+                          )!,
+                        ),
+                      ),
+                    ),
+                    OtpTimerButton(
+                      height: 37,
+                      text: Text(
+                        'ارسال مجدد',
+                      ),
+                      duration: 120,
+                      radius: 30,
+                      backgroundColor: Colors.cyan,
+                      textColor: Colors.white,
+                      buttonType: ButtonType.text_button,
+                      // or ButtonType.outlined_button
+                      loadingIndicator: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        color: Colors.cyan,
+                      ),
+                      loadingIndicatorColor: Colors.cyan,
+                      onPressed: () {
+                        code_controller.resendStart(context);
+                      },
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: height * 0.05,
+                ),
+                SizedBox(
+                  width: width * 0.4,
+                  child: Buttonfull(
+                      text: AppLocalizations.of(context)!.translate(
+                        'OK',
+                      )!,
+                      onPressed: () {
+                        code_controller.start(context);
+                      }),
+                ),
+              ],
+            ),
+          ),
+        ));
   }
 }

@@ -13,7 +13,7 @@ class LargeTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text!,
-      style: TextStyle(color: color, fontSize: 34, fontFamily: 'vazirlight'),
+      style: TextStyle(color: color, fontSize: 34, fontFamily: 'Vazirmatn_Black'),
     );
   }
 }
@@ -29,7 +29,7 @@ class Title1 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text!,
-      style: TextStyle(color: color, fontSize: 28, fontFamily: 'vazirlight'),
+      style: TextStyle(color: color, fontSize: 28, fontFamily: 'Vazirmatn_Black'),
     );
   }
 }
@@ -66,7 +66,7 @@ class Title3 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text!,
-      style: TextStyle(color: color, fontSize: 20, fontFamily: 'vazirlight'),
+      style: TextStyle(color: color, fontSize: 20, fontFamily: 'Vazirmatn_Black'),
     );
   }
 }
@@ -86,7 +86,7 @@ class HeadLine extends StatelessWidget {
           color: color,
           fontSize: 17,
           fontWeight: FontWeight.w600,
-          fontFamily: 'vazirlight'),
+          fontFamily: 'Vazirmatn_ExtraBold'),
     );
   }
 }

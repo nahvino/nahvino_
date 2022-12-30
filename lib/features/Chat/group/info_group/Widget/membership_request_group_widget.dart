@@ -6,21 +6,22 @@ import 'package:Nahvino/features/Chat/group/info_group/controllers/members_contr
 import 'package:dotted_decoration/dotted_decoration.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 class MembershipRequestList extends StatelessWidget {
-   MembershipRequestList({Key? key}) : super(key: key);
-   MembersListController membersListController =
-   Get.put(MembersListController());
+  MembershipRequestList({Key? key}) : super(key: key);
+  MembersListController membersListController =
+      Get.put(MembersListController());
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: (membersListController.members != null)
           ? ListView.builder(
-        itemCount:
-        membersListController.requestmembresmodel!.length,
-        shrinkWrap: true,
-        itemBuilder: requestList_item,
-        physics: NeverScrollableScrollPhysics(),
-      )
+              itemCount: membersListController.requestmembresmodel!.length,
+              shrinkWrap: true,
+              itemBuilder: requestList_item,
+              physics: NeverScrollableScrollPhysics(),
+            )
           : Container(),
     );
 
@@ -33,8 +34,8 @@ class MembershipRequestList extends StatelessWidget {
         physics: NeverScrollableScrollPhysics(),
       ),
     );*/
-
   }
+
   Widget requestList_item(context, index) {
     return Column(
       children: [
@@ -47,14 +48,17 @@ class MembershipRequestList extends StatelessWidget {
                 children: [
                   SizedBox(
                       height: 50, width: 50, child: Imageview().image_assets()),
-                  SizedBox(width: 5,),
+                  SizedBox(
+                    width: 5,
+                  ),
                   Body(
                     color: Colors.black,
-                    text: membersListController.requestmembresmodel?[index].userName!,
+                    text: membersListController
+                        .requestmembresmodel?[index].userName!,
                   )
                 ],
               ),
-
+/*
               SizedBox(
                 width: 175,
                 height: 35,
@@ -68,7 +72,52 @@ class MembershipRequestList extends StatelessWidget {
                     color: Colors.white,
                   ),
                 ),
-              )
+              )*/
+              if (membersListController
+                      .requestmembresmodel?[index].isAccsept! ==
+                  0)
+                // Body(
+                //   color: Colors.black,
+                //   text: "بدون وضعیت",
+                // ),
+                //TODO ReActionRequestJoin
+                Row(
+                  children: [
+                    SizedBox(
+                      width: 75,
+                      height: 35,
+                      child: Buttonfull(
+                        text:"تایید",
+                        onPressed: () => membersListController.reJoin("1"),
+                        color: Colors.white,
+                      ),
+                    ),
+                    SizedBox(width: 4,),
+                    SizedBox(
+                      width: 75,
+                      height: 35,
+                      child: Buttonfull(
+                        text:"رد",
+                        onPressed: () => membersListController.notreJoin(),
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+              if (membersListController
+                      .requestmembresmodel?[index].isAccsept! ==
+                  1)
+                Body(
+                  color: Colors.black,
+                  text: "رد شده",
+                ),
+              if (membersListController
+                      .requestmembresmodel?[index].isAccsept! ==
+                  2)
+                Body(
+                  color: Colors.black,
+                  text: "تایید شده",
+                ),
             ],
           ),
         ),
@@ -82,7 +131,9 @@ class MembershipRequestList extends StatelessWidget {
               ),
               Body(
                 color: Colors.black,
-                text: membersListController.requestmembresmodel?[index].requesteDateTime!,
+                text: membersListController
+                    .requestmembresmodel?[index].requesteDateTime
+                    .toString(),
               ),
             ],
           ),

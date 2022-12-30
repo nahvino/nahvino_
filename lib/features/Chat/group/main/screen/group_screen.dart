@@ -76,11 +76,13 @@ class Group extends GetView<GroupController> {
       children: [
         InkWell(
           onTap: (() {
+            chat_group_controller.serach_mood.value= false;
+
             infoGroupController
                 .start_service(group_controller.groups[index].data.id!);
             membersListController
                 .start_service(group_controller.groups[index].data.id!);
-            Get.to(ChatGroup());
+            Get.to(()=>ChatGroup());
             chat_group_controller.appbarname.value =
             group_controller.groups[index].data.name!;
             chat_group_controller.appbarimage.value =
@@ -245,15 +247,13 @@ class Group extends GetView<GroupController> {
       children: [
         InkWell(
           onTap: (() {
+            chat_group_controller.serach_mood.value= false;
             print(group_controller.other_groups[index].id!.toInt());
             infoGroupController
                 .start_service(group_controller.other_groups[index].id!.toInt());
             membersListController
                 .start_service(group_controller.other_groups[index].id!.toInt());
-            Get.to(ChatGroup(
-                // names: group_controller.other_groups[index].name!,
-                // imagegrup: group_controller.other_groups[index].imageUrl,
-                ));
+            Get.to(()=>ChatGroup());
             chat_group_controller.appbarname.value =
                 group_controller.other_groups[index].name.toString();
             chat_group_controller.appbarimage.value =

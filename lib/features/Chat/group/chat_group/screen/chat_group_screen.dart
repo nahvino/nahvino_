@@ -38,13 +38,11 @@ class ChatGroup extends StatelessWidget {
     size = MediaQuery.of(context).size;
     height = size.height;
     width = size.width;
-    return  Scaffold(
-        appBar:PreferredSize(
-            preferredSize: Size.fromHeight(60.0), // here the desired height
-            child:
-            AppBarChatWidght()
-            ),
-        body: body(context),
+    return Scaffold(
+      appBar: PreferredSize(
+          preferredSize: Size.fromHeight(60.0), // here the desired height
+          child: AppBarChatWidght()),
+      body: body(context),
     );
   }
 
@@ -75,50 +73,45 @@ class ChatGroup extends StatelessWidget {
             if (info_group_controller.join.value == false)
               Card(
                 color: Colors.white,
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Caption1(
-                                color: Colors.black,
-                                text: AppLocalizations.of(context)!.translate(
-                                  'You_are_not_a_member_of_the_group',
-                                )!,
-                                textAlign: TextAlign.right,
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                //  info_group_controller.join.value = false;
-                                  showModalBottomSheet(
-                                      isScrollControlled: true,
-                                      //backgroundColor: theme.backgroundColor,
-                                      shape: const RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(20.0),
-                                          topRight: Radius.circular(20.0),
-                                        ),
-                                      ),
-                                      context: context,
-                                      builder: (context) => RequsetGroupWidget());
-                                },
-                                child: Subhead(
-                                  color: Colors.blue,
-                                  text: AppLocalizations.of(context)!.translate(
-                                    'Subscribe',
-                                  )!,
-                                  textAlign: TextAlign.right,
-                                ),
-                              ),
-                            ],
+                child: InkWell(
+                  onTap: () {
+                    showModalBottomSheet(
+                        isScrollControlled: true,
+                        //backgroundColor: theme.backgroundColor,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(20.0),
+                            topRight: Radius.circular(20.0),
                           ),
+                        ),
+                        context: context,
+                        builder: (context) => RequsetGroupWidget());
+                  },
+                  child: SizedBox(
+                    height: 50,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Caption1(
+                          color: Colors.black,
+                          text: AppLocalizations.of(context)!.translate(
+                            'You_are_not_a_member_of_the_group',
+                          )!,
+                          textAlign: TextAlign.right,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Subhead(
+                          color: Colors.blue,
+                          text: AppLocalizations.of(context)!.translate(
+                            'Subscribe',
+                          )!,
+                          textAlign: TextAlign.right,
                         ),
                       ],
                     ),
-                  ],
+                  ),
                 ),
               ),
             if (info_group_controller.join.value == true)
@@ -252,7 +245,8 @@ class ChatGroup extends StatelessWidget {
                                   children: [
                                     Subhead(
                                       color: Colors.black,
-                                      text: AppLocalizations.of(context)!.translate(
+                                      text: AppLocalizations.of(context)!
+                                          .translate(
                                         'copy',
                                       )!,
                                       textAlign: TextAlign.right,
@@ -267,7 +261,8 @@ class ChatGroup extends StatelessWidget {
                                   children: [
                                     Subhead(
                                       color: Colors.black,
-                                      text: AppLocalizations.of(context)!.translate(
+                                      text: AppLocalizations.of(context)!
+                                          .translate(
                                         'Replay',
                                       )!,
                                       textAlign: TextAlign.right,
@@ -477,7 +472,8 @@ class ChatGroup extends StatelessWidget {
                                     children: [
                                       Subhead(
                                         color: Colors.black,
-                                        text: AppLocalizations.of(context)!.translate(
+                                        text: AppLocalizations.of(context)!
+                                            .translate(
                                           'Replay',
                                         )!,
                                         textAlign: TextAlign.right,
@@ -492,7 +488,8 @@ class ChatGroup extends StatelessWidget {
                                     children: [
                                       Subhead(
                                         color: Colors.black,
-                                        text: AppLocalizations.of(context)!.translate(
+                                        text: AppLocalizations.of(context)!
+                                            .translate(
                                           'copy',
                                         )!,
                                         textAlign: TextAlign.right,

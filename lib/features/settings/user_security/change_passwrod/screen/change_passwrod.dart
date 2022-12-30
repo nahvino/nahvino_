@@ -2,7 +2,7 @@ import 'package:Nahvino/config/lang/App_localizations.dart';
 import 'package:Nahvino/core/Utils/Text/Text.dart';
 import 'package:Nahvino/core/Utils/TextField/password_text_filde.dart';
 import 'package:Nahvino/features/profile/view_profile/screen/view_profile.dart';
-import 'package:Nahvino/features/registration/forgot_password/screen/check_question_answer.dart';
+import 'package:Nahvino/features/registration/forgot_password/screen/check_question_answer_screen.dart';
 import 'package:Nahvino/features/settings/user_security/change_passwrod/service/change_password_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -24,6 +24,7 @@ class _ChangePasswrodState extends State<ChangePasswrod> {
       Get.put(ChangePasswrodController());
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   String? errortext;
+
   @override
   void initState() {
     super.initState();
@@ -34,15 +35,13 @@ class _ChangePasswrodState extends State<ChangePasswrod> {
   bool lang = false; // en => true / fa => false
   @override
   Widget build(BuildContext context) {
-    return Obx(() {
-      return Directionality(
-        textDirection: TextDirection.rtl,
-        child: Scaffold(
-          backgroundColor: Colors.grey[200],
-          body: SafeArea(child: body(context)),
-        ),
-      );
-    });
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        backgroundColor: Colors.grey[200],
+        body: SafeArea(child: body(context)),
+      ),
+    );
   }
 
   Widget body(BuildContext context) => SingleChildScrollView(
@@ -92,8 +91,7 @@ class _ChangePasswrodState extends State<ChangePasswrod> {
                             isApiCallProgress = false;
                           });
                           if (currentPassword.text == newPassword.text) {
-                            errortext =
-                            AppLocalizations.of(context)!.translate(
+                            errortext = AppLocalizations.of(context)!.translate(
                               'tcpcbtstnp',
                             );
                           } else {
@@ -142,33 +140,17 @@ class _ChangePasswrodState extends State<ChangePasswrod> {
                 )!,
               ),*/
                     TextPassReAndLog(
-                      passwordInVisible: changepasswrodcontroller
-                          .obscurecurrentPasswordVisibility.value,
-                      suffixIcon: IconButton(
-                          onPressed: () {
-                            changepasswrodcontroller
-                                .obscurecurrentPasswordVisibility.value =
-                            !changepasswrodcontroller
-                                .obscurecurrentPasswordVisibility.value;
-                          },
-                          icon: Icon(changepasswrodcontroller
-                              .obscurecurrentPasswordVisibility ==
-                              true
-                              ? Icons.visibility_off
-                              : Icons.visibility)),
-                hint: AppLocalizations.of(context)!.translate(
-                  'textfilde_currentPassword',
-                )!,
+                      hint: AppLocalizations.of(context)!.translate(
+                        'textfilde_currentPassword',
+                      )!,
                       controller: currentPassword,
                     ),
-
                     TextButton(
                       onPressed: () {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    CheckQuestionAnswer()));
+                                builder: (context) => CheckQuestionAnswerScreen()));
                       },
                       child: Footnate(
                         color: Colors.blue,
@@ -186,20 +168,6 @@ class _ChangePasswrodState extends State<ChangePasswrod> {
 
               ),*/
                     TextPassReAndLog(
-                      passwordInVisible: changepasswrodcontroller
-                          .obscurecurrentPasswordVisibility.value,
-                      suffixIcon: IconButton(
-                          onPressed: () {
-                            changepasswrodcontroller
-                                .obscurecurrentPasswordVisibility.value =
-                            !changepasswrodcontroller
-                                .obscurecurrentPasswordVisibility.value;
-                          },
-                          icon: Icon(changepasswrodcontroller
-                              .obscurecurrentPasswordVisibility ==
-                              true
-                              ? Icons.visibility_off
-                              : Icons.visibility)),
                       hint: AppLocalizations.of(context)!.translate(
                         'textfilde_newPassword',
                       )!,

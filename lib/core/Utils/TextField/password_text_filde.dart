@@ -1,15 +1,19 @@
+import 'package:Nahvino/core/Utils/Text/Text.dart';
+import 'package:Nahvino/core/shared/presentation/controllers/getx/Utils/password_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:iconsax/iconsax.dart';
 
 class TextPassReAndLog extends StatelessWidget {
-  const TextPassReAndLog(
+  PasswordController passwordController = Get.put(PasswordController());
+
+  TextPassReAndLog(
       {Key? key,
       required this.hint,
       required this.controller,
-       this.icon,
+      this.icon,
       this.prefixIcon,
-      this.suffixIcon,
-      this.passwordInVisible = true,
       this.suffix,
       this.error})
       : super(key: key);
@@ -18,43 +22,124 @@ class TextPassReAndLog extends StatelessWidget {
   final TextEditingController controller;
   final Widget? icon;
   final Widget? prefixIcon;
-  final Widget? suffixIcon;
-  final bool passwordInVisible;
   final Widget? suffix;
   final String? error;
+
   @override
   Widget build(BuildContext context) {
     final alphanumeric = RegExp("[A-Z a-z 0-9]");
+    final alph = RegExp("[a-z]");
+    final alpha = RegExp("[A-Z]");
+    final alphaa = RegExp("[0-9]");
+    return Obx(() {
+      return Padding(
+        padding: const EdgeInsets.only(right: 39, left: 39),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            TextFormField(
+              textDirection: TextDirection.ltr,
+              controller: controller,
+              obscureText: passwordController.obscurePasswordVisibility.value,
+              keyboardType: TextInputType.visiblePassword,
+              onChanged: (val) {
+                if (val.length <= 6) {
+                  passwordController.lengthText.value = true;
+                }
+                if (val.length >= 6) {
+                  passwordController.lengthText.value = false;
+                }
 
-    return Padding(
-      padding: const EdgeInsets.only(right: 39, left: 39),
-      child: TextFormField(
-        textDirection: TextDirection.ltr,
-        controller: controller,
-        obscureText: passwordInVisible,
-        keyboardType: TextInputType.visiblePassword,
-        validator: (value) {
-          if (value!.isEmpty) {
-            return 'رمز عبور نمی تواند خالی باشد';
-          }
-          if (alphanumeric.hasMatch(value) == false) {
-            return "رمز عبور نمی تواند فارسی باشد.";
-          }
-          return null;
-        },
-        style: TextStyle(fontSize: 14, fontFamily: 'Vazirmatn_Medium'),
-        decoration: InputDecoration(
-          hintText: hint,
-          suffix: suffix,
-          errorText: error,
-          icon: icon,
-          prefixIcon: Icon(
-            Iconsax.lock,
-            color: Colors.cyan,
-          ),
-          suffixIcon: suffixIcon,
+                if (val == "") {
+                  passwordController.errorText.value = false;
+                  passwordController.lengthText.value = false;
+                }
+                if (alph.hasMatch(val) == true) {
+                  passwordController.errorText.value = true;
+                }
+                if (alphaa.hasMatch(val) == true) {
+                  passwordController.errorText.value = true;
+                }
+                if (alpha.hasMatch(val) == true) {
+                  passwordController.errorText.value = false;
+                }
+                if (alph.hasMatch(val) &&
+                    alpha.hasMatch(val) &&
+                    alphaa.hasMatch(val) &&
+                    val.length >= 6 == true) {
+                  passwordController.verifyText.value = true;
+                  passwordController.errorText.value = false;
+                }
+              },
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'رمز عبور نمی تواند خالی باشد';
+                }
+                if (alphanumeric.hasMatch(value) == false) {
+                  return "رمز عبور نمی تواند فارسی باشد.";
+                }
+                return null;
+              },
+              style: TextStyle(fontSize: 14, fontFamily: 'Vazirmatn_Medium'),
+              decoration: InputDecoration(
+                hintText: hint,
+                suffix: suffix,
+                errorText: error,
+                icon: icon,
+                prefixIcon: Icon(
+                  Iconsax.lock,
+                  color: Colors.cyan,
+                ),
+                suffixIcon: IconButton(
+                  icon: Icon(
+                      passwordController.obscurePasswordVisibility.value == true
+                          ? Icons.visibility_off
+                          : Icons.visibility),
+                  onPressed: () {
+                    passwordController.obscurePasswordVisibility.value =
+                        !passwordController.obscurePasswordVisibility.value;
+                  },
+                ),
+              ),
+            ),
+            Visibility(
+                visible: passwordController.errorText.value,
+                child: Padding(
+                  padding: EdgeInsets.only(right: 10, top: 12),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Iconsax.minus_square,
+                        color: Colors.deepOrange,
+                      ),
+                      SizedBox(
+                        width: 2,
+                      ),
+                      Caption1(text: "پسورد نمی تواند فقط عدد حرف کوچک باشد."),
+                    ],
+                  ),
+                )),
+            Visibility(
+                visible: passwordController.lengthText.value,
+                child: Padding(
+                  padding: EdgeInsets.only(right: 10, top: 12),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Iconsax.minus_square,
+                        color: Colors.deepOrange,
+                      ),
+                      SizedBox(
+                        width: 2,
+                      ),
+                      Caption1(text: "پسورد شما نباید کمتر از 6 کاراکتر باشد."),
+                    ],
+                  ),
+                )),
+
+          ],
         ),
-      ),
-    );
+      );
+    });
   }
 }

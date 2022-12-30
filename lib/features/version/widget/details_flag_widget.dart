@@ -14,109 +14,110 @@ class FlagDetailsWidget extends StatelessWidget {
       child: GetBuilder<FlagController>(
         builder: (logic) {
           return (flag_controller.flagmodel != null)
-              ? Column(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(left: 10, right: 30, top: 15),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Title2(
-                            text: "مشخصات اینترنت",
-                          ),
-                          IconButton(
-                              onPressed: () => Navigator.pop(context, true),
-                              icon: Icon(Icons.close))
-                        ],
+              ? Container(
+            decoration: BoxDecoration(image: DecorationImage(
+              opacity: 500,
+              image: NetworkImage("https://datautama.net.id/v2021/images/content/internet-650x650.png",scale: 0.02
+              )
+            )),
+                child: Column(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(left: 10, right: 30, top: 15),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Title2(
+                              text: "مشخصات اینترنت",
+                            ),
+                            IconButton(
+                                onPressed: () => Navigator.pop(context, true),
+                                icon: Icon(Icons.close))
+                          ],
+                        ),
                       ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Row(
+                      Padding(
+                        padding:  EdgeInsets.only(right: 20,left: 20),
+                        child: Column(
                           children: [
-                            Body(
-                              text: "کشور : ",
+                            Row(
+                              children: [
+                                Body(
+                                  text: "کشور : ",
+                                ),
+                                Body(
+                                  text: flag_controller.flagmodel?.country!,
+                                ),
+                              ],
                             ),
-                            Body(
-                              text: flag_controller.flagmodel?.country!,
-                            )
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Body(
-                              text: "کد کشور : ",
+                            Row(
+                              children: [
+                                Body(
+                                  text: "کد کشور : ",
+                                ),
+                                Body(text: flag_controller.flagmodel?.countryCode!),
+                              ],
                             ),
-                            Body(text: flag_controller.flagmodel?.countryCode!),
-                          ],
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Row(
-                          children: [
-                            Body(
-                              text: "کد شهر : ",
+                            Row(
+                              children: [
+                                Body(
+                                  text: "کد شهر : ",
+                                ),
+                                Body(text: flag_controller.flagmodel?.region!)
+                              ],
                             ),
-                            Body(text: flag_controller.flagmodel?.region!)
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Body(
-                              text: "استان : ",
+                            Row(
+                              children: [
+                                Body(
+                                  text: "استان : ",
+                                ),
+                                Body(text: flag_controller.flagmodel?.regionName!),
+                              ],
                             ),
-                            Body(text: flag_controller.flagmodel?.regionName!),
-                          ],
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Row(
-                          children: [
-                            Body(
-                              text: "شهر : ",
+                            Row(
+                              children: [
+                                Body(
+                                  text: "شهر : ",
+                                ),
+                                Body(text: flag_controller.flagmodel?.city!)
+                              ],
                             ),
-                            Body(text: flag_controller.flagmodel?.city!)
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Body(
-                              text: "منظقه زمانی : ",
+                            Row(
+                              children: [
+                                Body(
+                                  text: "منظقه زمانی : ",
+                                ),
+                                Body(text: flag_controller.flagmodel?.timezone!),
+                              ],
                             ),
-                            Body(text: flag_controller.flagmodel?.timezone!),
+                            Row(
+                              children: [
+                                Flexible(
+                                    child: Body(text: flag_controller.flagmodel?.isp!)),
+                                Body(
+                                  text: " : ISP",
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Flexible(
+                                    child: Body(text: flag_controller.flagmodel?.as!)),
+                                Body(
+                                  text: " : AS",
+                                ),
+                              ],
+                            ),
                           ],
+
                         ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Flexible(
-                            child: Body(text: flag_controller.flagmodel?.isp!)),
-                        Body(
-                          text: " : ISP",
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Flexible(
-                            child: Body(text: flag_controller.flagmodel?.as!)),
-                        Body(
-                          text: " : AS",
-                        ),
-                      ],
-                    ),
-                  ],
-                )
+                      ),
+
+
+
+                    ],
+                  ),
+              )
               : CircularProgressIndicator();
         },
       ),

@@ -72,7 +72,8 @@ class UserAcconutProfile extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       (databox.imageUrl.value == "null" ||
-                          databox.imageUrl.value == "")
+                          databox.imageUrl.value == ""||
+                          databox.imageUrl.value == null)
                           ? img.imageAssetProfile(flag: false)
                           : InkWell(
                           child: img.imageProfile(
@@ -241,8 +242,7 @@ class UserAcconutProfile extends StatelessWidget {
                                                   days: 7),
                                               maxNrOfCacheObjects:
                                               100)),
-                                      imageUrl: MainConfig
-                                          .fileurl +
+                                      imageUrl:
                                           databox.parentimageurl
                                               .value /*resultResponse!.parentImageUrl!*/,
                                       imageBuilder: (context,

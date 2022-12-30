@@ -30,10 +30,10 @@ class EditProfileScreen extends GetView<EditProfileController> {
       appBar: AppBar(
         backgroundColor: Colors.cyan.shade800,
         leading: IconButton(
-          onPressed: (){
+          onPressed: () {
             Navigator.pop(context);
           },
-          icon:  Icon(
+          icon: Icon(
             Iconsax.arrow_right,
             color: Colors.black,
           ),
@@ -46,11 +46,12 @@ class EditProfileScreen extends GetView<EditProfileController> {
             Footnate(text: editcontroller.databox.username.value),
             Row(
               children: [
-                Footnate(text: AppLocalizations.of(context)!.translate(
+                Footnate(
+                    text: AppLocalizations.of(context)!.translate(
                   'OK',
                 )),
                 IconButton(
-                    icon:  Icon(
+                    icon: Icon(
                       Iconsax.save_2,
                       color: Colors.black,
                     ),
@@ -76,7 +77,8 @@ class EditProfileScreen extends GetView<EditProfileController> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(right: 30, top: 12,left: 30),
+                      padding:
+                          const EdgeInsets.only(right: 30, top: 12, left: 30),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -123,7 +125,8 @@ class EditProfileScreen extends GetView<EditProfileController> {
                                     menuItems: <FocusedMenuItem>[
                                       FocusedMenuItem(
                                         title: Footnate(
-                                          text: AppLocalizations.of(context)!.translate(
+                                          text: AppLocalizations.of(context)!
+                                              .translate(
                                             'Camera',
                                           ),
                                         ),
@@ -145,7 +148,8 @@ class EditProfileScreen extends GetView<EditProfileController> {
                                       ),
                                       FocusedMenuItem(
                                           title: Footnate(
-                                            text: AppLocalizations.of(context)!.translate(
+                                            text: AppLocalizations.of(context)!
+                                                .translate(
                                               'Gallery',
                                             ),
                                           ),
@@ -184,7 +188,8 @@ class EditProfileScreen extends GetView<EditProfileController> {
                                           'assets/images/icon/trash.png'),
                                     ),
                                     Caption2(
-                                      text: AppLocalizations.of(context)!.translate(
+                                      text: AppLocalizations.of(context)!
+                                          .translate(
                                         'DELIMAGE',
                                       )!,
                                     ),
@@ -211,8 +216,7 @@ class EditProfileScreen extends GetView<EditProfileController> {
                       height: 10,
                     ),
                     EnglishTextFilde(
-                      prefixIcon:
-                      Icon(
+                      prefixIcon: Icon(
                         Iconsax.user,
                         color: Colors.cyan,
                       ),
@@ -225,8 +229,7 @@ class EditProfileScreen extends GetView<EditProfileController> {
                       height: 10,
                     ),
                     PublicTextFilde(
-                      prefixIcon:
-                       Icon(
+                      prefixIcon: Icon(
                         Iconsax.user_square,
                         color: Colors.cyan,
                       ),
@@ -240,16 +243,15 @@ class EditProfileScreen extends GetView<EditProfileController> {
                     ),
                     GetBuilder<EditProfileController>(builder: (logic) {
                       return NotValidFilde(
-                          prefixIcon:
-                          Icon(
+                          prefixIcon: Icon(
                             Iconsax.calendar_tick,
                             color: Colors.cyan,
                           ),
                           controller: editcontroller.tarikhController,
-                          hint:  AppLocalizations.of(context)!.translate(
-                            'tark_ct',
-                          )! +
-                             "      "+
+                          hint: AppLocalizations.of(context)!.translate(
+                                'tark_ct',
+                              )! +
+                              "      " +
                               editcontroller.databox.dateTimeAbandon.value,
                           ontap: () async {
                             editcontroller.selectDate(context);
@@ -258,18 +260,12 @@ class EditProfileScreen extends GetView<EditProfileController> {
                     SizedBox(
                       height: 10,
                     ),
+                    //ToDO Assssd
+
                     TextProfileBio(
-                      prefixIcon:
-                      Column(
-                        children: [
-                          Positioned(
-                            bottom: 130,
-                            child:
-                          Icon(
-                            Iconsax.note_text,
-                            color: Colors.cyan,
-                          ),),
-                        ],
+                      prefixIcon: Icon(
+                        Iconsax.note_text,
+                        color: Colors.cyan,
                       ),
                       controller: editcontroller.bioController,
                       hint: AppLocalizations.of(context)!.translate(

@@ -1,9 +1,10 @@
 import 'package:Nahvino/core/Utils/Button/Button.dart';
 import 'package:Nahvino/core/Utils/Text/Text.dart';
-import 'package:Nahvino/features/registration/login/screen/Login.dart';
+import 'package:Nahvino/features/registration/login/screen/login_screen.dart';
 import 'package:Nahvino/features/registration/otp/screen/otp_phone.dart';
-import 'package:Nahvino/features/registration/register/screen/Register.dart';
+import 'package:Nahvino/features/registration/register/screen/register_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:Nahvino/config/lang/App_localizations.dart';
 
@@ -63,11 +64,8 @@ class _Registration extends State<Registration> {
                       )!,
                       onPressed: () {
                         culercash();
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder:
-                                    (context) => /*PhoneNumberPage()*/ OtpPhone()));
+                        Get.to(OtpPhone());
+
                       },
                       icon: Icon(
                         Icons.phone_android_rounded,
@@ -85,10 +83,7 @@ class _Registration extends State<Registration> {
                       )!,
                       onPressed: () {
                         culercash();
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => Login()));
+                        Get.to(Login());
                       },
                       icon: Image.asset('assets/images/login/logo.png',
                           width: 30, height: 30),
@@ -109,10 +104,7 @@ class _Registration extends State<Registration> {
                           TextButton(
                             onPressed: () {
                               culercash();
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Register()));
+                              Get.to(RegisterScreen());
                             },
                             child: Caption1(
                               color: Colors.cyan,

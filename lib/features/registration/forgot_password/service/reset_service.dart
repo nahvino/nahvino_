@@ -1,11 +1,16 @@
 import 'dart:convert';
 import 'package:Nahvino/config/main_config.dart';
 import 'package:Nahvino/features/registration/forgot_password/config/reset_config.dart';
+import 'package:Nahvino/features/registration/forgot_password/model/CheckQuModel.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ResetService {
+  GetStorage box = GetStorage();
+
   static var client = http.Client();
   bool validateResponse(http.Response response) {
     var data = json.decode(response.body);
@@ -66,12 +71,16 @@ class ResetService {
     );
     debugPrint(response.body.toString());
     if (validateResponse(response)) {
-      return json.decode(response.body);
+      CheckQuModel resatmodel =
+      CheckQuModel.fromJson(json.decode(response.body));
+      box.write("data", resatmodel.data);
+      print(box.read("data"));
+      return resatmodel;
     }
     return false;
   }
 
-  Future resetpassword(String data, String passwordController) async {
+  Future resetpassword( String userid,String passwordController) async {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
     };
@@ -80,7 +89,7 @@ class ResetService {
       url,
       headers: requestHeaders,
       body: jsonEncode(
-          {"id": data.toString(), "newPassword": passwordController}),
+          {"id": userid, "newPassword": passwordController}),
     );
     debugPrint(response.body.toString());
     if (validateResponse(response)) {

@@ -22,11 +22,13 @@ class ChatJoinGroupController extends GetxController {
     add_request_join_group_model = await GetAddRequestJoinGroupService.join_service(userid,id);
     update();
   }
-  get_rquset( ) async{
+  get_rquset() async{
   SharedPreferences preferences =
       await SharedPreferences.getInstance();
   userId.value=(await preferences.getString("userId"))!;
-    start_service(userId.value, members_list_controller.idgrup.value);
+  print(userId.value);
+  print(members_list_controller.idgrup.value);
+    start_service(userId.value, members_list_controller.info!.data!.id!);
 
 
   }

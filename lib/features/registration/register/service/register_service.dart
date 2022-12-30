@@ -49,7 +49,7 @@ class RegisterService {
   Future Register(
     String usernameController,
     String passwordController,
-    String securityQuestionselected,
+    String? securityQuestionselected,
     String sqAnswerController,
   ) async {
     Map<String, String> requestHeaders = {

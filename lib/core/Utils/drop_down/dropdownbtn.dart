@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
 class DrapDoonButton extends StatelessWidget {
-  DrapDoonButton({Key? key, this.onChanged}) : super(key: key);
+  DrapDoonButton({Key? key, this.onChanged,  this.value}) : super(key: key);
   final ValueChanged? onChanged;
+  final String? value;
 
   List<DropdownMenuItem<String>> listDrap = [];
 
@@ -116,6 +117,7 @@ class DrapDoonButton extends StatelessWidget {
           ),
           items: listDrap,
           onChanged: onChanged,
+          value: value,
         ),
       ),
     );

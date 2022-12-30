@@ -18,8 +18,9 @@ class GetAddRequestJoinGroupService {
       AddRequestJoinGroupModel add_request_join_group_model =
       AddRequestJoinGroupModel.fromJson(json.decode(response.body));
       return add_request_join_group_model;
-    } else {
-      throw Exception('Failed to load album');
     }
+    // else {
+    //   throw Exception('Failed to load album');
+    // }
   }
 }

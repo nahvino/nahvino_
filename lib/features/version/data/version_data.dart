@@ -1,6 +1,7 @@
 import 'package:Nahvino/core/Utils/Button/Button.dart';
 import 'package:Nahvino/features/my_tabs/main/screen/tabs.dart';
 import 'package:Nahvino/features/registration/main/screen/registration.dart';
+import 'package:Nahvino/features/splash/screen/intro_screen.dart';
 import 'package:Nahvino/features/version/service/version_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -54,12 +55,17 @@ class VersionData extends GetxController {
   checklogin() async {
     //  await Future.delayed(Duration(seconds: 3));
     preferences = await SharedPreferences.getInstance();
+    bool showIntro = preferences?.getBool("shouldShowIntro") ?? true;
     String? token = preferences!.getString("token");
-    if (token != null) {
-      Get.offAll(MyTabs());
-    } else {
-      Get.offAll(Registration());
-    }
+    // if(showIntro){
+    //   Get.offAll(IntroScreen());
+    // }else {
+      if (token != null) {
+        Get.offAll(MyTabs());
+      } else {
+        Get.offAll(Registration());
+      }
+   // }
   }
 
   checkVersion() {

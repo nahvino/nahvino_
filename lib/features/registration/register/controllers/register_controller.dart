@@ -6,13 +6,14 @@ import '../../add_introduced/screen/add_introduced.dart';
 import '../service/register_service.dart';
 
 class RegisterController extends GetxController {
-  RxBool obscurePasswordVisibility = true.obs;
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   late RegisterService? serregister;
   TextEditingController passwordController = TextEditingController();
   TextEditingController usernameController = TextEditingController();
   TextEditingController sqAnswerController = TextEditingController();
   String? securityQuestionselected = null;
-
+  RxString Questionselected  = "1".obs;
+  RxBool animationShow =false.obs;
   late SharedPreferences logindata;
 
   @override
@@ -27,16 +28,21 @@ class RegisterController extends GetxController {
     sqAnswerController.clear();
   }
 
+  test(){
+    animationShow.value = true;
+  }
+
   register() async {
+
     serregister?.Register(usernameController.text, passwordController.text,
-            securityQuestionselected as String, sqAnswerController.text)
+        Questionselected!.value, sqAnswerController.text)
         .then((response) async {
       if (response != false) {
         logindata = await SharedPreferences.getInstance();
         await logindata.setString(
             "token", response['data']['userToken']['token']);
         await logindata.setString("userId", response['data']['id']);
-
+        animationShow.value = true;
         Get.snackbar(
           "خوش امدید",
           '',
@@ -46,7 +52,10 @@ class RegisterController extends GetxController {
 
         Get.offAll(AddIntroduced());
       } else {
+        animationShow.value = false;
+
         Get.snackbar(
+
           response['message'].toString(),
           '',
           icon: Icon(Icons.notifications, color: Colors.white),

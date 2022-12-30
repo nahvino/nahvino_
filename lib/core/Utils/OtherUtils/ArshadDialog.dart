@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../Text/TextField.dart';
 import '../Text/Text.dart';
 /*
 class BargDialog extends AlertDialog(
@@ -163,11 +162,11 @@ class ArshadDialog extends StatelessWidget {
                           Container(
                             child: Text("ارشد شما در حال حاضر"),
                           ),
-                          TextSearch(
-                            hint: 'جستجوی کاربر',
-                            prefixIcon: Icon(Icons.search),
-                            suffixIcon: null,
-                          ),
+                          // TextSearch(
+                          //   hint: 'جستجوی کاربر',
+                          //   prefixIcon: Icon(Icons.search),
+                          //   suffixIcon: null,
+                          // ),
                           Padding(
                             padding:
                                 EdgeInsets.only(left: 8, right: 8, bottom: 8),

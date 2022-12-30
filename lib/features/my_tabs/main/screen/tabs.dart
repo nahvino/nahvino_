@@ -141,7 +141,7 @@ class _MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
           duration: Duration(milliseconds: 200),
         ),
         navBarStyle:
-            NavBarStyle.style14, // Choose the nav bar style with this property.
+            NavBarStyle.style7, // Choose the nav bar style with this property.
       ),
     );
   }

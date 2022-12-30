@@ -50,6 +50,8 @@ class ViewProfileController extends GetxController {
       profilerequest();
     } else {
       readDatas();
+      print("/*/*/*/*/*/");
+      print(box.read('imageUrl'));
       update();
     }
   }
@@ -81,7 +83,7 @@ class ViewProfileController extends GetxController {
     bio.value = box.read('bio') ?? "";
     rank.value = box.read('rank') ?? 0;
     score.value = box.read('score') ?? 0;
-    imageUrl.value = box.read('imageUrl') ?? "";
+    imageUrl.value = box.read('imageUrl') ?? "null";
     identifierCode.value = box.read('identifierCode') ?? 0;
     parentId.value = box.read('parentId') ?? "";
     parentname.value = box.read('parentname') ?? "";

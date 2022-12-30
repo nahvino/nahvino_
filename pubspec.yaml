@@ -27,6 +27,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   lottie: ^1.1.0
   webview_flutter: ^2.0.9
+  #motion_tab_bar_v2: ^0.2.6
   # Google Icon
   font_awesome_flutter: ^9.2.0
   # State Management

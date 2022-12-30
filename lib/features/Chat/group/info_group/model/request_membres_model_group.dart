@@ -1,8 +1,8 @@
 class RequestMembresModelGroup {
   RequestMembresModelGroup({
-      this.data, 
-      this.statusCode, 
-      this.message,});
+    this.data,
+    this.statusCode,
+    this.message,});
 
   RequestMembresModelGroup.fromJson(dynamic json) {
     if (json['data'] != null) {
@@ -32,27 +32,31 @@ class RequestMembresModelGroup {
 
 class RequestData {
   RequestData({
-      this.id, 
-      this.userName, 
-      this.requesteDateTime, 
-      this.isAccsept,});
+    this.id,
+    this.userName,
+    this.dateTime,
+    this.requesteDateTime,
+    this.isAccsept,});
 
   RequestData.fromJson(dynamic json) {
     id = json['id'];
     userName = json['userName'];
-    requesteDateTime = json['requesteDateTime'];
+    dateTime = json['dateTime'];
+    requesteDateTime = json['requestDateTime'];
     isAccsept = json['isAccsept'];
   }
   int? id;
   String? userName;
+  String? dateTime;
   String? requesteDateTime;
-  dynamic isAccsept;
+  int? isAccsept;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['id'] = id;
     map['userName'] = userName;
-    map['requesteDateTime'] = requesteDateTime;
+    map['dateTime'] = dateTime;
+    map['requestDateTime'] = requesteDateTime;
     map['isAccsept'] = isAccsept;
     return map;
   }

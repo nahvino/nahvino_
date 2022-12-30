@@ -318,7 +318,7 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
                                           'customCacheKey',
                                           stalePeriod: Duration(days: 7),
                                           maxNrOfCacheObjects: 100)),
-                                      imageUrl: MainConfig.fileurl +
+                                      imageUrl:
                                           resultResponseViewProfileUesr[
                                               'parentImageUrl']!,
                                       imageBuilder: (context, imageProvider) =>

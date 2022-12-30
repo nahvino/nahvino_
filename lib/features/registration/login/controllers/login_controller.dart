@@ -40,6 +40,7 @@ class LoginController extends GetxController {
         await logindata.setString(
             "token", response['data']['userToken']['token']);
         await logindata.setString("userId", response['data']['id']);
+        isApiCallProcess.value = true;
         Get.snackbar(
           'خوش آمدید',
           '',
