@@ -1,5 +1,4 @@
 
-import 'package:Nahvino/features/Chat/group/create_group/screen/page3_group_screen.dart';
 import 'package:Nahvino/features/Chat/group/create_group/service/create_group.dart';
 import 'package:Nahvino/features/my_tabs/main/screen/tabs.dart';
 import 'package:flutter/material.dart';
@@ -92,14 +91,22 @@ class CreateGroupController extends GetxController {
     update();
   }
 
-  nextOne() {
+  create() {
     print(rulscontroller);
     if (!formKey.currentState!.validate()) {
-      print("1");
     } else {
       uploadImage();
-      Get.to(Page3Group());
+      if (!formKey1.currentState!.validate()) {
+        print("1");
+      } else {
+        createGroup();
+        namecontroller.clear();
+        rulscontroller.clear();
+        gholghrarcontroller.clear();
+
+      }
     }
+
   }
   // nextOne() {
   //   print(rulscontroller);
@@ -118,14 +125,6 @@ class CreateGroupController extends GetxController {
     //
     // }
   }
-  nextthree(){
-    if (!formKey1.currentState!.validate()) {
-      print("1");
-    } else {
-     createGroup();
-      print("2");
 
 
-    }
-  }
 }

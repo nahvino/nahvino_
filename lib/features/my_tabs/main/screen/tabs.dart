@@ -141,7 +141,7 @@ class _MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
           duration: Duration(milliseconds: 200),
         ),
         navBarStyle:
-            NavBarStyle.style7, // Choose the nav bar style with this property.
+            NavBarStyle.style6, // Choose the nav bar style with this property.
       ),
     );
   }
@@ -174,16 +174,16 @@ class _MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
         activeColorPrimary: CupertinoColors.white,
         inactiveColorPrimary: CupertinoColors.white,
       ),
-       PersistentBottomNavBarItem(
-        title: AppLocalizations.of(context)!.translate(
-          'Chat',
-        ),
-        iconSize: 20,
-        icon: Icon(CupertinoIcons.chat_bubble),
-        textStyle: TextStyle(fontSize: 12, fontFamily: 'Vazirmatn_Light'),
-        activeColorPrimary: CupertinoColors.white,
-        inactiveColorPrimary: CupertinoColors.white,
-      ),
+      //  PersistentBottomNavBarItem(
+      //   title: AppLocalizations.of(context)!.translate(
+      //     'Chat',
+      //   ),
+      //   iconSize: 20,
+      //   icon: Icon(CupertinoIcons.chat_bubble),
+      //   textStyle: TextStyle(fontSize: 12, fontFamily: 'Vazirmatn_Light'),
+      //   activeColorPrimary: CupertinoColors.white,
+      //   inactiveColorPrimary: CupertinoColors.white,
+      // ),
     ];
   }
 
@@ -192,7 +192,7 @@ class _MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
       DeveloperTab(),
       ProfileTab(),
       ChatsTab(),
-      ChatTab(),
+   //   ChatTab(),
     ];
   }
 }

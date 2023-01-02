@@ -1,5 +1,5 @@
 import 'package:Nahvino/core/Utils/Text/Text.dart';
-import 'package:Nahvino/core/shared/presentation/controllers/getx/Utils/password_controller.dart';
+import 'package:Nahvino/core/shared/presentation/controllers/Utils/password_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -27,6 +27,8 @@ class TextPassReAndLog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
+
     final alphanumeric = RegExp("[A-Z a-z 0-9]");
     final alph = RegExp("[a-z]");
     final alpha = RegExp("[A-Z]");
@@ -80,7 +82,7 @@ class TextPassReAndLog extends StatelessWidget {
                 }
                 return null;
               },
-              style: TextStyle(fontSize: 14, fontFamily: 'Vazirmatn_Medium'),
+              style: TextStyle(fontSize: 14, fontFamily: 'Vazirmatn_Medium',color: theme.secondaryHeaderColor,),
               decoration: InputDecoration(
                 hintText: hint,
                 suffix: suffix,

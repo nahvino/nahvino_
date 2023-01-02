@@ -25,7 +25,7 @@ class Login extends StatelessWidget {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       body: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
@@ -47,7 +47,7 @@ class Login extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           SizedBox(
-                            height: height * 0.38,
+                            height: height * 0.31,
                             child: Card(
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.only(
@@ -59,12 +59,6 @@ class Login extends StatelessWidget {
                                 padding: EdgeInsets.only(top: 10, bottom: 10),
                                 child: Column(
                                   children: [
-                                    // Center(
-                                    //   child: Lottie.asset(
-                                    //       'assets/anim/login/key-login.json',
-                                    //       height: 150,
-                                    //       width: 150),
-                                    // ),
                                     EnglishTextFilde(
                                       hint:
                                           AppLocalizations.of(context)!.translate(
@@ -89,6 +83,7 @@ class Login extends StatelessWidget {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: [
+                                        ///باتن شیت فراموشی رمز عبور
                                         TextButton(
                                           onPressed: () {
                                             showModalBottomSheet(

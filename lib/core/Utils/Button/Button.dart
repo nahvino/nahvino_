@@ -21,7 +21,7 @@ class Buttonfull extends StatelessWidget {
         autofocus: false,
         elevation: 0,
         onPressed: onPressed,
-        tooltip: "می توانید پروفایل را وایرش کنید",
+      //  tooltip: "می توانید پروفایل را وایرش کنید",
         // shape:
         //   RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
         //padding: EdgeInsets.all(0.0),

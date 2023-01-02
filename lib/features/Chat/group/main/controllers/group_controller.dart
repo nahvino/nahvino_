@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 import 'package:Nahvino/features/Chat/group/info_group/controllers/info_group_controller.dart';
 import 'package:Nahvino/features/Chat/group/main/model/other_groups_model.dart';
@@ -32,6 +33,7 @@ class GroupController extends GetxController {
     super.onInit();
     GroupConnection();
     getMyData();
+
   }
 
   Future getMyData() async {
@@ -79,4 +81,6 @@ class GroupController extends GetxController {
       args: [UserId],
     );
   }
+
+
 }

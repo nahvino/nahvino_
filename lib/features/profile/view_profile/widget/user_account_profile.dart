@@ -44,6 +44,7 @@ class UserAcconutProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     ViewProfileController databox = Get.put(ViewProfileController());
@@ -51,9 +52,8 @@ class UserAcconutProfile extends StatelessWidget {
 
     return Obx(() {
   return Column(children: [
-      Card(
+      Container(
         margin: EdgeInsets.only(bottom: 6),
-        elevation: 0,
         child: Padding(
           padding: const EdgeInsets.all(12.0),
           child: Column(
@@ -93,12 +93,12 @@ class UserAcconutProfile extends StatelessWidget {
                               databox.namealias.value == ""
                               ? Callout(
                             text: "مهمان",
-                          //  color: Colors.black38,
+                            color: theme.secondaryHeaderColor,
                             textAlign: TextAlign.start,
                           )
                               : Subhead(
                             text: databox.namealias.value,
-                           // color: Colors.teal,
+                            color: theme.secondaryHeaderColor,
                             textAlign: TextAlign.start,
                           ),
                           SizedBox(
@@ -113,7 +113,7 @@ class UserAcconutProfile extends StatelessWidget {
                                     borderRadius:
                                     new BorderRadius.circular(8.0),
                                     border: Border.all(
-                                        color: Colors.black26,
+                                        color: theme.secondaryHeaderColor,
                                         width: 1)),
                                 child: Row(
                                   mainAxisAlignment:
@@ -131,7 +131,7 @@ class UserAcconutProfile extends StatelessWidget {
                                           borderRadius:
                                           BorderRadius.circular(50),
                                           border: Border.all(
-                                              color: Colors.black26,
+                                              color: theme.secondaryHeaderColor,
                                               width: 1)),
                                       child: Callout(
                                         text: ranksadad[
@@ -145,7 +145,7 @@ class UserAcconutProfile extends StatelessWidget {
                                     ),
                                     Callout(
                                       text: ranks[databox.rank.value],
-                                      color: Colors.black,
+                                      color: theme.secondaryHeaderColor,
                                       textAlign: TextAlign.left,
                                     ),
                                   ],
@@ -183,7 +183,7 @@ class UserAcconutProfile extends StatelessWidget {
                           Callout(
                             text: databox.score.value
                                 .toString() /*resultResponse!.score.toString()*/,
-                            color: Colors.black,
+                            color: theme.secondaryHeaderColor,
                             textAlign: TextAlign.left,
                           ),
                         ],
@@ -274,7 +274,7 @@ class UserAcconutProfile extends StatelessWidget {
                                   ),
                                   Callout(
                                     text: databox.parentname.value,
-                               //     color: Colors.teal,
+                                    color: theme.secondaryHeaderColor,
                                     textAlign: TextAlign.left,
                                   ),
                                 ],
@@ -418,12 +418,12 @@ class UserAcconutProfile extends StatelessWidget {
                     text: AppLocalizations.of(context)!.translate(
                       'Your_biography',
                     )!,
-                    color: Colors.black38,
+                    color: theme.secondaryHeaderColor,
                     textAlign: TextAlign.start,
                   )
                       : Callout(
                     text: databox.bio.value,
-                    color: Colors.black,
+                    color: theme.secondaryHeaderColor,
                     textAlign: TextAlign.start,
                   )),
               SizedBox(
@@ -433,7 +433,7 @@ class UserAcconutProfile extends StatelessWidget {
                 text: AppLocalizations.of(context)!.translate(
                   'Edit Profile',
                 )!,
-                onPressed: () => Get.to(EditProfileScreen()),
+                onPressed: () => Get.to(()=> EditProfileScreen()),
                 color: Colors.white,
               )
             ],

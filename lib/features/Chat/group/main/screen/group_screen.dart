@@ -13,6 +13,7 @@ import 'package:get/get.dart';
 import 'package:Nahvino/config/main_config.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:lottie/lottie.dart';
 
 class Group extends GetView<GroupController> {
   Group({Key? key}) : super(key: key);
@@ -34,7 +35,7 @@ class Group extends GetView<GroupController> {
         GetBuilder<GroupController>(builder: (logic) {
           return Column(
             children: [
-              ListView.builder(
+              (group_controller.group_model != null) ? ListView.builder(
                 shrinkWrap: true,
                 itemCount: home_group_controller.serchtext.value != "" &&
                         home_group_controller.isInSearchMode.value
@@ -46,12 +47,12 @@ class Group extends GetView<GroupController> {
                     : group_controller.groups.length,
                 itemBuilder: myGroups,
                 physics: NeverScrollableScrollPhysics(),
-              ),
+              ) : Container(),
             ],
           );
         }),
         GetBuilder<GroupController>(builder: (logic) {
-          return ListView.builder(
+          return (group_controller.other_group_model != null) ? ListView.builder(
             shrinkWrap: true,
             itemCount: home_group_controller.serchtext.value != "" &&
                     home_group_controller.isInSearchMode.value
@@ -64,6 +65,8 @@ class Group extends GetView<GroupController> {
             //group_controller.other_groups.length
             itemBuilder: OtherGroups,
             physics: NeverScrollableScrollPhysics(),
+          ) : Lottie.asset('assets/anim/chat/chat_loading.json',
+              height: 450, width: 600
           );
         }),
       ],
@@ -72,21 +75,23 @@ class Group extends GetView<GroupController> {
 
   //گروه خودم
   Widget myGroups(context, index) {
+    var theme = Theme.of(context);
+
     return Column(
       children: [
         InkWell(
           onTap: (() {
-            chat_group_controller.serach_mood.value= false;
-
+            chat_group_controller.serach_mood.value = false;
+            chat_group_controller.select_mood.value = false;
             infoGroupController
                 .start_service(group_controller.groups[index].data.id!);
             membersListController
                 .start_service(group_controller.groups[index].data.id!);
-            Get.to(()=>ChatGroup());
+            Get.to(() => ChatGroup());
             chat_group_controller.appbarname.value =
-            group_controller.groups[index].data.name!;
+                group_controller.groups[index].data.name!;
             chat_group_controller.appbarimage.value =
-            group_controller.groups[index].data.imageUrl!;
+                group_controller.groups[index].data.imageUrl!;
             print(chat_group_controller.appbarimage.value);
           }),
           child: Padding(
@@ -145,6 +150,7 @@ class Group extends GetView<GroupController> {
                               Row(
                                 children: [
                                   Footnate(
+                                    color: theme.secondaryHeaderColor,
                                     text:
                                         group_controller.group_model?.data.name,
                                   ),
@@ -152,12 +158,14 @@ class Group extends GetView<GroupController> {
                                     width: 12,
                                   ),
                                   Footnate(
+                                    color: theme.secondaryHeaderColor,
                                     text:
                                         AppLocalizations.of(context)!.translate(
                                       'Members',
                                     )!,
                                   ),
                                   Caption1(
+                                    color: theme.secondaryHeaderColor,
                                     text: group_controller.group_model?.data
                                             .numberMessageNoSeen ??
                                         "0",
@@ -166,12 +174,14 @@ class Group extends GetView<GroupController> {
                                     width: 12,
                                   ),
                                   Footnate(
+                                    color: theme.secondaryHeaderColor,
                                     text:
                                         AppLocalizations.of(context)!.translate(
                                       'Audience',
                                     )!,
                                   ),
                                   Caption1(
+                                    color: theme.secondaryHeaderColor,
                                     text: group_controller.groups[index].data
                                             .numberMessageNoSeen ??
                                         "0",
@@ -184,12 +194,14 @@ class Group extends GetView<GroupController> {
                               Row(
                                 children: [
                                   Caption1(
+                                    color: theme.secondaryHeaderColor,
                                     text:
                                         AppLocalizations.of(context)!.translate(
                                       'Boss',
                                     )!,
                                   ),
                                   Caption1(
+                                      color: theme.secondaryHeaderColor,
                                       text: group_controller
                                           .groups[index].data.ownerName),
                                 ],
@@ -210,14 +222,15 @@ class Group extends GetView<GroupController> {
                             ),
                             child: Center(
                               child: Footnate(
+                                color: theme.secondaryHeaderColor,
                                 text: "12",
                                 //group_controller.group_model?.data.lastMessage ?? "0",
-                                color: Colors.white,
                               ),
                             ),
                           ),
                         ),
                         Caption1(
+                          color: theme.secondaryHeaderColor,
                           text: group_controller
                                   .groups[index].data.lastMessageDateTime ??
                               "00:00",
@@ -243,17 +256,20 @@ class Group extends GetView<GroupController> {
   }
 
   Widget OtherGroups(context, index) {
+    var theme = Theme.of(context);
+
     return Column(
       children: [
         InkWell(
           onTap: (() {
-            chat_group_controller.serach_mood.value= false;
+            chat_group_controller.serach_mood.value = false;
+            chat_group_controller.select_mood.value = false;
             print(group_controller.other_groups[index].id!.toInt());
-            infoGroupController
-                .start_service(group_controller.other_groups[index].id!.toInt());
-            membersListController
-                .start_service(group_controller.other_groups[index].id!.toInt());
-            Get.to(()=>ChatGroup());
+            infoGroupController.start_service(
+                group_controller.other_groups[index].id!.toInt());
+            membersListController.start_service(
+                group_controller.other_groups[index].id!.toInt());
+            Get.to(() => ChatGroup());
             chat_group_controller.appbarname.value =
                 group_controller.other_groups[index].name.toString();
             chat_group_controller.appbarimage.value =
@@ -289,6 +305,7 @@ class Group extends GetView<GroupController> {
                               Row(
                                 children: [
                                   Footnate(
+                                    color: theme.secondaryHeaderColor,
                                     text: group_controller
                                         .other_groups[index].name,
                                   ),
@@ -296,12 +313,15 @@ class Group extends GetView<GroupController> {
                                     width: 12,
                                   ),
                                   Footnate(
+                                    color: theme.secondaryHeaderColor,
+
                                     text:
                                         AppLocalizations.of(context)!.translate(
                                       'Members',
                                     )!,
                                   ),
                                   Caption1(
+                                    color: theme.secondaryHeaderColor,
                                     text: group_controller
                                         .other_groups[index].count
                                         .toString(),
@@ -310,12 +330,14 @@ class Group extends GetView<GroupController> {
                                     width: 12,
                                   ),
                                   Footnate(
+                                    color: theme.secondaryHeaderColor,
                                     text:
                                         AppLocalizations.of(context)!.translate(
                                       'Audience',
                                     )!,
                                   ),
                                   Caption1(
+                                    color: theme.secondaryHeaderColor,
                                     text: "10",
                                   ),
                                 ],
@@ -326,12 +348,16 @@ class Group extends GetView<GroupController> {
                               Row(
                                 children: [
                                   Caption1(
+                                    color: theme.secondaryHeaderColor,
+
                                     text:
                                         AppLocalizations.of(context)!.translate(
                                       'Boss',
                                     )!,
                                   ),
                                   Caption1(
+                                    color: theme.secondaryHeaderColor,
+
                                     text: group_controller
                                         .other_groups[index].ownerName,
                                   ),
@@ -353,15 +379,18 @@ class Group extends GetView<GroupController> {
                             ),
                             child: Center(
                               child: Footnate(
+                                color: theme.secondaryHeaderColor,
+
                                 text: group_controller.other_groups[index]
                                         .numberMessageNoSeen ??
                                     "10",
-                                color: Colors.white,
                               ),
                             ),
                           ),
                         ),
                         Caption1(
+                          color: theme.secondaryHeaderColor,
+
                           text: group_controller
                               .other_groups[index].lastMessageDateTime
                               .toString(),

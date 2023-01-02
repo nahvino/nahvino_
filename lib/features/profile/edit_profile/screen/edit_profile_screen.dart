@@ -25,17 +25,17 @@ class EditProfileScreen extends GetView<EditProfileController> {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     return Scaffold(
-      backgroundColor: Colors.grey[200],
+      backgroundColor: theme.backgroundColor,
       appBar: AppBar(
-        backgroundColor: Colors.cyan.shade800,
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
           },
           icon: Icon(
             Iconsax.arrow_right,
-            color: Colors.black,
+            color: theme.secondaryHeaderColor,
           ),
           //replace with our own icon data.
         ),
@@ -53,7 +53,7 @@ class EditProfileScreen extends GetView<EditProfileController> {
                 IconButton(
                     icon: Icon(
                       Iconsax.save_2,
-                      color: Colors.black,
+                      color: theme.secondaryHeaderColor,
                     ),
                     onPressed: () {
                       if (!_formKey.currentState!.validate()) {
@@ -97,12 +97,17 @@ class EditProfileScreen extends GetView<EditProfileController> {
                                                   "" ||
                                               editcontroller
                                                       .databox.imageUrl.value ==
-                                                  "null")
-                                          ? Icon(Icons.person)
+                                                  "null" ||
+                                              editcontroller
+                                                      .databox.imageUrl.value ==
+                                                  null)
+                                          ? Icon(
+                                              Icons.person,
+                                              color: theme.secondaryHeaderColor,
+                                            )
                                           : Image.network(
-                                              MainConfig.fileurl +
-                                                  editcontroller
-                                                      .databox.imageUrl.value,
+                                              editcontroller
+                                                  .databox.imageUrl.value,
                                               fit: BoxFit.cover)
                                       : Image.file(
                                           File(editcontroller.imagePath.value),
@@ -120,8 +125,14 @@ class EditProfileScreen extends GetView<EditProfileController> {
                                             editcontroller
                                                     .databox.imageUrl.value ==
                                                 "null")
-                                        ? Icon(Icons.add)
-                                        : Icon(Icons.edit),
+                                        ? Icon(
+                                            Icons.add,
+                                            color: theme.secondaryHeaderColor,
+                                          )
+                                        : Icon(
+                                            Icons.edit,
+                                            color: theme.secondaryHeaderColor,
+                                          ),
                                     menuItems: <FocusedMenuItem>[
                                       FocusedMenuItem(
                                         title: Footnate(
@@ -130,7 +141,10 @@ class EditProfileScreen extends GetView<EditProfileController> {
                                             'Camera',
                                           ),
                                         ),
-                                        trailingIcon: Icon(Icons.camera),
+                                        trailingIcon: Icon(
+                                          Icons.camera,
+                                          color: theme.secondaryHeaderColor,
+                                        ),
                                         onPressed: () async {
                                           final XFile? photo =
                                               await editcontroller.picker
@@ -153,7 +167,10 @@ class EditProfileScreen extends GetView<EditProfileController> {
                                               'Gallery',
                                             ),
                                           ),
-                                          trailingIcon: Icon(Icons.storage),
+                                          trailingIcon: Icon(
+                                            Icons.storage,
+                                            color: theme.secondaryHeaderColor,
+                                          ),
                                           onPressed: () async {
                                             final XFile? photo =
                                                 await editcontroller.picker
@@ -184,8 +201,10 @@ class EditProfileScreen extends GetView<EditProfileController> {
                                         editcontroller.imageuris.value = "";
                                       },
                                       icon: Image.asset(
-                                          alignment: Alignment.center,
-                                          'assets/images/icon/trash.png'),
+                                        alignment: Alignment.center,
+                                        'assets/images/icon/trash.png',
+                                        color: theme.secondaryHeaderColor,
+                                      ),
                                     ),
                                     Caption2(
                                       text: AppLocalizations.of(context)!
@@ -201,7 +220,10 @@ class EditProfileScreen extends GetView<EditProfileController> {
                                     IconButton(
                                         onPressed: () =>
                                             editcontroller.imagePath.value = "",
-                                        icon: Icon(Icons.close)),
+                                        icon: Icon(
+                                          Icons.close,
+                                          color: theme.secondaryHeaderColor,
+                                        )),
                                     Caption2(
                                       text: 'Cancel',
                                     ),
@@ -248,11 +270,7 @@ class EditProfileScreen extends GetView<EditProfileController> {
                             color: Colors.cyan,
                           ),
                           controller: editcontroller.tarikhController,
-                          hint: AppLocalizations.of(context)!.translate(
-                                'tark_ct',
-                              )! +
-                              "      " +
-                              editcontroller.databox.dateTimeAbandon.value,
+                          hint: editcontroller.databox.dateTimeAbandon.value,
                           ontap: () async {
                             editcontroller.selectDate(context);
                           });
@@ -260,8 +278,6 @@ class EditProfileScreen extends GetView<EditProfileController> {
                     SizedBox(
                       height: 10,
                     ),
-                    //ToDO Assssd
-
                     TextProfileBio(
                       prefixIcon: Icon(
                         Iconsax.note_text,

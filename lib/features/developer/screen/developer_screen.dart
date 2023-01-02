@@ -6,10 +6,10 @@ import 'package:Nahvino/core/Utils/Button/Button.dart';
 import 'package:Nahvino/core/error/screen/report_screen.dart';
 import 'package:Nahvino/core/shared/Services/notification_service.dart';
 import 'package:Nahvino/features/Chat/group/chat_group/widget/requset_group_widght.dart';
+import 'package:Nahvino/features/profile/view_profile/controllers/user_abandon_controller.dart';
 import 'package:Nahvino/features/settings/menu/controllers/menu_controllers.dart';
-import 'package:Nahvino/features/version/screen/info_screen.dart';
-import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:dart_ipify/dart_ipify.dart';
+import 'package:dart_ping/dart_ping.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -22,6 +22,7 @@ import 'dart:ui' as ui;
 class DeveloperScreen extends StatelessWidget {
   DeveloperScreen({Key? key}) : super(key: key);
   MenuController menu_controller = Get.put(MenuController());
+  UserAbandonController un = Get.put(UserAbandonController());
   final GlobalKey _key = GlobalKey();
   String? token;
   String? id;
@@ -126,41 +127,55 @@ class DeveloperScreen extends StatelessWidget {
                 //     const Duration(minutes: 1), helloAlarmID, printHello);
                 Timer(Duration(seconds: 10), () {
                   print("Yeah, this line is printed after 3 seconds");
-                   NotificationService().showNotifications();
-
+                  NotificationService().showNotifications();
                 });
                 print("OK");
               },
             ),
             SizedBox(
               height: 10,
-            ),
-            Buttonfull(
-              text: "info",
+            ), Buttonfull(
+              text: "درخوسات",
               color: Colors.white,
               onPressed: () async {
-               Get.to( InfoScreen());
+    showModalBottomSheet(
+    isScrollControlled: true,
+    //backgroundColor: theme.backgroundColor,
+    shape: const RoundedRectangleBorder(
+    borderRadius: BorderRadius.only(
+    topLeft: Radius.circular(20.0),
+    topRight: Radius.circular(20.0),
+    ),
+    ),
+    context: context,
+    builder: (context) => RequsetGroupWidget());
+
               },
             ),
             SizedBox(
               height: 10,
             ),
+
+            ///تست نوتیف
             Buttonfull(
-              text: "درخواست عضویت",
+              text: "پینگ",
               color: Colors.white,
               onPressed: () async {
-                //RequsetGroupWidget().request_membership(context);
-                showModalBottomSheet(
-                    isScrollControlled: true,
-                    //backgroundColor: theme.backgroundColor,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20.0),
-                        topRight: Radius.circular(20.0),
-                      ),
-                    ),
-                    context: context,
-                    builder: (context) => RequsetGroupWidget());
+                // Create ping object with desired args
+                Socket.connect("185.8.175.198", 2000, timeout: Duration(seconds: 5)).then((socket){
+                  print("Success");
+                  socket.destroy();
+                }).catchError((error){
+                  print("Exception on Socket "+error.toString());
+                });
+                final ping = Ping('185.8.175.198', count: 5);
+                // Begin ping process and listen for output
+                print('Running command: ${ping.command}');
+                ping.stream.listen((event) {
+                  print("ping: $event");
+                });
+
+
               },
             ),
           ],

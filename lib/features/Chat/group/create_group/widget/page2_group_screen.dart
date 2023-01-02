@@ -6,8 +6,8 @@ import 'package:Nahvino/features/Chat/group/create_group/controllers/create_grou
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class Page2Group extends StatelessWidget {
-  Page2Group({Key? key}) : super(key: key);
+class SelectCreateGroupWidget extends StatelessWidget {
+  SelectCreateGroupWidget({Key? key}) : super(key: key);
   CreateGroupController creategroupcontroller =
       Get.put(CreateGroupController());
 

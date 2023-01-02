@@ -1,5 +1,5 @@
 import 'package:Nahvino/core/Utils/Text/Text.dart';
-import 'package:Nahvino/core/shared/presentation/controllers/getx/Utils/english_controller.dart';
+import 'package:Nahvino/core/shared/presentation/controllers/Utils/english_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -31,6 +31,8 @@ class EnglishTextFilde extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
+
     final persian = RegExp(
         "[\u0600-\u0605 ؐ-ؚ\u061Cـ ۖ-\u06DD ۟-ۤ ۧ ۨ ۪-ۭ ً-ٕ ٟ ٖ-ٞ ٰ ، ؍ ٫ ٬ ؛ ؞ ؟ ۔ ٭ ٪ ؉ ؊ ؈ ؎ ؏ ۞ ۩ ؆ ؇ ؋ ٠۰ ١۱ ٢۲ ٣۳ ٤۴ ٥۵ ٦۶ ٧۷ ٨۸ ٩۹ ءٴ۽ آ أ ٲ ٱ ؤ إ ٳ ئ ا ٵ ٮ ب ٻ پ ڀ ة-ث ٹ ٺ ټ ٽ ٿ ج ڃ ڄ چ ڿ ڇ ح خ ځ ڂ څ د ذ ڈ-ڐ ۮ ر ز ڑ-ڙ ۯ س ش ښ-ڜ ۺ ص ض ڝ ڞ ۻ ط ظ ڟ ع غ ڠ ۼ ف ڡ-ڦ ٯ ق ڧ ڨ ك ک-ڴ ػ ؼ ل ڵ-ڸ م۾ ن ں-ڽ ڹ ه ھ ہ-ۃ ۿ ەۀ وۥ ٶ ۄ-ۇ ٷ ۈ-ۋ ۏ ى يۦ ٸ ی-ێ ې ۑ ؽ-ؿ ؠ ے ۓ \u061D]");
     final capital_letters = RegExp("[A-Z]");
@@ -81,7 +83,7 @@ class EnglishTextFilde extends StatelessWidget {
 
                 return null;
               },
-              style: TextStyle(fontSize: 14, fontFamily: 'Vazirmatn_Medium'),
+              style: TextStyle(fontSize: 14, fontFamily: 'Vazirmatn_Medium' ,color: theme.secondaryHeaderColor,),
               decoration: InputDecoration(
                 hintText: hint,
                 suffix: suffix,

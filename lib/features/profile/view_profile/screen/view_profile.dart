@@ -10,12 +10,14 @@ class ViewProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
+
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
+        backgroundColor: theme.backgroundColor,
           appBar: PreferredSize(
               preferredSize: const Size.fromHeight(50), child: AppBarProfile()),
-          backgroundColor: Colors.white,
           body: SafeArea(child: body(context))
           /*  isApiCallProgress
                   ? Center(

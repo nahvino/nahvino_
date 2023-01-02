@@ -14,6 +14,8 @@ class UserAbandonProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
+
     var width = MediaQuery
         .of(context)
         .size
@@ -25,8 +27,7 @@ class UserAbandonProfile extends StatelessWidget {
     return Obx(() {
       return Stack(
         children: [
-          Card(
-            elevation: 0,
+          Container(
             margin: EdgeInsets.symmetric(horizontal: 0, vertical: 6),
             child: Padding(
               padding: const EdgeInsets.all(12.0),
@@ -34,7 +35,7 @@ class UserAbandonProfile extends StatelessWidget {
                 children: [
                   Body(
                     textAlign: TextAlign.center,
-                    color: Colors.black87,
+                    color: theme.secondaryHeaderColor,
                     text: AppLocalizations.of(context)!.translate(
                       'Your_purity_until_this_moment',
                     )!,
@@ -58,12 +59,12 @@ class UserAbandonProfile extends StatelessWidget {
                               children: [
                                 Footnate(
                                   textAlign: TextAlign.center,
-                               //   color: Colors.cyan,
+                                  color: theme.secondaryHeaderColor,
                                   text: user_abandon_Controller.yaer.toString(),
                                 ),
                                 Caption2(
                                     textAlign: TextAlign.center,
-                               //     color: Colors.cyan,
+                                    color: theme.secondaryHeaderColor,
                                     text: AppLocalizations.of(context)!.translate(
                                       'Year',
                                     )!),
@@ -88,12 +89,12 @@ class UserAbandonProfile extends StatelessWidget {
                               children: [
                                 Footnate(
                                     textAlign: TextAlign.center,
-                                 //   color: Colors.cyan,
+                                    color: theme.secondaryHeaderColor,
                                     text: user_abandon_Controller.month
                                         .toString()),
                                 Caption2(
                                     textAlign: TextAlign.center,
-                                 //   color: Colors.cyan,
+                                   color: theme.secondaryHeaderColor,
                                     text: AppLocalizations.of(context)!.translate(
                                       'Month',
                                     )!),
@@ -118,12 +119,12 @@ class UserAbandonProfile extends StatelessWidget {
                               children: [
                                 Footnate(
                                     textAlign: TextAlign.center,
-                               //     color: Colors.cyan,
+                                    color: theme.secondaryHeaderColor,
                                     text: user_abandon_Controller.day
                                         .toString()),
                                 Caption2(
                                     textAlign: TextAlign.center,
-                                 //   color: Colors.cyan,
+                                  color:theme.secondaryHeaderColor,
                                     text:  AppLocalizations.of(context)!.translate(
                                       'Day',
                                     )!),

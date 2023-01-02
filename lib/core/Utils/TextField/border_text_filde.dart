@@ -20,6 +20,8 @@ class BorderTextFilde extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
+
     return TextFormField(
       maxLines: 3,
       minLines: 3,
@@ -27,7 +29,7 @@ class BorderTextFilde extends StatelessWidget {
       maxLength: 255,
       controller: controller,
       keyboardType: TextInputType.multiline,
-      style: TextStyle(fontSize: 14, fontFamily: 'Vazirmatn_Medium'),
+      style: TextStyle(fontSize: 14, fontFamily: 'Vazirmatn_Medium',color: theme.secondaryHeaderColor,),
       decoration: InputDecoration(
         border: OutlineInputBorder(),
         hintText: hint,

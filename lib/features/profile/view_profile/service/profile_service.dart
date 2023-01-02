@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:Nahvino/config/main_config.dart';
 import 'package:Nahvino/features/profile/view_profile/config/profile_config.dart';
 import 'package:Nahvino/features/profile/view_profile/data/view_profial_data.dart';
+import 'package:Nahvino/features/profile/view_profile/model/get_user_abandon_model.dart';
 import 'package:Nahvino/features/registration/main/screen/registration.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:http/http.dart' as http;
@@ -12,6 +13,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileService {
   static var client = http.Client();
+
   void showSnackBar({required String text}) {
     Get.snackbar(
       text,
@@ -40,9 +42,9 @@ class ProfileService {
     }
   }
 
-
   static Future getabandon() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
+
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
       'Authorization': "Bearer ${await preferences.getString("token")}"
@@ -54,12 +56,22 @@ class ProfileService {
       body: jsonEncode({"userId": await preferences.getString("userId")}),
     );
     debugPrint(response.body.toString());
+    if (response.statusCode == 200) {
+      GetUserAbandonModel getUserAbandonModel =
+          GetUserAbandonModel.fromJson(jsonDecode(response.body));
+      return getUserAbandonModel;
+    }
+    else {
+      return false;
+    }
 
+    /*
     if (response.statusCode == 200) {
       return json.decode(response.body);
     } else {
       return false;
     }
+    */
   }
 
   static Future GetLastVisit() async {

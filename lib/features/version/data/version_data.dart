@@ -1,4 +1,5 @@
 import 'package:Nahvino/core/Utils/Button/Button.dart';
+import 'package:Nahvino/features/my_tabs/main/screen/mytab.dart';
 import 'package:Nahvino/features/my_tabs/main/screen/tabs.dart';
 import 'package:Nahvino/features/registration/main/screen/registration.dart';
 import 'package:Nahvino/features/splash/screen/intro_screen.dart';
@@ -62,6 +63,7 @@ class VersionData extends GetxController {
     // }else {
       if (token != null) {
         Get.offAll(MyTabs());
+       // Get.offAll(MyTab());
       } else {
         Get.offAll(Registration());
       }

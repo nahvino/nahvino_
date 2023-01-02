@@ -4,7 +4,7 @@ import 'package:Nahvino/core/Utils/Text/Text.dart';
 import 'package:Nahvino/features/Chat/group/controllers/home_group_controller.dart';
 import 'package:Nahvino/features/Chat/private/screen/person.dart';
 import 'package:Nahvino/features/Chat/group/Widget/public_group_widget.dart';
-import 'package:Nahvino/features/Chat/group/create_group/screen/page1_group_screen.dart';
+import 'package:Nahvino/features/Chat/group/create_group/screen/create_group_screen.dart';
 import 'package:Nahvino/features/Chat/group/main/screen/group_screen.dart';
 import 'package:Nahvino/features/Chat/settings/chat_setting.dart';
 import 'package:Nahvino/features/Chat/settings/setting_global.dart';
@@ -22,9 +22,12 @@ class Chats extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
+
     return DefaultTabController(
       length: 2,
       child: Scaffold(
+        backgroundColor: theme.backgroundColor,
           floatingActionButton: FloatingActionButton(
               backgroundColor: Colors.cyan.shade800,
               child: Icon(Icons.group_add),
@@ -33,33 +36,60 @@ class Chats extends StatelessWidget {
             headerSliverBuilder:
                 (BuildContext context, bool innerBoxIsScrolled) {
               return <Widget>[
-                Obx(
-                  () => SliverAppBar(
+                SliverAppBar(
                     backgroundColor: Colors.cyan.shade800,
                     actions: [
                       Container(
                         child: IconButton(
                             onPressed: () {
+                              /*
                               home_group_controller.isInSearchMode.value =
                                   !home_group_controller.isInSearchMode.value;
                               home_group_controller.serchtext.value = "";
                               home_group_controller.update();
+                              */
                             },
                             icon: Icon(
-                                home_group_controller.isInSearchMode.value
-                                    ? Icons.close
-                                    : Icons.search)),
+                                Icons.search)),
                       ),
                       SizedBox(
                         width: 10,
                       ),
                     ],
-                    title: home_group_controller.isInSearchMode.value
-                        ? gowidget.searchmood(changed: (value) {
-                            home_group_controller.serchtext.value = value;
-                            home_group_controller.update();
-                          })
-                        : Subhead(
+                    title: /* home_group_controller.isInSearchMode.value
+                        ? Padding(
+                            padding: const EdgeInsets.only(top: 5),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.cyan.shade700,
+                                borderRadius: BorderRadius.circular(60),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.only(right: 19),
+                                child: TextFormField(
+                                  controller: home_group_controller.search_controller,
+                                  onChanged: (value) {
+                                    home_group_controller.serchtext.value =
+                                        value;
+                                    home_group_controller.update();
+                                  },
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontFamily: 'Vazirmatn_Medium',
+                                      color: Colors.white),
+                                  decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    hintStyle: TextStyle(
+                                        fontSize: 14,
+                                        fontFamily: 'Vazirmatn_Medium',
+                                        color: Colors.white),
+                                    hintText: "جستوجو",
+                                  ),
+                                ),
+                              ),
+                            ),
+                          )
+                        :*/ Subhead(
                             text: "چت نحوینو",
                           ),
                     leadingWidth: 60,
@@ -89,17 +119,19 @@ class Chats extends StatelessWidget {
                       tabs: [
                         Tab(
                             child: Row(
-                          children: [  Icon(
-                            Iconsax.people,
-                            color: Colors.white,
-                          ),
-
+                          children: [
+                            Icon(
+                              Iconsax.people,
+                              color: Colors.white,
+                            ),
                             SizedBox(
                               width: 3,
                             ),
-                            Text( AppLocalizations.of(context)!.translate(
-                              'group',
-                            )!,)
+                            Text(
+                              AppLocalizations.of(context)!.translate(
+                                'group',
+                              )!,
+                            )
                           ],
                         )),
                         Tab(
@@ -112,16 +144,16 @@ class Chats extends StatelessWidget {
                             SizedBox(
                               width: 3,
                             ),
-                            Text( AppLocalizations
-                                .of(context)!.translate(
-                              'private',
-                            )!,)
+                            Text(
+                              AppLocalizations.of(context)!.translate(
+                                'private',
+                              )!,
+                            )
                           ],
                         )),
                       ],
                     ),
                   ),
-                ),
               ];
             },
             body: TabBarView(

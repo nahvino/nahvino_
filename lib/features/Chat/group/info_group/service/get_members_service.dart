@@ -19,8 +19,6 @@ class GetMembersService {
       MembersModel membersModel =
           MembersModel.fromJson(json.decode(response.body));
       return membersModel;
-    } else {
-      throw Exception('Failed to load album');
     }
   }
 

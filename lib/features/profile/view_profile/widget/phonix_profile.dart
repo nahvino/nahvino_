@@ -48,6 +48,7 @@ class PhonixProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return Column(
@@ -67,9 +68,8 @@ class PhonixProfile extends StatelessWidget {
                 ],
               ),
             if (phoenix_Controller.phoenixResponse != null)
-              Card(
+              Container(
                 margin: EdgeInsets.symmetric(horizontal: 0, vertical: 6),
-                elevation: 0,
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: Column(

@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 class CustomTheme {
   // light
   static final lightTheme = ThemeData(
+    bottomSheetTheme: BottomSheetThemeData(backgroundColor:Colors.white ),
+
     appBarTheme: const AppBarTheme(
         backgroundColor: Colors.white,
         titleTextStyle: TextStyle(color: Colors.black),
@@ -17,8 +19,9 @@ class CustomTheme {
     drawerTheme: const DrawerThemeData(backgroundColor: Colors.white),
     
     inputDecorationTheme: InputDecorationTheme(
+      fillColor: Colors.black12,
+      hoverColor: Colors.black12,
       filled: true,
-      fillColor: Colors.transparent,
       hintStyle: TextStyle(color: Colors.grey.shade500),
       disabledBorder: InputBorder.none,
       border: OutlineInputBorder(
@@ -32,6 +35,7 @@ class CustomTheme {
     hoverColor: Colors.white,
     errorColor: Colors.red,
     secondaryHeaderColor: Colors.black,
+    primaryColorLight: Colors.white,
     backgroundColor: Colors.white,
     listTileTheme: const ListTileThemeData(
       textColor: Colors.black,
@@ -42,29 +46,34 @@ class CustomTheme {
 
   // dark
   static final darkTheme = ThemeData(
+bottomSheetTheme: BottomSheetThemeData(backgroundColor:Colors.black45 ),
     appBarTheme: const AppBarTheme(
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.black45,
         titleTextStyle: TextStyle(color: Colors.white),
         iconTheme: IconThemeData(color: Colors.white)),
     textTheme: textTheme,
     drawerTheme: const DrawerThemeData(
       backgroundColor: Colors.black,
     ),
-    inputDecorationTheme: const InputDecorationTheme(
+    inputDecorationTheme:  InputDecorationTheme(
+      fillColor: Colors.white10,
+      hoverColor: Colors.white10,
       filled: true,
-      disabledBorder: InputBorder.none,
+      hintStyle: TextStyle(color: Colors.grey.shade500),
+      labelStyle:  TextStyle(color: Colors.grey.shade500),
       border: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(15)),
           borderSide: BorderSide.none),
       focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.green, width: 2),
+          borderSide: BorderSide(color: Colors.white, width: 2),
           borderRadius: BorderRadius.all(Radius.circular(15))),
     ),
     hintColor: Colors.grey,
     hoverColor: Colors.grey.shade900,
     errorColor: Colors.red,
+    primaryColorDark: Colors.black45,
     secondaryHeaderColor: Colors.white,
-    backgroundColor: Colors.black,
+    backgroundColor: Colors.black87,
     listTileTheme: const ListTileThemeData(
       textColor: Colors.white,
       iconColor: Colors.white,

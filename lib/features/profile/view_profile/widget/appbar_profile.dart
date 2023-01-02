@@ -1,6 +1,6 @@
 import 'package:Nahvino/config/lang/App_localizations.dart';
 import 'package:Nahvino/core/Utils/Text/Text.dart';
-import 'package:Nahvino/core/shared/presentation/Widget/theme_switcher.dart';
+import 'package:Nahvino/core/shared/presentation/menu/widget/global_menu.dart';
 import 'package:Nahvino/features/profile/view_profile/controllers/profile_controller.dart';
 import 'package:Nahvino/features/profile/view_profile/data/view_profial_data.dart';
 import 'package:Nahvino/features/profile/view_profile/widget/popup_menu_profile.dart';
@@ -16,7 +16,6 @@ class AppBarProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(() {
       return AppBar(
-        backgroundColor: Colors.white,
         elevation: 0.1,
         title: Subhead(
           textAlign: TextAlign.right,
@@ -28,7 +27,6 @@ class AppBarProfile extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              ThemeSwitcher(),
               Visibility(
                   visible: profile_Controller.help.value,
                   child: Row(
@@ -47,7 +45,8 @@ class AppBarProfile extends StatelessWidget {
                       ),
                     ],
                   )),
-              PopUpMenuProfile(),
+             // PopUpMenuProfile(),
+              GlobalMenu(),
             ],
           ),
         ],

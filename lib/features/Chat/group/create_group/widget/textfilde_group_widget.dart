@@ -7,8 +7,8 @@ import 'package:Nahvino/features/Chat/group/create_group/controllers/create_grou
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class Page3Group extends StatelessWidget {
-  Page3Group({Key? key}) : super(key: key);
+class TextFildeCreateGroupWidget extends StatelessWidget {
+  TextFildeCreateGroupWidget({Key? key}) : super(key: key);
   CreateGroupController creategroupcontroller =
       Get.put(CreateGroupController());
   Imageview img = Imageview();
@@ -20,27 +20,7 @@ class Page3Group extends StatelessWidget {
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.rtl,
-      child: Scaffold(
-          appBar: AppBar(
-            excludeHeaderSemantics: true,
-            primary: true,
-            backgroundColor: Colors.cyan.shade800,
-            automaticallyImplyLeading: true,
-            elevation: 2,
-            actions: [
-              Row(
-                children: [
-                  Footnate(text: AppLocalizations.of(context)!.translate(
-                    'create_group',
-                  )!,),
-                  SizedBox(
-                    width: 18,
-                  ),
-                ],
-              )
-            ],
-          ),
-          body: buildChild(context)),
+      child:  buildChild(context),
     );
   }
 
@@ -92,8 +72,32 @@ class Page3Group extends StatelessWidget {
               SizedBox(
                 height: 10,
               ),
-              public_group.textfilde(" قول و قرار : ", context,
-                  creategroupcontroller.gholghrarcontroller),
+              Padding(
+                padding: const EdgeInsets.only(right: 15, left: 15),
+                child: TextFormField(
+                  minLines: 1,
+                  maxLines: 3,
+                  maxLength: 255,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return AppLocalizations.of(context)!.translate(
+                        'Group_rules_cannot_be_empty',
+                      );
+                    }
+                    return null;
+                  },
+                  decoration: InputDecoration(
+                    labelText: AppLocalizations.of(context)!.translate(
+                      'promise',
+                    )!,
+                    isDense: false,
+                    filled: true,
+                    // border: OutlineInputBorder(),
+                  ),
+                  controller: creategroupcontroller.gholghrarcontroller,
+                ),
+              ),
+
               SizedBox(
                 height: 10,
               ),
@@ -101,12 +105,6 @@ class Page3Group extends StatelessWidget {
             ],
           ),
         ),
-        Buttonfull(
-            text: AppLocalizations.of(context)!.translate(
-    'create_group',
-    )!,
-            color: Colors.white,
-            onPressed: () => creategroupcontroller.nextthree()),
       ],
     );
   }

@@ -17,9 +17,10 @@ class GetInfoService {
       InfoModel info =
       InfoModel.fromJson(json.decode(response.body));
       return info;
-    }else{
-      return Error();
     }
+    // else{
+    //   return Error();
+    // }
 
   }
 }

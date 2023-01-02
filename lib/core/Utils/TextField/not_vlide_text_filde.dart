@@ -22,6 +22,8 @@ class NotValidFilde extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
+
     return Padding(
       padding: const EdgeInsets.only(right: 35, left: 39),
       child: TextFormField(
@@ -29,7 +31,7 @@ class NotValidFilde extends StatelessWidget {
         controller: controller,
         onTap: ontap,
         keyboardType: TextInputType.text,
-        style: TextStyle(fontSize: 14, fontFamily: 'Vazirmatn_Medium'),
+        style: TextStyle(fontSize: 14, fontFamily: 'Vazirmatn_Medium',color: theme.secondaryHeaderColor,),
         decoration: InputDecoration(
           hintText: hint,
           prefixIcon: prefixIcon,

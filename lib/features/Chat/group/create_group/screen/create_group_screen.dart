@@ -1,9 +1,11 @@
 import 'package:Nahvino/config/lang/App_localizations.dart';
+import 'package:Nahvino/core/Utils/Button/Button.dart';
 import 'package:Nahvino/core/Utils/Menu/menu_pop_btn.dart';
 import 'package:Nahvino/core/Utils/Text/Text.dart';
 import 'package:Nahvino/core/Utils/Widget/ui/image_view.dart';
 import 'package:Nahvino/features/Chat/group/Widget/public_group_widget.dart';
 import 'package:Nahvino/features/Chat/group/create_group/controllers/create_group_controller.dart';
+import 'package:Nahvino/features/Chat/group/create_group/widget/textfilde_group_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:focused_menu/modals.dart';
 import 'package:get/get.dart';
@@ -35,10 +37,10 @@ class CreateGroup extends StatelessWidget {
                 'create_group',
               )!,),
               actions: [
-                Row(
+               /* Row(
                   children: [
                     TextButton(
-                        onPressed: () => creategroupcontroller.nextOne(),
+                        onPressed: () => creategroupcontroller.create(),
                         child: Footnate(
                           text: AppLocalizations.of(context)!.translate(
                             'next',
@@ -49,7 +51,7 @@ class CreateGroup extends StatelessWidget {
                       width: 18,
                     ),
                   ],
-                )
+                )*/
               ],
             ),
             body: buildChild(context)),
@@ -177,13 +179,8 @@ class CreateGroup extends StatelessWidget {
             SizedBox(
               height: 10,
             ),
-            /*
-            Buttonfull(
-                text: "بعدی",
-                color: Colors.white,
-                onPressed: () => Get.to(Page2Group())),
-
-             */
+            TextFildeCreateGroupWidget(),
+            Buttonfull(text: "ایجاد گروه",onPressed: ()=>creategroupcontroller.create() ,)
           ],
         ),
       ),

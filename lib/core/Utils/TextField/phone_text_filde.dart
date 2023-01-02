@@ -26,6 +26,7 @@ class TextOtpPhone extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     RegExp regex = new RegExp(r"^(\+98|0)?9\d{9}$");
@@ -100,7 +101,7 @@ class TextOtpPhone extends StatelessWidget {
                     return null;
                 },
                 inputFormatters: inputFormatters,
-                style: TextStyle(fontSize: 14, fontFamily: 'Vazirmatn_Medium'),
+                style: TextStyle(fontSize: 14, fontFamily: 'Vazirmatn_Medium',color: theme.secondaryHeaderColor,),
                 decoration: InputDecoration(
                     hintText: hint,
                     icon: icon,

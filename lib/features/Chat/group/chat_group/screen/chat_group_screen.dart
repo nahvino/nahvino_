@@ -1,7 +1,7 @@
 import 'package:Nahvino/config/lang/App_localizations.dart';
 import 'package:Nahvino/core/Utils/Text/Text.dart';
 import 'package:Nahvino/core/Utils/Widget/ui/image_view.dart';
-import 'package:Nahvino/core/shared/presentation/controllers/getx/Utils/check_controller.dart';
+import 'package:Nahvino/core/shared/presentation/controllers/Utils/check_controller.dart';
 import 'package:Nahvino/features/Chat/fake_info/model_user.dart';
 import 'package:Nahvino/features/Chat/group/Widget/chat_group_widget.dart';
 import 'package:Nahvino/features/Chat/group/Widget/public_group_widget.dart';

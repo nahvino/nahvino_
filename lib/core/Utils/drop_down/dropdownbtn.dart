@@ -1,4 +1,5 @@
 import 'package:Nahvino/config/lang/App_localizations.dart';
+import 'package:Nahvino/core/Utils/Text/Text.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
@@ -60,6 +61,7 @@ class DrapDoonButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     securityQuestion(context);
     return Padding(
       padding: EdgeInsets.only(right: 39, left: 39),
@@ -76,10 +78,10 @@ class DrapDoonButton extends StatelessWidget {
           buttonPadding: const EdgeInsets.only(left: 14, right: 14),
           buttonDecoration: BoxDecoration(
             borderRadius: BorderRadius.circular(14),
-            border: Border.all(
-              color: Colors.black26,
-            ),
-            color: Colors.white,
+            // border: Border.all(
+            //   color: Colors.black26,
+            // ),
+            color: theme.inputDecorationTheme.hoverColor,
           ),
          // buttonElevation: 2,
           itemHeight: 58,
@@ -97,6 +99,8 @@ class DrapDoonButton extends StatelessWidget {
           scrollbarAlwaysShow: true,
           offset: const Offset(-20, 0),
           isExpanded: true,
+          style: TextStyle(
+              color: theme.secondaryHeaderColor, fontSize: 14, fontFamily: 'Vazirmatn_Medium'),
           hint: Row(
             children: [
               Icon(
@@ -107,7 +111,8 @@ class DrapDoonButton extends StatelessWidget {
                 width: 6,
               ),
               Expanded(
-                child: Text(
+                child: Body(
+                  text:
                   AppLocalizations.of(context)!.translate(
                     'sAnswer',
                   )!,

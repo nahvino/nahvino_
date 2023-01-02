@@ -26,6 +26,7 @@ class RegisterScreen extends StatelessWidget {
   late RegisterService seregister;
   bool obscurePasswordVisibility = true;
   late SharedPreferences logindata;
+  bool value2 = false;
 
   @override
   Widget build(BuildContext context) {
@@ -137,6 +138,15 @@ class RegisterScreen extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
+                                SizedBox(
+                                  width: 20,
+                                  child: Checkbox(
+                                    value: this.value2,
+                                    onChanged: (value) {
+                                      this.value2 = value!;
+                                    },
+                                  ),
+                                ),
                                 TextButton(
                                   onPressed: () {
                                     Get.to(TermsservicesScreen());

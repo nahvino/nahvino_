@@ -4,7 +4,7 @@ import 'dart:ui';
 import 'package:Nahvino/config/custom_theme.dart';
 import 'package:Nahvino/core/shared/Services/http.dart';
 import 'package:Nahvino/config/lang/App_localizations.dart';
-import 'package:Nahvino/core/shared/presentation/controllers/getx/Utils/download_controller.dart';
+import 'package:Nahvino/core/shared/presentation/controllers/Utils/download_controller.dart';
 import 'package:Nahvino/features/my_tabs/main/screen/tabs.dart';
 import 'package:Nahvino/features/settings/menu/controllers/menu_controllers.dart';
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
@@ -151,13 +151,15 @@ class _MyAppState extends State<MyApp> {
       builder: (logic) {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
-          theme: theme_controller.switch_theme.value? CustomTheme.darkTheme : CustomTheme.lightTheme ,
+          theme: theme_controller.switch_theme.value
+              ? CustomTheme.darkTheme
+              : CustomTheme.lightTheme,
           supportedLocales: [
             Locale('en', 'US'),
             Locale('fa', 'IR'),
-
           ],
-          locale: Locale(menu_controller.box_menu.read('lang'), menu_controller.box_menu.read('langs')),
+          locale: Locale(menu_controller.box_menu.read('lang'),
+              menu_controller.box_menu.read('langs')),
 
           //  locale:  Locale('fa', 'IR'),
           localizationsDelegates: [

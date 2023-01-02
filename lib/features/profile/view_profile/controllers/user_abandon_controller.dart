@@ -1,7 +1,11 @@
+import 'package:Nahvino/features/profile/view_profile/model/get_user_abandon_model.dart';
 import 'package:Nahvino/features/profile/view_profile/service/profile_service.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UserAbandonController extends GetxController{
+
+  GetUserAbandonModel? getUserAbandonModel;
   var resultResponseGetUserAbandon;
    RxInt day = 0.obs;
    RxInt month=0.obs;
@@ -10,6 +14,7 @@ class UserAbandonController extends GetxController{
   RxString date = "0".obs;
   RxString mont = "0".obs;
   RxString yaer = "0".obs;
+  ProfileService? ps;
   @override
   void onInit() {
     super.onInit();
@@ -18,12 +23,9 @@ class UserAbandonController extends GetxController{
   }
 
 
-  start_service(){
-    ProfileService.getabandon().then((response) async {
-      print("------<getuserabandon>------- => $response");
-      resultResponseGetUserAbandon = response;
-      receive();
-    });
+  start_service()async{
+    getUserAbandonModel = await ProfileService.getabandon();
+    receive();
   }
   Day() {
     double dotabdel = day.toDouble();
@@ -55,10 +57,10 @@ class UserAbandonController extends GetxController{
     return a;
   }
   receive(){
-    if (resultResponseGetUserAbandon != false) {
-      date.value = resultResponseGetUserAbandon['data'].split(" ")[2];
-      mont.value = resultResponseGetUserAbandon['data'].split(" ")[1];
-      yaer.value = resultResponseGetUserAbandon['data'].split(" ")[0];
+    if (getUserAbandonModel!.data != false) {
+      date.value = getUserAbandonModel!.data!.toString().split(" ")[2];
+      mont.value = getUserAbandonModel!.data!.toString().split(" ")[1];
+      yaer.value = getUserAbandonModel!.data!.toString().split(" ")[0];
     }
     day.value = int.parse(date.value);
     month.value = int.parse(mont.value);
