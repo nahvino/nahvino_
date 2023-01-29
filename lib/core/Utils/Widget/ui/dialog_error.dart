@@ -1,5 +1,5 @@
 import 'package:Nahvino/core/Utils/Button/Button.dart';
-import 'package:Nahvino/features/splash/screen/splash.dart';
+import 'package:Nahvino/features/feature_intro/screen/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';

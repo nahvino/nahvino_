@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:Nahvino/core/Utils/Button/Button.dart';
-import 'package:Nahvino/features/version/data/version_data.dart';
-import 'package:Nahvino/features/splash/screen/splash.dart';
+import 'package:Nahvino/features/feature_intro/screen/splash.dart';
+import 'package:Nahvino/features/feature_version/data/version_data.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -58,7 +58,7 @@ class CheckController extends GetxController {
       if (status == InternetConnectionStatus.disconnected) {
         inter();
       } else if (status == InternetConnectionStatus.connected) {
-        Get.offAll(Splash());
+        Get.offAll(()=>Splash());
       }
     });
   }
@@ -95,7 +95,7 @@ class CheckController extends GetxController {
                         //     context,
                         //     MaterialPageRoute(
                         //         builder: (context) => Splash()));
-                        Get.offAll(Splash());
+                        Get.offAll(()=>Splash());
                       },
                     ),
 
@@ -157,7 +157,7 @@ class CheckController extends GetxController {
                         //     context,
                         //     MaterialPageRoute(
                         //         builder: (context) => Splash()));
-                        Get.offAll(Splash());
+                        Get.offAll(()=>Splash());
                       },
                     ),
 
@@ -212,7 +212,7 @@ class CheckController extends GetxController {
                         //     context,
                         //     MaterialPageRoute(
                         //         builder: (context) => Splash()));
-                        Get.offAll(Splash());
+                        Get.offAll(()=>Splash());
                       },
                     ),
 
@@ -270,7 +270,7 @@ class CheckController extends GetxController {
                       //     context,
                       //     MaterialPageRoute(
                       //         builder: (context) => Splash()));
-                      Get.offAll(Splash());
+                      Get.offAll(()=>Splash());
                     },
                   ),
 

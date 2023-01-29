@@ -60,38 +60,13 @@ class TextOtpPhone extends StatelessWidget {
             //Body(text: "98"),
 
             SizedBox(
-              width: width * 0.7,
+              width: width * 0.64,
               child: TextFormField(
                 maxLength: 11,
                 controller: controller,
                 keyboardType: TextInputType.phone,
                 onChanged: onChanged,
                 validator: (value) {
-                  /*  if (value!.isEmpty) {
-                    return "شماره تلفن نباید خالی باشد.";
-                  }
-                  /*   if (value.startsWith("1")) {
-                    return "شماره تلفن معتبر نمی باشد";
-                  } else if (value.startsWith("2")) {
-                    return "شماره تلفن معتبر نمی باشد";
-                  } else if (value.startsWith("3")) {
-                    return "شماره تلفن معتبر نمی باشد";
-                  } else if (value.startsWith("4")) {
-                    return "شماره تلفن معتبر نمی باشد";
-                  } else if (value.startsWith("5")) {
-                    return "شماره تلفن معتبر نمی باشد";
-                  } else if (value.startsWith("6")) {
-                    return "شماره تلفن معتبر نمی باشد";
-                  } else if (value.startsWith("7")) {
-                    return "شماره تلفن معتبر نمی باشد";
-                  } else if (value.startsWith("8")) {
-                    return "شماره تلفن معتبر نمی باشد";
-                  }*/
-
-                  if (value.length < 11) {
-                    return "شماره تلفن نباید از 11 رقم کمتر باشد";
-                  }
-                  return null;*/
                   if (value!.isEmpty) {
                     return "شماره تلفن نباید خالی باشد.";
                   }

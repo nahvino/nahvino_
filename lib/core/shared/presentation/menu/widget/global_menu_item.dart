@@ -1,9 +1,9 @@
 import 'package:Nahvino/config/lang/App_localizations.dart';
 import 'package:Nahvino/core/shared/presentation/controllers/public/public_controller.dart';
 import 'package:Nahvino/core/shared/presentation/menu/widget/global_menu_item_button.dart';
-import 'package:Nahvino/features/profile/view_profile/controllers/profile_controller.dart';
-import 'package:Nahvino/features/profile/view_profile/data/view_profial_data.dart';
-import 'package:Nahvino/features/settings/menu/screen/user_security_stting_menus.dart';
+import 'package:Nahvino/features/feature_profile/view_profile/controllers/profile_controller.dart';
+import 'package:Nahvino/features/feature_profile/view_profile/data/view_profial_data.dart';
+import 'package:Nahvino/features/feature_settings/menu/screen/user_security_stting_menus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';

@@ -1,6 +1,6 @@
-import 'package:Nahvino/features/Chat/service/notification_service.dart';
-import 'package:Nahvino/features/profile/view_profile/data/view_profial_data.dart';
-import 'package:Nahvino/features/registration/main/screen/registration.dart';
+import 'package:Nahvino/features/feature_chat/service/notification_service.dart';
+import 'package:Nahvino/features/feature_profile/view_profile/data/view_profial_data.dart';
+import 'package:Nahvino/features/feature_auth/main/screen/registration.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';

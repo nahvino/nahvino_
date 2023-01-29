@@ -1,24 +1,19 @@
 import 'dart:io';
-import 'dart:isolate';
-import 'dart:ui';
 import 'package:Nahvino/config/custom_theme.dart';
 import 'package:Nahvino/core/shared/Services/http.dart';
 import 'package:Nahvino/config/lang/App_localizations.dart';
 import 'package:Nahvino/core/shared/presentation/controllers/Utils/download_controller.dart';
-import 'package:Nahvino/features/my_tabs/main/screen/tabs.dart';
-import 'package:Nahvino/features/settings/menu/controllers/menu_controllers.dart';
+import 'package:Nahvino/features/feature_intro/screen/splash.dart';
+import 'package:Nahvino/features/feature_settings/menu/controllers/menu_controllers.dart';
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'core/shared/Services/notification_service.dart';
 import 'core/shared/presentation/controllers/theme_get/theme_controller.dart';
-import 'features/splash/screen/splash.dart';
-import 'dart:async';
-import 'firebase_options.dart';
+
 
 /*
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
