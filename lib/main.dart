@@ -48,7 +48,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  MenuController menu_controller = Get.put(MenuController());
+  MenueController menu_controller = Get.put(MenueController());
   ThemeController theme_controller = Get.put(ThemeController());
   DownloadController down_controller = Get.put(DownloadController());
 

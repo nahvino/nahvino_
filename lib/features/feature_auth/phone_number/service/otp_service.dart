@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:Nahvino/config/main_config.dart';
 import 'package:Nahvino/features/feature_auth/phone_number/config/otp_config.dart';
+import 'package:Nahvino/features/feature_auth/phone_number/model/code_phone_number_model.dart';
+import 'package:Nahvino/features/feature_auth/phone_number/model/phone_number_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -8,43 +10,6 @@ import 'package:http/http.dart' as http;
 class OtpService {
   static var client = http.Client();
 
-  bool validateResponse(http.Response response) {
-    var data = json.decode(response.body);
-    switch (data['statusCode']) {
-      case 200:
-        return true;
-      case 401:
-        {
-          showSnackBar(text: data['message'] ?? "Token not send or expired!");
-          break;
-        }
-      case 400:
-        {
-          showSnackBar(text: data['message'] ?? "Bad request!");
-          break;
-        }
-      case 403:
-        {
-          showSnackBar(text: data['message'] ?? "Access forbidden");
-          break;
-        }
-      case 500:
-        {
-          showSnackBar(text: data['message'] ?? "Server error");
-          break;
-        }
-    }
-    return false;
-  }
-
-  void showSnackBar({required String text}) {
-    Get.snackbar(
-      text,
-      '',
-      icon: Icon(Icons.notifications, color: Colors.white),
-      snackPosition: SnackPosition.TOP,
-    );
-  }
 
  Future otpphone(String OtpPhoneController) async {
     Map<String, String> requestHeaders = {
@@ -61,10 +26,12 @@ class OtpService {
       }),
     );
     debugPrint(response.body.toString());
-    if (validateResponse(response)) {
-      return json.decode(response.body);
+    if (response.statusCode == 200) {
+      PhoneModel phoneModel =PhoneModel.fromJson(json.decode(response.body));
+      return phoneModel;
+    } else {
+      return false;
     }
-    return false;
   }
 
    Future OtpCodePhone(String OtpPhoneController, int OtpCodeController) async {
@@ -79,10 +46,12 @@ class OtpService {
           {"phoneNumber": OtpPhoneController, "code": OtpCodeController}),
     );
     debugPrint(response.body.toString());
-    if (validateResponse(response)) {
-      return json.decode(response.body);
+    if (response.statusCode == 200) {
+      CodePhoneNumberModel codePhoneNumberModel =CodePhoneNumberModel.fromJson(json.decode(response.body));
+      return codePhoneNumberModel;
+    } else {
+      return false;
     }
-    return false;
   }
 
   Future ReSendCode(String OtpPhoneController) async {
@@ -98,10 +67,12 @@ class OtpService {
       }),
     );
     debugPrint(response.body.toString());
-    if (validateResponse(response)) {
-      return json.decode(response.body);
+    if (response.statusCode == 200) {
+      PhoneModel phoneModel =PhoneModel.fromJson(json.decode(response.body));
+      return phoneModel;
+    } else {
+      return false;
     }
-    return false;
   }
   
 }

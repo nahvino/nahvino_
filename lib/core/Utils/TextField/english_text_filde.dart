@@ -37,17 +37,18 @@ class EnglishTextFilde extends StatelessWidget {
         "[\u0600-\u0605 ؐ-ؚ\u061Cـ ۖ-\u06DD ۟-ۤ ۧ ۨ ۪-ۭ ً-ٕ ٟ ٖ-ٞ ٰ ، ؍ ٫ ٬ ؛ ؞ ؟ ۔ ٭ ٪ ؉ ؊ ؈ ؎ ؏ ۞ ۩ ؆ ؇ ؋ ٠۰ ١۱ ٢۲ ٣۳ ٤۴ ٥۵ ٦۶ ٧۷ ٨۸ ٩۹ ءٴ۽ آ أ ٲ ٱ ؤ إ ٳ ئ ا ٵ ٮ ب ٻ پ ڀ ة-ث ٹ ٺ ټ ٽ ٿ ج ڃ ڄ چ ڿ ڇ ح خ ځ ڂ څ د ذ ڈ-ڐ ۮ ر ز ڑ-ڙ ۯ س ش ښ-ڜ ۺ ص ض ڝ ڞ ۻ ط ظ ڟ ع غ ڠ ۼ ف ڡ-ڦ ٯ ق ڧ ڨ ك ک-ڴ ػ ؼ ل ڵ-ڸ م۾ ن ں-ڽ ڹ ه ھ ہ-ۃ ۿ ەۀ وۥ ٶ ۄ-ۇ ٷ ۈ-ۋ ۏ ى يۦ ٸ ی-ێ ې ۑ ؽ-ؿ ؠ ے ۓ \u061D]");
     final capital_letters = RegExp("[A-Z]");
 
-    return Obx(() {
       return Padding(
         padding: const EdgeInsets.only(right: 39, left: 39),
         child: Column(
           children: [
             TextFormField(
-              //textAlign: TextAlign.left,
+              onTap: (){
+                controller!.selection = TextSelection.collapsed(offset: controller!.text.length);
+              },
               controller: controller,
               keyboardType: TextInputType.name,
               textCapitalization: TextCapitalization.none,
-              onChanged: (val) {
+            /*  onChanged: (val) {
                 if (val.length <= 3) {
                   enController.lengthText.value = true;
                   enController.capitalLettersText.value = false;
@@ -71,7 +72,7 @@ class EnglishTextFilde extends StatelessWidget {
                   enController.errorText.value = true;
                   enController.capitalLettersText.value = true;
                 }
-              },
+              },*/
               validator: (value) {
                 if (value!.isEmpty) {
                   return 'نام کاربری نمی تواند خالی باشد';
@@ -88,14 +89,16 @@ class EnglishTextFilde extends StatelessWidget {
                 hintText: hint,
                 suffix: suffix,
                 errorText: error,
+                label:Callout(text:hint!) ,
                 icon: icon,
-                prefixIcon: Icon(
+                prefixIcon: prefixIcon,
+                suffixIcon: Icon(
                   Iconsax.user,
                   color: Colors.cyan,
                 ),
-                suffixIcon: suffixIcon,
               ),
             ),
+            /*
             Visibility(
                 visible: enController.errorText.value,
                 child: Padding(
@@ -147,9 +150,9 @@ class EnglishTextFilde extends StatelessWidget {
                     ],
                   ),
                 )),
+            */
           ],
         ),
       );
-    });
   }
 }

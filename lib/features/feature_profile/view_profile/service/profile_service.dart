@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:Nahvino/config/main_config.dart';
 import 'package:Nahvino/features/feature_profile/view_profile/config/profile_config.dart';
 import 'package:Nahvino/features/feature_profile/view_profile/data/view_profial_data.dart';
+import 'package:Nahvino/features/feature_profile/view_profile/model/Profile_user_model_response.dart';
 import 'package:Nahvino/features/feature_profile/view_profile/model/get_user_abandon_model.dart';
 import 'package:Nahvino/features/feature_auth/main/screen/registration.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
@@ -42,6 +43,27 @@ class ProfileService {
     }
   }
 
+  static Future userprofile() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer ${await preferences.getString("token")}"
+    };
+    var url = Uri.parse(MainConfig.baseURL + ProfileConfig.getprofileuser);
+    var response = await client.post(
+      url,
+      headers: requestHeaders,
+      body: jsonEncode({"userId": await preferences.getString("userId")}),
+    );
+    if (response.statusCode == 200) {
+      ProfileUserModelResponse profileUserModelResponse =
+          ProfileUserModelResponse.fromJson(json.decode(response.body));
+      return profileUserModelResponse;
+    } else {
+      return false;
+    }
+  }
+
   static Future getabandon() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
 
@@ -60,8 +82,7 @@ class ProfileService {
       GetUserAbandonModel getUserAbandonModel =
           GetUserAbandonModel.fromJson(jsonDecode(response.body));
       return getUserAbandonModel;
-    }
-    else {
+    } else {
       return false;
     }
 

@@ -12,7 +12,6 @@ import 'package:share_plus/share_plus.dart';
 class GlobalMenuItem extends StatelessWidget {
   GlobalMenuItem({Key? key}) : super(key: key);
   PublicController pu_Controller = Get.put(PublicController());
-  ViewProfileController databox = Get.put(ViewProfileController());
   ProfileController profile_Controller = Get.put(ProfileController());
 
   @override
@@ -56,7 +55,7 @@ class GlobalMenuItem extends StatelessWidget {
             Iconsax.share,
             color: Colors.cyan,
           ),
-          ontop: () => Share.share(databox.identifierCode.toString() +
+          ontop: () => Share.share(profile_Controller.profileUserModelResponse!.identifierCode.toString() +
               AppLocalizations.of(context)!.translate(
                 'identification_code',
               )!),

@@ -2,7 +2,8 @@ import 'package:Nahvino/config/lang/App_localizations.dart';
 import 'package:Nahvino/core/Utils/Text/Text.dart';
 import 'package:Nahvino/core/Utils/TextField/password_text_filde.dart';
 import 'package:Nahvino/features/feature_auth/forgot_password/screen/check_question_answer_screen.dart';
-import 'package:Nahvino/features/feature_profile/view_profile/screen/view_profile.dart';
+import 'package:Nahvino/features/feature_my_tabs/main/screen/tabs.dart';
+import 'package:Nahvino/features/feature_profile/view_profile/screen/view_profile_screen.dart';
 import 'package:Nahvino/features/feature_settings/menu/screen/user_security_stting_menus.dart';
 import 'package:Nahvino/features/feature_settings/user_security/change_passwrod/controllers/change_passwrod_controller.dart';
 import 'package:Nahvino/features/feature_settings/user_security/change_passwrod/service/change_password_service.dart';
@@ -98,12 +99,8 @@ class _ChangePasswrodState extends State<ChangePasswrod> {
                             if (response != false) {
                               change_password_service.showSnackBar(
                                   text: response['message']);
-                              Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ViewProfile()),
-                                (route) => false,
-                              );
+                              Get.offAll(()=> MyTabs());
+
                             } else {
                               change_password_service.showSnackBar(
                                   text: response['message']);

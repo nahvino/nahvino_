@@ -51,7 +51,7 @@ class UserAbandonController extends GetxController{
     double dotabdel = year.toDouble();
     double range = 0.00;
     late double a = range;
-    for (double i = 0.00; i <= dotabdel / 100.0; i += 2.0) {
+    for (double i = 0.365; i <= dotabdel / 12.0; i += 1.0) {
       range = i;
     }
     return a;

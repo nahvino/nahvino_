@@ -8,14 +8,13 @@ import 'package:iconsax/iconsax.dart';
 class TextPassReAndLog extends StatelessWidget {
   PasswordController passwordController = Get.put(PasswordController());
 
-  TextPassReAndLog(
-      {Key? key,
-      required this.hint,
-      required this.controller,
-      this.icon,
-      this.prefixIcon,
-      this.suffix,
-      this.error})
+  TextPassReAndLog({Key? key,
+    required this.hint,
+    required this.controller,
+    this.icon,
+    this.prefixIcon,
+    this.suffix,
+    this.error})
       : super(key: key);
 
   final String hint;
@@ -30,7 +29,7 @@ class TextPassReAndLog extends StatelessWidget {
     var theme = Theme.of(context);
 
     final alphanumeric = RegExp("[A-Z a-z 0-9]");
-    final alph = RegExp("[a-z]");
+    final alph = RegExp("-z]");
     final alpha = RegExp("[A-Z]");
     final alphaa = RegExp("[0-9]");
     return Obx(() {
@@ -40,10 +39,14 @@ class TextPassReAndLog extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextFormField(
-              textDirection: TextDirection.ltr,
+              onTap: () {
+                controller.selection =
+                    TextSelection.collapsed(offset: controller.text.length);
+              },
               controller: controller,
               obscureText: passwordController.obscurePasswordVisibility.value,
               keyboardType: TextInputType.visiblePassword,
+              /*
               onChanged: (val) {
                 if (val.length <= 6) {
                   passwordController.lengthText.value = true;
@@ -73,7 +76,12 @@ class TextPassReAndLog extends StatelessWidget {
                   passwordController.errorText.value = false;
                 }
               },
+
+               */
               validator: (value) {
+                if (value!.length <= 6) {
+                  return 'پسورد شما حداقل باید 6 کاراکتر داشته باشد';
+                }
                 if (value!.isEmpty) {
                   return 'رمز عبور نمی تواند خالی باشد';
                 }
@@ -82,28 +90,32 @@ class TextPassReAndLog extends StatelessWidget {
                 }
                 return null;
               },
-              style: TextStyle(fontSize: 14, fontFamily: 'Vazirmatn_Medium',color: theme.secondaryHeaderColor,),
+              style: TextStyle(fontSize: 14,
+                fontFamily: 'Vazirmatn_Medium',
+                color: theme.secondaryHeaderColor,),
               decoration: InputDecoration(
                 hintText: hint,
                 suffix: suffix,
                 errorText: error,
+                label: Callout(text: hint),
                 icon: icon,
-                prefixIcon: Icon(
-                  Iconsax.lock,
-                  color: Colors.cyan,
-                ),
-                suffixIcon: IconButton(
+                prefixIcon: IconButton(
                   icon: Icon(
                       passwordController.obscurePasswordVisibility.value == true
                           ? Icons.visibility_off
                           : Icons.visibility),
                   onPressed: () {
                     passwordController.obscurePasswordVisibility.value =
-                        !passwordController.obscurePasswordVisibility.value;
-                  },
+                    !passwordController.obscurePasswordVisibility.value;
+                  },),
+                suffixIcon: Icon(
+                  Iconsax.lock,
+                  color: Colors.cyan,
                 ),
               ),
             ),
+
+            /*
             Visibility(
                 visible: passwordController.errorText.value,
                 child: Padding(
@@ -138,6 +150,8 @@ class TextPassReAndLog extends StatelessWidget {
                     ],
                   ),
                 )),
+
+             */
 
           ],
         ),

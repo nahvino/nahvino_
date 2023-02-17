@@ -5,4 +5,8 @@ class EnglishController extends GetxController{
   RxBool verifyText= false.obs;
   RxBool lengthText= false.obs;
   RxBool capitalLettersText= false.obs;
+
+  text_position(){
+
+  }
 }

@@ -1,4 +1,5 @@
 import 'package:Nahvino/features/feature_profile/edit_profile/service/edit_profile_service.dart';
+import 'package:Nahvino/features/feature_profile/view_profile/controllers/profile_controller.dart';
 import 'package:Nahvino/features/feature_profile/view_profile/data/view_profial_data.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,6 +9,7 @@ import 'package:persian_datetime_picker/persian_datetime_picker.dart';
 class EditProfileController extends GetxController {
   //import
   ViewProfileController databox = Get.put(ViewProfileController());
+  ProfileController profile_Controller = Get.put(ProfileController());
 
   //Variable
   final ImagePicker picker = ImagePicker();
@@ -33,9 +35,12 @@ class EditProfileController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    userNameController = TextEditingController(text: databox.username.value);
-    nameAliasController = TextEditingController(text: databox.namealias.value);
-    bioController = TextEditingController(text: databox.bio.value);
+    userNameController = TextEditingController(
+        text: profile_Controller.profileUserModelResponse!.userName);
+    nameAliasController = TextEditingController(
+        text: profile_Controller.profileUserModelResponse!.nameAlias);
+    bioController = TextEditingController(
+        text: profile_Controller.profileUserModelResponse!.bio);
     serpro = EditProfileService();
     imageuris.value = databox.imageUrl.value;
   }
@@ -64,7 +69,8 @@ class EditProfileController extends GetxController {
     );
     print(picked!.formatCompactDate());
     berlinWallFell.value = picked.formatCompactDate();
-    tarikhController = TextEditingController(text: picked.formatCompactDate().toString());
+    tarikhController =
+        TextEditingController(text: picked.formatCompactDate().toString());
     update();
   }
 
@@ -73,12 +79,9 @@ class EditProfileController extends GetxController {
       var response = await serpro!.uploadProfileImage(imagePath.value);
       if (response != false) {
         imageuris.value = response;
-        profilerequest();
-        print("-=-=-=-=-=-======== $response");
       } else {
         Get.snackbar(
           'آپلود عکس با خطا مواجه شد',
-          //response['message'],
           '',
           icon: Icon(Icons.notifications, color: Colors.white),
           snackPosition: SnackPosition.TOP,
@@ -98,8 +101,6 @@ class EditProfileController extends GetxController {
       imageuris.value,
     )
         .then((value) {
-      databox.profilerequest();
-      //isApiCallProcess.value = true;
       Get.snackbar(
         value['message'],
         '',
@@ -114,21 +115,13 @@ class EditProfileController extends GetxController {
     serpro!.AddOrEditUserAbandon(berlinWallFell.value).then((response) async {
       if (response != false) {
         //apiService.showSnackBar(text: response['message']);
-        databox.profilerequest();
-
+      } else {
         Get.snackbar(
-          response['message'],
+          response['message'].toString(),
           '',
           icon: Icon(Icons.notifications, color: Colors.white),
           snackPosition: SnackPosition.TOP,
         );
-      } else {
-        // Get.snackbar(
-        //   response['message'].toString(),
-        //   '',
-        //   icon: Icon(Icons.notifications, color: Colors.white),
-        //   snackPosition: SnackPosition.TOP,
-        // );
       }
     });
   }

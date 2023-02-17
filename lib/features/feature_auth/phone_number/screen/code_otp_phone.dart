@@ -11,22 +11,17 @@ import 'package:otp_timer_button/otp_timer_button.dart';
 import 'package:pinput/pinput.dart';
 
 class CodeOtpPhone extends StatelessWidget {
-  CodeOtpPhone({Key? key,}) : super(key: key);
+  CodeOtpPhone({
+    Key? key,
+  }) : super(key: key);
 
   OtpPhoneController otp_phone_controller = Get.put(OtpPhoneController());
   CodeOtpConrtoller code_controller = Get.put(CodeOtpConrtoller());
 
-
   @override
   Widget build(BuildContext context) {
-    var width = MediaQuery
-        .of(context)
-        .size
-        .width;
-    var height = MediaQuery
-        .of(context)
-        .size
-        .height;
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
     return Scaffold(
         backgroundColor: Colors.white,
         resizeToAvoidBottomInset: false,
@@ -42,29 +37,27 @@ class CodeOtpPhone extends StatelessWidget {
                   height: height * 0.02,
                 ),
                 HeadLine(text: "ورود و ثبت نام با شماره تلفن"),
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Body(
-                        text: AppLocalizations.of(context)!.translate(
-                          'vrifycodephonetoptext',
-                        )!,
-                        color: Colors.grey,
-                      ),
-                      SizedBox(
-                        height: height * 0.09,
-                      ),
-                      SizedBox(
-                        width: width * 0.03,
-                      ),
-                      //Text(widget.setPhoneNumber)
+                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  Body(
+                    text: AppLocalizations.of(context)!.translate(
+                      'vrifycodephonetoptext',
+                    )!,
+                    color: Colors.grey,
+                  ),
+                  SizedBox(
+                    height: height * 0.09,
+                  ),
+                  SizedBox(
+                    width: width * 0.03,
+                  ),
+                  //Text(widget.setPhoneNumber)
 
-                      HeadLine(
-                        textAlign: TextAlign.center,
-                        text: otp_phone_controller.phone_text_controller.text,
-                        color: Colors.black,
-                      ),
-                    ]),
+                  HeadLine(
+                    textAlign: TextAlign.center,
+                    text: otp_phone_controller.phone_text_controller.text,
+                    color: Colors.black,
+                  ),
+                ]),
                 SizedBox(
                   height: height * 0.03,
                 ),
@@ -93,7 +86,7 @@ class CodeOtpPhone extends StatelessWidget {
                     keyboardType: TextInputType.number,
                     mainAxisAlignment: MainAxisAlignment.center,
                     androidSmsAutofillMethod:
-                    AndroidSmsAutofillMethod.smsUserConsentApi,
+                        AndroidSmsAutofillMethod.smsUserConsentApi,
                   ),
                 ),
                 SizedBox(

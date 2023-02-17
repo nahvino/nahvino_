@@ -1,3 +1,4 @@
+import 'package:Nahvino/core/Utils/Text/Text.dart';
 import 'package:flutter/material.dart';
 
 class TextProfileBio extends StatelessWidget {
@@ -25,6 +26,9 @@ class TextProfileBio extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(right: 35,left: 39),
       child: TextFormField(
+        onTap: (){
+          controller!.selection = TextSelection.collapsed(offset: controller!.text.length);
+        },
         maxLength: 110,
         maxLines: 3,
         minLines: 3,
@@ -33,6 +37,7 @@ class TextProfileBio extends StatelessWidget {
         keyboardType: TextInputType.multiline,
         style: TextStyle(fontSize: 14, fontFamily: 'Vazirmatn_Medium',color: theme.secondaryHeaderColor,),
         decoration: InputDecoration(
+          label:Callout(text:hint!) ,
 
           hintText: hint,
           icon: icon,

@@ -23,10 +23,10 @@ class GroupController extends GetxController {
   RxString serchtext = "".obs;
   String? UserId;
   RxString img = "".obs;
-  GroupsModel? group_model;
+  MyGroupsModel? my_groups_model;
   RxInt idChat = 0.obs;
   //OtherGroupsModel?
-  Group? other_group_model;
+  OrherGroupsMpdel? other_group_model;
 
   @override
   void onInit() {
@@ -41,8 +41,8 @@ class GroupController extends GetxController {
     UserId = (await preferences.getString("userId"))!;
   }
 
-  List<GroupsModel> groups = [];
-  List<Group> other_groups = [];
+  List<MyGroupsModel> myGroups_list = [];
+  List<OrherGroupsMpdel> other_groups_list = [];
 
   Future<void> GroupConnection() async {
     await hub.connection.start();
@@ -50,21 +50,22 @@ class GroupController extends GetxController {
       print("===========>GetOtherGroups<===========");
        printError(info:OtherGroups.toString());
       for (var item in OtherGroups![0]) {
-        other_group_model = Group.fromJson(item);
-        other_groups.add(other_group_model!);
+        other_group_model = OrherGroupsMpdel.fromJson(item);
+        other_groups_list.add(other_group_model!);
        // print(OtherGroups.toString());
       }
       update();
     });
     hub.connection.on('GetMyGroups', (MyGroups) {
       print("===========>GetMyGroups<===========");
-      print(MyGroups.toString());
+      //print(MyGroups.toString());
+      printError(info:MyGroups.toString());
       // var res = MyGroups![0];
       // group_model = GroupsModel.fromJson(res);
       // groups.add(group_model!);
       for (var item in MyGroups![0]) {
-        other_group_model = Group.fromJson(item);
-        other_groups.add(other_group_model!);
+        my_groups_model = MyGroupsModel.fromJson(item);
+        myGroups_list.add(my_groups_model!);
         // print(OtherGroups.toString());
       }
 
@@ -89,3 +90,4 @@ class GroupController extends GetxController {
 
 
 }
+

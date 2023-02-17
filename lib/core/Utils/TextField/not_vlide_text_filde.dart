@@ -1,3 +1,4 @@
+import 'package:Nahvino/core/Utils/Text/Text.dart';
 import 'package:flutter/material.dart';
 
 class NotValidFilde extends StatelessWidget {
@@ -27,7 +28,7 @@ class NotValidFilde extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(right: 35, left: 39),
       child: TextFormField(
-        textAlign: TextAlign.left,
+        textAlign: TextAlign.right,
         controller: controller,
         onTap: ontap,
         keyboardType: TextInputType.text,

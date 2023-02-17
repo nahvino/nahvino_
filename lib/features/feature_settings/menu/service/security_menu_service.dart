@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:Nahvino/features/feature_settings/menu/config/menu_config.dart';
+import 'package:Nahvino/features/feature_settings/menu/model/User_securtiy_menu_model.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:Nahvino/config/main_config.dart';
@@ -23,7 +24,8 @@ class MenuService {
       body: jsonEncode({"userId": await preferences.getString("userId")}),
     );
     if (response.statusCode == 200) {
-      return json.decode(response.body);
+      UserSecurtiyMenuModel userSecurtiyMenuModel = UserSecurtiyMenuModel.fromJson( json.decode(response.body));
+      return userSecurtiyMenuModel;
     } else {
       return false;
     }

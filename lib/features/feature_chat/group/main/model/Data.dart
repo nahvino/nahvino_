@@ -1,30 +1,15 @@
-class OrherGroupsMpdel {
-  OrherGroupsMpdel({
-    required this.data,
-  });
-
-  Data data;
-
-  factory OrherGroupsMpdel.fromJson(Map<String, dynamic> json) => OrherGroupsMpdel(
-    data: Data.fromJson(json["data"]),
-  );
-
-  Map<String, dynamic> toJson() => {
-    "data": data.toJson(),
-  };
-}
-
+/*-
 class Data {
   Data({
-    this.id,
-    this.name,
-    this.description,
-    this.imageUrl,
-    this.lastMessage,
-    this.lastMessageDateTime,
-    this.ownerName,
-    this.numberMessageNoSeen,
-    this.count,});
+      this.id, 
+      this.name, 
+      this.description, 
+      this.imageUrl, 
+      this.lastMessage, 
+      this.lastMessageDateTime, 
+      this.ownerName, 
+      this.numberMessageNoSeen, 
+      this.count,});
 
   Data.fromJson(dynamic json) {
     id = json['id'];
@@ -37,15 +22,15 @@ class Data {
     numberMessageNoSeen = json['numberMessageNoSeen'];
     count = json['count'];
   }
-  int? id;
-  String? name;
-  String? description;
-  String? imageUrl;
-  String? lastMessage;
-  String? lastMessageDateTime;
-  String? ownerName;
-  String? numberMessageNoSeen;
-  int? count;
+  int id;
+  String name;
+  dynamic description;
+  String imageUrl;
+  String lastMessage;
+  String lastMessageDateTime;
+  dynamic ownerName;
+  dynamic numberMessageNoSeen;
+  int count;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -62,3 +47,5 @@ class Data {
   }
 
 }
+
+*/

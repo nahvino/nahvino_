@@ -36,25 +36,18 @@ class Group extends GetView<GroupController> {
         GetBuilder<GroupController>(builder: (logic) {
           return Column(
             children: [
-              (group_controller.group_model != null)
+              (group_controller.my_groups_model != null)
                   ? ListView.builder(
                       shrinkWrap: true,
-                      itemCount: home_group_controller.serchtext.value != "" &&
-                          home_group_controller.isInSearchMode.value
-                          ? group_controller.other_groups
-                          .where((element) => element.name!
-                          .contains(home_group_controller.serchtext.value))
-                          .toList()
-                          .length
-                          : group_controller.other_groups.length,
-                  /*    home_group_controller.serchtext.value != "" &&
+                      itemCount:
+                    home_group_controller.serchtext.value != "" &&
                               home_group_controller.isInSearchMode.value
-                          ? group_controller.groups
+                          ? group_controller.myGroups_list
                               .where((element) => element.data.name!.contains(
                                   home_group_controller.serchtext.value))
                               .toList()
                               .length
-                          : group_controller.groups.length,*/
+                          : group_controller.myGroups_list.length,
                       itemBuilder: myGroups,
                       physics: NeverScrollableScrollPhysics(),
                     )
@@ -62,18 +55,21 @@ class Group extends GetView<GroupController> {
             ],
           );
         }),
+        Container(
+          decoration: DottedDecoration(),
+        ),
         GetBuilder<GroupController>(builder: (logic) {
           return (group_controller.other_group_model != null)
               ? ListView.builder(
                   shrinkWrap: true,
                   itemCount: home_group_controller.serchtext.value != "" &&
                           home_group_controller.isInSearchMode.value
-                      ? group_controller.other_groups
-                          .where((element) => element.name!
+                      ? group_controller.other_groups_list
+                          .where((element) => element.data.name!
                               .contains(home_group_controller.serchtext.value))
                           .toList()
                           .length
-                      : group_controller.other_groups.length,
+                      : group_controller.other_groups_list.length,
                   //group_controller.other_groups.length
                   itemBuilder: OtherGroups,
                   physics: NeverScrollableScrollPhysics(),
@@ -268,6 +264,7 @@ class Group extends GetView<GroupController> {
       ],
     );
   }*/
+
   Widget myGroups(context, index) {
     var theme = Theme.of(context);
 
@@ -278,18 +275,18 @@ class Group extends GetView<GroupController> {
             chat_group_controller.serach_mood.value = false;
             chat_group_controller.select_mood.value = false;
             infoGroupController.start_service(
-                group_controller.other_groups[index].id!.toInt());
+                group_controller.myGroups_list[index].data.id!.toInt());
             membersListController.start_service(
-                group_controller.other_groups[index].id!.toInt());
+                group_controller.myGroups_list[index].data.id!.toInt());
             Get.to(() => ChatGroup());
             chat_group_controller.appbarname.value =
-                group_controller.other_groups[index].name.toString();
+                group_controller.myGroups_list[index].data.name.toString();
             chat_group_controller.appbarimage.value =
-                group_controller.other_groups[index].imageUrl.toString();
+                group_controller.myGroups_list[index].data.imageUrl.toString();
             connChatController.id.value =
-            group_controller.other_groups[index].id!;
+            group_controller.myGroups_list[index].data.id!;
             connChatController.getMessageGroup(
-                group_controller.other_groups[index].id!.toInt());
+                group_controller.myGroups_list[index].data.id!.toInt());
             connChatController.sendMessage();
           }),
           child: Padding(
@@ -307,10 +304,10 @@ class Group extends GetView<GroupController> {
                     if (group_controller.InSearchMode.value == true)
                       Row(
                         children: [
-                          (group_controller.other_groups[index].imageUrl !=
+                          (group_controller.myGroups_list[index].data.imageUrl !=
                               null)
                               ? img.image(group_controller
-                              .other_groups[index].imageUrl!)
+                              .myGroups_list[index].data.imageUrl!)
                               : img.image_assetsa("assets/images/ram/gorp.png"),
                           SizedBox(
                             width: 10,
@@ -323,7 +320,7 @@ class Group extends GetView<GroupController> {
                                   Footnate(
                                     color: theme.secondaryHeaderColor,
                                     text: group_controller
-                                        .other_groups[index].name,
+                                        .myGroups_list[index].data.name,
                                   ),
                                   SizedBox(
                                     width: 12,
@@ -338,7 +335,7 @@ class Group extends GetView<GroupController> {
                                   Caption1(
                                     color: theme.secondaryHeaderColor,
                                     text: group_controller
-                                        .other_groups[index].count
+                                        .myGroups_list[index].data.count
                                         .toString(),
                                   ),
                                   SizedBox(
@@ -372,7 +369,7 @@ class Group extends GetView<GroupController> {
                                   Caption1(
                                     color: theme.secondaryHeaderColor,
                                     text: group_controller
-                                        .other_groups[index].ownerName,
+                                        .myGroups_list[index].data.ownerName,
                                   ),
                                 ],
                               ),
@@ -393,7 +390,7 @@ class Group extends GetView<GroupController> {
                             child: Center(
                               child: Footnate(
                                 color: theme.secondaryHeaderColor,
-                                text: group_controller.other_groups[index]
+                                text: group_controller.myGroups_list[index].data
                                     .numberMessageNoSeen ??
                                     "10",
                               ),
@@ -403,7 +400,7 @@ class Group extends GetView<GroupController> {
                         Caption1(
                           color: theme.secondaryHeaderColor,
                           text: group_controller
-                              .other_groups[index].lastMessageDateTime
+                              .myGroups_list[index].data.lastMessageDateTime
                               .toString(),
                         ),
                       ],
@@ -431,18 +428,18 @@ class Group extends GetView<GroupController> {
             chat_group_controller.serach_mood.value = false;
             chat_group_controller.select_mood.value = false;
             infoGroupController.start_service(
-                group_controller.other_groups[index].id!.toInt());
+                group_controller.other_groups_list[index].data.id!.toInt());
             membersListController.start_service(
-                group_controller.other_groups[index].id!.toInt());
+                group_controller.other_groups_list[index].data.id!.toInt());
             Get.to(() => ChatGroup());
             chat_group_controller.appbarname.value =
-                group_controller.other_groups[index].name.toString();
+                group_controller.other_groups_list[index].data.name.toString();
             chat_group_controller.appbarimage.value =
-                group_controller.other_groups[index].imageUrl.toString();
+                group_controller.other_groups_list[index].data.imageUrl.toString();
             connChatController.id.value =
-                group_controller.other_groups[index].id!;
+            group_controller.other_groups_list[index].data.id!;
             connChatController.getMessageGroup(
-                group_controller.other_groups[index].id!.toInt());
+                group_controller.other_groups_list[index].data.id!.toInt());
             connChatController.sendMessage();
           }),
           child: Padding(
@@ -460,10 +457,10 @@ class Group extends GetView<GroupController> {
                     if (group_controller.InSearchMode.value == true)
                       Row(
                         children: [
-                          (group_controller.other_groups[index].imageUrl !=
-                                  null)
+                          (group_controller.other_groups_list[index].data.imageUrl !=
+                              null)
                               ? img.image(group_controller
-                                  .other_groups[index].imageUrl!)
+                              .other_groups_list[index].data.imageUrl!)
                               : img.image_assetsa("assets/images/ram/gorp.png"),
                           SizedBox(
                             width: 10,
@@ -476,7 +473,7 @@ class Group extends GetView<GroupController> {
                                   Footnate(
                                     color: theme.secondaryHeaderColor,
                                     text: group_controller
-                                        .other_groups[index].name,
+                                        .other_groups_list[index].data.name,
                                   ),
                                   SizedBox(
                                     width: 12,
@@ -484,14 +481,14 @@ class Group extends GetView<GroupController> {
                                   Footnate(
                                     color: theme.secondaryHeaderColor,
                                     text:
-                                        AppLocalizations.of(context)!.translate(
+                                    AppLocalizations.of(context)!.translate(
                                       'Members',
                                     )!,
                                   ),
                                   Caption1(
                                     color: theme.secondaryHeaderColor,
                                     text: group_controller
-                                        .other_groups[index].count
+                                        .other_groups_list[index].data.count
                                         .toString(),
                                   ),
                                   SizedBox(
@@ -500,7 +497,7 @@ class Group extends GetView<GroupController> {
                                   Footnate(
                                     color: theme.secondaryHeaderColor,
                                     text:
-                                        AppLocalizations.of(context)!.translate(
+                                    AppLocalizations.of(context)!.translate(
                                       'Audience',
                                     )!,
                                   ),
@@ -518,14 +515,14 @@ class Group extends GetView<GroupController> {
                                   Caption1(
                                     color: theme.secondaryHeaderColor,
                                     text:
-                                        AppLocalizations.of(context)!.translate(
+                                    AppLocalizations.of(context)!.translate(
                                       'Boss',
                                     )!,
                                   ),
                                   Caption1(
                                     color: theme.secondaryHeaderColor,
                                     text: group_controller
-                                        .other_groups[index].ownerName,
+                                        .other_groups_list[index].data.ownerName,
                                   ),
                                 ],
                               ),
@@ -546,8 +543,8 @@ class Group extends GetView<GroupController> {
                             child: Center(
                               child: Footnate(
                                 color: theme.secondaryHeaderColor,
-                                text: group_controller.other_groups[index]
-                                        .numberMessageNoSeen ??
+                                text: group_controller.other_groups_list[index].data
+                                    .numberMessageNoSeen ??
                                     "10",
                               ),
                             ),
@@ -556,7 +553,7 @@ class Group extends GetView<GroupController> {
                         Caption1(
                           color: theme.secondaryHeaderColor,
                           text: group_controller
-                              .other_groups[index].lastMessageDateTime
+                              .other_groups_list[index].data.lastMessageDateTime
                               .toString(),
                         ),
                       ],
@@ -571,6 +568,5 @@ class Group extends GetView<GroupController> {
           decoration: DottedDecoration(),
         ),
       ],
-    );
-  }
+    );  }
 }

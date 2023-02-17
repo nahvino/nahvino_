@@ -19,17 +19,19 @@ class CustomTheme {
     drawerTheme: const DrawerThemeData(backgroundColor: Colors.white),
     
     inputDecorationTheme: InputDecorationTheme(
+
       fillColor: Colors.black12,
       hoverColor: Colors.black12,
-      filled: true,
+      filled: false,
       hintStyle: TextStyle(color: Colors.grey.shade500),
-      disabledBorder: InputBorder.none,
+      //disabledBorder: InputBorder.none,
+      /*
       border: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(15)),
           borderSide: BorderSide(color: Colors.black, width: 2)),
       focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.blue, width: 2),
-          borderRadius: BorderRadius.all(Radius.circular(15))),
+          borderRadius: BorderRadius.all(Radius.circular(15))),*/
     ),
     hintColor: Colors.grey.shade500,
     hoverColor: Colors.white,
@@ -61,12 +63,15 @@ bottomSheetTheme: BottomSheetThemeData(backgroundColor:Colors.black45 ),
       filled: true,
       hintStyle: TextStyle(color: Colors.grey.shade500),
       labelStyle:  TextStyle(color: Colors.grey.shade500),
+      /*
       border: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(15)),
           borderSide: BorderSide.none),
       focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.white, width: 2),
           borderRadius: BorderRadius.all(Radius.circular(15))),
+
+       */
     ),
     hintColor: Colors.grey.shade500,
     hoverColor: Colors.grey.shade900,

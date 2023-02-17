@@ -1,10 +1,12 @@
 import 'package:Nahvino/config/lang/App_localizations.dart';
 import 'package:Nahvino/core/Utils/Button/Button.dart';
 import 'package:Nahvino/core/Utils/Text/Text.dart';
-import 'package:Nahvino/features/feature_profile/view_profile/screen/view_profile.dart';
+import 'package:Nahvino/features/feature_my_tabs/main/screen/tabs.dart';
+import 'package:Nahvino/features/feature_profile/view_profile/screen/view_profile_screen.dart';
 import 'package:Nahvino/features/feature_settings/user_security/set_phone/screen/set_phone_number.dart';
 import 'package:Nahvino/features/feature_settings/user_security/set_phone/service/set_phone_service.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:pinput/pinput.dart';
 
 
@@ -144,10 +146,8 @@ class _CheckCodeSetPhoneNumberState extends State<CheckCodeSetPhoneNumber> {
                     if (response != false) {
                       set_phone_service.showSnackBar(
                           text: response['message'] ?? "کد تایید ارسال شد");
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ViewProfile()));
+                      Get.offAll(()=> MyTabs());
+
                     } else {
                       set_phone_service.showSnackBar(
                           text: response['message'] ?? "sdd");

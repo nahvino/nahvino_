@@ -54,7 +54,6 @@ class _Registration extends State<Registration> {
                     const SizedBox(
                       height: 20,
                     ),
-                 
                     SizedBox(
                       height: 20,
                     ),
@@ -64,8 +63,7 @@ class _Registration extends State<Registration> {
                       )!,
                       onPressed: () {
                         culercash();
-                        Get.to(OtpPhone());
-
+                        Get.to(() => OtpPhone());
                       },
                       icon: Icon(
                         Icons.phone_android_rounded,
@@ -76,14 +74,13 @@ class _Registration extends State<Registration> {
                     SizedBox(
                       height: 20,
                     ),
-          
                     ButtonSignUP(
                       text: AppLocalizations.of(context)!.translate(
                         'Signup_nahvino_btn',
                       )!,
                       onPressed: () {
                         culercash();
-                        Get.to(Login());
+                        Get.to(() => Login());
                       },
                       icon: Image.asset('assets/images/login/logo.png',
                           width: 30, height: 30),
@@ -104,7 +101,7 @@ class _Registration extends State<Registration> {
                           TextButton(
                             onPressed: () {
                               culercash();
-                              Get.to(RegisterScreen());
+                              Get.to(() => RegisterScreen());
                             },
                             child: Caption1(
                               color: Colors.cyan,

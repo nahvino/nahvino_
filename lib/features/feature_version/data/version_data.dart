@@ -1,6 +1,9 @@
 import 'package:Nahvino/core/Utils/Button/Button.dart';
 import 'package:Nahvino/features/feature_auth/main/screen/registration.dart';
+import 'package:Nahvino/features/feature_auth/register/controllers/register_controller.dart';
+import 'package:Nahvino/features/feature_auth/register/screen/register_screen.dart';
 import 'package:Nahvino/features/feature_my_tabs/main/screen/tabs.dart';
+import 'package:Nahvino/features/feature_profile/view_profile/model/Profile_user_model_response.dart';
 import 'package:Nahvino/features/feature_version/service/version_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,10 +15,13 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class VersionData extends GetxController {
+  RegisterController registerController = Get.put(RegisterController());
+  GetStorage box = GetStorage();
   late ServiceVersion serversion;
   double lastVersion = 1.0;
   double? versionResponse;
   SharedPreferences? preferences;
+  ProfileUserModelResponse? profileUserModelResponse;
 
   @override
   void onInit() {
@@ -60,7 +66,15 @@ class VersionData extends GetxController {
     //   Get.offAll(IntroScreen());
     // }else {
       if (token != null) {
-        Get.offAll(()=>MyTabs());
+        RegisterController().reRequset();
+        if(registerController.profileUserModelResponse?.parentName == null){
+              Get.offAll(()=>RegisterScreen());
+              registerController.showTextReg.value = false;
+              registerController.showAddIntroduced.value = true;
+            }else {
+              Get.offAll(() => MyTabs());
+            }
+
        // Get.offAll(MyTab());
       } else {
         Get.offAll(()=>Registration());
@@ -95,7 +109,6 @@ class VersionData extends GetxController {
                         _deleteAppDir();
                         var status = await Permission.storage.status;
                         if (status.isDenied) {
-                          // We didn't ask for permission yet or the permission has been denied before but not permanently.
                           await Permission.storage.request();
                         }
                         final baseStorage = await getExternalStorageDirectory();

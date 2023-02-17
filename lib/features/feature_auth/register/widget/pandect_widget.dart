@@ -4,6 +4,7 @@ import 'package:Nahvino/core/Utils/Text/Text.dart';
 import 'package:Nahvino/features/feature_auth/register/controllers/register_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 
 class PandectWidget extends StatelessWidget {
   PandectWidget({Key? key}) : super(key: key);
@@ -118,11 +119,28 @@ class PandectWidget extends StatelessWidget {
             SizedBox(
               height: 20,
             ),
+            Visibility(
+                visible: registerController.chackBoxSelect.value,
+                child: Padding(
+                  padding: EdgeInsets.only(right: height * 0.083),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Iconsax.minus_square,
+                        color: Colors.deepOrange,
+                      ),
+                      SizedBox(
+                        width: 2,
+                      ),
+                      Caption1(text: "تیک قوانین را بزنید"),
+                    ],
+                  ),
+                )),
             Container(
               height: 50,
               width: Get.width,
               child: Buttonfull(
-                onPressed: () => registerController.pandect_btn(),
+                onPressed: () => registerController.pandect_btn(context),
                 color: Colors.white,
                 text: AppLocalizations.of(context)!.translate(
                   'OK',

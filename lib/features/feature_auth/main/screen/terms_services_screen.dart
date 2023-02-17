@@ -7,26 +7,15 @@ class TermsservicesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.cyan.shade800,
-        title: Callout(text:AppLocalizations.of(context)!.translate(
-          'Privacy_policy',
-        )!,),
-      ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Callout(
-                color: Colors.black,
-                textAlign: TextAlign.right,
-                text:AppLocalizations.of(context)!.translate(
-    'development_team',
-    )!,),
-          ),
-        ),
+    return SingleChildScrollView(
+      child: CalloutFullTexts(
+        color: Colors.black,
+        textAlign: TextAlign.right,
+        text: AppLocalizations.of(context)!.translate(
+          'development_team',
+        )!,
       ),
     );
   }
 }
+

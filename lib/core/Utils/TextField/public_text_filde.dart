@@ -1,3 +1,4 @@
+import 'package:Nahvino/core/Utils/Text/Text.dart';
 import 'package:flutter/material.dart';
 
 class PublicTextFilde extends StatelessWidget {
@@ -27,6 +28,7 @@ class PublicTextFilde extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(right: 35, left: 39),
       child: TextFormField(
+
         textAlign: TextAlign.right,
         controller: controller,
         validator: (value) {
@@ -44,6 +46,7 @@ class PublicTextFilde extends StatelessWidget {
           prefixIcon: prefixIcon,
           suffixIcon: suffixIcon,
           hintText: hint,
+          label:Callout(text:hint!) ,
         ),
       ),
     );

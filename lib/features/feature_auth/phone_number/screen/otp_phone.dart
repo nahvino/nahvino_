@@ -18,24 +18,6 @@ class OtpPhone extends StatelessWidget {
     var height = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.white,
-      /*    appBar: AppBar(
-        elevation: 0,
-        title: Title3(
-            color: Colors.black,
-            textAlign: TextAlign.start,
-            text: AppLocalizations.of(context)!.translate(
-              'reotp',
-            )!,),
-        backgroundColor: Colors.grey[50],
-        leading: BackButton(
-          color: Colors.black,
-          onPressed: (() {
-            OtpPhoneController.clear();
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => Registration()));
-          }),
-        ),
-      ),*/
       body: SafeArea(
         child: Form(
           key: otp_phone_controller.formKey,
@@ -88,7 +70,7 @@ class OtpPhone extends StatelessWidget {
                       controller: otp_phone_controller.phone_text_controller,
                       onChanged: (value) {
                         if (value.length == 11) {
-                          otp_phone_controller.start();
+                          otp_phone_controller.start(context);
                         }
                       },
                     ),
@@ -102,7 +84,7 @@ class OtpPhone extends StatelessWidget {
                             'OK',
                           )!,
                           onPressed: () {
-                            otp_phone_controller.start();
+                            otp_phone_controller.start(context);
                           }),
                     ),
                     Row(

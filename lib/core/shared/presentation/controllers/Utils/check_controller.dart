@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:Nahvino/core/Utils/Button/Button.dart';
+import 'package:Nahvino/features/feature_auth/register/controllers/register_controller.dart';
+import 'package:Nahvino/features/feature_auth/register/screen/register_screen.dart';
 import 'package:Nahvino/features/feature_intro/screen/splash.dart';
 import 'package:Nahvino/features/feature_version/data/version_data.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -17,7 +19,7 @@ class CheckController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-  //  intwoek();
+    //  intwoek();
   }
 
   @override
@@ -33,9 +35,12 @@ class CheckController extends GetxController {
   @override
   void onClose() {
     super.onClose();
-   // subscription.cancel();
- //   interfaceSubscription.cancel();
+   subscription.cancel();
+   interfaceSubscription.cancel();
   }
+
+
+
 
   // checklogin() async {
   //   //  await Future.delayed(Duration(seconds: 3));

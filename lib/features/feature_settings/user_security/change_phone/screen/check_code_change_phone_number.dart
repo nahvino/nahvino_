@@ -1,6 +1,7 @@
 import 'package:Nahvino/config/lang/App_localizations.dart';
 import 'package:Nahvino/core/Utils/Text/Text.dart';
-import 'package:Nahvino/features/feature_profile/view_profile/screen/view_profile.dart';
+import 'package:Nahvino/features/feature_my_tabs/main/screen/tabs.dart';
+import 'package:Nahvino/features/feature_profile/view_profile/screen/view_profile_screen.dart';
 import 'package:Nahvino/features/feature_settings/menu/screen/user_security_stting_menus.dart';
 import 'package:Nahvino/features/feature_settings/user_security/change_phone/service/change_phone_service.dart';
 import 'package:flutter/material.dart';
@@ -99,10 +100,9 @@ class _CheckCodeChangePhoneNumberState
                           icon: Icon(Icons.person, color: Colors.white),
                           snackPosition: SnackPosition.TOP,
                         );
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ViewProfile()));
+                        Get.offAll(()=> MyTabs());
+
+
                       } else {
                         chhange_phone_service.showSnackBar(
                             text: response['message'] ?? "sdd");

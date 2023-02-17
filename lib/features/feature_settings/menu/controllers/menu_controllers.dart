@@ -1,10 +1,13 @@
 import 'dart:ui';
 
+import 'package:Nahvino/features/feature_settings/menu/model/User_securtiy_menu_model.dart';
+import 'package:Nahvino/features/feature_settings/menu/service/security_menu_service.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class MenuController extends GetxController{
+class MenueController extends GetxController{
+  UserSecurtiyMenuModel? userSecurtiyMenuModel;
   var switch_lang = false;
   String? selectedValue;
   String? contry;
@@ -17,15 +20,11 @@ class MenuController extends GetxController{
     super.onInit();
     //switchState();
     chaklang();
+    startService();
   }
-  @override
-  void onClose() {
-    super.onClose();
-  }
-  @override
-  void onReady() {
-    super.onReady();
-  }
+      startService()async{
+        userSecurtiyMenuModel =await MenuService.UserSecuritySttingMenus();
+      }
   void onSelected(String value) {
     selectedValue = value;
     update();

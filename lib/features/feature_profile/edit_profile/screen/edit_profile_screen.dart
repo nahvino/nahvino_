@@ -6,7 +6,11 @@ import 'package:Nahvino/core/Utils/TextField/english_text_filde.dart';
 import 'package:Nahvino/core/Utils/TextField/multi_text_filde.dart';
 import 'package:Nahvino/core/Utils/TextField/not_vlide_text_filde.dart';
 import 'package:Nahvino/core/Utils/TextField/public_text_filde.dart';
+import 'package:Nahvino/features/feature_my_tabs/main/screen/mytab.dart';
+import 'package:Nahvino/features/feature_my_tabs/main/screen/tabs.dart';
+import 'package:Nahvino/features/feature_profile/view_profile/controllers/profile_controller.dart';
 import 'package:Nahvino/features/feature_version/data/version_data.dart';
+import 'package:Nahvino/main.dart';
 import 'package:flutter/material.dart';
 import 'package:focused_menu/modals.dart';
 import 'package:get/get.dart';
@@ -18,6 +22,7 @@ class EditProfileScreen extends GetView<EditProfileController> {
   EditProfileScreen({Key? key}) : super(key: key);
 
   EditProfileController editcontroller = Get.put(EditProfileController());
+  ProfileController profile_Controller = Get.put(ProfileController());
   VersionData version = Get.put(VersionData());
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool isApiCallProcess = false;
@@ -42,28 +47,33 @@ class EditProfileScreen extends GetView<EditProfileController> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Footnate(text: editcontroller.databox.username.value),
-            Row(
-              children: [
-                Footnate(
-                    text: AppLocalizations.of(context)!.translate(
-                  'OK',
-                )),
-                IconButton(
-                    icon: Icon(
-                      Iconsax.save_2,
-                      color: theme.secondaryHeaderColor,
-                    ),
-                    onPressed: () {
-                      if (!_formKey.currentState!.validate()) {
-                      } else {
-                        version.versionrequest();
-                        editcontroller.upimg();
-                        editcontroller.date();
-                        editcontroller.profilerequest();
-                      }
-                    }),
-              ],
+            Footnate(
+                text: profile_Controller.profileUserModelResponse!.userName),
+            InkWell(
+              onTap: () {
+                if (!_formKey.currentState!.validate()) {
+                } else {
+                  editcontroller.upimg();
+                  editcontroller.date();
+                  editcontroller.profilerequest();
+                  //موقعه خروجی صفر شود
+                  Get.offAll(() => MyTabs(
+                        tabIndex: 1,
+                      ));
+                }
+              },
+              child: Row(
+                children: [
+                  Footnate(
+                      text: AppLocalizations.of(context)!.translate(
+                    'OK',
+                  )),
+                  Icon(
+                    Iconsax.save_2,
+                    color: theme.secondaryHeaderColor,
+                  ),
+                ],
+              ),
             ),
           ],
         ),
@@ -91,22 +101,27 @@ class EditProfileScreen extends GetView<EditProfileController> {
                                   height: 100,
                                   width: 100,
                                   child: editcontroller.imagePath.value == ""
-                                      ? (editcontroller
-                                                      .databox.imageUrl.value ==
+                                      ? (profile_Controller
+                                                      .profileUserModelResponse!
+                                                      .imageUrl ==
                                                   "" ||
-                                              editcontroller
-                                                      .databox.imageUrl.value ==
+                                              profile_Controller
+                                                      .profileUserModelResponse!
+                                                      .imageUrl ==
                                                   "null" ||
-                                              editcontroller
-                                                      .databox.imageUrl.value ==
+                                              profile_Controller
+                                                      .profileUserModelResponse!
+                                                      .imageUrl ==
                                                   null)
                                           ? Icon(
                                               Icons.person,
                                               color: theme.secondaryHeaderColor,
                                             )
                                           : Image.network(
-                                              editcontroller
-                                                  .databox.imageUrl.value,
+                                              profile_Controller
+                                                  .profileUserModelResponse!
+                                                  .imageUrl
+                                                  .toString(),
                                               fit: BoxFit.cover)
                                       : Image.file(
                                           File(editcontroller.imagePath.value),
@@ -118,11 +133,13 @@ class EditProfileScreen extends GetView<EditProfileController> {
                                 right: 0,
                                 left: 70,
                                 child: MenuPopUpButton(
-                                    icon: (editcontroller
-                                                    .databox.imageUrl.value ==
+                                    icon: (profile_Controller
+                                                    .profileUserModelResponse!
+                                                    .imageUrl ==
                                                 "" ||
-                                            editcontroller
-                                                    .databox.imageUrl.value ==
+                                            profile_Controller
+                                                    .profileUserModelResponse!
+                                                    .imageUrl ==
                                                 "null")
                                         ? Icon(
                                             Icons.add,
@@ -190,13 +207,16 @@ class EditProfileScreen extends GetView<EditProfileController> {
                           ),
                           Column(
                             children: [
-                              if (editcontroller.databox.imageUrl.value != "")
+                              if (profile_Controller
+                                      .profileUserModelResponse!.imageUrl !=
+                                  "")
                                 Row(
                                   children: [
                                     IconButton(
                                       onPressed: () {
-                                        editcontroller.databox.imageUrl.value =
-                                            "";
+                                        profile_Controller
+                                            .profileUserModelResponse!
+                                            .imageUrl = "";
                                         editcontroller.imageuris.value = "";
                                       },
                                       icon: Image.asset(
@@ -237,10 +257,10 @@ class EditProfileScreen extends GetView<EditProfileController> {
                       height: 10,
                     ),
                     EnglishTextFilde(
-                      prefixIcon: Icon(
-                        Iconsax.user,
-                        color: Colors.cyan,
-                      ),
+                      // prefixIcon: Icon(
+                      //   Iconsax.user,
+                      //   color: Colors.cyan,
+                      // ),
                       controller: editcontroller.userNameController,
                       hint: AppLocalizations.of(context)!.translate(
                         'username',
@@ -250,7 +270,7 @@ class EditProfileScreen extends GetView<EditProfileController> {
                       height: 10,
                     ),
                     PublicTextFilde(
-                      prefixIcon: Icon(
+                      suffixIcon: Icon(
                         Iconsax.user_square,
                         color: Colors.cyan,
                       ),
@@ -264,12 +284,13 @@ class EditProfileScreen extends GetView<EditProfileController> {
                     ),
                     GetBuilder<EditProfileController>(builder: (logic) {
                       return NotValidFilde(
-                          prefixIcon: Icon(
+                          suffixIcon: Icon(
                             Iconsax.calendar_tick,
                             color: Colors.cyan,
                           ),
                           controller: editcontroller.tarikhController,
-                          hint: editcontroller.databox.dateTimeAbandon.value,
+                          hint: profile_Controller
+                              .profileUserModelResponse!.dateTimeAbandon,
                           ontap: () async {
                             editcontroller.selectDate(context);
                           });
@@ -278,7 +299,7 @@ class EditProfileScreen extends GetView<EditProfileController> {
                       height: 10,
                     ),
                     TextProfileBio(
-                      prefixIcon: Icon(
+                      suffixIcon: Icon(
                         Iconsax.note_text,
                         color: Colors.cyan,
                       ),

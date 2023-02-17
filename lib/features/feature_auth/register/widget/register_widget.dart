@@ -11,7 +11,6 @@ import 'package:Nahvino/features/feature_auth/main/screen/terms_services_screen.
 import 'package:Nahvino/features/feature_auth/register/controllers/register_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
 
 class RegisterWidget extends StatelessWidget {
   RegisterWidget({Key? key}) : super(key: key);
@@ -19,14 +18,8 @@ class RegisterWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var width = MediaQuery
-        .of(context)
-        .size
-        .width;
-    var height = MediaQuery
-        .of(context)
-        .size
-        .height;
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
     return Obx(() {
       return Column(
         children: [
@@ -49,16 +42,11 @@ class RegisterWidget extends StatelessWidget {
             height: 15,
           ),
           DrapDoonButton(
-              value:
-              registerController.Questionselected?.value,
+              value: registerController.Questionselected?.value,
               onChanged: (value) {
-                registerController.Questionselectedv.value =
-                    value;
-                print(registerController
-                    .Questionselectedv.value);
-              }
-          )
-          ,
+                registerController.Questionselectedv.value = value;
+                print(registerController.Questionselectedv.value);
+              }),
           SizedBox(
             height: 15,
           ),
@@ -74,8 +62,7 @@ class RegisterWidget extends StatelessWidget {
               left: 39,
             ),
             child: Row(
-              mainAxisAlignment:
-              MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Caption1(
@@ -85,15 +72,13 @@ class RegisterWidget extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: () {
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => Login()));
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => Login()));
                   },
                   child: Caption1(
                     color: Colors.cyan,
                     textAlign: TextAlign.center,
-                    text: "به صفحه ورود بروید",
+                    text: "ورود",
                   ),
                 ),
               ],
@@ -115,13 +100,28 @@ class RegisterWidget extends StatelessWidget {
               ),
               TextButton(
                 onPressed: () {
-                  Get.to(TermsservicesScreen());
+                  showDialog(
+                      context: context,
+                      builder: (context) => new AlertDialog(
+                            title: Callout(
+                              color: Colors.black,
+                              textAlign: TextAlign.right,
+                              text: AppLocalizations.of(context)!.translate(
+                                'Privacy_policy',
+                              )!,
+                            ),
+                            actions: [
+                              Buttonfull(
+                                  text: "بستن",
+                                  onPressed: () => Navigator.pop(context))
+                            ],
+                            content: TermsservicesScreen(),
+                          ));
                 },
                 child: Caption1(
                   color: Colors.cyan,
                   textAlign: TextAlign.center,
-                  text:
-                  AppLocalizations.of(context)!.translate(
+                  text: AppLocalizations.of(context)!.translate(
                     'Termsandservices',
                   )!,
                 ),
@@ -135,13 +135,28 @@ class RegisterWidget extends StatelessWidget {
               ),
               TextButton(
                 onPressed: () {
-                  Get.to(PrivacyScreen());
+                  showDialog(
+                      context: context,
+                      builder: (context) => new AlertDialog(
+                            title: Callout(
+                              color: Colors.black,
+                              textAlign: TextAlign.right,
+                              text: AppLocalizations.of(context)!.translate(
+                                'Privacy_policy',
+                              )!,
+                            ),
+                        actions: [
+                          Buttonfull(
+                              text: "بستن",
+                              onPressed: () => Navigator.pop(context))
+                        ],
+                            content: PrivacyScreen(),
+                          ));
                 },
                 child: Caption1(
                   color: Colors.cyan,
                   textAlign: TextAlign.center,
-                  text:
-                  AppLocalizations.of(context)!.translate(
+                  text: AppLocalizations.of(context)!.translate(
                     'Privacy',
                   )!,
                 ),
@@ -155,32 +170,16 @@ class RegisterWidget extends StatelessWidget {
               ),
             ],
           ),
-          Visibility(
-              visible: registerController.chackBoxSelect.value,
-              child: Padding(
-                padding: EdgeInsets.only(right: height * 0.083),
-                child: Row(
-                  children: [
-                    Icon(
-                      Iconsax.minus_square,
-                      color: Colors.deepOrange,
-                    ),
-                    SizedBox(
-                      width: 2,
-                    ),
-                    Caption1(text: "تیک قوانین را بزنید"),
-                  ],
-                ),
-              )),
           SizedBox(
-            height: height * 0.02,),
+            height: height * 0.02,
+          ),
           SizedBox(
             width: 150,
             child: Buttonfull(
                 text: AppLocalizations.of(context)!.translate(
                   'OK',
                 )!,
-                onPressed: () => registerController.register_btn()),
+                onPressed: () => registerController.register_btn(context)),
           ),
         ],
       );

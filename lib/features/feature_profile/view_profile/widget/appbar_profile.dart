@@ -9,7 +9,6 @@ import 'package:get/get.dart';
 
 class AppBarProfile extends StatelessWidget {
   AppBarProfile({Key? key}) : super(key: key);
-  ViewProfileController databox = Get.put(ViewProfileController());
   ProfileController profile_Controller = Get.put(ProfileController());
 
   @override
@@ -19,7 +18,7 @@ class AppBarProfile extends StatelessWidget {
         elevation: 0.1,
         title: Subhead(
           textAlign: TextAlign.right,
-          text: databox.username.value,
+          text: profile_Controller.profileUserModelResponse!.userName,
           //color: Colors.white,
         ),
         actions: [
@@ -36,7 +35,7 @@ class AppBarProfile extends StatelessWidget {
                         text: AppLocalizations.of(context)!.translate(
                           'close_tutorial',
                         )!,
-                       // color: Colors.white,
+                        // color: Colors.white,
                       ),
                       InkWell(
                         onTap: () => profile_Controller.help.value = false,
@@ -45,7 +44,7 @@ class AppBarProfile extends StatelessWidget {
                       ),
                     ],
                   )),
-             // PopUpMenuProfile(),
+              // PopUpMenuProfile(),
               GlobalMenu(),
             ],
           ),

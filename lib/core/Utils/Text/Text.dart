@@ -123,6 +123,24 @@ class Callout extends StatelessWidget {
     );
   }
 }
+class CalloutFullTexts extends StatelessWidget {
+  const CalloutFullTexts({required this.text, this.color, this.textAlign});
+  final Color? color;
+  final TextAlign? textAlign;
+  final String? text;
+  @override
+  Widget build(BuildContext context) {
+    return RichText(
+      softWrap: true,
+      textAlign: TextAlign.justify,
+      text: TextSpan(
+        text:text!,
+        style: TextStyle(
+            color: color, fontSize: 16, fontFamily: 'Vazirmatn_Regular'),
+      ),
+    );
+  }
+}
 
 // ignore: must_be_immutable
 class Subhead extends StatelessWidget {

@@ -38,6 +38,7 @@ class TextOtpPhone extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            /*
             Padding(
               padding: EdgeInsets.only(bottom: 23),
               child: Container(
@@ -58,9 +59,9 @@ class TextOtpPhone extends StatelessWidget {
             ),
             SizedBox(width: 3,),
             //Body(text: "98"),
-
+*/
             SizedBox(
-              width: width * 0.64,
+              width: width * 0.80,
               child: TextFormField(
                 maxLength: 11,
                 controller: controller,
@@ -80,14 +81,13 @@ class TextOtpPhone extends StatelessWidget {
                 decoration: InputDecoration(
                     hintText: hint,
                     icon: icon,
+                    label:Callout(text:hint!) ,
                     // prefixIcon:  Icon(
                     //   Icons.phone_android,
                     //   color: Colors.cyan,
                     // ),
                     suffixIcon: suffixIcon,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    )),
+                   ),
               ),
             ),
           ],

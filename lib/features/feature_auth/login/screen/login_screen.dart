@@ -11,7 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
-// ignore: must_be_immutable
 class Login extends StatelessWidget {
   // const NewLogin({
   //   Key? key,
@@ -26,19 +25,29 @@ class Login extends StatelessWidget {
     var height = MediaQuery.of(context).size.height;
     return Scaffold(
       resizeToAvoidBottomInset: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        foregroundColor: Colors.transparent,
+        surfaceTintColor: Colors.transparent,
+        title: Callout(
+          color: Colors.black,
+          textAlign: TextAlign.right,
+          text: AppLocalizations.of(context)!.translate(
+            'SignIn_top_text',
+          )!,
+        ),
+      ),
       body: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
-                image: AssetImage(Assets.reg_background),
-                fit: BoxFit.cover),
+                image: AssetImage(Assets.reg_background), fit: BoxFit.cover),
           ),
           child: Obx(
             () => loginController.isApiCallProcess.value
                 ? Center(
-                    child: Lottie.asset(
-                        Assets.verification_login,
-                        width: 300,
-                        height: 300),
+                    child: Lottie.asset(Assets.verification_login,
+                        width: 300, height: 300),
                   )
                 : SafeArea(
                     child: Form(
@@ -46,12 +55,13 @@ class Login extends StatelessWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                Container(
-                      decoration: BoxDecoration(
-                      shape: BoxShape.rectangle,
-                          color: Colors.white,
-                          borderRadius: BorderRadius.only(topLeft: Radius.circular(45),topRight: Radius.circular(45))
-                      ),
+                          Container(
+                            decoration: BoxDecoration(
+                                shape: BoxShape.rectangle,
+                                color: Colors.white,
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(25),
+                                    topRight: Radius.circular(25))),
                             child: Padding(
                               padding: EdgeInsets.only(top: 10, bottom: 10),
                               child: Column(
@@ -85,14 +95,18 @@ class Login extends StatelessWidget {
                                         onPressed: () {
                                           showModalBottomSheet(
                                               isScrollControlled: true,
-                                              shape: const RoundedRectangleBorder(
+                                              shape:
+                                                  const RoundedRectangleBorder(
                                                 borderRadius: BorderRadius.only(
-                                                  topLeft: Radius.circular(20.0),
-                                                  topRight: Radius.circular(20.0),
+                                                  topLeft:
+                                                      Radius.circular(20.0),
+                                                  topRight:
+                                                      Radius.circular(20.0),
                                                 ),
                                               ),
                                               context: context,
-                                              builder: (context) => CheckQuestionAnswerScreen());
+                                              builder: (context) =>
+                                                  CheckQuestionAnswerScreen());
                                         },
                                         child: Caption1(
                                           color: Colors.cyan,
@@ -136,7 +150,8 @@ class Login extends StatelessWidget {
                                             loginController.login();
                                             //loginController.isApiCallProcess.value = true;
                                           }
-                                         /// loginController.cleartext();
+
+                                          /// loginController.cleartext();
                                           // loginController.isApiCallProcess.value = false;
                                         }),
                                   ),

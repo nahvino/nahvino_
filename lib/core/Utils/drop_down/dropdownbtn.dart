@@ -26,8 +26,9 @@ class DrapDoonButton extends StatelessWidget {
         padding: EdgeInsets.only(right: 39, left: 39),
         child: DropdownButtonHideUnderline(
           child: DropdownButton2(
-            icon: const Icon(
-              Iconsax.arrow_down,
+            icon:  Icon(
+              Iconsax.arrow_circle_down,
+              color: Colors.cyan,size: 24,
             ),
             iconSize: 14,
             iconEnabledColor: Colors.black54,
@@ -35,13 +36,13 @@ class DrapDoonButton extends StatelessWidget {
             buttonHeight: 58,
             // buttonWidth: 160,
             buttonPadding: const EdgeInsets.only(left: 14, right: 14),
-            buttonDecoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(14),
-              border: Border.all(
-                color: Colors.black26,
-              ),
-              color: theme.inputDecorationTheme.hoverColor,
-            ),
+            // buttonDecoration: BoxDecoration(
+            //   borderRadius: BorderRadius.circular(14),
+            //   border: Border.all(
+            //     color: Colors.black26,
+            //   ),
+            //   color: theme.inputDecorationTheme.hoverColor,
+            // ),
             // buttonElevation: 2,
             itemHeight: 58,
             itemPadding: const EdgeInsets.only(left: 14, right: 14),
@@ -64,10 +65,10 @@ class DrapDoonButton extends StatelessWidget {
               fontFamily: 'Vazirmatn_Medium',),
             hint: Row(
               children: [
-                Icon(
-                  Iconsax.arrow_circle_down,
-                  color: Colors.cyan,
+                const Icon(
+                  Iconsax.arrow_down,size: 24,
                 ),
+
                 SizedBox(
                   width: 6,
                 ),

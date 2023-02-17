@@ -23,7 +23,7 @@ class PublicController extends GetxController{
     _deleteAppDir();
     Future.delayed(const Duration(milliseconds: 1000), () {
       // exit(0);
-       Get.offAll(Registration());
+       Get.offAll(() =>Registration());
     });
   }
 
