@@ -16,6 +16,8 @@ import '../service/register_service.dart';
 
 class RegisterController extends GetxController {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  AutovalidateMode autoValidate = AutovalidateMode.disabled;
+
 
   ///first [Model]
   RegisterModel? registerModel;
@@ -46,8 +48,10 @@ class RegisterController extends GetxController {
   void onInit() {
     super.onInit();
     serviceRegister = RegisterService();
+    autoValidate=AutovalidateMode.always;
     reRequset();
   }
+
   reRequset() async {
      profileUserModelResponse = await ProfileService.userprofile();
   }

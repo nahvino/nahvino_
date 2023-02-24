@@ -5,7 +5,6 @@ import 'package:Nahvino/config/lang/App_localizations.dart';
 import 'package:Nahvino/core/shared/presentation/controllers/Utils/download_controller.dart';
 import 'package:Nahvino/features/feature_intro/screen/splash.dart';
 import 'package:Nahvino/features/feature_settings/menu/controllers/menu_controllers.dart';
-import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -23,11 +22,11 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await NotificationService().init();
+ // await NotificationService().init();
   HttpOverrides.global = new MyHttpOverrides();
   await GetStorage.init();
   await FlutterDownloader.initialize(debug: true, ignoreSsl: true);
-  await AndroidAlarmManager.initialize();
+///  await AndroidAlarmManager.initialize();
   runApp(MyApp());
   FlutterError.onError = (FlutterErrorDetails details) {
     FlutterError.dumpErrorToConsole(details);
@@ -173,8 +172,6 @@ class _MyAppState extends State<MyApp> {
           //   return supportedLocales.first;
           // },
           home: Splash(),
-
-          //   navigatorKey: navigatorKey,
           // initialRoute:Splash() ,
         );
       },

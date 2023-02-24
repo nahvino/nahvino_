@@ -14,7 +14,7 @@ class TextPassReAndLog extends StatelessWidget {
     this.icon,
     this.prefixIcon,
     this.suffix,
-    this.error})
+    this.error, this.onChanged})
       : super(key: key);
 
   final String hint;
@@ -23,6 +23,7 @@ class TextPassReAndLog extends StatelessWidget {
   final Widget? prefixIcon;
   final Widget? suffix;
   final String? error;
+  final ValueChanged<String>? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +47,7 @@ class TextPassReAndLog extends StatelessWidget {
               controller: controller,
               obscureText: passwordController.obscurePasswordVisibility.value,
               keyboardType: TextInputType.visiblePassword,
+              onChanged: onChanged,
               /*
               onChanged: (val) {
                 if (val.length <= 6) {
@@ -82,7 +84,7 @@ class TextPassReAndLog extends StatelessWidget {
                 if (value!.length <= 6) {
                   return 'پسورد شما حداقل باید 6 کاراکتر داشته باشد';
                 }
-                if (value!.isEmpty) {
+                if (value.isEmpty) {
                   return 'رمز عبور نمی تواند خالی باشد';
                 }
                 if (alphanumeric.hasMatch(value) == false) {

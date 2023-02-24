@@ -50,6 +50,7 @@ class RegisterScreen extends StatelessWidget {
           ),
           child: SafeArea(
             child: Form(
+              autovalidateMode: registerController.autoValidate,
               key: registerController.formKey,
               child: CustomScrollView(
                 reverse: true,

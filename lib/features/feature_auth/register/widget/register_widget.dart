@@ -12,12 +12,20 @@ import 'package:Nahvino/features/feature_auth/register/controllers/register_cont
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class RegisterWidget extends StatelessWidget {
+class RegisterWidget extends StatefulWidget {
   RegisterWidget({Key? key}) : super(key: key);
+
+  @override
+  State<RegisterWidget> createState() => _RegisterWidgetState();
+}
+
+class _RegisterWidgetState extends State<RegisterWidget> {
   RegisterController registerController = Get.put(RegisterController());
+  String? securityQuestionselected;
 
   @override
   Widget build(BuildContext context) {
+
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return Obx(() {
@@ -33,6 +41,7 @@ class RegisterWidget extends StatelessWidget {
             height: 15,
           ),
           TextPassReAndLog(
+
             hint: AppLocalizations.of(context)!.translate(
               'Password',
             )!,
@@ -42,11 +51,16 @@ class RegisterWidget extends StatelessWidget {
             height: 15,
           ),
           DrapDoonButton(
-              value: registerController.Questionselected?.value,
+              value: securityQuestionselected,
               onChanged: (value) {
-                registerController.Questionselectedv.value = value;
+                setState(() {
+                  securityQuestionselected = value as String;
+                  print(securityQuestionselected);
+                });
+                registerController.Questionselectedv.value = securityQuestionselected!;
                 print(registerController.Questionselectedv.value);
-              }),
+              },
+              ),
           SizedBox(
             height: 15,
           ),

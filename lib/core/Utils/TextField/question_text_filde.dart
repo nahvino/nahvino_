@@ -14,7 +14,7 @@ class QuestionTextFilde extends StatelessWidget {
     this.prefixIcon,
     this.suffixIcon,
     this.errorttext,
-    this.suffix,
+    this.suffix, this.onChanged,
   }) : super(key: key);
   QuestionController quController = Get.put(QuestionController());
 
@@ -29,6 +29,7 @@ class QuestionTextFilde extends StatelessWidget {
   String? s;
 
   final alphanumeric = RegExp("[a-z 0-9]");
+  final ValueChanged<String>? onChanged;
 
   @override
   Widget build(BuildContext context) {

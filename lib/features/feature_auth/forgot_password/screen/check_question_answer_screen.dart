@@ -8,20 +8,26 @@ import 'package:Nahvino/features/feature_auth/forgot_password/controllers/check_
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class CheckQuestionAnswerScreen extends StatelessWidget {
+class CheckQuestionAnswerScreen extends StatefulWidget {
   CheckQuestionAnswerScreen({
     Key? key,
   }) : super(key: key);
 
+  @override
+  State<CheckQuestionAnswerScreen> createState() => _CheckQuestionAnswerScreenState();
+}
+
+class _CheckQuestionAnswerScreenState extends State<CheckQuestionAnswerScreen> {
   CheckQuestionAnswerController cqaa_controller =
       Get.put(CheckQuestionAnswerController());
+  String? securityQuestionselected;
 
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
 
-   
+
       return SizedBox(
         height: height * 0.6,
         child: Form(
@@ -77,12 +83,15 @@ class CheckQuestionAnswerScreen extends StatelessWidget {
                         height: 10,
                       ),
                       DrapDoonButton(
-                         // value: cqaa_controller.securityQuestionselected.value,
-                         //  onChanged: (value) {
-                         //    cqaa_controller.securityQuestionselected.value =
-                         //        value;
-                         //  }
-                          ),
+                        value: securityQuestionselected,
+                        onChanged: (value) {
+                          setState(() {
+                            securityQuestionselected = value as String;
+                            print(securityQuestionselected);
+                          });
+                          cqaa_controller.securityQuestionselected.value = securityQuestionselected!;
+                        },
+                      ),
                       SizedBox(
                         height: 10,
                       ),

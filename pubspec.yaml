@@ -57,6 +57,7 @@ dependencies:
   #firebase_core: ^1.17.1
   #firebase_messaging: ^11.4.4
   pinput: ^2.2.23
+  #pinput: ^2.2.0
   #cacheimage
   cached_network_image: ^3.2.0
   flutter_cache_manager: ^3.3.0
@@ -87,8 +88,8 @@ dependencies:
   dart_ping: ^7.0.2
   #tooltip
   #.notfi
-  android_alarm_manager_plus: ^2.0.7+1
-  flutter_local_notifications: ^12.0.2
+  #android_alarm_manager_plus: ^2.0.7+1
+  #flutter_local_notifications: ^12.0.2
   #flag
   flag: ^6.0.0
   iconsax: ^0.0.8

@@ -48,6 +48,8 @@ class VersionData extends GetxController {
     Future.microtask(() {
       ServiceVersion.getversion().then((response) {
         print("------------Version-------------- => $response");
+        print("---------------------------");
+
         versionResponse = response;
         checkVersion();
       });

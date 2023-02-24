@@ -21,7 +21,7 @@ import 'dart:ui' as ui;
 
 class DeveloperScreen extends StatelessWidget {
   DeveloperScreen({Key? key}) : super(key: key);
-  MenuController menu_controller = Get.put(MenuController());
+  MenueController menu_controller = Get.put(MenueController());
   UserAbandonController un = Get.put(UserAbandonController());
   final GlobalKey _key = GlobalKey();
   String? token;
@@ -127,29 +127,29 @@ class DeveloperScreen extends StatelessWidget {
                 //     const Duration(minutes: 1), helloAlarmID, printHello);
                 Timer(Duration(seconds: 10), () {
                   print("Yeah, this line is printed after 3 seconds");
-                  NotificationService().showNotifications();
+                  //  NotificationService().showNotifications();
                 });
                 print("OK");
               },
             ),
             SizedBox(
               height: 10,
-            ), Buttonfull(
+            ),
+            Buttonfull(
               text: "درخوسات",
               color: Colors.white,
               onPressed: () async {
-    showModalBottomSheet(
-    isScrollControlled: true,
-    //backgroundColor: theme.backgroundColor,
-    shape: const RoundedRectangleBorder(
-    borderRadius: BorderRadius.only(
-    topLeft: Radius.circular(20.0),
-    topRight: Radius.circular(20.0),
-    ),
-    ),
-    context: context,
-    builder: (context) => RequsetGroupWidget());
-
+                showModalBottomSheet(
+                    isScrollControlled: true,
+                    //backgroundColor: theme.backgroundColor,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20.0),
+                        topRight: Radius.circular(20.0),
+                      ),
+                    ),
+                    context: context,
+                    builder: (context) => RequsetGroupWidget());
               },
             ),
             SizedBox(
@@ -162,11 +162,13 @@ class DeveloperScreen extends StatelessWidget {
               color: Colors.white,
               onPressed: () async {
                 // Create ping object with desired args
-                Socket.connect("185.8.175.198", 2000, timeout: Duration(seconds: 5)).then((socket){
+                Socket.connect("185.8.175.198", 2000,
+                        timeout: Duration(seconds: 5))
+                    .then((socket) {
                   print("Success");
                   socket.destroy();
-                }).catchError((error){
-                  print("Exception on Socket "+error.toString());
+                }).catchError((error) {
+                  print("Exception on Socket " + error.toString());
                 });
                 final ping = Ping('185.8.175.198', count: 5);
                 // Begin ping process and listen for output
@@ -174,8 +176,6 @@ class DeveloperScreen extends StatelessWidget {
                 ping.stream.listen((event) {
                   print("ping: $event");
                 });
-
-
               },
             ),
           ],
