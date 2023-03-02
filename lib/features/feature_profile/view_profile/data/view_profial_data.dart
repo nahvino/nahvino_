@@ -107,7 +107,7 @@ class ViewProfileController extends GetxController {
     box.remove('dateTimeAbandon');
     update();
   }
-
+/*
   check() {
     ProfileService.profileuser().then((response) {
       resultResponse = response;
@@ -121,5 +121,5 @@ class ViewProfileController extends GetxController {
         Get.offAll(MyTabs());
       }
     });
-  }
+  }*/
 }

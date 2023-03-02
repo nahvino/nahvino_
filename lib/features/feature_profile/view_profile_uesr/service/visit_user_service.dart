@@ -1,5 +1,8 @@
 import 'dart:convert';
 import 'package:Nahvino/features/feature_profile/view_profile_uesr/config/visit_user_config.dart';
+import 'package:Nahvino/features/feature_profile/view_profile_uesr/model/Other_user_get_abandon_model.dart';
+import 'package:Nahvino/features/feature_profile/view_profile_uesr/model/User_profile_model.dart';
+import 'package:Nahvino/features/feature_profile/view_profile_uesr/model/other_last_visit_model.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:Nahvino/config/main_config.dart';
@@ -7,8 +10,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class VisetUserService {
   static var client = http.Client();
-  static Future GetProfileOtherUser(
-    String GetProfileOtherUser,
+
+  static Future getprofileotheruser(
+    String id,
   ) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     Map<String, String> requestHeaders = {
@@ -20,11 +24,12 @@ class VisetUserService {
     var response = await client.post(
       url,
       headers: requestHeaders,
-      body: jsonEncode({"userId": GetProfileOtherUser}),
+      body: jsonEncode({"userId": id}),
     );
-    //  debugPrint(response.body.toString());
     if (response.statusCode == 200) {
-      return json.decode(response.body);
+      UserProfileModel userProfileModel =
+          UserProfileModel.fromJson(json.decode(response.body));
+      return userProfileModel;
     } else {
       return false;
     }
@@ -46,7 +51,8 @@ class VisetUserService {
     );
     //  debugPrint(response.body.toString());
     if (response.statusCode == 200) {
-      return json.decode(response.body);
+      OtherLastVisitModel otherLastVisitModel = OtherLastVisitModel.fromJson(json.decode(response.body));
+      return otherLastVisitModel;
     } else {
       return false;
     }
@@ -68,11 +74,13 @@ class VisetUserService {
       body: jsonEncode({"userId": getuserabandonViewProfileUesr}),
     );
     if (response.statusCode == 200) {
-      return json.decode(response.body);
+      OtherUserGetAbandonModel otherUserGetAbandonModel = OtherUserGetAbandonModel.fromJson(json.decode(response.body));
+      return otherUserGetAbandonModel;
     } else {
       return false;
     }
   }
+
   ///flag
   static Future flag(String id) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();

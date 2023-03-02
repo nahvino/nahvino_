@@ -1,6 +1,6 @@
 import 'package:Nahvino/config/generated/assets.dart';
 import 'package:Nahvino/config/lang/App_localizations.dart';
-import 'package:Nahvino/core/Utils/Button/close_button.dart';
+import 'package:Nahvino/core/Utils/Button/arrow_back_button.dart';
 import 'package:Nahvino/core/Utils/Text/Text.dart';
 import 'package:Nahvino/features/feature_auth/register/controllers/register_controller.dart';
 import 'package:Nahvino/features/feature_auth/register/service/register_service.dart';

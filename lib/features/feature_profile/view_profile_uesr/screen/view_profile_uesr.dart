@@ -99,7 +99,7 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
   void initState() {
     super.initState();
     Future.microtask(() {
-      VisetUserService.GetProfileOtherUser(widget.userid.toString())
+      VisetUserService.getprofileotheruser(widget.userid.toString())
           .then((response) {
         resultResponseViewProfileUesr = response;
         if (resultResponseViewProfileUesr == false) {
@@ -109,6 +109,7 @@ class _ViewProfileUesrState extends State<ViewProfileUesr> {
             Navigator.pop(context);
           });
         }
+
         print("test-----------> $resultResponseViewProfileUesr");
        //VisetUserService.flag(widget.userid.toString()).then((value) { flag = value;
         VisetUserService.GetLastOtherVisit(widget.userid.toString())

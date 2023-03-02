@@ -70,7 +70,7 @@ class DrapDoonButton extends StatelessWidget {
       var theme = Theme.of(context);
       securityQuestion(context);
       return Padding(
-        padding: EdgeInsets.only(right: 39, left: 39),
+        padding: EdgeInsets.only(right: 26, left: 36),
         child: DropdownButtonHideUnderline(
           child: DropdownButton2(
             icon: Icon(
@@ -86,11 +86,11 @@ class DrapDoonButton extends StatelessWidget {
             buttonPadding: const EdgeInsets.only(left: 14, right: 14),
             buttonDecoration: BoxDecoration(
            //   borderRadius: BorderRadius.circular(14),
-              border: Border(bottom:BorderSide(
+              border:Border(bottom:BorderSide(
                   width: 0.6,
                   color: Colors.black,
                   style: BorderStyle.solid),
-               ),
+              ),
 
             ),
            // buttonElevation: 2,
@@ -116,13 +116,13 @@ class DrapDoonButton extends StatelessWidget {
             ),
             hint: Row(
               children: [
-                const Icon(
-                  Iconsax.arrow_down,
-                  size: 24,
-                ),
-                SizedBox(
-                  width: 6,
-                ),
+                // const Icon(
+                //   Iconsax.arrow_down,
+                //   size: 24,
+                // ),
+                // SizedBox(
+                //   width: 6,
+                // ),
                 Expanded(
                   child: Body(
                     text: AppLocalizations.of(context)!.translate(

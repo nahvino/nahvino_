@@ -14,7 +14,9 @@ class TextPassReAndLog extends StatelessWidget {
     this.icon,
     this.prefixIcon,
     this.suffix,
-    this.error, this.onChanged})
+    this.error,
+    this.focusNode,
+    this.onChanged})
       : super(key: key);
 
   final String hint;
@@ -24,6 +26,8 @@ class TextPassReAndLog extends StatelessWidget {
   final Widget? suffix;
   final String? error;
   final ValueChanged<String>? onChanged;
+  final FocusNode? focusNode;
+
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +48,7 @@ class TextPassReAndLog extends StatelessWidget {
                 controller.selection =
                     TextSelection.collapsed(offset: controller.text.length);
               },
+              focusNode:focusNode,
               controller: controller,
               obscureText: passwordController.obscurePasswordVisibility.value,
               keyboardType: TextInputType.visiblePassword,
@@ -81,7 +86,7 @@ class TextPassReAndLog extends StatelessWidget {
 
                */
               validator: (value) {
-                if (value!.length <= 6) {
+                if (value!.length < 6) {
                   return 'پسورد شما حداقل باید 6 کاراکتر داشته باشد';
                 }
                 if (value.isEmpty) {
@@ -92,28 +97,35 @@ class TextPassReAndLog extends StatelessWidget {
                 }
                 return null;
               },
-              style: TextStyle(fontSize: 14,
+              style: TextStyle(
+                fontSize: 14,
                 fontFamily: 'Vazirmatn_Medium',
-                color: theme.secondaryHeaderColor,),
+                color: theme.secondaryHeaderColor,
+              ),
               decoration: InputDecoration(
                 hintText: hint,
                 suffix: suffix,
                 errorText: error,
                 label: Callout(text: hint),
                 icon: icon,
-                prefixIcon: IconButton(
+                prefixIcon: prefixIcon,
+                suffixIcon: IconButton(
                   icon: Icon(
-                      passwordController.obscurePasswordVisibility.value == true
-                          ? Icons.visibility_off
-                          : Icons.visibility),
+                    passwordController.obscurePasswordVisibility.value == true
+                        ? Icons.visibility_off
+                        : Icons.visibility,
+                    color: Colors.cyan,
+                  ),
                   onPressed: () {
                     passwordController.obscurePasswordVisibility.value =
                     !passwordController.obscurePasswordVisibility.value;
-                  },),
-                suffixIcon: Icon(
-                  Iconsax.lock,
-                  color: Colors.cyan,
+                  },
                 ),
+
+                // Icon(
+                //   Iconsax.lock,
+                //   color: Colors.cyan,
+                // ),
               ),
             ),
 
@@ -154,7 +166,6 @@ class TextPassReAndLog extends StatelessWidget {
                 )),
 
              */
-
           ],
         ),
       );

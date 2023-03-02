@@ -26,6 +26,7 @@ class UserAbandonController extends GetxController{
   start_service()async{
     getUserAbandonModel = await ProfileService.getabandon();
     receive();
+    update();
   }
   Day() {
     double dotabdel = day.toDouble();

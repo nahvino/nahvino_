@@ -2,6 +2,7 @@ import 'package:Nahvino/core/Utils/Button/Button.dart';
 import 'package:Nahvino/features/feature_auth/main/screen/registration.dart';
 import 'package:Nahvino/features/feature_auth/register/controllers/register_controller.dart';
 import 'package:Nahvino/features/feature_auth/register/screen/register_screen.dart';
+import 'package:Nahvino/features/feature_intro/screen/intro_screen.dart';
 import 'package:Nahvino/features/feature_my_tabs/main/screen/tabs.dart';
 import 'package:Nahvino/features/feature_profile/view_profile/model/Profile_user_model_response.dart';
 import 'package:Nahvino/features/feature_version/service/version_service.dart';
@@ -64,16 +65,17 @@ class VersionData extends GetxController {
     preferences = await SharedPreferences.getInstance();
     bool showIntro = preferences?.getBool("shouldShowIntro") ?? true;
     String? token = preferences!.getString("token");
-    // if(showIntro){
-    //   Get.offAll(IntroScreen());
-    // }else {
+    if(showIntro){
+      Get.offAll(IntroScreen());
+    }else {
       if (token != null) {
         RegisterController().reRequset();
         if(registerController.profileUserModelResponse?.parentName == null){
               Get.offAll(()=>RegisterScreen());
               registerController.showTextReg.value = false;
               registerController.showAddIntroduced.value = true;
-            }else {
+              //TODO Erro401
+            } else {/* if (registerController.profileUserModelResponse.){}*/
               Get.offAll(() => MyTabs());
             }
 
@@ -81,7 +83,7 @@ class VersionData extends GetxController {
       } else {
         Get.offAll(()=>Registration());
       }
-   // }
+    }
   }
 
   checkVersion() {

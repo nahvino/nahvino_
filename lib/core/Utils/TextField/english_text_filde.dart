@@ -15,7 +15,8 @@ class EnglishTextFilde extends StatelessWidget {
       this.suffixIcon,
       this.errorttext,
       this.suffix,
-      this.onChanged})
+      this.onChanged,
+      this.focusNode,})
       : super(key: key);
   EnglishController enController = Get.put(EnglishController());
   final String? hint;
@@ -26,7 +27,7 @@ class EnglishTextFilde extends StatelessWidget {
   final String? errorttext;
   final Widget? suffix;
   final ValueChanged<String>? onChanged;
-
+  final FocusNode? focusNode;
   String? error;
   String? s;
   final alphanumeric = RegExp("[a-z 0-9]");
@@ -52,6 +53,8 @@ class EnglishTextFilde extends StatelessWidget {
             keyboardType: TextInputType.name,
             textCapitalization: TextCapitalization.none,
             onChanged: onChanged,
+            focusNode: focusNode,
+
             /*  onChanged: (val) {
                 if (val.length <= 3) {
                   enController.lengthText.value = true;

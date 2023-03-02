@@ -23,6 +23,7 @@ class MenuService {
       headers: requestHeaders,
       body: jsonEncode({"userId": await preferences.getString("userId")}),
     );
+    print("----------------->${json.decode(response.body)}");
     if (response.statusCode == 200) {
       UserSecurtiyMenuModel userSecurtiyMenuModel = UserSecurtiyMenuModel.fromJson( json.decode(response.body));
       return userSecurtiyMenuModel;

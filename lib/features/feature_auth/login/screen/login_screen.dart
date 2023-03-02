@@ -52,6 +52,7 @@ class Login extends StatelessWidget {
                 : SafeArea(
                     child: Form(
                       key: _formKey,
+                      autovalidateMode: loginController.autoValidate,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [

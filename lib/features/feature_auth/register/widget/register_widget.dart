@@ -1,5 +1,7 @@
 import 'package:Nahvino/config/lang/App_localizations.dart';
 import 'package:Nahvino/core/Utils/Button/Button.dart';
+import 'package:Nahvino/core/Utils/Button/arrow_back_button.dart';
+import 'package:Nahvino/core/Utils/Button/close_button.dart';
 import 'package:Nahvino/core/Utils/Text/Text.dart';
 import 'package:Nahvino/core/Utils/TextField/english_text_filde.dart';
 import 'package:Nahvino/core/Utils/TextField/password_text_filde.dart';
@@ -117,18 +119,26 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                   showDialog(
                       context: context,
                       builder: (context) => new AlertDialog(
-                            title: Callout(
-                              color: Colors.black,
-                              textAlign: TextAlign.right,
-                              text: AppLocalizations.of(context)!.translate(
-                                'Privacy_policy',
-                              )!,
+                            title: Column(
+                              children: [
+                                Row(children: [
+                                  CloseBotton(),
+                                ],),
+                                SizedBox(height:height*0.02 ,),
+                                Callout(
+                                  color: Colors.black,
+                                  textAlign: TextAlign.right,
+                                  text: AppLocalizations.of(context)!.translate(
+                                    'Privacy_policy',
+                                  )!,
+                                ),
+                              ],
                             ),
-                            actions: [
-                              Buttonfull(
-                                  text: "بستن",
-                                  onPressed: () => Navigator.pop(context))
-                            ],
+                            // actions: [
+                            //   Buttonfull(
+                            //       text: "بستن",
+                            //       onPressed: () => Navigator.pop(context))
+                            // ],
                             content: TermsservicesScreen(),
                           ));
                 },
@@ -152,18 +162,26 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                   showDialog(
                       context: context,
                       builder: (context) => new AlertDialog(
-                            title: Callout(
-                              color: Colors.black,
-                              textAlign: TextAlign.right,
-                              text: AppLocalizations.of(context)!.translate(
-                                'Privacy_policy',
-                              )!,
+                            title: Column(
+                              children: [
+                                Row(children: [
+                                  CloseBotton(),
+                                ],),
+                                SizedBox(height:height*0.02 ,),
+                                Callout(
+                                  color: Colors.black,
+                                  textAlign: TextAlign.right,
+                                  text: AppLocalizations.of(context)!.translate(
+                                    'Privacy_policy',
+                                  )!,
+                                ),
+                              ],
                             ),
-                        actions: [
-                          Buttonfull(
-                              text: "بستن",
-                              onPressed: () => Navigator.pop(context))
-                        ],
+                        // actions: [
+                        //   Buttonfull(
+                        //       text: "بستن",
+                        //       onPressed: () => Navigator.pop(context))
+                        // ],
                             content: PrivacyScreen(),
                           ));
                 },

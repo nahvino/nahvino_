@@ -7,6 +7,8 @@ import 'package:Nahvino/core/Utils/Widget/ui/image_view.dart';
 import 'package:Nahvino/features/feature_profile/edit_profile/screen/edit_profile_screen.dart';
 import 'package:Nahvino/features/feature_profile/view_profile/controllers/profile_controller.dart';
 import 'package:Nahvino/features/feature_profile/view_profile/data/view_profial_data.dart';
+import 'package:Nahvino/features/feature_profile/view_profile_uesr/controllers/view_profile_user_controller.dart';
+import 'package:Nahvino/features/feature_profile/view_profile_uesr/screen/view_profile_user_screen.dart';
 import 'package:Nahvino/features/feature_profile/view_profile_uesr/screen/view_profile_uesr.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -125,45 +127,52 @@ class UserAcconutProfile extends StatelessWidget {
                                       border: Border.all(
                                           color: theme.secondaryHeaderColor,
                                           width: 1)),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                        height: 20,
-                                        width: 20,
-                                        padding: EdgeInsets.only(
-                                          right: 6,
-                                          left: 1,
-                                          bottom: 2,
+                                  child: InkWell(
+                                    onTap: ()=>Get.defaultDialog(title:"مقام",content:Callout(
+                                      text: AppLocalizations.of(context)!
+                                        .translate(
+                                      'Ranks_start',
+                                    )!,),),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          height: 20,
+                                          width: 20,
+                                          padding: EdgeInsets.only(
+                                            right: 6,
+                                            left: 1,
+                                            bottom: 2,
+                                          ),
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                              BorderRadius.circular(50),
+                                              border: Border.all(
+                                                  color: theme
+                                                      .secondaryHeaderColor,
+                                                  width: 1)),
+                                          child: Callout(
+                                            text: ranksadad[
+                                            profile_Controller
+                                                .profileUserModelResponse!.rank!
+                                                .toInt()],
+                                            color: Colors.purpleAccent,
+                                            textAlign: TextAlign.left,
+                                          ),
                                         ),
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                            BorderRadius.circular(50),
-                                            border: Border.all(
-                                                color: theme
-                                                    .secondaryHeaderColor,
-                                                width: 1)),
-                                        child: Callout(
-                                          text: ranksadad[
-                                          profile_Controller
+                                        SizedBox(
+                                          width: 5,
+                                        ),
+                                        Callout(
+                                          text: ranks[profile_Controller
                                               .profileUserModelResponse!.rank!
                                               .toInt()],
-                                          color: Colors.purpleAccent,
+                                          color: theme.secondaryHeaderColor,
                                           textAlign: TextAlign.left,
                                         ),
-                                      ),
-                                      SizedBox(
-                                        width: 5,
-                                      ),
-                                      Callout(
-                                        text: ranks[profile_Controller
-                                            .profileUserModelResponse!.rank!
-                                            .toInt()],
-                                        color: theme.secondaryHeaderColor,
-                                        textAlign: TextAlign.left,
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ],
@@ -225,6 +234,12 @@ class UserAcconutProfile extends StatelessWidget {
                                   builder: (context) => ViewProfileUesrArshed(
                                         userid: resultResponse!.parentId,
                                       ));*/
+                                 // ViewProfileUserController().start(profile_Controller.profileUserModelResponse!.parentId.toString());
+
+                                  //profile_Controller.get_prant_view();
+                                  Get.to(() => ViewProfileUserScreen());
+
+                                  /*
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -233,7 +248,7 @@ class UserAcconutProfile extends StatelessWidget {
                                                 userid: profile_Controller
                                                     .profileUserModelResponse!
                                                     .parentId /*resultResponse!.parentId*/,
-                                              )));
+                                              )));*/
                                 },
                                 child: Column(
                                   children: [
