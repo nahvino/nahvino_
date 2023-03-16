@@ -1,3 +1,4 @@
+import 'package:Nahvino/config/generated/assets.dart';
 import 'package:Nahvino/core/Utils/Button/Button.dart';
 import 'package:Nahvino/core/Utils/Text/Text.dart';
 import 'package:Nahvino/features/feature_auth/login/screen/login_screen.dart';
@@ -5,6 +6,7 @@ import 'package:Nahvino/features/feature_auth/phone_number/screen/otp_phone.dart
 import 'package:Nahvino/features/feature_auth/register/screen/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:Nahvino/config/lang/App_localizations.dart';
 
@@ -58,19 +60,17 @@ class _Registration extends State<Registration> {
                       height: 20,
                     ),
                     ButtonSignUP(
-                      text: AppLocalizations.of(context)!.translate(
-                        'Signup_phone_btn',
-                      )!,
-                      onPressed: () {
-                        culercash();
-                        Get.to(() => OtpPhone());
-                      },
-                      icon: Icon(
-                        Icons.phone_android_rounded,
-                        color: Colors.white,
-                        size: 30,
-                      ),
-                    ),
+                        text: AppLocalizations.of(context)!.translate(
+                          'Signup_phone_btn',
+                        )!,
+                        onPressed: () {
+                          culercash();
+                          Get.to(() => OtpPhone());
+                        },
+                        icon: Image.asset(
+                          Assets.phone_icon,
+                          color: Colors.white,
+                        )),
                     SizedBox(
                       height: 20,
                     ),

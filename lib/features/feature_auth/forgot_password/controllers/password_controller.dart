@@ -25,7 +25,6 @@ class WightPasswordController extends GetxController{
 
   startService(BuildContext context)async{
     if (!formKey.currentState!.validate()) {} else {
-
       resetservice!
           .resetpassword(userId.value,
       passwordController.text)
@@ -43,7 +42,6 @@ class WightPasswordController extends GetxController{
               text: response['message']);
         }
       });
-      box.remove("data");
     }
   }
 }

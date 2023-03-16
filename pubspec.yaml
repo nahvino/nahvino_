@@ -147,6 +147,7 @@ flutter:
     - assets/images/
     - assets/images/hart/
     - assets/images/icon/
+    - assets/images/intro/
     - assets/images/login/
     - assets/images/ram/
     - assets/anim/

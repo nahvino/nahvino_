@@ -42,7 +42,7 @@ class EditProfileController extends GetxController {
     bioController = TextEditingController(
         text: profile_Controller.profileUserModelResponse!.bio);
     serpro = EditProfileService();
-    imageuris.value = databox.imageUrl.value;
+    imageuris.value = profile_Controller.profileUserModelResponse!.imageUrl!;
   }
 
   @override
@@ -79,6 +79,7 @@ class EditProfileController extends GetxController {
       var response = await serpro!.uploadProfileImage(imagePath.value);
       if (response != false) {
         imageuris.value = response;
+        print(imageuris.value);
       } else {
         Get.snackbar(
           'آپلود عکس با خطا مواجه شد',

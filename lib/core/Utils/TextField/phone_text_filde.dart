@@ -1,3 +1,4 @@
+import 'package:Nahvino/config/generated/assets.dart';
 import 'package:Nahvino/core/Utils/Text/Text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,7 +13,8 @@ class TextOtpPhone extends StatelessWidget {
     this.prefixIcon,
     this.suffixIcon,
     this.validator,
-    this.inputFormatters, this.onChanged,
+    this.inputFormatters,
+    this.onChanged,
   }) : super(key: key);
 
   final String? hint;
@@ -77,17 +79,43 @@ class TextOtpPhone extends StatelessWidget {
                     return null;
                 },
                 inputFormatters: inputFormatters,
-                style: TextStyle(fontSize: 14, fontFamily: 'Vazirmatn_Medium',color: theme.secondaryHeaderColor,),
+                style: TextStyle(
+                  fontSize: 14,
+                  fontFamily: 'Vazirmatn_Medium',
+                  color: theme.secondaryHeaderColor,
+                ),
                 decoration: InputDecoration(
-                    hintText: hint,
-                    icon: icon,
-                    label:Callout(text:hint!) ,
-                    // prefixIcon:  Icon(
-                    //   Icons.phone_android,
-                    //   color: Colors.cyan,
-                    // ),
-                    suffixIcon: suffixIcon,
-                   ),
+                  // fillColor: Colors.grey.shade200,
+                  // filled: true,
+                  // border: InputBorder.none,
+                  // focusedBorder: UnderlineInputBorder(
+                  //     borderSide: BorderSide(
+                  //       color: Colors.grey.shade200,
+                  //       width: 0,
+                  //     ),
+                  //     borderRadius: BorderRadius.all(Radius.circular(15))),
+                  // enabledBorder: UnderlineInputBorder(
+                  //     borderSide: BorderSide(
+                  //       color: Colors.grey.shade200,
+                  //       width: 0,
+                  //     ),
+                  //     borderRadius: BorderRadius.all(Radius.circular(15))),
+
+                  hintText: hint,
+                  icon: icon,
+                  label: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Callout(text: "شماره موبایل"),
+                    ],
+                  ),
+                  prefixIcon: Image.asset(
+                    height: 0.01,
+                    width: 0.01,
+                    Assets.phone_icon_textfild,
+                  ),
+                  suffixIcon: suffixIcon,
+                ),
               ),
             ),
           ],

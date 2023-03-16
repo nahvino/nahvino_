@@ -8,15 +8,16 @@ import 'package:iconsax/iconsax.dart';
 class TextPassReAndLog extends StatelessWidget {
   PasswordController passwordController = Get.put(PasswordController());
 
-  TextPassReAndLog({Key? key,
-    required this.hint,
-    required this.controller,
-    this.icon,
-    this.prefixIcon,
-    this.suffix,
-    this.error,
-    this.focusNode,
-    this.onChanged})
+  TextPassReAndLog(
+      {Key? key,
+      required this.hint,
+      required this.controller,
+      this.icon,
+      this.prefixIcon,
+      this.suffix,
+      this.error,
+      this.focusNode,
+      this.onChanged, this.ontop})
       : super(key: key);
 
   final String hint;
@@ -27,7 +28,7 @@ class TextPassReAndLog extends StatelessWidget {
   final String? error;
   final ValueChanged<String>? onChanged;
   final FocusNode? focusNode;
-
+  final GestureTapCallback? ontop;
 
   @override
   Widget build(BuildContext context) {
@@ -44,15 +45,19 @@ class TextPassReAndLog extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextFormField(
-              onTap: () {
-                controller.selection =
-                    TextSelection.collapsed(offset: controller.text.length);
-              },
-              focusNode:focusNode,
+              onTap: ontop,
+
+              //     () {
+              //   controller.selection =
+              //       TextSelection.collapsed(offset: controller.text.length);
+              // },
+              focusNode: focusNode,
               controller: controller,
               obscureText: passwordController.obscurePasswordVisibility.value,
               keyboardType: TextInputType.visiblePassword,
               onChanged: onChanged,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+
               /*
               onChanged: (val) {
                 if (val.length <= 6) {
@@ -118,7 +123,7 @@ class TextPassReAndLog extends StatelessWidget {
                   ),
                   onPressed: () {
                     passwordController.obscurePasswordVisibility.value =
-                    !passwordController.obscurePasswordVisibility.value;
+                        !passwordController.obscurePasswordVisibility.value;
                   },
                 ),
 

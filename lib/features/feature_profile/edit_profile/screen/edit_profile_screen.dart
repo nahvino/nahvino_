@@ -257,6 +257,10 @@ class EditProfileScreen extends GetView<EditProfileController> {
                       height: 10,
                     ),
                     EnglishTextFilde(
+                      ontop: () {
+                        editcontroller.userNameController.selection =
+                            TextSelection.collapsed(offset: editcontroller.userNameController.text.length);
+                      },
                       // prefixIcon: Icon(
                       //   Iconsax.user,
                       //   color: Colors.cyan,

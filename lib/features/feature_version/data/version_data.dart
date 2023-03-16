@@ -23,6 +23,9 @@ class VersionData extends GetxController {
   double? versionResponse;
   SharedPreferences? preferences;
   ProfileUserModelResponse? profileUserModelResponse;
+  GetStorage into = GetStorage();
+
+  RxString intro = "".obs;
 
   @override
   void onInit() {
@@ -61,35 +64,34 @@ class VersionData extends GetxController {
   }
 
   checklogin() async {
-    //  await Future.delayed(Duration(seconds: 3));
     preferences = await SharedPreferences.getInstance();
-    bool showIntro = preferences?.getBool("shouldShowIntro") ?? true;
+    //preferences!.getString("shouldShowIntro");
     String? token = preferences!.getString("token");
-    if(showIntro){
-      Get.offAll(IntroScreen());
-    }else {
+    print(into.read("intro"));
+    if (into.read("intro") != true) {
+      Get.offAll(() => IntroScreen());
+    } else {
       if (token != null) {
         RegisterController().reRequset();
-        if(registerController.profileUserModelResponse?.parentName == null){
-              Get.offAll(()=>RegisterScreen());
-              registerController.showTextReg.value = false;
-              registerController.showAddIntroduced.value = true;
-              //TODO Erro401
-            } else {/* if (registerController.profileUserModelResponse.){}*/
-              Get.offAll(() => MyTabs());
-            }
+        if (registerController.profileUserModelResponse?.parentName == null) {
+          Get.offAll(() => RegisterScreen());
+          registerController.showTextReg.value = false;
+          registerController.showAddIntroduced.value = true;
+          //TODO Erro401
+        } else {
+          /* if (registerController.profileUserModelResponse.){}*/
+          Get.offAll(() => MyTabs());
+        }
 
-       // Get.offAll(MyTab());
+        // Get.offAll(MyTab());
       } else {
-        Get.offAll(()=>Registration());
+        Get.offAll(() => Registration());
       }
     }
   }
 
   checkVersion() {
-    //versionrequest();
     if (versionResponse! <= lastVersion) {
-      // Get.offAll(MyTabs());
       checklogin();
     } else {
       Get.defaultDialog(
@@ -119,8 +121,7 @@ class VersionData extends GetxController {
                         final taskId = await FlutterDownloader.enqueue(
                           url: 'https://dl.nahvino.com/app/Nahvino.1.0.0.apk',
                           savedDir: baseStorage!.path,
-                          showNotification:
-                              true, // show download progress in status bar (for Android)
+                          showNotification: true,
                           openFileFromNotification:
                               true, // click on notification to open downloaded file (for Android)
                         );

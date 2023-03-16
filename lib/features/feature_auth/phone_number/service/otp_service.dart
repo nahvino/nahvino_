@@ -49,8 +49,9 @@ class OtpService {
     if (response.statusCode == 200) {
       CodePhoneNumberModel codePhoneNumberModel =CodePhoneNumberModel.fromJson(json.decode(response.body));
       return codePhoneNumberModel;
-    } else {
-      return false;
+    } else if (response.statusCode == 400){
+      CodePhoneNumberModel codePhoneNumberModel =CodePhoneNumberModel.fromJson(json.decode(response.body));
+      return codePhoneNumberModel;
     }
   }
 

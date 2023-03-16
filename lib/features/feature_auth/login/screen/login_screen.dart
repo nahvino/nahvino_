@@ -24,7 +24,7 @@ class Login extends StatelessWidget {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return Scaffold(
-      resizeToAvoidBottomInset: true,
+      resizeToAvoidBottomInset: loginController.down.value,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -68,6 +68,12 @@ class Login extends StatelessWidget {
                               child: Column(
                                 children: [
                                   EnglishTextFilde(
+                                    ontop: () {
+                                      loginController.usernameController.selection =
+                                          TextSelection.collapsed(offset: loginController.usernameController.text.length);
+                                      loginController.down.value = true;
+                                    },
+                                    focusNode: loginController.focusNode,
                                     hint:
                                         AppLocalizations.of(context)!.translate(
                                       'username',
@@ -79,6 +85,13 @@ class Login extends StatelessWidget {
                                     height: 10,
                                   ),
                                   TextPassReAndLog(
+                                    ontop: () {
+
+                                      loginController.passwordController.selection =
+                                             TextSelection.collapsed(offset: loginController.passwordController.text.length);
+                                      loginController.down.value = true;
+                                    },
+                                    focusNode: loginController.focusNode1,
                                     hint:
                                         AppLocalizations.of(context)!.translate(
                                       'Password',
@@ -94,6 +107,9 @@ class Login extends StatelessWidget {
                                       ///باتن شیت فراموشی رمز عبور
                                       TextButton(
                                         onPressed: () {
+                                          loginController.down.value = false;
+                                          loginController.focusNode.unfocus();
+                                          loginController.focusNode1.unfocus();
                                           showModalBottomSheet(
                                               isScrollControlled: true,
                                               shape:

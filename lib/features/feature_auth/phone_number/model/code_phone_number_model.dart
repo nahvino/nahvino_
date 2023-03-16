@@ -10,7 +10,7 @@ class CodePhoneNumberModel {
     message = json['message'];
   }
   Data? data;
-  num? statusCode;
+  int? statusCode;
   String? message;
 
   Map<String, dynamic> toJson() {

@@ -52,7 +52,8 @@ class QuestionTextFilde extends StatelessWidget {
               controller: controller,
               keyboardType: TextInputType.name,
               textCapitalization: TextCapitalization.none,
-       /*
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              /*
               onChanged: (val) {
                 if (val.length <= 3) {
                   quController.lengthText.value = true;

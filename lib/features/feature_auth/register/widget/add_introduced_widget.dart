@@ -84,7 +84,7 @@ class AddIntroducedWidget extends StatelessWidget {
                         'OK',
                       )!,
                       onPressed: () =>
-                          registerController.addIntroduced(context),
+                          registerController.addIntroduced(),
                       color: Colors.white,
                     ),
                   ),
@@ -99,7 +99,7 @@ class AddIntroducedWidget extends StatelessWidget {
                         'NotIntroduced',
                       )!,
                       onPressed: () =>
-                          registerController.addNotIntroduced(context),
+                          registerController.addNotIntroduced(),
                       color: Colors.white,
                     ),
                   )

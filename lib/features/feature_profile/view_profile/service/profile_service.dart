@@ -15,7 +15,6 @@ import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileService {
-
   static var client = http.Client();
 
   void showSnackBar({required String text}) {
@@ -41,7 +40,7 @@ class ProfileService {
     );
     if (response.statusCode == 200) {
       return json.decode(response.body);
-    }  else {
+    } else {
       return false;
     }
   }
@@ -63,8 +62,11 @@ class ProfileService {
       ProfileUserModelResponse profileUserModelResponse =
           ProfileUserModelResponse.fromJson(json.decode(response.body));
       return profileUserModelResponse;
-    } else {
-      return false;
+    } else if (response.statusCode == 400) {
+      print(json.decode(response.body));
+      ProfileUserModelResponse profileUserModelResponse =
+          ProfileUserModelResponse.fromJson(json.decode(response.body));
+      return profileUserModelResponse;
     }
   }
 
@@ -100,7 +102,6 @@ class ProfileService {
   }
 
   static Future GetLastVisit() async {
-
     SharedPreferences preferences = await SharedPreferences.getInstance();
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
@@ -115,7 +116,8 @@ class ProfileService {
     debugPrint(response.body.toString());
 
     if (response.statusCode == 200) {
-      LastVisitModel lastVisitModel = LastVisitModel.fromJson(json.decode(response.body));
+      LastVisitModel lastVisitModel =
+          LastVisitModel.fromJson(json.decode(response.body));
       return lastVisitModel;
     } else if (response.statusCode == 401) {
       await preferences.clear();

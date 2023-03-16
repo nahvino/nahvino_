@@ -13,6 +13,7 @@ import 'package:Nahvino/features/feature_auth/main/screen/terms_services_screen.
 import 'package:Nahvino/features/feature_auth/register/controllers/register_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 
 class RegisterWidget extends StatefulWidget {
   RegisterWidget({Key? key}) : super(key: key);
@@ -27,13 +28,16 @@ class _RegisterWidgetState extends State<RegisterWidget> {
 
   @override
   Widget build(BuildContext context) {
-
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return Obx(() {
       return Column(
         children: [
           EnglishTextFilde(
+            ontop: () {
+              registerController.usernameController.selection =
+                  TextSelection.collapsed(offset: registerController.usernameController.text.length);
+            },
             hint: AppLocalizations.of(context)!.translate(
               'username',
             )!,
@@ -43,7 +47,10 @@ class _RegisterWidgetState extends State<RegisterWidget> {
             height: 15,
           ),
           TextPassReAndLog(
-
+            ontop: () {
+              registerController.usernameController.selection =
+                  TextSelection.collapsed(offset: registerController.usernameController.text.length);
+            },
             hint: AppLocalizations.of(context)!.translate(
               'Password',
             )!,
@@ -53,16 +60,17 @@ class _RegisterWidgetState extends State<RegisterWidget> {
             height: 15,
           ),
           DrapDoonButton(
-              value: securityQuestionselected,
-              onChanged: (value) {
-                setState(() {
-                  securityQuestionselected = value as String;
-                  print(securityQuestionselected);
-                });
-                registerController.Questionselectedv.value = securityQuestionselected!;
-                print(registerController.Questionselectedv.value);
-              },
-              ),
+            value: securityQuestionselected,
+            onChanged: (value) {
+              setState(() {
+                securityQuestionselected = value as String;
+                print(securityQuestionselected);
+              });
+              registerController.Questionselectedv.value =
+                  securityQuestionselected!;
+              print(registerController.Questionselectedv.value);
+            },
+          ),
           SizedBox(
             height: 15,
           ),
@@ -121,10 +129,14 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                       builder: (context) => new AlertDialog(
                             title: Column(
                               children: [
-                                Row(children: [
-                                  CloseBotton(),
-                                ],),
-                                SizedBox(height:height*0.02 ,),
+                                Row(
+                                  children: [
+                                    CloseBotton(),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: height * 0.02,
+                                ),
                                 Callout(
                                   color: Colors.black,
                                   textAlign: TextAlign.right,
@@ -164,10 +176,14 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                       builder: (context) => new AlertDialog(
                             title: Column(
                               children: [
-                                Row(children: [
-                                  CloseBotton(),
-                                ],),
-                                SizedBox(height:height*0.02 ,),
+                                Row(
+                                  children: [
+                                    CloseBotton(),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: height * 0.02,
+                                ),
                                 Callout(
                                   color: Colors.black,
                                   textAlign: TextAlign.right,
@@ -177,11 +193,11 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                 ),
                               ],
                             ),
-                        // actions: [
-                        //   Buttonfull(
-                        //       text: "بستن",
-                        //       onPressed: () => Navigator.pop(context))
-                        // ],
+                            // actions: [
+                            //   Buttonfull(
+                            //       text: "بستن",
+                            //       onPressed: () => Navigator.pop(context))
+                            // ],
                             content: PrivacyScreen(),
                           ));
                 },
@@ -202,6 +218,26 @@ class _RegisterWidgetState extends State<RegisterWidget> {
               ),
             ],
           ),
+          Padding(
+            padding: EdgeInsets.only(right: height * 0.073),
+            child: Visibility(
+                visible: registerController.chackBoxSelect.value,
+                child: Padding(
+                  padding: EdgeInsets.only(right: 10, top: 12),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Iconsax.minus_square,
+                        color: Colors.deepOrange,
+                      ),
+                      SizedBox(
+                        width: 2,
+                      ),
+                      Caption1(text: "شما هنوز قوانین را نپذفته اید."),
+                    ],
+                  ),
+                )),
+          ),
           SizedBox(
             height: height * 0.02,
           ),
@@ -211,7 +247,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                 text: AppLocalizations.of(context)!.translate(
                   'OK',
                 )!,
-                onPressed: () => registerController.register_btn(context)),
+                onPressed: () => registerController.register_btn()),
           ),
         ],
       );

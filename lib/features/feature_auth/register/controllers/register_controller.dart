@@ -18,7 +18,6 @@ class RegisterController extends GetxController {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   AutovalidateMode autoValidate = AutovalidateMode.disabled;
 
-
   ///first [Model]
   RegisterModel? registerModel;
   IntoducdModel? intoducdModel;
@@ -48,12 +47,11 @@ class RegisterController extends GetxController {
   void onInit() {
     super.onInit();
     serviceRegister = RegisterService();
-    autoValidate=AutovalidateMode.always;
     reRequset();
   }
 
   reRequset() async {
-     profileUserModelResponse = await ProfileService.userprofile();
+    profileUserModelResponse = await ProfileService.userprofile();
   }
 
   cleartext() {
@@ -62,12 +60,12 @@ class RegisterController extends GetxController {
     sqAnswerController.clear();
   }
 
-  register_btn(BuildContext context) {
+  register_btn( ) {
     if (formKey.currentState!.validate()) {
       if (this.chackvaule == false) {
         chackBoxSelect.value = true;
       } else {
-        register(context);
+        register();
         //    cleartext();
       }
     } else {
@@ -77,7 +75,7 @@ class RegisterController extends GetxController {
     }
   }
 
-  register(BuildContext context) async {
+  register( ) async {
     registerModel = await serviceRegister?.Register(
         usernameController.text,
         passwordController.text,
@@ -90,81 +88,59 @@ class RegisterController extends GetxController {
           "token", registerModel!.data!.userToken!.token!);
       await logindata.setString("userId", registerModel!.data!.id!);
       profileUserModelResponse = await ProfileService.userprofile();
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Caption1(
-          color: Colors.white,
-          textAlign: TextAlign.center,
-          text: registerModel!.message!,
-        ),
-        backgroundColor: Colors.green,
-      ));
+      Get.snackbar('اعلان', registerModel!.message!,
+          snackPosition: SnackPosition.TOP);
       showTextReg.value = false;
       showAddIntroduced.value = true;
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Caption1(
-          color: Colors.white,
-          textAlign: TextAlign.center,
-          text: registerModel!.message!,
-        ),
-        backgroundColor: Colors.red.shade700,
-      ));
+      Get.snackbar('اعلان', registerModel!.message!,
+          snackPosition: SnackPosition.TOP);
     }
   }
 
   /// [AddIntroduced] /// btn to [widget]
-  addIntroduced(BuildContext context) async {
+  addIntroduced( ) async {
     if (formKey.currentState!.validate()) {
       intoducdModel = await IntoducdService.addIntroduced(
           int.parse(identifierCodeController.text));
       if (intoducdModel!.statusCode == 200) {
         //request get profile user
         profileUserModelResponse = await ProfileService.userprofile();
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Caption1(
-            color: Colors.white,
-            textAlign: TextAlign.center,
-            text: intoducdModel!.message!,
-          ),
-          backgroundColor: Colors.green,
-        ));
+        Get.snackbar(
+            'اعلان',
+            intoducdModel!.message!,
+            snackPosition: SnackPosition.TOP
+        );
+
         showAddIntroduced.value = false;
         showPandect.value = true;
         update();
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Caption1(
-            color: Colors.white,
-            textAlign: TextAlign.center,
-            text: intoducdModel!.message!,
-          ),
-          backgroundColor: Colors.red.shade700,
-        ));
+        Get.snackbar(
+            'اعلان',
+            intoducdModel!.message!,
+            snackPosition: SnackPosition.TOP
+        );
       }
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Caption1(
-          color: Colors.white,
-          textAlign: TextAlign.center,
-          text: "خطا",
-        ),
-        backgroundColor: Colors.red.shade700,
-      ));
+      Get.snackbar(
+          'اعلان',
+          "خطا",
+          snackPosition: SnackPosition.TOP
+      );
+
     }
     update();
   }
 
-  addNotIntroduced(BuildContext context) async {
+  addNotIntroduced( ) async {
     intoducdModel = await IntoducdService.NotIntroduced();
     profileUserModelResponse = await ProfileService.userprofile();
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Caption1(
-        color: Colors.white,
-        textAlign: TextAlign.center,
-        text: intoducdModel!.message!,
-      ),
-      backgroundColor: Colors.green,
-    ));
+    Get.snackbar(
+        'اعلان',
+        intoducdModel!.message!,
+        snackPosition: SnackPosition.TOP
+    );
     showAddIntroduced.value = false;
     showWelcomeUser.value = true;
   }
@@ -173,25 +149,20 @@ class RegisterController extends GetxController {
   RxBool value1 = false.obs;
   RxBool value2 = false.obs;
 
-  pandect_btn(BuildContext context) {
+  pandect_btn() {
     if (this.value1.value == false || this.value2.value == false) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Caption1(
-          color: Colors.white,
-          textAlign: TextAlign.center,
-          text: "تیک قوانین را بزنید",
-        ),
-        backgroundColor: Colors.red,
-      ));
+      Get.snackbar(
+          'اعلان',
+          "تیک قوانین را بزنید",
+          snackPosition: SnackPosition.TOP
+      );
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Caption1(
-          color: Colors.white,
-          textAlign: TextAlign.center,
-          text: "خوش آمدید",
-        ),
-        backgroundColor: Colors.green,
-      ));
+      Get.snackbar(
+          'اعلان',
+          "خوش آمدید",
+          snackPosition: SnackPosition.TOP
+      );
+
       Get.offAll(() => MyTabs());
     }
   }

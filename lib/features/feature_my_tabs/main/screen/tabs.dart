@@ -147,14 +147,14 @@ class _MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
 
   List<PersistentBottomNavBarItem> _navBarsItems() {
     return [
-       PersistentBottomNavBarItem(
-        title: "توسعه",
-        iconSize: 20,
-        icon: Icon(CupertinoIcons.infinite),
-        textStyle: TextStyle(fontSize: 12, fontFamily: 'Vazirmatn_Light'),
-        activeColorPrimary: CupertinoColors.white,
-        inactiveColorPrimary: CupertinoColors.white,
-      ),
+      //  PersistentBottomNavBarItem(
+      //   title: "توسعه",
+      //   iconSize: 20,
+      //   icon: Icon(CupertinoIcons.infinite),
+      //   textStyle: TextStyle(fontSize: 12, fontFamily: 'Vazirmatn_Light'),
+      //   activeColorPrimary: CupertinoColors.white,
+      //   inactiveColorPrimary: CupertinoColors.white,
+      // ),
       PersistentBottomNavBarItem(
         title: AppLocalizations.of(context)!.translate(
           'Profile',
@@ -188,7 +188,7 @@ class _MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
 
   List<Widget> _buildScreens() {
     return [
-      DeveloperTab(),
+  //    DeveloperTab(),
       ProfileTab(),
       ChatsTab(),
    //   ChatTab(),

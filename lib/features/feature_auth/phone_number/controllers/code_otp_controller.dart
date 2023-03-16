@@ -14,7 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class CodeOtpConrtoller extends GetxController{
+class CodeOtpConrtoller extends GetxController {
   TextEditingController OtpCodeController = TextEditingController();
   OtpPhoneController otp_phone_controller = Get.put(OtpPhoneController());
   RegisterController registerController = Get.put(RegisterController());
@@ -24,18 +24,19 @@ class CodeOtpConrtoller extends GetxController{
   late SharedPreferences logindata;
   CodePhoneNumberModel? codePhoneNumberModel;
   ProfileUserModelResponse? profileUserModelResponse;
-
+  RxBool vlide = false.obs;
   var resultResponsepro;
   var parentName;
+
   @override
   void onInit() {
     super.onInit();
     otpService = OtpService();
-
   }
 
-  start(BuildContext context)async{
-    codePhoneNumberModel= await  otpService.OtpCodePhone(otp_phone_controller.phone_text_controller.text,
+  start(BuildContext context) async {
+    codePhoneNumberModel = await otpService.OtpCodePhone(
+        otp_phone_controller.phone_text_controller.text,
         int.parse(OtpCodeController.text));
     logindata = await SharedPreferences.getInstance();
     if (codePhoneNumberModel!.statusCode == 200) {
@@ -43,35 +44,30 @@ class CodeOtpConrtoller extends GetxController{
           "token", codePhoneNumberModel!.data!.userToken!.token!);
       await logindata.setString("userId", codePhoneNumberModel!.data!.id!);
       profileUserModelResponse = await ProfileService.userprofile();
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Caption1(
-          color: Colors.white,
-          textAlign: TextAlign.center,
-          text: codePhoneNumberModel!.message!,
-        ),
-        backgroundColor: Colors.green,
-      ));
-      if (profileUserModelResponse?.parentName != null){
-        Get.offAll(()=>MyTabs());
-
-      }else{
-        Get.offAll(()=>RegisterScreen());
+      Get.snackbar(
+          'اعلان',
+          codePhoneNumberModel!.message!,
+          snackPosition: SnackPosition.TOP
+      );
+      if (profileUserModelResponse?.parentName != null) {
+        Get.offAll(() => MyTabs());
+      } else {
+        Get.offAll(() => RegisterScreen());
         registerController.showTextReg.value = false;
         registerController.showAddIntroduced.value = true;
       }
+    } else if (codePhoneNumberModel!.statusCode == 400) {
+      vlide.value = true;
+      Get.snackbar(
+          'اعلان',
+          codePhoneNumberModel!.message!,
+          snackPosition: SnackPosition.TOP
+      );
 
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Caption1(
-          color: Colors.white,
-          textAlign: TextAlign.center,
-          text: codePhoneNumberModel!.message!,
-        ),
-        backgroundColor: Colors.red.shade700,
-      ));
     }
   }
-  resendStart(BuildContext context){
+
+  resendStart(BuildContext context) {
     otpService.ReSendCode(
       otp_phone_controller.phone_text_controller.text,
     );

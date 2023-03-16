@@ -3,13 +3,16 @@ import 'package:Nahvino/features/feature_profile/view_profile/data/view_profial_
 import 'package:Nahvino/features/feature_auth/login/model/login_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../service/login_service.dart';
 
 class LoginController extends GetxController {
   ViewProfileController databox = Get.put(ViewProfileController());
+
   AutovalidateMode autoValidate = AutovalidateMode.disabled;
+  //AutovalidateMode? autoValidate;
   RxBool obscurePasswordVisibility = true.obs;
   RxBool isApiCallProcess = false.obs;
   TextEditingController usernameController = TextEditingController();
@@ -21,15 +24,23 @@ class LoginController extends GetxController {
   RxString tokens = "".obs;
   String? userToken;
   String? token;
-  RxBool down =true.obs;
+  RxBool down = true.obs;
+  FocusNode focusNode = FocusNode();
+  FocusNode focusNode1 = FocusNode();
+
 
   @override
   void onInit() {
     super.onInit();
     serlogin = ServiceLogin();
-    autoValidate = AutovalidateMode.always;
   }
-
+  // @override
+  // void onClose() {
+  //   super.onClose();
+  //   focusNode.addListener(() {
+  //     focusNode.dispose();
+  //   });
+  // }
   cleartext() {
     passwordController.clear();
     usernameController.clear();
@@ -39,15 +50,24 @@ class LoginController extends GetxController {
     loginModel =
         await serlogin?.Login(usernameController.text, passwordController.text);
     logindata = await SharedPreferences.getInstance();
-    await logindata.setString("token", loginModel!.data!.userToken!.token!);
-    await logindata.setString("userId", loginModel!.data!.id!);
-    Get.snackbar(
-      'خوش آمدید',
-      '',
-      icon: Icon(Icons.notifications, color: Colors.white),
-      snackPosition: SnackPosition.TOP,
-    );
-    Get.offAll(() => MyTabs());
+    if (loginModel!.statusCode == 200) {
+      await logindata.setString("token", loginModel!.data!.userToken!.token!);
+      await logindata.setString("userId", loginModel!.data!.id!);
+      Get.snackbar(
+        'خوش آمدید',
+        '',
+        icon: Icon(Icons.notifications, color: Colors.white),
+        snackPosition: SnackPosition.TOP,
+      );
+      Get.offAll(() => MyTabs());
+    } else if (loginModel!.statusCode == 400) {
+      Get.snackbar(
+        'اعلان',
+        loginModel!.message.toString(),
+        icon: Icon(Icons.notifications, color: Colors.white),
+        snackPosition: SnackPosition.TOP,
+      );
+    }
     //databox.check();
 
     /*

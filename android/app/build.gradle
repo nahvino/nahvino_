@@ -80,18 +80,10 @@ android {
     buildTypes {
         release {
             // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
             lintOptions {
                 checkReleaseBuilds false
             }
-//             lintOptions {
-//             disable 'InvalidPackage'
-//             disable "Instantiatable"
-//             checkReleaseBuilds false
-//             abortOnError false
-//             }
             signingConfig signingConfigs.release
-            // signingConfig signingConfigs.debug
 
         }
     }

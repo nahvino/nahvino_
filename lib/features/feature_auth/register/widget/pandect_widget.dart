@@ -140,7 +140,7 @@ class PandectWidget extends StatelessWidget {
               height: 50,
               width: Get.width,
               child: Buttonfull(
-                onPressed: () => registerController.pandect_btn(context),
+                onPressed: () => registerController.pandect_btn(),
                 color: Colors.white,
                 text: AppLocalizations.of(context)!.translate(
                   'OK',

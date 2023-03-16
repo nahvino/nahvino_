@@ -10,28 +10,29 @@ class ServiceLogin {
   static var client = http.Client();
 
   bool validateResponse(http.Response response) {
-    var data = json.decode(response.body);
-    switch (data['statusCode']) {
+    LoginModel loginModel = LoginModel.fromJson(jsonDecode(response.body));
+   // var data = json.decode(response.body);
+    switch (int.parse(loginModel.data.toString())) {
       case 200:
         return true;
       case 401:
         {
-          showSnackBar(text: data['message'] ?? "Token not send or expired!");
+          showSnackBar(text: loginModel.message ?? "Token not send or expired!");
           break;
         }
       case 400:
         {
-          showSnackBar(text: data['message'] ?? "Bad request!");
+          showSnackBar(text: loginModel.message ?? "Bad request!");
           break;
         }
       case 403:
         {
-          showSnackBar(text: data['message'] ?? "Access forbidden");
+          showSnackBar(text: loginModel.message ?? "Access forbidden");
           break;
         }
       case 500:
         {
-          showSnackBar(text: data['message'] ?? "Server error");
+          showSnackBar(text: loginModel.message ?? "Server error");
           break;
         }
     }
@@ -59,13 +60,15 @@ class ServiceLogin {
       body: jsonEncode(
           {"userName": userNameController, "password": passwordController}),
     );
-   //debugPrint(response.body.toString());
-    if (validateResponse(response)) {
+    debugPrint(response.body.toString());
+    if (response.statusCode == 200) {
       LoginModel loginModel = LoginModel.fromJson(jsonDecode(response.body));
-     // print(loginModel.data!.userToken!.token);
       return loginModel;
-        //json.decode(response.body);
+    }else if (response.statusCode == 400) {
+      LoginModel loginModel = LoginModel.fromJson(jsonDecode(response.body));
+      return loginModel;
     }
-    return false;
+  //  return false;
+
   }
 }
